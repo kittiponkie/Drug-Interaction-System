@@ -8,7 +8,7 @@ app.use(morgan('combined'))
 app.use(bodyParser.json())
 app.use(cors())
 
-app.get('/posts', (req, res) => {
+app.get('/post', (req, res) => {
     res.send(
         [{
             title: "Hello World!",
@@ -18,7 +18,7 @@ app.get('/posts', (req, res) => {
 })
 
 app.listen(process.env.PORT || 8081)
-/*
+
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost:27017/posts');
 var db = mongoose.connection;
@@ -38,7 +38,6 @@ app.post('/posts', (req, res) => {
       title: title,
       description: description
     })
-  
     new_post.save(function (error) {
       if (error) {
         console.log(error)
@@ -48,4 +47,14 @@ app.post('/posts', (req, res) => {
         message: 'Post saved successfully!'
       })
     })
-  })*/
+  })
+
+  // Fetch all posts
+app.get('/posts', (req, res) => {
+  Post.find({}, 'title description', function (error, posts) {
+    if (error) { console.error(error); }
+    res.send({
+      posts: posts
+    })
+  }).sort({_id:-1})
+})
