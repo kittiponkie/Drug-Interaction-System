@@ -1,0 +1,24 @@
+* {	
+	padding: 0;	margin: 0;
+}
+body {	
+	color: rgb(33, 33, 33);	
+    font-family: Tahoma;	
+    font-size: 80%;
+    }
+#header-wrap, #container, #footer {	
+	min-height: 5em;	border-bottom: solid 1px rgb(50, 50, 50);	
+    padding: .5em;
+    }
+#header-wrap {	
+	background: rgb(250, 250, 250);
+    }
+#container {	
+	min-height: 10em;
+    }
+#footer {	
+	background: rgb(150, 150, 150);
+    }
+address {
+	font-style: normal;
+    } 
