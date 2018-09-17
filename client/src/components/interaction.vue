@@ -39,7 +39,7 @@
           <tr v-for="i in data.interactionTypeGroup[0].interactionType[0].interactionPair.length">
             <td>
               <a :href="'/drug_info/'+data.interactionTypeGroup[0].interactionType[0].interactionPair[i-1].interactionConcept[1].minConceptItem.name
-                        +'/'+data.interactionTypeGroup[0].interactionType[0].interactionPair[0].interactionConcept[1].sourceConceptItem.id">
+                        +'/'+data.interactionTypeGroup[0].interactionType[0].interactionPair[i-1].interactionConcept[1].sourceConceptItem.id">
                 {{data.interactionTypeGroup[0].interactionType[0].interactionPair[i-1].interactionConcept[1].minConceptItem.name}}
               </a>
             </td>

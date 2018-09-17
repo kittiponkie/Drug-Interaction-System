@@ -17,7 +17,7 @@
       <form>
         <p align="left" for="name">Generic Drug Name</p>
         <output type="text">
-          <pp>{{Drug_name}}</pp>
+          <pp><a :href="'https://www.drugbank.ca/drugs/'+ID" target="_blank">{{Drug_name}}</a></pp>
         </output>
         <p2 align="left" for="tmt">TMT ID</p2>
         <output type="text">
@@ -48,21 +48,17 @@
     data() {
       return {
         msg: 'Drug Interation',
-        Drug_name: null,
-        ID: null
+        Drug_name: '1',
+        ID: '1'
       }
     },
     async mounted() {
       await this.getData()      
     },
     methods: {
-      async getData() {
-        //var id = this.$route.params.id;console.log(id);   
+      async getData() { 
         this.Drug_name = this.$route.params.Drug_Name
         this.ID = this.$route.params.id
-      },
-      getName(){
-
       }
     }
   }
