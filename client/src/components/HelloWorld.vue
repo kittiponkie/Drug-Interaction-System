@@ -6,9 +6,9 @@
     <hr>
     <div class="col-3 sidebar">
       <ul>
-        <a class="active" href="/">Drug Information</a><br>
+        <a class="active" href="/drug_info">Drug Information</a><br>
         <a href="#DrugHistory">Drug History</a><br>
-        <a href="/interaction">Drug Interation</a><br>
+        <a href="/interaction">Drug Interaction</a><br>
         <a href="#Logout">Logout</a><br>
       </ul>
     </div>

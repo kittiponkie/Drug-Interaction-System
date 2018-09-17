@@ -6,9 +6,9 @@
     <hr>
     <div class="col-3 sidebar">
       <ul>
-        <a href="/">Drug Information</a><br>
+        <a href="/drug_info">Drug Information</a><br>
         <a href="#DrugHistory">Drug History</a><br>
-        <a class="active" href="/interaction">Drug Interation</a><br>
+        <a class="active" href="/interaction">Drug Interaction</a><br>
         <a href="#Logout">Logout</a><br>
       </ul>
     </div>
@@ -16,15 +16,15 @@
     <h1 style="color:black;text-align:center;">{{Drug_name}}</h1>
     <div class="col-11 topnav">
       <div class="search-container">
-        <form action="/action_page.php">
-          <input type="text" placeholder="Search.." name="search">
+        <form v-on:submit.prevent="getData">
+          <input type="text" placeholder="Search.." name="search" v-model="getDrug">
         </form>
       </div>
     </div>
     <!-- summit -->
     <div class="col-12.05 topnav">
       <div class="search-container">
-        <form action="/action_page.php">
+        <form v-on:submit.prevent="getData">
           <button type="submit">search</button>
         </form>
       </div>
@@ -69,24 +69,32 @@
       return {
         msg: 'Drug Interation',
         Drug_name: 'AccuNeb',
+        getDrug: null,
         rxcui:'352394',
         name_rxnormId: [],
         data: null
       }
     },
     async mounted() {
-      await this.getData()
-      
+      await this.getData()      
     },
     methods: {
       async getData() {
+        if(this.getDrug) {
+          await this.getName()         
+          this.data = null        
+        }
         await axios.get(`https://rxnav.nlm.nih.gov/REST/rxcui?name=${this.Drug_name}`).then(Response => {
           this.name_rxnormId = Response.data
           this.rxcui = this.name_rxnormId.idGroup.rxnormId[0]
         });
         axios.get(`https://rxnav.nlm.nih.gov/REST/interaction/interaction.json?rxcui=${this.rxcui}&sources=DrugBank`).then(Response => {
           this.data = Response.data
-        });
+        });    
+      },
+      getName(){
+        console.log(this.getDrug + "whyyyyyy")
+        this.Drug_name = this.getDrug
       }
     }
   }
