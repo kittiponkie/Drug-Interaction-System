@@ -37,7 +37,12 @@
             <th>Description</th>
           </tr>
           <tr v-for="i in data.interactionTypeGroup[0].interactionType[0].interactionPair.length">
-            <td><a href="/">{{data.interactionTypeGroup[0].interactionType[0].interactionPair[i-1].interactionConcept[1].minConceptItem.name}}</a></td>
+            <td>
+              <a :href="'/drug_info/'+data.interactionTypeGroup[0].interactionType[0].interactionPair[i-1].interactionConcept[1].minConceptItem.name
+                        +'/'+data.interactionTypeGroup[0].interactionType[0].interactionPair[0].interactionConcept[1].sourceConceptItem.id">
+                {{data.interactionTypeGroup[0].interactionType[0].interactionPair[i-1].interactionConcept[1].minConceptItem.name}}
+              </a>
+            </td>
             <td>{{data.interactionTypeGroup[0].interactionType[0].interactionPair[i-1].description}}</td>
           </tr>
         </table>
@@ -70,30 +75,30 @@
         msg: 'Drug Interation',
         Drug_name: 'AccuNeb',
         getDrug: null,
-        rxcui:'352394',
+        rxcui: '352394',
         name_rxnormId: [],
         data: null
       }
     },
     async mounted() {
-      await this.getData()      
+      await this.getData()
     },
     methods: {
       async getData() {
-        if(this.getDrug) {
-          await this.getName()         
-          this.data = null        
+        if (this.getDrug) {
+          await this.getName()
+          this.data = null
         }
         await axios.get(`https://rxnav.nlm.nih.gov/REST/rxcui?name=${this.Drug_name}`).then(Response => {
           this.name_rxnormId = Response.data
           this.rxcui = this.name_rxnormId.idGroup.rxnormId[0]
         });
-        axios.get(`https://rxnav.nlm.nih.gov/REST/interaction/interaction.json?rxcui=${this.rxcui}&sources=DrugBank`).then(Response => {
-          this.data = Response.data
-        });    
+        axios.get(`https://rxnav.nlm.nih.gov/REST/interaction/interaction.json?rxcui=${this.rxcui}&sources=DrugBank`)
+          .then(Response => {
+            this.data = Response.data
+          });
       },
-      getName(){
-        console.log(this.getDrug + "whyyyyyy")
+      getName() {
         this.Drug_name = this.getDrug
       }
     }

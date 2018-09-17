@@ -16,42 +16,53 @@
     <div class="col-9 content">
       <form>
         <p align="left" for="name">Generic Drug Name</p>
-        <input type="text" id="name" name="name" value=" ">
         <output type="text">
-          <pp>1</pp>
+          <pp>{{Drug_name}}</pp>
         </output>
         <p2 align="left" for="tmt">TMT ID</p2>
-        <input type="text" id="tmt" name="tmt" value=" ">
         <output type="text">
           <pp>2</pp>
         </output>
         <p align="left" for="rxcui">RXCui ID</p>
-        <input type="text" id="rxcui" name="rxcui" value=" ">
         <output type="text">
           <pp>3</pp>
         </output>
         <p align="left" for="atc">ATC ID</p>
-        <input type="text" id="atc" name="atc" value=" ">
         <output type="text">
           <pp>4</pp>
         </output>
         <p align="left" for="Pharmacodymamics">Pharmacodymamics</p>
-        <input type="text" id="Pharmacodymamics" name="Pharmacodymamics" value=" ">
         <output type="text">
           <pp>5</pp>
         </output>
         <p align="left" for="iframe">iframe</p>
-        <iframe src="demo_iframe.htm" height="200" width="100%"></iframe>
+        <iframe :src="'https://www.drugbank.ca/drugs/'+ID" height="200" width="100%"></iframe>
       </form>
     </div>
   </div>
 </template>
 <script>
+  import axios from 'axios'
   export default {
     name: 'HelloWorld',
     data() {
       return {
-        msg: 'Drug Interation'
+        msg: 'Drug Interation',
+        Drug_name: null,
+        ID: null
+      }
+    },
+    async mounted() {
+      await this.getData()      
+    },
+    methods: {
+      async getData() {
+        //var id = this.$route.params.id;console.log(id);   
+        this.Drug_name = this.$route.params.Drug_Name
+        this.ID = this.$route.params.id
+      },
+      getName(){
+
       }
     }
   }
