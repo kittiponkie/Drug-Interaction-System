@@ -1,19 +1,18 @@
 <template>
   <div class="page-container">
     <md-app md-mode="reveal">
-      <md-app-toolbar class="md-primary" md-elevation="0">
+      <md-app-toolbar class="md-primary" md-elevation="0" style="background-color:#5DBFA8;">
         <md-button class="md-icon-button" @click="toggleMenu" v-if="!(Window_Width>600)">
           <md-icon>menu</md-icon>
         </md-button>
-        <span class="md-title">My Title</span>
+        <span class="md-title">My Web Application</span>
       </md-app-toolbar>
 
-      <md-app-drawer  md-permanent="card" :md-active.sync="menuVisible">
+      <md-app-drawer md-permanent="card" :md-active.sync="menuVisible">
         <md-toolbar class="md-transparent" md-elevation="0">
-          <span>Menu</span>
-
-          <div class="md-toolbar-section-end" v-if="!(Window_Width>600)">
-            <md-button class="md-icon-button md-dense" @click="toggleMenu">
+          <div class="md-toolbar-section-end">
+            <span class="span_center">Menu</span>
+            <md-button class="md-icon-button md-dense" @click="toggleMenu" v-if="!(Window_Width>600)">
               <md-icon>keyboard_arrow_left</md-icon>
             </md-button>
           </div>
@@ -21,95 +20,55 @@
 
         <md-list>
           <md-list-item>
-            <md-icon>move_to_inbox</md-icon>
-            <span class="md-list-item-text">Inbox</span>
+            <md-icon style="margin-right:10px">account_circle</md-icon>
+            <span class="md-list-item-text">Patient Information</span>
           </md-list-item>
 
           <md-list-item>
-            <md-icon>send</md-icon>
-            <span class="md-list-item-text">Sent Mail</span>
+            <md-icon style="margin-right:10px">folder_shared</md-icon>
+            <span class="md-list-item-text">Drug History</span>
           </md-list-item>
 
           <md-list-item>
-            <md-icon>delete</md-icon>
-            <span class="md-list-item-text">Trash</span>
+            <md-icon style="margin-right:10px">description</md-icon>
+            <span class="md-list-item-text">Drug Information</span>
           </md-list-item>
 
           <md-list-item>
-            <md-icon>error</md-icon>
-            <span class="md-list-item-text">Spam</span>
+            <md-icon style="margin-right:10px">bubble_chart</md-icon>
+            <span class="md-list-item-text">Drug Interaction</span>
           </md-list-item>
         </md-list>
       </md-app-drawer>
 
-       
+
 
       <md-app-content>
-          Window_Width = {{Window_Width}}
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error quibusdam, non molestias et! Earum magnam,
-        similique, quo recusandae placeat dicta asperiores modi sint ea.
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error quibusdam, non molestias et! Earum magnam,
-        similique, quo recusandae placeat dicta asperiores modi sint ea.
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error quibusdam, non molestias et! Earum magnam,
-        similique, quo recusandae placeat dicta asperiores modi sint ea.
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error quibusdam, non molestias et! Earum magnam,
-        similique, quo recusandae placeat dicta asperiores modi sint ea.
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error quibusdam, non molestias et! Earum magnam,
-        similique, quo recusandae placeat dicta asperiores modi sint ea.
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error quibusdam, non molestias et! Earum magnam,
-        similique, quo recusandae placeat dicta asperiores modi sint ea.
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error quibusdam, non molestias et! Earum magnam,
-        similique, quo recusandae placeat dicta asperiores modi sint ea.
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error quibusdam, non molestias et! Earum magnam,
-        similique, quo recusandae placeat dicta asperiores modi sint ea.
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error quibusdam, non molestias et! Earum magnam,
-        similique, quo recusandae placeat dicta asperiores modi sint ea.
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error quibusdam, non molestias et! Earum magnam,
-        similique, quo recusandae placeat dicta asperiores modi sint ea.
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error quibusdam, non molestias et! Earum magnam,
-        similique, quo recusandae placeat dicta asperiores modi sint ea.
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error quibusdam, non molestias et! Earum magnam,
-        similique, quo recusandae placeat dicta asperiores modi sint ea.
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error quibusdam, non molestias et! Earum magnam,
-        similique, quo recusandae placeat dicta asperiores modi sint ea.
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error quibusdam, non molestias et! Earum magnam,
-        similique, quo recusandae placeat dicta asperiores modi sint ea.
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error quibusdam, non molestias et! Earum magnam,
-        similique, quo recusandae placeat dicta asperiores modi sint ea.
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error quibusdam, non molestias et! Earum magnam,
-        similique, quo recusandae placeat dicta asperiores modi sint ea.
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error quibusdam, non molestias et! Earum magnam,
-        similique, quo recusandae placeat dicta asperiores modi sint ea.
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error quibusdam, non molestias et! Earum magnam,
-        similique, quo recusandae placeat dicta asperiores modi sint ea.
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error quibusdam, non molestias et! Earum magnam,
-        similique, quo recusandae placeat dicta asperiores modi sint ea.
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error quibusdam, non molestias et! Earum magnam,
-        similique, quo recusandae placeat dicta asperiores modi sint ea.
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error quibusdam, non molestias et! Earum magnam,
-        similique, quo recusandae placeat dicta asperiores modi sint ea.
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error quibusdam, non molestias et! Earum magnam,
-        similique, quo recusandae placeat dicta asperiores modi sint ea.
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error quibusdam, non molestias et! Earum magnam,
-        similique, quo recusandae placeat dicta asperiores modi sint ea.
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error quibusdam, non molestias et! Earum magnam,
-        similique, quo recusandae placeat dicta asperiores modi sint ea.
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error quibusdam, non molestias et! Earum magnam,
-        similique, quo recusandae placeat dicta asperiores modi sint ea.
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error quibusdam, non molestias et! Earum magnam,
-        similique, quo recusandae placeat dicta asperiores modi sint ea.
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error quibusdam, non molestias et! Earum magnam,
-        similique, quo recusandae placeat dicta asperiores modi sint ea.
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error quibusdam, non molestias et! Earum magnam,
-        similique, quo recusandae placeat dicta asperiores modi sint ea.
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error quibusdam, non molestias et! Earum magnam,
-        similique, quo recusandae placeat dicta asperiores modi sint ea.
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error quibusdam, non molestias et! Earum magnam,
-        similique, quo recusandae placeat dicta asperiores modi sint ea.
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error quibusdam, non molestias et! Earum magnam,
-        similique, quo recusandae placeat dicta asperiores modi sint ea.
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error quibusdam, non molestias et! Earum magnam,
-        similique, quo recusandae placeat dicta asperiores modi sint ea.
+        <md-table v-model="users" md-sort="name" md-sort-order="asc" md-card md-fixed-header>
+      <md-table-toolbar>
+        <div class="md-toolbar-section-start">
+          <h1 class="md-title">Users</h1>
+        </div>
+
+        <md-field md-clearable class="md-toolbar-section-end">
+          <md-input placeholder="Search by name..." v-model="search" @input="searchOnTable" />
+        </md-field>
+      </md-table-toolbar>
+
+      <md-table-empty-state
+        md-label="No users found"
+        :md-description="`No user found for this '${search}' query. Try a different search term or create a new user.`">
+       
+      </md-table-empty-state>
+
+      <md-table-row slot="md-table-row" slot-scope="{ item }">
+        <md-table-cell md-label="ID" md-sort-by="id" md-numeric>{{ item.id }}</md-table-cell>
+        <md-table-cell md-label="Name" md-sort-by="name">{{ item.name }}</md-table-cell>
+        <md-table-cell md-label="Email" md-sort-by="email">{{ item.email }}</md-table-cell>
+        <md-table-cell md-label="Gender" md-sort-by="gender">{{ item.gender }}</md-table-cell>
+        <md-table-cell md-label="Job Title" md-sort-by="title">{{ item.title }}</md-table-cell>
+      </md-table-row>
+    </md-table>
       </md-app-content>
     </md-app>
   </div>
@@ -117,18 +76,161 @@
 
 <script>
   export default {
-    name: 'PersistentMini',
+    name: 'Drug_Interaction',
     data: () => ({
       menuVisible: false,
-      Window_Width: 0
+      Window_Width: 0,
+      search: null,
+      searched: [],
+      users: [{
+          id: 1,
+          name: "Shawna Dubbin",
+          email: "sdubbin0@geocities.com",
+          gender: "Male",
+          title: "Assistant Media Planner"
+        },
+        {
+          id: 2,
+          name: "Odette Demageard",
+          email: "odemageard1@spotify.com",
+          gender: "Female",
+          title: "Account Coordinator"
+        },
+        {
+          id: 3,
+          name: "Vera Taleworth",
+          email: "vtaleworth2@google.ca",
+          gender: "Male",
+          title: "Community Outreach Specialist"
+        },
+        {
+          id: 4,
+          name: "Lonnie Izkovitz",
+          email: "lizkovitz3@youtu.be",
+          gender: "Female",
+          title: "Operator"
+        },
+        {
+          id: 5,
+          name: "Thatcher Stave",
+          email: "tstave4@reference.com",
+          gender: "Male",
+          title: "Software Test Engineer III"
+        },
+        {
+          id: 6,
+          name: "Karim Chipping",
+          email: "kchipping5@scribd.com",
+          gender: "Female",
+          title: "Safety Technician II"
+        },
+        {
+          id: 7,
+          name: "Helge Holyard",
+          email: "hholyard6@howstuffworks.com",
+          gender: "Female",
+          title: "Internal Auditor"
+        },
+        {
+          id: 8,
+          name: "Rod Titterton",
+          email: "rtitterton7@nydailynews.com",
+          gender: "Male",
+          title: "Technical Writer"
+        },
+        {
+          id: 9,
+          name: "Gawen Applewhite",
+          email: "gapplewhite8@reverbnation.com",
+          gender: "Female",
+          title: "GIS Technical Architect"
+        },
+        {
+          id: 10,
+          name: "Nero Mulgrew",
+          email: "nmulgrew9@plala.or.jp",
+          gender: "Female",
+          title: "Staff Scientist"
+        },
+        {
+          id: 11,
+          name: "Cybill Rimington",
+          email: "crimingtona@usnews.com",
+          gender: "Female",
+          title: "Assistant Professor"
+        },
+        {
+          id: 12,
+          name: "Maureene Eggleson",
+          email: "megglesonb@elpais.com",
+          gender: "Male",
+          title: "Recruiting Manager"
+        },
+        {
+          id: 13,
+          name: "Cortney Caulket",
+          email: "ccaulketc@cbsnews.com",
+          gender: "Male",
+          title: "Safety Technician IV"
+        },
+        {
+          id: 14,
+          name: "Selig Swynfen",
+          email: "sswynfend@cpanel.net",
+          gender: "Female",
+          title: "Environmental Specialist"
+        },
+        {
+          id: 15,
+          name: "Ingar Raggles",
+          email: "iragglese@cbc.ca",
+          gender: "Female",
+          title: "VP Sales"
+        },
+        {
+          id: 16,
+          name: "Karmen Mines",
+          email: "kminesf@topsy.com",
+          gender: "Male",
+          title: "Administrative Officer"
+        },
+        {
+          id: 17,
+          name: "Salome Judron",
+          email: "sjudrong@jigsy.com",
+          gender: "Male",
+          title: "Staff Scientist"
+        },
+        {
+          id: 18,
+          name: "Clarinda Marieton",
+          email: "cmarietonh@theatlantic.com",
+          gender: "Male",
+          title: "Paralegal"
+        },
+        {
+          id: 19,
+          name: "Paxon Lotterington",
+          email: "plotteringtoni@netvibes.com",
+          gender: "Female",
+          title: "Marketing Assistant"
+        },
+        {
+          id: 20,
+          name: "Maura Thoms",
+          email: "mthomsj@webeden.co.uk",
+          gender: "Male",
+          title: "Actuary"
+        }
+      ]
     }),
     methods: {
       toggleMenu() {
         this.menuVisible = !this.menuVisible
       }
     },
-    mounted(){
-        this.Window_Width = window.innerWidth
+    mounted() {
+      this.Window_Width = window.innerWidth
     }
   }
 
@@ -144,6 +246,11 @@
   .md-drawer {
     width: 230px;
     max-width: calc(100vw - 125px);
+  }
+
+  .span_center {
+    text-align: center;
+    width: 100%;
   }
 
 </style>
