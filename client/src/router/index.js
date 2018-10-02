@@ -5,7 +5,6 @@ import Posts from '@/components/Posts'
 import NewPost from '@/components/NewPost'
 import EditPost from '@/components/EditPost'
 import interaction from '@/components/interaction'
-import DrugInformation from '@/components/DrugInformation'
 import Drug_Interaction from '@/components/Drug_Interaction'
 Vue.use(Router)
 
@@ -41,11 +40,6 @@ export default new Router({
       path: '/interaction',
       name: 'interaction',
       component: interaction
-    },
-    {
-      path: '/DrugInformation',
-      name: 'DrugInformation',
-      component: DrugInformation
     },
     {
       path: '/Drug_Interaction',
