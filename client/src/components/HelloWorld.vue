@@ -1,7 +1,7 @@
 <template>
   <div class="row">
     <div class="col-4 header">
-      <h1>Drug Interaction</h1>
+    <h1><img style="display: inline;" src="src/assets/pills.png" alt="logo" />Smart Drug Use</h1>
     </div>
     <hr>
     <div class="col-3 sidebar">
@@ -42,6 +42,8 @@
   </div>
 </template>
 <script>
+// eslint-disable-next-line
+/* eslint-disable */
   import axios from 'axios'
   export default {
     name: 'HelloWorld',

@@ -1,7 +1,7 @@
 <template>
   <div class="row">
     <div class="header">
-      <h1>Drug Interaction</h1>
+    <h1><img style="display: inline;" src="src/assets/pills.png" alt="logo" />Smart Drug Use</h1>
     </div>
     <hr>
     <div class="col-3 sidebar">
@@ -36,7 +36,7 @@
             <th>Generic Drug Name</th>
             <th>Description</th>
           </tr>
-          <tr v-for="i in data.interactionTypeGroup[0].interactionType[0].interactionPair.length">
+           <!-- <tr v-for="i in data.interactionTypeGroup[0].interactionType[0].interactionPair.length">-->
             <td>
               <a :href="'/drug_info/'+data.interactionTypeGroup[0].interactionType[0].interactionPair[i-1].interactionConcept[1].minConceptItem.name
                         +'/'+data.interactionTypeGroup[0].interactionType[0].interactionPair[i-1].interactionConcept[1].sourceConceptItem.id">
@@ -44,7 +44,6 @@
               </a>
             </td>
             <td>{{data.interactionTypeGroup[0].interactionType[0].interactionPair[i-1].description}}</td>
-          </tr>
         </table>
         <table v-else>
           <tr>
@@ -67,6 +66,8 @@
   </div>
 </template>
 <script>
+// eslint-disable-next-line
+/* eslint-disable */
   import axios from 'axios'
   export default {
     name: 'interaction',

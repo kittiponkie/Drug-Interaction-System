@@ -15,6 +15,8 @@
 </template>
 
 <script>
+// eslint-disable-next-line
+/* eslint-disable */
 export default {
   name: 'App'
 }
@@ -61,10 +63,6 @@ ul {
 body{
   background: white;
   font-size: 100%;
-}
-<style>
-* {
-    box-sizing: border-box;
 }
 .row::after {
     content: "";
