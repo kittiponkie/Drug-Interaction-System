@@ -44,39 +44,39 @@
 
 
       <md-app-content>
-        <md-table md-card>
+        <md-table v-model="users" md-sort="name" md-sort-order="asc" md-card md-fixed-header>
           <md-table-toolbar>
             <div class="md-toolbar-section-start">
-              <h1 class="md-title">Drug Name : {{search}}</h1>
+              <h1 class="md-title">Users</h1>
             </div>
+
             <md-field md-clearable class="md-toolbar-section-end">
-              <md-input placeholder="Search by name..." v-model="search" @input="getData" />
+              <md-input placeholder="Search by name..." v-model="search" @input="searchOnTable" />
             </md-field>
           </md-table-toolbar>
 
-          <md-table-row>
-            <md-table-head>Name</md-table-head>
+          <md-table-empty-state md-label="No users found" :md-description="`No user found for this '${search}' query. Try a different search term or create a new user.`">
+
+          </md-table-empty-state>
+
+          <md-table-row slot="md-table-row" slot-scope="{ item }">
+            <md-table-cell md-label="ID" md-sort-by="id" md-numeric>{{ item.id }}</md-table-cell>
+            <md-table-cell md-label="Name" md-sort-by="name">{{ item.name }}</md-table-cell>
+            <md-table-cell md-label="Email" md-sort-by="email">{{ item.email }}</md-table-cell>
+            <md-table-cell md-label="Gender" md-sort-by="gender">{{ item.gender }}</md-table-cell>
+            <md-table-cell md-label="Job Title" md-sort-by="title">{{ item.title }}</md-table-cell>
           </md-table-row>
-          <div class="full-control">
-            <md-list class="list" v-for="drugs in drug">
-              <md-list-item md-expand>
-                <span class="md-list-item-text">{{ drugs.name }} </span>
-                <md-list class="list" slot="md-expand">
-                  <md-list-item>World</md-list-item>
-                  <md-list-item>Europe</md-list-item>
-                  <md-list-item>South America</md-list-item>
-                </md-list>
-              </md-list-item>
-              
-            </md-list>
-          </div>
-
-          <md-table-row v-if="!this.drug">
-            <md-table-cell>Loading ... </md-table-cell>
-          </md-table-row>
-
-
         </md-table>
+
+        <ul class="accordion" data-responsive-accordion-tabs="accordion medium-tabs large-accordion">
+          <li class="accordion-item is-active" data-accordion-item>
+            <a href="#" class="accordion-title">Accordion 1</a>
+            <div class="accordion-content" data-tab-content>
+              I would start in the open state, due to using the `is-active` state class.
+            </div>
+          </li>
+          <!-- ... -->
+        </ul>
       </md-app-content>
     </md-app>
   </div>
@@ -86,12 +86,11 @@
   export default {
     name: 'Drug_Interaction',
     data: () => ({
-      menuVisible: false, //visible three line
+      menuVisible: false,
       Window_Width: 0,
-      search: null, //word when search
-      drugName: '',
-      load: false, //load when search
-      drug: [{
+      search: null,
+      searched: [],
+      users: [{
           id: 1,
           name: "Shawna Dubbin",
           email: "sdubbin0@geocities.com",
@@ -125,16 +124,47 @@
           email: "tstave4@reference.com",
           gender: "Male",
           title: "Software Test Engineer III"
+        },
+        {
+          id: 6,
+          name: "Karim Chipping",
+          email: "kchipping5@scribd.com",
+          gender: "Female",
+          title: "Safety Technician II"
+        },
+        {
+          id: 7,
+          name: "Helge Holyard",
+          email: "hholyard6@howstuffworks.com",
+          gender: "Female",
+          title: "Internal Auditor"
+        },
+        {
+          id: 8,
+          name: "Rod Titterton",
+          email: "rtitterton7@nydailynews.com",
+          gender: "Male",
+          title: "Technical Writer"
+        },
+        {
+          id: 9,
+          name: "Gawen Applewhite",
+          email: "gapplewhite8@reverbnation.com",
+          gender: "Female",
+          title: "GIS Technical Architect"
+        },
+        {
+          id: 10,
+          name: "Nero Mulgrew",
+          email: "nmulgrew9@plala.or.jp",
+          gender: "Female",
+          title: "Staff Scientist"
         }
       ]
     }),
     methods: {
       toggleMenu() {
         this.menuVisible = !this.menuVisible
-      },
-      getData() {
-        this.drugName = this.search
-        this.drug = null
       }
     },
     mounted() {
@@ -146,7 +176,7 @@
 
 <style lang="scss" scoped>
   .md-app {
-    height: calc(100vh);
+    max-height: calc(100vh);
     border: 1px solid rgba(#000, .12);
   }
 
@@ -159,40 +189,6 @@
   .span_center {
     text-align: center;
     width: 100%;
-  }
-
-  .md-app-content {
-    margin: 0 2% 0 2%;
-    max-width: calc(100vw);
-  }
-
-  .md-table {
-    max-width: calc(100vw);
-    margin: 0px;
-    overflow: auto;
-  }
-
-  .md-input {
-    overflow: auto;
-  }
-
-  .list {
-    margin: auto;
-    width: 100%;
-  }
-
-  .full-control {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap-reverse;
-  }
-
-  .full-control>.md-list {
-    max-width: 100%;
-    display: inline-block;
-    overflow: auto;
-    vertical-align: top;
-    padding:0;
   }
 
 </style>
