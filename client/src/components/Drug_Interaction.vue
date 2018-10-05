@@ -44,39 +44,135 @@
 
 
       <md-app-content>
-        <md-table v-model="users" md-sort="name" md-sort-order="asc" md-card md-fixed-header>
+        <!--md-table v-model="users" md-sort="name" md-sort-order="asc" md-card md-fixed-header>
           <md-table-toolbar>
             <div class="md-toolbar-section-start">
               <h1 class="md-title">Users</h1>
             </div>
 
             <md-field md-clearable class="md-toolbar-section-end">
-              <md-input placeholder="Search by name..." v-model="search" @input="searchOnTable" />
+              <md-input placeholder="Search by name..." v-model="search" />
             </md-field>
           </md-table-toolbar>
 
-          <md-table-empty-state md-label="No users found" :md-description="`No user found for this '${search}' query. Try a different search term or create a new user.`">
-
-          </md-table-empty-state>
-
           <md-table-row slot="md-table-row" slot-scope="{ item }">
-            <md-table-cell md-label="ID" md-sort-by="id" md-numeric>{{ item.id }}</md-table-cell>
-            <md-table-cell md-label="Name" md-sort-by="name">{{ item.name }}</md-table-cell>
-            <md-table-cell md-label="Email" md-sort-by="email">{{ item.email }}</md-table-cell>
-            <md-table-cell md-label="Gender" md-sort-by="gender">{{ item.gender }}</md-table-cell>
-            <md-table-cell md-label="Job Title" md-sort-by="title">{{ item.title }}</md-table-cell>
-          </md-table-row>
-        </md-table>
 
-        <ul class="accordion" data-responsive-accordion-tabs="accordion medium-tabs large-accordion">
-          <li class="accordion-item is-active" data-accordion-item>
-            <a href="#" class="accordion-title">Accordion 1</a>
-            <div class="accordion-content" data-tab-content>
-              I would start in the open state, due to using the `is-active` state class.
+            <md-list :md-expand-single="expandSingle" style="width: 100%; margin:0 0 0 0;">
+              <md-list-item md-expand>
+                <md-table-cell md-label="ID" md-sort-by="id" md-numeric>{{ item.id }}</md-table-cell>
+                <md-table-cell md-label="Name" md-sort-by="name">{{ item.name }}</md-table-cell>
+                <md-table-cell md-label="Email" md-sort-by="email">{{ item.email }}</md-table-cell>
+                <md-table-cell md-label="Gender" md-sort-by="gender">{{ item.gender }}</md-table-cell>
+                <md-table-cell md-label="Job Title" md-sort-by="title">{{ item.title }}</md-table-cell>
+                <md-list slot="md-expand">
+                  <md-list-item class="md-inset">World</md-list-item>
+                  <md-list-item class="md-inset">Europe</md-list-item>
+                  <md-list-item class="md-inset">South Americaaaaaaaaaaaaaa</md-list-item>
+                </md-list>
+              </md-list-item>
+            </md-list>
+          </md-table-row>
+        </md-table-->
+
+
+
+        <div class="col-lg-6">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3>Object Store</h3>
             </div>
-          </li>
-          <!-- ... -->
-        </ul>
+            <div class="panel-body">
+              <table class="table table-condensed" style="border-collapse:collapse;">
+
+                <thead>
+                  <tr>
+                    <th>&nbsp;</th>
+                    <th>Job Name</th>
+                    <th>Description</th>
+                    <th>Provider Name</th>
+                    <th>Region</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr data-toggle="collapse" data-target="#demo1" class="accordion-toggle">
+                    <td><button class="btn btn-default btn-xs"><span class="glyphicon glyphicon-eye-open"></span></button></td>
+                    <td>OBS Name</td>
+                    <td>OBS Description</td>
+                    <td>hpcloud</td>
+                    <td>nova</td>
+                    <td> created</td>
+
+                  </tr>
+                  <tr>
+                    <td colspan="12" class="hiddenRow">
+                      <div class="accordian-body collapse" id="demo1">
+                        <table class="table table-striped">
+                          <thead>
+                            <tr>
+                              <td><a href="WorkloadURL">Workload link</a></td>
+                              <td>Bandwidth: Dandwidth Details</td>
+                              <td>OBS Endpoint: end point</td>
+                            </tr>
+                            <tr>
+                              <th>Access Key</th>
+                              <th>Secret Key</th>
+                              <th>Status </th>
+                              <th> Created</th>
+                              <th> Expires</th>
+                              <th>Actions</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td>access-key-1</td>
+                              <td>secretKey-1</td>
+                              <td>Status</td>
+                              <td>some date</td>
+                              <td>some date</td>
+                              <td><a href="#" class="btn btn-default btn-sm">
+                                  <i class="glyphicon glyphicon-cog"></i></a></td>
+                            </tr>
+
+                          </tbody>
+                        </table>
+
+                      </div>
+                    </td>
+                  </tr>
+                  <tr data-toggle="collapse" data-target="#demo2" class="accordion-toggle">
+                    <td><button class="btn btn-default btn-xs"><span class="glyphicon glyphicon-eye-open"></span></button></td>
+                    <td>OBS Name</td>
+                    <td>OBS Description</td>
+                    <td>hpcloud</td>
+                    <td>nova</td>
+                    <td> created</td>
+                  </tr>
+                  <tr>
+                    <td colspan="6" class="hiddenRow">
+                      <div id="demo2" class="accordian-body collapse">Demo2</div>
+                    </td>
+                  </tr>
+                  <tr data-toggle="collapse" data-target="#demo3" class="accordion-toggle">
+                    <td><button class="btn btn-default btn-xs"><span class="glyphicon glyphicon-eye-open"></span></button></td>
+                    <td>OBS Name</td>
+                    <td>OBS Description</td>
+                    <td>hpcloud</td>
+                    <td>nova</td>
+                    <td> created</td>
+                  </tr>
+                  <tr>
+                    <td colspan="6" class="hiddenRow">
+                      <div id="demo3" class="accordian-body collapse">Demo3</div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
       </md-app-content>
     </md-app>
   </div>
@@ -87,6 +183,7 @@
     name: 'Drug_Interaction',
     data: () => ({
       menuVisible: false,
+      expandSingle: false,
       Window_Width: 0,
       search: null,
       searched: [],
