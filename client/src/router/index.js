@@ -9,7 +9,7 @@ import interaction from '@/components/interaction' //not use
 import Drug_Interaction from '@/components/Drug_Interaction'
 import Drug_Information from '@/components/Drug_Information'
 import Drug_History from '@/components/Drug_History'
-
+ 
 Vue.use(Router)
 
 export default new Router({
