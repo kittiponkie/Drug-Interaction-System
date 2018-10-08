@@ -43,228 +43,135 @@
 
 
 
-      <md-app-content>
-        <!--md-table v-model="users" md-sort="name" md-sort-order="asc" md-card md-fixed-header>
-          <md-table-toolbar>
-            <div class="md-toolbar-section-start">
-              <h1 class="md-title">Users</h1>
-            </div>
-
-            <md-field md-clearable class="md-toolbar-section-end">
-              <md-input placeholder="Search by name..." v-model="search" />
-            </md-field>
-          </md-table-toolbar>
-
-          <md-table-row slot="md-table-row" slot-scope="{ item }">
-
-            <md-list :md-expand-single="expandSingle" style="width: 100%; margin:0 0 0 0;">
-              <md-list-item md-expand>
-                <md-table-cell md-label="ID" md-sort-by="id" md-numeric>{{ item.id }}</md-table-cell>
-                <md-table-cell md-label="Name" md-sort-by="name">{{ item.name }}</md-table-cell>
-                <md-table-cell md-label="Email" md-sort-by="email">{{ item.email }}</md-table-cell>
-                <md-table-cell md-label="Gender" md-sort-by="gender">{{ item.gender }}</md-table-cell>
-                <md-table-cell md-label="Job Title" md-sort-by="title">{{ item.title }}</md-table-cell>
-                <md-list slot="md-expand">
-                  <md-list-item class="md-inset">World</md-list-item>
-                  <md-list-item class="md-inset">Europe</md-list-item>
-                  <md-list-item class="md-inset">South Americaaaaaaaaaaaaaa</md-list-item>
-                </md-list>
-              </md-list-item>
-            </md-list>
-          </md-table-row>
-        </md-table-->
-
-
-
-        <div class="col-lg-6">
+      <md-app-content class="text_all">
+        <div class="col-lg-6" style="width:100%;">
           <div class="panel panel-default">
             <div class="panel-heading">
-              <h3>Object Store</h3>
+              <h3>Drug Name : {{drugName}}</h3>
+              <form v-on:submit.prevent="getData">
+                <md-field md-clearable class="md-toolbar-section-end textSearch">
+                  <md-input placeholder="Search by Drug name..." v-model="drugName" @input="change"></md-input>
+                </md-field>
+                <md-button type="submit" class="md-raised buttonSearch">search</md-button>
+              </form>
+              <br>
             </div>
-            <div class="panel-body">
+            <div class="panel-body" v-if="found">
               <table class="table table-condensed" style="border-collapse:collapse;">
-
                 <thead>
                   <tr>
                     <th>&nbsp;</th>
-                    <th>Job Name</th>
-                    <th>Description</th>
-                    <th>Provider Name</th>
-                    <th>Region</th>
-                    <th>Status</th>
+                    <th>Drug Name</th>
                   </tr>
                 </thead>
-
-                <tbody>
-                  <tr data-toggle="collapse" data-target="#demo1" class="accordion-toggle">
+                <tbody v-for="(value,index) in drugList" :key="index">
+                  <tr data-toggle="collapse" :data-target="'#row'+index" class="accordion-toggle">
                     <td><button class="btn btn-default btn-xs"><span class="glyphicon glyphicon-eye-open"></span></button></td>
-                    <td>OBS Name</td>
-                    <td>OBS Description</td>
-                    <td>hpcloud</td>
-                    <td>nova</td>
-                    <td> created</td>
-
+                    <td>{{value.interactionConcept[1].minConceptItem.name}}</td>
                   </tr>
                   <tr>
                     <td colspan="12" class="hiddenRow">
-                      <div class="accordian-body collapse" id="demo1">
-                        <table class="table table-striped">
-                          <thead>
-                            <tr>
-                              <td><a href="WorkloadURL">Workload link</a></td>
-                              <td>Bandwidth: Dandwidth Details</td>
-                              <td>OBS Endpoint: end point</td>
-                            </tr>
-                            <tr>
-                              <th>Access Key</th>
-                              <th>Secret Key</th>
-                              <th>Status </th>
-                              <th> Created</th>
-                              <th> Expires</th>
-                              <th>Actions</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <td>access-key-1</td>
-                              <td>secretKey-1</td>
-                              <td>Status</td>
-                              <td>some date</td>
-                              <td>some date</td>
-                              <td><a href="#" class="btn btn-default btn-sm">
-                                  <i class="glyphicon glyphicon-cog"></i></a></td>
-                            </tr>
-
-                          </tbody>
-                        </table>
-
-                      </div>
-                    </td>
-                  </tr>
-                  <tr data-toggle="collapse" data-target="#demo2" class="accordion-toggle">
-                    <td><button class="btn btn-default btn-xs"><span class="glyphicon glyphicon-eye-open"></span></button></td>
-                    <td>OBS Name</td>
-                    <td>OBS Description</td>
-                    <td>hpcloud</td>
-                    <td>nova</td>
-                    <td> created</td>
-                  </tr>
+                      <div class="accordian-body collapse" :id="'row'+index">
                   <tr>
-                    <td colspan="6" class="hiddenRow">
-                      <div id="demo2" class="accordian-body collapse">Demo2</div>
-                    </td>
+                    <br>
+                    RXCUI ID : {{value.interactionConcept[1].minConceptItem.rxcui}}
                   </tr>
-                  <tr data-toggle="collapse" data-target="#demo3" class="accordion-toggle">
-                    <td><button class="btn btn-default btn-xs"><span class="glyphicon glyphicon-eye-open"></span></button></td>
-                    <td>OBS Name</td>
-                    <td>OBS Description</td>
-                    <td>hpcloud</td>
-                    <td>nova</td>
-                    <td> created</td>
-                  </tr>
+                  <br>
                   <tr>
-                    <td colspan="6" class="hiddenRow">
-                      <div id="demo3" class="accordian-body collapse">Demo3</div>
-                    </td>
+                    Generic Drug Name : {{value.interactionConcept[1].minConceptItem.name}}
                   </tr>
-                </tbody>
-              </table>
+                  <br>
+                  <tr>
+                    Interaction Description : {{value.description}}
+                  </tr>
+                  <br>
+                  <tr>
+                    Severity : {{value.severity}}
+                  </tr>
+                  <br>
             </div>
+            </td>
+            </tr>
+            </tbody>
+            </table>
+          </div>
+          <div class="panel-body " v-else-if="!found && checkSearch">
+            <md-empty-state md-label="Not found" :md-description="`No drug found for this query.  Please Try again.`">
+            </md-empty-state>
+          </div>
+          <div class="panel-body " v-else-if="loading">
+            <md-empty-state md-label="Loading" :md-description="`Please wait a second`">
+            <md-progress-spinner md-mode="indeterminate"></md-progress-spinner>
+            </md-empty-state>            
           </div>
         </div>
+  </div>
 
-      </md-app-content>
-    </md-app>
+  </md-app-content>
+  </md-app>
   </div>
 </template>
 
 <script>
+  import axios from 'axios'
   export default {
     name: 'Drug_Interaction',
     data: () => ({
-      menuVisible: false,
-      expandSingle: false,
-      Window_Width: 0,
-      search: null,
-      searched: [],
-      users: [{
-          id: 1,
-          name: "Shawna Dubbin",
-          email: "sdubbin0@geocities.com",
-          gender: "Male",
-          title: "Assistant Media Planner"
-        },
-        {
-          id: 2,
-          name: "Odette Demageard",
-          email: "odemageard1@spotify.com",
-          gender: "Female",
-          title: "Account Coordinator"
-        },
-        {
-          id: 3,
-          name: "Vera Taleworth",
-          email: "vtaleworth2@google.ca",
-          gender: "Male",
-          title: "Community Outreach Specialist"
-        },
-        {
-          id: 4,
-          name: "Lonnie Izkovitz",
-          email: "lizkovitz3@youtu.be",
-          gender: "Female",
-          title: "Operator"
-        },
-        {
-          id: 5,
-          name: "Thatcher Stave",
-          email: "tstave4@reference.com",
-          gender: "Male",
-          title: "Software Test Engineer III"
-        },
-        {
-          id: 6,
-          name: "Karim Chipping",
-          email: "kchipping5@scribd.com",
-          gender: "Female",
-          title: "Safety Technician II"
-        },
-        {
-          id: 7,
-          name: "Helge Holyard",
-          email: "hholyard6@howstuffworks.com",
-          gender: "Female",
-          title: "Internal Auditor"
-        },
-        {
-          id: 8,
-          name: "Rod Titterton",
-          email: "rtitterton7@nydailynews.com",
-          gender: "Male",
-          title: "Technical Writer"
-        },
-        {
-          id: 9,
-          name: "Gawen Applewhite",
-          email: "gapplewhite8@reverbnation.com",
-          gender: "Female",
-          title: "GIS Technical Architect"
-        },
-        {
-          id: 10,
-          name: "Nero Mulgrew",
-          email: "nmulgrew9@plala.or.jp",
-          gender: "Female",
-          title: "Staff Scientist"
-        }
-      ]
+      menuVisible: false, //toggle visible menu when responsive
+      Window_Width: 0, //width of window
+      drugName: null, //drug name that submit already
+      drugList: null, //list of drug that interaction with drugName
+      found: false, //true when found data , false when don't have data from API
+      rxcuiID: null, //ID of drug from API
+      checkSearch: false, //true when you search something
+      loading: false //true when you have to wait for call API
     }),
     methods: {
+      //toggle visible menu
       toggleMenu() {
         this.menuVisible = !this.menuVisible
+      },
+
+      //get data from API
+      async getData() {
+        this.loading = true
+        this.rxcui = null
+        var checkfound = false
+        await axios.get(`https://rxnav.nlm.nih.gov/REST/rxcui?name=${this.drugName}`).then(Response => {
+          if (Response.data.idGroup.rxnormId == null) {
+            console.log('rxcui id is null')
+            this.found = false
+            this.checkSearch = true
+            this.loading = false
+          } else {
+            this.rxcui = Response.data.idGroup.rxnormId[0]
+            checkfound = true
+            console.log('rxcui ok')
+          }
+        });
+        if (checkfound == true) {
+          await axios.get(
+              `https://rxnav.nlm.nih.gov/REST/interaction/interaction.json?rxcui=${this.rxcui}&sources=DrugBank`)
+            .then(Response => {
+              this.drugList = Response.data.interactionTypeGroup[0].interactionType[0].interactionPair
+              if (Response.data == null) console.log('data is null')
+              else {
+                console.log(this.drugList)
+                this.found = true
+                this.loading = false
+              }
+            });
+        }
+      },
+      change() {
+        console.log(this.drugName)
+        this.loading = false
+        this.found = false
+        this.drugList = null
+        this.checkSearch = false
       }
     },
-    mounted() {
+    async mounted() {
       this.Window_Width = window.innerWidth
     }
   }
@@ -273,11 +180,10 @@
 
 <style lang="scss" scoped>
   .md-app {
-    max-height: calc(100vh);
+    height: calc(100vh);
     border: 1px solid rgba(#000, .12);
   }
 
-  // Demo purposes only
   .md-drawer {
     width: 230px;
     max-width: calc(100vw - 125px);
@@ -286,6 +192,28 @@
   .span_center {
     text-align: center;
     width: 100%;
+    font-size: 14px;
+  }
+
+  .text_all {
+    font-size: 14px;
+  }
+
+  .md-field {
+    max-width: calc(100% - 110px);
+    overflow: auto;
+  }
+
+  .textSearch {
+    float: left;
+  }
+
+  .buttonSearch {
+    margin-top: 16px;
+  }
+
+  .md-input {
+    max-width: calc(100%);
   }
 
 </style>
