@@ -5,10 +5,10 @@
         <md-button class="md-icon-button" @click="toggleMenu" v-if="!(Window_Width>600)">
           <md-icon>menu</md-icon>
         </md-button>
-        <span class="md-title">My Web Application</span>
+        <span class="md-title">Smart Drug Use</span>
       </md-app-toolbar>
 
-      <md-app-drawer md-permanent="card" :md-active.sync="menuVisible">
+      <md-app-drawer md-permanent="card" :md-active.sync="menuVisible" class="menu_color">
         <md-toolbar class="md-transparent" md-elevation="0">
           <div class="md-toolbar-section-end">
             <span class="span_center">Menu</span>
@@ -18,36 +18,36 @@
           </div>
         </md-toolbar>
 
-        <md-list>
-          <md-list-item>
+        <md-list class="delete_margin">
+          <md-list-item class="unselected">
             <md-icon style="margin-right:10px">account_circle</md-icon>
-            <span class="md-list-item-text">Patient Information</span>
+            <span class="md-list-item-text unselected_text">Patient Information</span>
           </md-list-item>
 
-          <md-list-item>
+          <md-list-item class="unselected">
             <md-icon style="margin-right:10px">folder_shared</md-icon>
-            <span class="md-list-item-text">Drug History</span>
+            <span class="md-list-item-text unselected_text">Drug History</span>
           </md-list-item>
 
-          <md-list-item>
+          <md-list-item to="/Drug_Information" class="unselected">
             <md-icon style="margin-right:10px">description</md-icon>
-            <span class="md-list-item-text">Drug Information</span>
+            <span class="md-list-item-text unselected_text">Drug Information</span>
           </md-list-item>
 
-          <md-list-item>
+          <md-list-item to="/Drug_Interaction" class="selected">
             <md-icon style="margin-right:10px">bubble_chart</md-icon>
-            <span class="md-list-item-text">Drug Interaction</span>
+            <span class="md-list-item-text selected_text">Drug Interaction</span>
           </md-list-item>
         </md-list>
       </md-app-drawer>
 
-
-
+      <!--content-->
       <md-app-content class="text_all">
         <div class="col-lg-6" style="width:100%;">
           <div class="panel panel-default">
             <div class="panel-heading">
               <h3>Drug Name : {{drugName}}</h3>
+              <!-- search -->
               <form v-on:submit.prevent="getData">
                 <md-field md-clearable class="md-toolbar-section-end textSearch">
                   <md-input placeholder="Search by Drug name..." v-model="drugName" @input="change"></md-input>
@@ -56,6 +56,7 @@
               </form>
               <br>
             </div>
+            <!--data-->
             <div class="panel-body" v-if="found">
               <table class="table table-condensed" style="border-collapse:collapse;">
                 <thead>
@@ -72,8 +73,8 @@
                   <tr>
                     <td colspan="12" class="hiddenRow">
                       <div class="accordian-body collapse" :id="'row'+index">
+                        <br>
                   <tr>
-                    <br>
                     RXCUI ID : {{value.interactionConcept[1].minConceptItem.rxcui}}
                   </tr>
                   <br>
@@ -95,14 +96,16 @@
             </tbody>
             </table>
           </div>
+          <!--empty state-->
           <div class="panel-body " v-else-if="!found && checkSearch">
             <md-empty-state md-label="Not found" :md-description="`No drug found for this query.  Please Try again.`">
             </md-empty-state>
           </div>
+          <!-- loading-->
           <div class="panel-body " v-else-if="loading">
             <md-empty-state md-label="Loading" :md-description="`Please wait a second`">
-            <md-progress-spinner md-mode="indeterminate"></md-progress-spinner>
-            </md-empty-state>            
+              <md-progress-spinner md-mode="indeterminate"></md-progress-spinner>
+            </md-empty-state>
           </div>
         </div>
   </div>
@@ -214,6 +217,34 @@
 
   .md-input {
     max-width: calc(100%);
+  }
+
+  .menu_color {
+    background-color: #f1f1f1;
+
+  }
+
+  .delete_margin {
+    width: 100%;
+    background-color: #f1f1f1;
+  }
+
+  .selected {
+    background-color: #5DBFA8;
+    margin: 2px;
+  }
+
+  .unselected {
+    background-color: #f1f1f1;
+    margin: 2px;
+  }
+
+  .selected_text {
+    color: black;
+  }
+
+  .unselected_text {
+    color: black;
   }
 
 </style>
