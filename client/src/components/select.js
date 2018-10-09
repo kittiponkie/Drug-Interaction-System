@@ -1,4 +1,6 @@
 let mysql = require("mysql");
+const express = require('express')
+const app = express()
 
 var con = mysql.createConnection({
     host: "localhost",
@@ -26,6 +28,9 @@ con.connect(function (err) {
         })
         .on('end', function () {
             // all rows have been received
-            console.log('end after mysql');
         });
 });
+
+app.listen{8082, () => {
+    console.log("Server is up and listening on 8082 port ...")
+}}
