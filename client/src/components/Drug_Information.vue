@@ -42,7 +42,6 @@
         </md-list>
       </md-app-drawer>
 
-
       <!--content-->
       <md-app-content class="text_all">
         <div class="col-lg-6" style="width:100%;">
@@ -57,7 +56,7 @@
               </form>
               <br>
             </div>
-
+            <!--md-content><br></md-content-->
             <!-- content that search -->
             <div class="viewport">
               <md-toolbar :md-elevation="1">
