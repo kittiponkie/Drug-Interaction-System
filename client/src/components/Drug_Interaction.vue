@@ -1,0 +1,219 @@
+<template>
+  <div class="page-container">
+    <md-app md-mode="reveal">
+      <md-app-toolbar class="md-primary" md-elevation="0" style="background-color:#5DBFA8;">
+        <md-button class="md-icon-button" @click="toggleMenu" v-if="!(Window_Width>600)">
+          <md-icon>menu</md-icon>
+        </md-button>
+        <span class="md-title">My Web Application</span>
+      </md-app-toolbar>
+
+      <md-app-drawer md-permanent="card" :md-active.sync="menuVisible">
+        <md-toolbar class="md-transparent" md-elevation="0">
+          <div class="md-toolbar-section-end">
+            <span class="span_center">Menu</span>
+            <md-button class="md-icon-button md-dense" @click="toggleMenu" v-if="!(Window_Width>600)">
+              <md-icon>keyboard_arrow_left</md-icon>
+            </md-button>
+          </div>
+        </md-toolbar>
+
+        <md-list>
+          <md-list-item>
+            <md-icon style="margin-right:10px">account_circle</md-icon>
+            <span class="md-list-item-text">Patient Information</span>
+          </md-list-item>
+
+          <md-list-item>
+            <md-icon style="margin-right:10px">folder_shared</md-icon>
+            <span class="md-list-item-text">Drug History</span>
+          </md-list-item>
+
+          <md-list-item>
+            <md-icon style="margin-right:10px">description</md-icon>
+            <span class="md-list-item-text">Drug Information</span>
+          </md-list-item>
+
+          <md-list-item>
+            <md-icon style="margin-right:10px">bubble_chart</md-icon>
+            <span class="md-list-item-text">Drug Interaction</span>
+          </md-list-item>
+        </md-list>
+      </md-app-drawer>
+
+
+
+      <md-app-content class="text_all">
+        <div class="col-lg-6" style="width:100%;">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3>Drug Name : {{drugName}}</h3>
+              <form v-on:submit.prevent="getData">
+                <md-field md-clearable class="md-toolbar-section-end textSearch">
+                  <md-input placeholder="Search by Drug name..." v-model="drugName" @input="change"></md-input>
+                </md-field>
+                <md-button type="submit" class="md-raised buttonSearch">search</md-button>
+              </form>
+              <br>
+            </div>
+            <div class="panel-body" v-if="found">
+              <table class="table table-condensed" style="border-collapse:collapse;">
+                <thead>
+                  <tr>
+                    <th>&nbsp;</th>
+                    <th>Drug Name</th>
+                  </tr>
+                </thead>
+                <tbody v-for="(value,index) in drugList" :key="index">
+                  <tr data-toggle="collapse" :data-target="'#row'+index" class="accordion-toggle">
+                    <td><button class="btn btn-default btn-xs"><span class="glyphicon glyphicon-eye-open"></span></button></td>
+                    <td>{{value.interactionConcept[1].minConceptItem.name}}</td>
+                  </tr>
+                  <tr>
+                    <td colspan="12" class="hiddenRow">
+                      <div class="accordian-body collapse" :id="'row'+index">
+                  <tr>
+                    <br>
+                    RXCUI ID : {{value.interactionConcept[1].minConceptItem.rxcui}}
+                  </tr>
+                  <br>
+                  <tr>
+                    Generic Drug Name : {{value.interactionConcept[1].minConceptItem.name}}
+                  </tr>
+                  <br>
+                  <tr>
+                    Interaction Description : {{value.description}}
+                  </tr>
+                  <br>
+                  <tr>
+                    Severity : {{value.severity}}
+                  </tr>
+                  <br>
+            </div>
+            </td>
+            </tr>
+            </tbody>
+            </table>
+          </div>
+          <div class="panel-body " v-else-if="!found && checkSearch">
+            <md-empty-state md-label="Not found" :md-description="`No drug found for this query.  Please Try again.`">
+            </md-empty-state>
+          </div>
+          <div class="panel-body " v-else-if="loading">
+            <md-empty-state md-label="Loading" :md-description="`Please wait a second`">
+            <md-progress-spinner md-mode="indeterminate"></md-progress-spinner>
+            </md-empty-state>            
+          </div>
+        </div>
+  </div>
+
+  </md-app-content>
+  </md-app>
+  </div>
+</template>
+
+<script>
+  import axios from 'axios'
+  export default {
+    name: 'Drug_Interaction',
+    data: () => ({
+      menuVisible: false, //toggle visible menu when responsive
+      Window_Width: 0, //width of window
+      drugName: null, //drug name that submit already
+      drugList: null, //list of drug that interaction with drugName
+      found: false, //true when found data , false when don't have data from API
+      rxcuiID: null, //ID of drug from API
+      checkSearch: false, //true when you search something
+      loading: false //true when you have to wait for call API
+    }),
+    methods: {
+      //toggle visible menu
+      toggleMenu() {
+        this.menuVisible = !this.menuVisible
+      },
+
+      //get data from API
+      async getData() {
+        this.loading = true
+        this.rxcui = null
+        var checkfound = false
+        await axios.get(`https://rxnav.nlm.nih.gov/REST/rxcui?name=${this.drugName}`).then(Response => {
+          if (Response.data.idGroup.rxnormId == null) {
+            console.log('rxcui id is null')
+            this.found = false
+            this.checkSearch = true
+            this.loading = false
+          } else {
+            this.rxcui = Response.data.idGroup.rxnormId[0]
+            checkfound = true
+            console.log('rxcui ok')
+          }
+        });
+        if (checkfound == true) {
+          await axios.get(
+              `https://rxnav.nlm.nih.gov/REST/interaction/interaction.json?rxcui=${this.rxcui}&sources=DrugBank`)
+            .then(Response => {
+              this.drugList = Response.data.interactionTypeGroup[0].interactionType[0].interactionPair
+              if (Response.data == null) console.log('data is null')
+              else {
+                console.log(this.drugList)
+                this.found = true
+                this.loading = false
+              }
+            });
+        }
+      },
+      change() {
+        console.log(this.drugName)
+        this.loading = false
+        this.found = false
+        this.drugList = null
+        this.checkSearch = false
+      }
+    },
+    async mounted() {
+      this.Window_Width = window.innerWidth
+    }
+  }
+
+</script>
+
+<style lang="scss" scoped>
+  .md-app {
+    height: calc(100vh);
+    border: 1px solid rgba(#000, .12);
+  }
+
+  .md-drawer {
+    width: 230px;
+    max-width: calc(100vw - 125px);
+  }
+
+  .span_center {
+    text-align: center;
+    width: 100%;
+    font-size: 14px;
+  }
+
+  .text_all {
+    font-size: 14px;
+  }
+
+  .md-field {
+    max-width: calc(100% - 110px);
+    overflow: auto;
+  }
+
+  .textSearch {
+    float: left;
+  }
+
+  .buttonSearch {
+    margin-top: 16px;
+  }
+
+  .md-input {
+    max-width: calc(100%);
+  }
+
+</style>
