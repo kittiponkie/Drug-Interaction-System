@@ -25,7 +25,7 @@
             <span class="md-list-item-text unselected_text">Patient Information</span>
           </md-list-item>
 
-          <md-list-item class="unselected">
+          <md-list-item to="/Drug_History" class="unselected">
             <md-icon style="margin-right:10px">folder_shared</md-icon>
             <span class="md-list-item-text unselected_text">Drug History</span>
           </md-list-item>
@@ -73,7 +73,7 @@
                 <span class="md-title">RxCui ID</span>
               </md-toolbar>
               <div class="text_padding">
-                <p>141</p>
+                <p>161</p>
               </div>
             </div>
 
