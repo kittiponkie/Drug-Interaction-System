@@ -116,6 +116,8 @@
 </template>
 
 <script>
+// eslint-disable-next-line 
+/* eslint-disable */
   import axios from 'axios'
   export default {
     name: 'Drug_Interaction',
@@ -140,17 +142,9 @@
         this.loading = true
         this.rxcui = null
         var checkfound = false
-        await axios.get(`https://rxnav.nlm.nih.gov/REST/rxcui?name=${this.drugName}`).then(Response => {
-          if (Response.data.idGroup.rxnormId == null) {
-            console.log('rxcui id is null')
-            this.found = false
-            this.checkSearch = true
-            this.loading = false
-          } else {
-            this.rxcui = Response.data.idGroup.rxnormId[0]
-            checkfound = true
-            console.log('rxcui ok')
-          }
+        await axios.get(`http://localhost:8082/info/GP/paracetamol`).then(Response => {
+          this.test = Response
+          console.log(Response)
         });
         if (checkfound == true) {
           await axios.get(
