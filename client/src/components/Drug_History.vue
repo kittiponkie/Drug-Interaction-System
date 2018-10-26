@@ -19,7 +19,7 @@
         </md-toolbar>
 
         <md-list class="delete_margin">
-          <md-list-item class="unselected">
+          <md-list-item to="/Patient_information" class="unselected">
             <md-icon style="margin-right:10px">account_circle</md-icon>
             <span class="md-list-item-text unselected_text">Patient Information</span>
           </md-list-item>
@@ -38,6 +38,12 @@
             <md-icon style="margin-right:10px">bubble_chart</md-icon>
             <span class="md-list-item-text unselected_text">Drug Interaction</span>
           </md-list-item>
+
+          <md-list-item to="/login" class="unselected">
+            <md-icon style="margin-right:10px">power_settings_new</md-icon>
+            <span class="md-list-item-text unselected_text">Logout</span>
+          </md-list-item>
+
         </md-list>
       </md-app-drawer>
 
@@ -266,5 +272,7 @@ const toLower = text => {
   .unselected_text {
     color: black;
   }
-
+  .md-content md-app-content md-flex md-theme-default{
+    padding-top: 23px;
+  }
 </style>

@@ -9,16 +9,21 @@ import interaction from '@/components/interaction' // not use
 import Drug_Interaction from '@/components/Drug_Interaction'
 import Drug_Information from '@/components/Drug_Information'
 import Drug_History from '@/components/Drug_History'
+import Patient_information from '@/components/Patient_information'
+import login from '@/components/login'
 
 // import Vue from 'vue'
 import VueMaterial from 'vue-material'
 import 'vue-material/dist/vue-material.min.css'
-
+Vue.use(VueMaterial)
 // import 'vue-material/dist/theme/black-green-dark.css'
 import 'vue-material/dist/theme/black-green-light.css'
+// import 'vue-material/dist/theme/default-dark.css'
+// import 'vue-material/dist/theme/default.css'
 
 // import Vue from 'vue'
 import VueRouter from 'vue-router'
+Vue.use(VueRouter)
 
 Vue.use(Router)
 
@@ -69,12 +74,17 @@ export default new Router({
       path: '/interaction',
       name: 'interaction',
       component: interaction
+    },
+   {
+      path: '/Patient_information',
+      name: 'Patient_information',
+      component: Patient_information
+    },
+   {
+      path: '/login',
+      name: 'login',
+      component: login
     }
   ]
 })
-// import 'vue-material/dist/theme/default-dark.css'
-// import 'vue-material/dist/theme/default.css'
 
-Vue.use(VueMaterial)
-
-Vue.use(VueRouter)
