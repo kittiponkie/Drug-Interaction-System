@@ -1,19 +1,5 @@
 <template>
 <form>
-  <!--<div class="form-group">
-    <label for="exampleInputEmail1">Email address</label>
-    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-  </div>
-  <div class="form-group">
-    <label for="exampleInputPassword1">Password</label>
-    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-  </div>
-  <div class="form-group form-check">
-    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-    <label class="form-check-label" for="exampleCheck1">Check me out</label>
-  </div>
-  <button type="submit" class="btn btn-primary">Submit</button>-->
   <div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-heading">
@@ -39,10 +25,10 @@
 						</div>
 
 					</div>
-          
+
 					<div class="form-group text-center">
 						<button type="submit" class="btn btn-success btn-lg">Login</button>
-						<a href="#" class="btn btn-link">forget Password?</a>
+						<a href="components/forgotpassword" class="btn btn-link">forget Password?</a>
 					</div>
 
 				</form>
@@ -120,12 +106,15 @@ import axios from 'axios'
 <style>
 .modal-content{
 			background-color: #5DBFA8;
+      padding-top: 0px;
 		}
 		.btn-link{
 			color:white;
 		}
 		.modal-heading h2{
-			color:#ffffff;
+			color:white;
 		}
-
+   .form{
+     background-color: white;
+   }
 </style>

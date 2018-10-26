@@ -386,7 +386,4 @@
     padding: 20px;
     overflow: auto;
   }
-  #md-drawer md-app-drawer menu_color md-theme-default md-left md-permanent md-permanent-card{
-    margin-top: 22px;
-  }
 </style>

@@ -262,5 +262,7 @@ const toLower = text => {
   .unselected_text {
     color: black;
   }
-
+  .md-content md-app-content md-flex md-theme-default{
+    padding-top: 23px;
+  }
 </style>
