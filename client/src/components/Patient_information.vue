@@ -20,7 +20,7 @@
         </md-toolbar>
 
         <md-list class="delete_margin">
-          <md-list-item to="/Patient_information" class="unselected">
+          <md-list-item to="/Patient_information" class="selected">
             <md-icon style="margin-right:10px">account_circle</md-icon>
             <span class="md-list-item-text unselected_text">Patient Information</span>
           </md-list-item>
@@ -30,7 +30,7 @@
             <span class="md-list-item-text unselected_text">Drug History</span>
           </md-list-item>
 
-          <md-list-item to="/Drug_Information" class="selected">
+          <md-list-item to="/Drug_Information" class="unselected">
             <md-icon style="margin-right:10px">description</md-icon>
             <span class="md-list-item-text selected_text">Drug Information</span>
           </md-list-item>
@@ -46,7 +46,7 @@
           </md-list-item>
         </md-list>
       </md-app-drawer>
-
+      
       <!--content-->
       <md-app-content class="text_all">
         <div class="col-lg-6" style="width:100%;">

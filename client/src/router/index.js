@@ -9,7 +9,8 @@ import interaction from '@/components/interaction' //not use
 import Drug_Interaction from '@/components/Drug_Interaction'
 import Drug_Information from '@/components/Drug_Information'
 import Drug_History from '@/components/Drug_History'
- 
+import Patient_information from '@/components/Patient_information'
+import login from '@/components/login'
 Vue.use(Router)
 
 export default new Router({
@@ -59,6 +60,16 @@ export default new Router({
       path: '/interaction',
       name: 'interaction',
       component: interaction
+    },
+   {
+      path: '/Patient_information',
+      name: 'Patient_information',
+      component: Patient_information
+    },
+   {
+      path: '/login',
+      name: 'login',
+      component: login
     }
   ]
 })
