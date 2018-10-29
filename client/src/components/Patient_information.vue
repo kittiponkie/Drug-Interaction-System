@@ -8,7 +8,6 @@
         <span class="md-title">Smart Drug Use</span>
       </md-app-toolbar>
 
-      <!--menu card-->
       <md-app-drawer md-permanent="card" :md-active.sync="menuVisible" class="menu_color">
         <md-toolbar class="md-transparent" md-elevation="0">
           <div class="md-toolbar-section-end">
@@ -32,226 +31,149 @@
 
           <md-list-item to="/Drug_Information" class="unselected">
             <md-icon style="margin-right:10px">description</md-icon>
-            <span class="md-list-item-text selected_text">Drug Information</span>
+            <span class="md-list-item-text unselected_text">Drug Information</span>
           </md-list-item>
 
           <md-list-item to="/Drug_Interaction" class="unselected">
             <md-icon style="margin-right:10px">bubble_chart</md-icon>
-            <span class="md-list-item-text unselected_text">Drug Interaction</span>
+            <span class="md-list-item-text selected_text">Drug Interaction</span>
           </md-list-item>
 
-           <md-list-item to="/login" class="unselected">
+          <md-list-item to="/login" class="unselected">
             <md-icon style="margin-right:10px">power_settings_new</md-icon>
             <span class="md-list-item-text unselected_text">Logout</span>
           </md-list-item>
+
         </md-list>
       </md-app-drawer>
-      
+
       <!--content-->
       <md-app-content class="text_all">
         <div class="col-lg-6" style="width:100%;">
           <div class="panel panel-default">
             <div class="panel-heading">
-              <h3>Drug Name : {{drugName}}</h3>
-              <form v-on:submit.prevent="getData">
-                <md-field md-clearable class="md-toolbar-section-end textSearch">
-                  <md-input placeholder="Search by Drug name..." v-model="drugName" @input="change"></md-input>
-                </md-field>
-                <md-button type="submit" class="md-raised buttonSearch">search</md-button>
-              </form>
+              <h3>Patient id : xxxxxxx {{Patientid}}</h3>
               <br>
-            </div>
-            <!--md-content><br></md-content-->
-            <!-- content that search -->
-            <div class="viewport">
-              <md-toolbar :md-elevation="1">
-                <span class="md-title">Generic Drug Name</span>
-              </md-toolbar>
-              <div class="text_padding">
-                <p>Paracetamol</p>
-              </div>
-            </div>
 
-            <div class="viewport">
-              <md-toolbar :md-elevation="1">
-                <span class="md-title">RxCui ID</span>
-              </md-toolbar>
-              <div class="text_padding">
-                <p>161</p>
-              </div>
-            </div>
-
-            <div class="viewport">
-              <md-toolbar :md-elevation="1">
-                <span class="md-title">GP ID</span>
-              </md-toolbar>
-              <md-subheader class="md-primary"></md-subheader>
-              <div class="panel-body">
-                <table class="table table-condensed" style="border-collapse:collapse;">
-                  <thead>
-                    <tr>
-                      <th>&nbsp;</th>
-                      <th>GP ID</th>
-                    </tr>
-                  </thead>
-                  <tbody v-for="index in 2">
-                    <tr data-toggle="collapse" :data-target="'#rowGP'+index" class="accordion-toggle">
-                      <td><button class="btn btn-default btn-xs"><span class="glyphicon glyphicon-eye-open"></span></button></td>
-                      <td>GP ID {{index}}</td>
-                    </tr>
-                    <tr>
-                      <td colspan="12" class="hiddenRow">
-                        <div class="accordian-body collapse" :id="'rowGP'+index">
-                          <div class="panel-body">
-                            <table class="table table-condensed" style="border-collapse:collapse;">
-                              <thead>
-                                <tr>
-                                  <th>&nbsp;</th>
-                                  <th>GPU ID</th>
-                                </tr>
-                              </thead>
-                              <tbody v-for="ind in 2">
-                                <tr data-toggle="collapse" :data-target="'#rowGPU'+ind+index" class="accordion-toggle">
-                                  <td><button class="btn btn-default btn-xs"><span class="glyphicon glyphicon-eye-open"></span></button></td>
-                                  <td>GPU ID {{ind}}</td>
-                                </tr>
-                                <tr>
-                                  <td colspan="12" class="hiddenRow">
-                                    <div class="accordian-body collapse" :id="'rowGPU'+ind+index">
-                                      <br>
-                                <tr>
-                                  GP ID : GP ID {{index}}
-                                </tr>
-                                <br>
-                                <tr>
-                                  GPU ID : {{ind}}
-                                </tr>
-                                <br>
-                                <tr>
-                                  Drug Name : aaaaaaaaaaaaaaaa
-                                </tr>
-                                <br>
-                          </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <div class="panel-body">
-                <table class="table table-condensed" style="border-collapse:collapse;">
-                  <thead>
-                    <tr>
-                      <th>&nbsp;</th>
-                      <th>TP ID</th>
-                    </tr>
-                  </thead>
-                  <tbody v-for="ind in 2">
-                    <tr data-toggle="collapse" :data-target="'#rowTP'+ind+index" class="accordion-toggle">
-                      <td><button class="btn btn-default btn-xs"><span class="glyphicon glyphicon-eye-open"></span></button></td>
-                      <td>TP ID {{ind}}</td>
-                    </tr>
-                    <tr>
-                      <td colspan="12" class="hiddenRow">
-                        <div class="accordian-body collapse" :id="'rowTP'+ind+index">
-                          <div class="panel-body">
-                            <table class="table table-condensed" style="border-collapse:collapse;">
-                              <thead>
-                                <tr>
-                                  <th>&nbsp;</th>
-                                  <th>TPU ID</th>
-                                </tr>
-                              </thead>
-                              <tbody v-for="i in 2">
-                                <tr data-toggle="collapse" :data-target="'#rowTPU'+i+ind+index" class="accordion-toggle">
-                                  <td><button class="btn btn-default btn-xs"><span class="glyphicon glyphicon-eye-open"></span></button></td>
-                                  <td>TPU ID {{i}}</td>
-                                </tr>
-                                <tr>
-                                  <td colspan="12" class="hiddenRow">
-                                    <div class="accordian-body collapse" :id="'rowTPU'+i+ind+index">
-                                      <br>
-                                <tr>
-                                  GP ID : {{index}}
-                                </tr>
-                                <br>
-                                <tr>
-                                  TP ID : {{ind}}
-                                </tr>
-                                <br>
-                                <tr>
-                                  TPU ID : {{i}}
-                                </tr>
-                                <br>
-                                <tr>
-                                  Drug Name : aaaaaaaaaaaaaaaa
-                                </tr>
-                                <br>
-                          </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-            </td>
-            </tr>
-            </tbody>
-            </table>
-          </div>
-        </div>
-        </td>
-        </tr>
-        </tbody>
-        </table>
-  </div>
-  <md-divider></md-divider>
-  </div>
-
-  <div class="viewport">
-    <md-toolbar :md-elevation="1">
-      <span class="md-title">ATC</span>
-    </md-toolbar>
-    <div class="text_padding">
-      <p>ATC ID : 1234567</p>
-      <p>Description : xxx</p>
-    </div>
-  </div>
-
-  <div class="viewport">
-    <md-toolbar :md-elevation="1">
-      <span class="md-title">Barcode</span>
-    </md-toolbar>
-    <md-subheader class="md-primary">Barcode ID</md-subheader>
-    <div class="text_padding">
-      <p>Barcode ID : 1234567</p>
-    </div>
-    <md-divider></md-divider>
-    <md-subheader class="md-primary">Barcode Picture</md-subheader>
-    <div class="text_padding">
-      <img src="../assets/logo.png" alt="Barcode" width="50" height="50">
-    </div>
-  </div>
-
-  <div class="viewport">
-    <md-toolbar :md-elevation="1">
-      <span class="md-title">More Information</span>
-    </md-toolbar>
-    <div class="text_padding">
-      <p>Website : http.....</p>
-    </div>
-  </div>
-
+<!-- patient data -->
+<form>
+<!--prefix-->
+  <div class="form-goup row">
+    <label for="prefix" class="col-sm-2 col-form-label">Prefix</label>
+    <div class="col-sm-10">
+    <input type="text" readonly class="form-control" id="prefix" value="MR.">
   </div>
   </div>
+  <br>
+<!--name-->
+  <div class="form-group row">
+    <label for="name" class="col-sm-2 col-form-label">Name</label>
+    <div class="col-sm-10">
+      <input type="text" readonly class="form-control" id="namesurname" value="Naphatsorn">
+    </div> 
+  </div>
+  <!--surname-->
+  <div class="form-group row">
+    <label for="surname" class="col-sm-2 col-form-label">Surname</label>
+    <div class="col-sm-10">
+      <input type="text" readonly class="form-control" id="surname" value="Buarattanakarn">
+    </div> 
+  </div>
+<!--sex-->
+  <div class="form-group row">
+    <label for="sex" class="col-sm-2 col-form-label">Sex</label>
+    <div class="col-sm-10">
+      <input type="text" readonly class="form-control" id="sex" value="Female">
+    </div> 
+  </div>
+  <!--birthday-->
+  <div class="form-group row">
+    <label for="bod" class="col-sm-2 col-form-label">Birthday</label>
+    <div class="col-sm-10">
+      <input type="text" readonly class="form-control" id="birthday" value="09/06/2540">
+      <input type="text" readonly class="form-control" id="age" value="21 y 5 m 21 d">
+    </div> 
+  </div>
+  <!--id card-->
+  <div class="form-group row">
+    <label for="idcard" class="col-sm-2 col-form-label">ID Card</label>
+    <div class="col-sm-10">
+      <input type="text" readonly class="form-control" id="card" value="1849900281533">
+    </div> 
+  </div>
+  <!--status-->
+  <div class="form-group row">
+    <label for="idcard" class="col-sm-2 col-form-label">Status</label>
+    <div class="col-sm-10">
+      <input type="text" readonly class="form-control" id="card" value="1849900281533">
+    </div> 
+  </div>
+   <!--ethnicity -->
+  <div class="form-group row">
+    <label for="ethnicity " class="col-sm-2 col-form-label">Ethnicity</label>
+    <div class="col-sm-10">
+      <input type="text" readonly class="form-control" id="ethnicity " value="Thai">
+    </div> 
+  </div>
+   <!--nationality-->
+  <div class="form-group row">
+    <label for="nationality" class="col-sm-2 col-form-label">Nationality</label>
+    <div class="col-sm-10">
+      <input type="text" readonly class="form-control" id="nationality" value="Thai">
+    </div> 
+  </div>
+   <!--Religion-->
+  <div class="form-group row">
+    <label for="Religion" class="col-sm-2 col-form-label">Religion</label>
+    <div class="col-sm-10">
+      <input type="text" readonly class="form-control" id="Religion" value="Thai">
+    </div> 
+  </div>
+   <!--Blood-->
+  <div class="form-group row">
+    <label for="Blood" class="col-sm-2 col-form-label">Blood</label>
+    <div class="col-sm-10">
+      <input type="text" readonly class="form-control" id="Blood" value="A">
+    </div> 
+  </div>
+  <!--Address-->
+  <div class="form-group row">
+    <label for="Address" class="col-sm-2 col-form-label">Address</label>
+    <div class="col-sm-10">
+      <input type="text" readonly class="form-control" id="Address" value="RC mansion room206 Phutthamonthon Sai 4 Road Salaya, Phutthamonthon Nakhonpathom, 73170 Thailand">
+    </div> 
+  </div>
+  <!--PhoneNumber-->
+  <div class="form-group row">
+    <label for="PhoneNumber" class="col-sm-2 col-form-label">Phone Number</label>
+    <div class="col-sm-10">
+      <input type="text" readonly class="form-control" id="PhoneNumber" value="0865076630">
+    </div> 
+  </div>
+  <!--Drugallergy-->
+  <div class="form-group row">
+    <label for="Drugallergy" class="col-sm-2 col-form-label">Drug allergy</label>
+    <div class="col-sm-10">
+      <input type="text" readonly class="form-control" id="Drugallergy" value="Tramadol,Paracetamol">
+    </div> 
+  </div>
+  <!--Foodallergy-->
+  <div class="form-group row">
+    <label for="Foodallergy" class="col-sm-2 col-form-label">Food allergy</label>
+    <div class="col-sm-10">
+      <input type="text" readonly class="form-control" id="Foodallergy" value="fish">
+    </div> 
+  </div>
+</form>
+      </div>
+</div>
+ </div>
   </md-app-content>
   </md-app>
   </div>
-
 </template>
 
 <script>
-// eslint-disable-next-line
-/* eslint-disable */
   import axios from 'axios'
   export default {
     name: 'Drug_Interaction',
@@ -357,6 +279,7 @@
 
   .menu_color {
     background-color: #f1f1f1;
+
   }
 
   .delete_margin {
@@ -381,9 +304,7 @@
   .unselected_text {
     color: black;
   }
-
-  .text_padding {
-    padding: 20px;
-    overflow: auto;
+  .md-content md-app-content md-flex text_all md-theme-default{
+    padding-top: 23px;
   }
 </style>

@@ -265,4 +265,7 @@ const toLower = text => {
   .md-content md-app-content md-flex md-theme-default{
     padding-top: 23px;
   }
+  .md-drawer md-app-drawer menu_color md-theme-default md-left md-permanent md-permanent-card{
+    padding-top: 20px;
+  }
 </style>
