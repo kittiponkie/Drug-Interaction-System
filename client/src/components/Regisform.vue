@@ -97,22 +97,7 @@
 							</select>
 							</div>
 						</div>	
-					</div>
-<!-- Phone Number 			
-					<div class="form-group">
-						<label>Phone Number</label>
-						<input type="text" placeholder="Enter Phone Number Here.." class="form-control">
-					</div>		
-					<div class="form-group">
-						<label>Email Address</label>
-						<input type="text" placeholder="Enter Email Address Here.." class="form-control">
 					</div>	
-					<div class="form-group">
-						<label>Website</label>
-						<input type="text" placeholder="Enter Website Name Here.." class="form-control">
-					</div>
-						<label>Address</label>
-							<textarea placeholder="Enter Address Here.." rows="3" class="form-control"></textarea>-->		
 <!-- blood -->
 <div class="row">
 	<div class="col-sm-6 form-group">
@@ -137,31 +122,41 @@
 						<label>Food allergy</label>
 						<input type="text" placeholder="Enter Food allergy Here.." class="form-control">
 					</div>	
-						
-						
 						<div class="form-group">
 						<label> Address</label>
-						<input type="text" placeholder="Enter  Address Here.." class="form-control">
+					<textarea placeholder="Enter Address Here.." rows="3" class="form-control"></textarea>
 					</div>	
-				</div>	
-					<button type="button" class="btn btn-lg btn-info">Submit</button>					
+				<br>
+				<div class="form-group">
+						<label>Username</label>
+						<input type="text" placeholder="Enter Username allergy Here.." class="form-control">
+					</div>
+					<div class="form-group">
+						<label>Password</label>
+						<input type="password" placeholder="Enter Username allergy Here.." class="form-control">
+					</div>
+					<button type="button" class="btn btn-lg btn-info" style="margin-left: 7px">Submit</button>
+				</div>
 				</form> 
 				</div>
 	</div>
 	</div>
 </template>
 
-<script>
-type="text/javascript"
-            $(function () {
-                $('#datetimepicker1').datetimepicker();
-            });
+<script type="text/javascript">
+$(function(){
+	$("#dateInput").datepicker({
+		dateFormat: 'dd-M-yy'
+	});
+});
 </script>
+
+
 <style>
 /* Space out content a bit */
 body {
   padding-top: 20px;
-  padding-bottom: 20px;
+	padding-bottom: 20px;
 }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
@@ -171,7 +166,6 @@ body {
   padding-right: 15px;
   padding-left: 15px;
 }
-
 /* Custom page header */
 .header {
   border-bottom: 1px solid #e5e5e5;
@@ -208,7 +202,8 @@ body {
 }
 .jumbotron .btn {
   padding: 14px 24px;
-  font-size: 21px;
+	font-size: 21px;
+	margin-left: 20px;
 }
 
 /* Supporting marketing content */
@@ -228,20 +223,21 @@ body {
     padding-right: 0;
     padding-left: 0;
   }
-	.btn btn-lg btn-info{
-		margin-left: 20px;
-	}
   /* Space out the masthead */
   .header {
     margin-bottom: 30px;
   }
   /* Remove the bottom border on the jumbotron for visual effect */
   .jumbotron {
-    border-bottom: 0;
+		border-bottom: 0;
+		margin-left: 20px;
   }
 }
 #col-sm-6 form-group{
 	padding-left: 0px;
-	margin-left: 0%;
+	margin-left: 25px;
+}
+div.formgroup.btn{
+	margin-left: 20px;
 }
 </style>
