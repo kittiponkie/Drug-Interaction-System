@@ -16,10 +16,10 @@ import login from '@/components/login'
 import VueMaterial from 'vue-material'
 import 'vue-material/dist/vue-material.min.css'
 Vue.use(VueMaterial)
-// import 'vue-material/dist/theme/black-green-dark.css'
+//import 'vue-material/dist/theme/black-green-dark.css'
 import 'vue-material/dist/theme/black-green-light.css'
-// import 'vue-material/dist/theme/default-dark.css'
-// import 'vue-material/dist/theme/default.css'
+//import 'vue-material/dist/theme/default-dark.css'
+//import 'vue-material/dist/theme/default.css'
 
 // import Vue from 'vue'
 import VueRouter from 'vue-router'

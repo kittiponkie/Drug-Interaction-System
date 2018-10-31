@@ -19,7 +19,7 @@
         </md-toolbar>
 
         <md-list class="delete_margin">
-          <md-list-item to="/Patient_information" class="unselected">
+          <md-list-item class="unselected">
             <md-icon style="margin-right:10px">account_circle</md-icon>
             <span class="md-list-item-text unselected_text">Patient Information</span>
           </md-list-item>
@@ -43,7 +43,6 @@
             <md-icon style="margin-right:10px">power_settings_new</md-icon>
             <span class="md-list-item-text unselected_text">Logout</span>
           </md-list-item>
-
         </md-list>
       </md-app-drawer>
 
@@ -73,7 +72,7 @@
                 </thead>
                 <tbody v-for="(value,index) in drugList" :key="index">
                   <tr data-toggle="collapse" :data-target="'#row'+index" class="accordion-toggle">
-                    <td><button class="btn btn-default btn-xs"><span class="glyphicon glyphicon-triangle-bottom"></span></button></td>
+                    <td><button class="btn btn-default btn-xs"><span class="glyphicon glyphicon-eye-open"></span></button></td>
                     <td>{{value.interactionConcept[1].minConceptItem.name}}</td>
                   </tr>
                   <tr>
@@ -81,19 +80,19 @@
                       <div class="accordian-body collapse" :id="'row'+index">
                         <br>
                   <tr>
-                   <b> RXCUI ID :</b> {{value.interactionConcept[1].minConceptItem.rxcui}}
+                    RXCUI ID : {{value.interactionConcept[1].minConceptItem.rxcui}}
                   </tr>
                   <br>
                   <tr>
-                   <b> Generic Drug Name :</b> {{value.interactionConcept[1].minConceptItem.name}}
+                    Generic Drug Name : {{value.interactionConcept[1].minConceptItem.name}}
                   </tr>
                   <br>
                   <tr>
-                  <b>  Interaction Description :</b> {{value.description}}
+                    Interaction Description : {{value.description}}
                   </tr>
                   <br>
                   <tr>
-                   <b> Severity :</b> {{value.severity}}
+                    Severity : {{value.severity}}
                   </tr>
                   <br>
             </div>
@@ -122,8 +121,6 @@
 </template>
 
 <script>
-// eslint-disable-next-line 
-/* eslint-disable */
   import axios from 'axios'
   export default {
     name: 'Drug_Interaction',
@@ -142,15 +139,22 @@
       toggleMenu() {
         this.menuVisible = !this.menuVisible
       },
-
       //get data from API
       async getData() {
         this.loading = true
         this.rxcui = null
         var checkfound = false
-        await axios.get(`http://localhost:8082/info/GP/paracetamol`).then(Response => {
-          this.test = Response
-          console.log(Response)
+        await axios.get(`https://rxnav.nlm.nih.gov/REST/rxcui?name=${this.drugName}`).then(Response => {
+          if (Response.data.idGroup.rxnormId == null) {
+            console.log('rxcui id is null')
+            this.found = false
+            this.checkSearch = true
+            this.loading = false
+          } else {
+            this.rxcui = Response.data.idGroup.rxnormId[0]
+            checkfound = true
+            console.log('rxcui ok')
+          }
         });
         if (checkfound == true) {
           await axios.get(
@@ -178,7 +182,6 @@
       this.Window_Width = window.innerWidth
     }
   }
-
 </script>
 
 <style lang="scss" scoped>
@@ -186,67 +189,50 @@
     height: calc(100vh);
     border: 1px solid rgba(#000, .12);
   }
-
   .md-drawer {
     width: 230px;
     max-width: calc(100vw - 125px);
   }
-
   .span_center {
     text-align: center;
     width: 100%;
     font-size: 14px;
   }
-
   .text_all {
     font-size: 14px;
   }
-
   .md-field {
     max-width: calc(100% - 110px);
     overflow: auto;
   }
-
   .textSearch {
     float: left;
   }
-
   .buttonSearch {
     margin-top: 16px;
   }
-
   .md-input {
     max-width: calc(100%);
   }
-
   .menu_color {
     background-color: #f1f1f1;
-
   }
-
   .delete_margin {
     width: 100%;
     background-color: #f1f1f1;
   }
-
   .selected {
     background-color: #5DBFA8;
     margin: 2px;
   }
-
   .unselected {
     background-color: #f1f1f1;
     margin: 2px;
   }
-
   .selected_text {
     color: black;
   }
-
   .unselected_text {
     color: black;
-  }
-  .md-content md-app-content md-flex text_all md-theme-default{
-    padding-top: 23px;
   }
 </style>

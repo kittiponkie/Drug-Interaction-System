@@ -194,11 +194,11 @@ const toLower = text => {
     },
     async mounted() {
       this.Window_Width = window.innerWidth
-      axios.get(
+      /*axios.get(
               `http://localhost:8082/info/GP/paracetamol`)
             .then(Response => {
              this.test = Response
-            });
+            });*/
         
     },
     created () {

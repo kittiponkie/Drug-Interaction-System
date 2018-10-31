@@ -40,7 +40,7 @@
             <span class="md-list-item-text unselected_text">Drug Interaction</span>
           </md-list-item>
 
-           <md-list-item to="/login" class="unselected">
+          <md-list-item to="/login" class="unselected">
             <md-icon style="margin-right:10px">power_settings_new</md-icon>
             <span class="md-list-item-text unselected_text">Logout</span>
           </md-list-item>
@@ -61,7 +61,7 @@
               </form>
               <br>
             </div>
-            <!--md-content><br></md-content-->
+
             <!-- content that search -->
             <div class="viewport">
               <md-toolbar :md-elevation="1">
@@ -83,175 +83,459 @@
 
             <div class="viewport">
               <md-toolbar :md-elevation="1">
-                <span class="md-title">GP ID</span>
+                <span class="md-title">Other ID</span>
               </md-toolbar>
-              <md-subheader class="md-primary"></md-subheader>
-              <div class="panel-body">
-                <table class="table table-condensed" style="border-collapse:collapse;">
-                  <thead>
-                    <tr>
-                      <th>&nbsp;</th>
-                      <th>GP ID</th>
-                    </tr>
-                  </thead>
-                  <tbody v-for="index in 2">
-                    <tr data-toggle="collapse" :data-target="'#rowGP'+index" class="accordion-toggle">
-                      <td><button class="btn btn-default btn-xs"><span class="glyphicon glyphicon-eye-open"></span></button></td>
-                      <td>GP ID {{index}}</td>
-                    </tr>
-                    <tr>
-                      <td colspan="12" class="hiddenRow">
-                        <div class="accordian-body collapse" :id="'rowGP'+index">
-                          <div class="panel-body">
-                            <table class="table table-condensed" style="border-collapse:collapse;">
-                              <thead>
-                                <tr>
-                                  <th>&nbsp;</th>
-                                  <th>GPU ID</th>
-                                </tr>
-                              </thead>
-                              <tbody v-for="ind in 2">
-                                <tr data-toggle="collapse" :data-target="'#rowGPU'+ind+index" class="accordion-toggle">
-                                  <td><button class="btn btn-default btn-xs"><span class="glyphicon glyphicon-eye-open"></span></button></td>
-                                  <td>GPU ID {{ind}}</td>
-                                </tr>
-                                <tr>
-                                  <td colspan="12" class="hiddenRow">
-                                    <div class="accordian-body collapse" :id="'rowGPU'+ind+index">
-                                      <br>
-                                <tr>
-                                  GP ID : GP ID {{index}}
-                                </tr>
-                                <br>
-                                <tr>
-                                  GPU ID : {{ind}}
-                                </tr>
-                                <br>
-                                <tr>
-                                  Drug Name : aaaaaaaaaaaaaaaa
-                                </tr>
-                                <br>
-                          </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+
+
+              <ul class="nav nav-tabs" style="width:100%">
+                <li class="active"><a data-toggle="tab" href="#gp">GP</a></li>
+                <li><a data-toggle="tab" href="#gpu">GPU</a></li>
+                <li><a data-toggle="tab" href="#tp">TP</a></li>
+                <li><a data-toggle="tab" href="#tpu">TPU</a></li>
+              </ul>
+
+              <div class="tab-content">
+                <div v-if="dataID!=null" id="gp" class="tab-pane fade in active text_padding">
+                  <div class="text-center">
+                    <ul class="pagination nav" v-if="dataID.GP.length%10 != 0">
+                      <li class="active"><a :href="'#gp'+1" data-toggle="tab">1</a></li>
+                      <li v-for="i in (parseInt(dataID.GP.length/10))" :key="i"><a :href="'#gp'+(i+1)" data-toggle="tab">{{i+1}}</a></li>
+                    </ul>
+                    <ul class="pagination nav" v-if="dataID.GP.length%10 == 0">
+                      <li class="active"><a :href="'#gp'+1" data-toggle="tab">1</a></li>
+                      <li v-for="i in (parseInt(dataID.GP.length/10)-1)" :key="i"><a :href="'#gp'+(i+1)" data-toggle="tab">{{i+1}}</a></li>
+                    </ul>
+                  </div>
+
+                  <div class="tab-content">
+                    <!--%10 != 0-->
+                    <div v-if="dataID.GP.length%10 != 0" v-for="(value,page) in 1" :key="page" :id="'gp'+value" class="tab-pane fade in active">
+                      <md-card v-if="parseInt(dataID.GP.length/10) == 0" v-for="(value2,index) in dataID.GP.length%10"
+                        :key="index">
+                        <md-card-header>
+                          <md-card-header-text>
+                            <div class="fsn">GP Name : </div>
+                            <div>{{dataID.GP[index].FSN_GPID}}</div>
+                            <div class="fsn">GP ID : </div>
+                            <div>{{dataID.GP[index].GPID}}</div>
+                          </md-card-header-text>
+                        </md-card-header>
+                      </md-card>
+
+                      <md-card v-if="page == 0 && parseInt(dataID.GP.length/10) > 0" v-for="(value2,index) in 10" :key="index">
+                        <md-card-header>
+                          <md-card-header-text>
+                            <div class="fsn">GP Name : </div>
+                            <div>{{dataID.GP[index+(page*10)].FSN_GPID}}</div>
+                            <div class="fsn">GP ID : </div>
+                            <div>{{dataID.GP[index+(page*10)].GPID}}</div>
+                          </md-card-header-text>
+                        </md-card-header>
+                      </md-card>
+                    </div>
+
+                    <div v-if="dataID.GP.length%10 != 0 && parseInt(dataID.GP.length/10) > 0" v-for="(value,page) in parseInt(dataID.GP.length/10)"
+                      :key="page+1" :id="'gp'+(value+1)" class="tab-pane fade">
+
+                      <md-card v-if="parseInt(dataID.GP.length/10) != (page+1)" v-for="(value2,index) in 10" :key="index">
+                        <md-card-header>
+                          <md-card-header-text>
+                            <div class="fsn">GP Name : </div>
+                            <div>{{dataID.GP[index+((page+1)*10)].FSN_GPID}}</div>
+                            <div class="fsn">GP ID : </div>
+                            <div>{{dataID.GP[index+((page+1)*10)].GPID}}</div>
+                          </md-card-header-text>
+                        </md-card-header>
+                      </md-card>
+
+                      <md-card v-if="parseInt(dataID.GP.length/10) == (page+1)" v-for="(value2,index) in dataID.GP.length%10"
+                        :key="index">
+                        <md-card-header>
+                          <md-card-header-text>
+                            <div class="fsn">GP Name : </div>
+                            <div>{{dataID.GP[index+((page+1)*10)].FSN_GPID}}</div>
+                            <div class="fsn">GP ID : </div>
+                            <div>{{dataID.GP[index+((page+1)*10)].GPID}}</div>
+                          </md-card-header-text>
+                        </md-card-header>
+                      </md-card>
+                    </div>
+
+
+                    <!--%10 == 0-->
+                    <div v-if="dataID.GP.length%10 == 0" v-for="(value,page) in 1 " :key="page" :id="'gp'+value" class="tab-pane fade in active">
+                      <md-card v-for="(value2,index) in 10" :key="index">
+                        <md-card-header>
+                          <md-card-header-text>
+                            <div class="fsn">GP Name : </div>
+                            <div>{{dataID.GP[index+(page*10)].FSN_GPID}}</div>
+                            <div class="fsn">GP ID : </div>
+                            <div>{{dataID.GP[index+(page*10)].GPID}}</div>
+                          </md-card-header-text>
+                        </md-card-header>
+                      </md-card>
+                    </div>
+
+                    <div v-if="dataID.GP.length%10 == 0 && parseInt(dataID.GP.length/10) > 1" v-for="(value,page) in (parseInt(dataID.GP.length/10)-1) "
+                      :key="page+1" :id="'gp'+(value+1)" class="tab-pane fade">
+                      <md-card v-for="(value2,index) in 10" :key="index">
+                        <md-card-header>
+                          <md-card-header-text>
+                            <div class="fsn">GP Name : </div>
+                            <div>{{dataID.GP[index+(page*10)].FSN_GPID}}</div>
+                            <div class="fsn">GP ID : </div>
+                            <div>{{dataID.GP[index+(page*10)].GPID}}</div>
+                          </md-card-header-text>
+                        </md-card-header>
+                      </md-card>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div v-if="dataID!=null" id="gpu" class="tab-pane fade text_padding">
+                  <div class="text-center">
+                    <ul class="pagination nav" v-if="dataID.GPU.length%10 != 0">
+                      <li class="active"><a :href="'#gpu'+1" data-toggle="tab">1</a></li>
+                      <li v-for="i in (parseInt(dataID.GPU.length/10))" :key="i"><a :href="'#gpu'+(i+1)" data-toggle="tab">{{i+1}}</a></li>
+                    </ul>
+                    <ul class="pagination nav" v-if="dataID.GPU.length%10 == 0">
+                      <li class="active"><a :href="'#gpu'+1" data-toggle="tab">1</a></li>
+                      <li v-for="i in (parseInt(dataID.GPU.length/10)-1)" :key="i"><a :href="'#gpu'+(i+1)" data-toggle="tab">{{i+1}}</a></li>
+                    </ul>
+                  </div>
+
+                  <div class="tab-content">
+                    <!--%10 != 0-->
+                    <div v-if="dataID.GPU.length%10 != 0" v-for="(value,page) in 1" :key="page" :id="'gpu'+value" class="tab-pane fade in active">
+                      <md-card v-if="parseInt(dataID.GPU.length/10) == 0" v-for="(value2,index) in dataID.GPU.length%10"
+                        :key="index">
+                        <md-card-header>
+                          <md-card-header-text>
+                            <div class="fsn">GPU Name : </div>
+                            <div>{{dataID.GPU[index].FSN_GPUID}}</div>
+                            <div class="fsn">GPU ID : </div>
+                            <div>{{dataID.GPU[index].GPUID}}</div>
+                          </md-card-header-text>
+                        </md-card-header>
+                      </md-card>
+
+                      <md-card v-if="page == 0 && parseInt(dataID.GPU.length/10) > 0" v-for="(value2,index) in 10" :key="index">
+                        <md-card-header>
+                          <md-card-header-text>
+                            <div class="fsn">GPU Name : </div>
+                            <div>{{dataID.GPU[index+(page*10)].FSN_GPUID}}</div>
+                            <div class="fsn">GPU ID : </div>
+                            <div>{{dataID.GPU[index+(page*10)].GPUID}}</div>
+                          </md-card-header-text>
+                        </md-card-header>
+                      </md-card>
+                    </div>
+
+                    <div v-if="dataID.GPU.length%10 != 0 && parseInt(dataID.GP.length/10) > 0" v-for="(value,page) in parseInt(dataID.GPU.length/10)"
+                      :key="page+1" :id="'gpu'+(value+1)" class="tab-pane fade">
+
+                      <md-card v-if="parseInt(dataID.GPU.length/10) != (page+1)" v-for="(value2,index) in 10" :key="index">
+                        <md-card-header>
+                          <md-card-header-text>
+                            <div class="fsn">GPU Name : </div>
+                            <div>{{dataID.GPU[index+((page+1)*10)].FSN_GPUID}}</div>
+                            <div class="fsn">GPU ID : </div>
+                            <div>{{dataID.GPU[index+((page+1)*10)].GPUID}}</div>
+                          </md-card-header-text>
+                        </md-card-header>
+                      </md-card>
+
+                      <md-card v-if="parseInt(dataID.GPU.length/10) == (page+1)" v-for="(value2,index) in dataID.GPU.length%10"
+                        :key="index">
+                        <md-card-header>
+                          <md-card-header-text>
+                            <div class="fsn">GPU Name : </div>
+                            <div>{{dataID.GPU[index+((page+1)*10)].FSN_GPUID}}</div>
+                            <div class="fsn">GPU ID : </div>
+                            <div>{{dataID.GPU[index+((page+1)*10)].GPUID}}</div>
+                          </md-card-header-text>
+                        </md-card-header>
+                      </md-card>
+                    </div>
+
+
+                    <!--%10 == 0-->
+                    <div v-if="dataID.GPU.length%10 == 0" v-for="(value,page) in 1 " :key="page" :id="'gpu'+value" class="tab-pane fade in active">
+                      <md-card v-for="(value2,index) in 10" :key="index">
+                        <md-card-header>
+                          <md-card-header-text>
+                            <div class="fsn">GPU Name : </div>
+                            <div>{{dataID.GPU[index+(page*10)].FSN_GPUID}}</div>
+                            <div class="fsn">GPU ID : </div>
+                            <div>{{dataID.GPU[index+(page*10)].GPUID}}</div>
+                          </md-card-header-text>
+                        </md-card-header>
+                      </md-card>
+                    </div>
+
+                    <div v-if="dataID.GPU.length%10 == 0 && parseInt(dataID.GPU.length/10) > 1" v-for="(value,page) in (parseInt(dataID.GPU.length/10)-1) "
+                      :key="page+1" :id="'gpu'+(value+1)" class="tab-pane fade">
+                      <md-card v-for="(value2,index) in 10" :key="index">
+                        <md-card-header>
+                          <md-card-header-text>
+                            <div class="fsn">GPU Name : </div>
+                            <div>{{dataID.GPU[index+(page*10)].FSN_GPUID}}</div>
+                            <div class="fsn">GPU ID : </div>
+                            <div>{{dataID.GPU[index+(page*10)].GPUID}}</div>
+                          </md-card-header-text>
+                        </md-card-header>
+                      </md-card>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div v-if="dataID!=null" id="tp" class="tab-pane fade text_padding">
+                  <div class="text-center">
+                    <ul class="pagination nav" v-if="dataID.TP.length%10 != 0">
+                      <li class="active"><a :href="'#tp'+1" data-toggle="tab">1</a></li>
+                      <li v-for="i in (parseInt(dataID.TP.length/10))" :key="i"><a :href="'#tp'+(i+1)" data-toggle="tab">{{i+1}}</a></li>
+                    </ul>
+                    <ul class="pagination nav" v-if="dataID.TP.length%10 == 0">
+                      <li class="active"><a :href="'#tp'+1" data-toggle="tab">1</a></li>
+                      <li v-for="i in (parseInt(dataID.TP.length/10)-1)" :key="i"><a :href="'#tp'+(i+1)" data-toggle="tab">{{i+1}}</a></li>
+                    </ul>
+                  </div>
+
+                  <div class="tab-content">
+                    <!--%10 != 0-->
+                    <div v-if="dataID.TP.length%10 != 0" v-for="(value,page) in 1" :key="page" :id="'tp'+value" class="tab-pane fade in active">
+                      <md-card v-if="parseInt(dataID.TP.length/10) == 0" v-for="(value2,index) in dataID.TP.length%10"
+                        :key="index">
+                        <md-card-header>
+                          <md-card-header-text>
+                            <div class="fsn">TP Name : </div>
+                            <div>{{dataID.TP[index].FSN_TPID}}</div>
+                            <div class="fsn">TP ID : </div>
+                            <div>{{dataID.TP[index].TPID}}</div>
+                          </md-card-header-text>
+                        </md-card-header>
+                      </md-card>
+
+                      <md-card v-if="page == 0 && parseInt(dataID.TP.length/10) > 0" v-for="(value2,index) in 10" :key="index">
+                        <md-card-header>
+                          <md-card-header-text>
+                            <div class="fsn">TP Name : </div>
+                            <div>{{dataID.TP[index+(page*10)].FSN_TPID}}</div>
+                            <div class="fsn">TP ID : </div>
+                            <div>{{dataID.TP[index+(page*10)].TPID}}</div>
+                          </md-card-header-text>
+                        </md-card-header>
+                      </md-card>
+                    </div>
+
+                    <div v-if="dataID.TP.length%10 != 0 && parseInt(dataID.GP.length/10) > 0" v-for="(value,page) in parseInt(dataID.TP.length/10)"
+                      :key="page+1" :id="'tp'+(value+1)" class="tab-pane fade">
+
+                      <md-card v-if="parseInt(dataID.TP.length/10) != (page+1)" v-for="(value2,index) in 10" :key="index">
+                        <md-card-header>
+                          <md-card-header-text>
+                            <div class="fsn">TP Name : </div>
+                            <div>{{dataID.TP[index+((page+1)*10)].FSN_TPID}}</div>
+                            <div class="fsn">TP ID : </div>
+                            <div>{{dataID.TP[index+((page+1)*10)].TPID}}</div>
+                          </md-card-header-text>
+                        </md-card-header>
+                      </md-card>
+
+                      <md-card v-if="parseInt(dataID.TP.length/10) == (page+1)" v-for="(value2,index) in dataID.TP.length%10"
+                        :key="index">
+                        <md-card-header>
+                          <md-card-header-text>
+                            <div class="fsn">TP Name : </div>
+                            <div>{{dataID.TP[index+((page+1)*10)].FSN_TPID}}</div>
+                            <div class="fsn">TP ID : </div>
+                            <div>{{dataID.TP[index+((page+1)*10)].TPID}}</div>
+                          </md-card-header-text>
+                        </md-card-header>
+                      </md-card>
+                    </div>
+
+
+                    <!--%10 == 0-->
+                    <div v-if="dataID.TP.length%10 == 0" v-for="(value,page) in 1 " :key="page" :id="'tp'+value" class="tab-pane fade in active">
+                      <md-card v-for="(value2,index) in 10" :key="index">
+                        <md-card-header>
+                          <md-card-header-text>
+                            <div class="fsn">TP Name : </div>
+                            <div>{{dataID.TP[index+(page*10)].FSN_TPID}}</div>
+                            <div class="fsn">TP ID : </div>
+                            <div>{{dataID.TP[index+(page*10)].TPID}}</div>
+                          </md-card-header-text>
+                        </md-card-header>
+                      </md-card>
+                    </div>
+
+                    <div v-if="dataID.TP.length%10 == 0 && parseInt(dataID.TP.length/10) > 1" v-for="(value,page) in (parseInt(dataID.TP.length/10)-1) "
+                      :key="page+1" :id="'tp'+(value+1)" class="tab-pane fade">
+                      <md-card v-for="(value2,index) in 10" :key="index">
+                        <md-card-header>
+                          <md-card-header-text>
+                            <div class="fsn">TP Name : </div>
+                            <div>{{dataID.TP[index+(page*10)].FSN_TPID}}</div>
+                            <div class="fsn">TP ID : </div>
+                            <div>{{dataID.TP[index+(page*10)].TPID}}</div>
+                          </md-card-header-text>
+                        </md-card-header>
+                      </md-card>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div v-if="dataID!=null" id="tpu" class="tab-pane fade text_padding">
+                  <div class="text-center">
+                    <ul class="pagination nav" v-if="dataID.TPU.length%10 != 0">
+                      <li class="active"><a :href="'#tpu'+1" data-toggle="tab">1</a></li>
+                      <li v-for="i in (parseInt(dataID.TPU.length/10))" :key="i"><a :href="'#tpu'+(i+1)" data-toggle="tab">{{i+1}}</a></li>
+                    </ul>
+                    <ul class="pagination nav" v-if="dataID.TPU.length%10 == 0">
+                      <li class="active"><a :href="'#tpu'+1" data-toggle="tab">1</a></li>
+                      <li v-for="i in (parseInt(dataID.TPU.length/10)-1)" :key="i"><a :href="'#tpu'+(i+1)" data-toggle="tab">{{i+1}}</a></li>
+                    </ul>
+                  </div>
+
+                  <div class="tab-content">
+                    <!--%10 != 0-->
+                    <div v-if="dataID.TPU.length%10 != 0" v-for="(value,page) in 1" :key="page" :id="'tpu'+value" class="tab-pane fade in active">
+                      <md-card v-if="parseInt(dataID.TPU.length/10) == 0" v-for="(value2,index) in dataID.TPU.length%10"
+                        :key="index">
+                        <md-card-header>
+                          <md-card-header-text>
+                            <div class="fsn">TPU Name : </div>
+                            <div>{{dataID.TPU[index].FSN_TPUID}}</div>
+                            <div class="fsn">TPU ID : </div>
+                            <div>{{dataID.TPU[index].TPUID}}</div>
+                          </md-card-header-text>
+                        </md-card-header>
+                      </md-card>
+
+                      <md-card v-if="page == 0 && parseInt(dataID.TPU.length/10) > 0" v-for="(value2,index) in 10" :key="index">
+                        <md-card-header>
+                          <md-card-header-text>
+                            <div class="fsn">TPU Name : </div>
+                            <div>{{dataID.TPU[index+(page*10)].FSN_TPUID}}</div>
+                            <div class="fsn">TPU ID : </div>
+                            <div>{{dataID.TPU[index+(page*10)].TPUID}}</div>
+                          </md-card-header-text>
+                        </md-card-header>
+                      </md-card>
+                    </div>
+
+                    <div v-if="dataID.TPU.length%10 != 0 && parseInt(dataID.GP.length/10) > 0" v-for="(value,page) in parseInt(dataID.TPU.length/10)"
+                      :key="page+1" :id="'tpu'+(value+1)" class="tab-pane fade">
+
+                      <md-card v-if="parseInt(dataID.TPU.length/10) != (page+1)" v-for="(value2,index) in 10" :key="index">
+                        <md-card-header>
+                          <md-card-header-text>
+                            <div class="fsn">TPU Name : </div>
+                            <div>{{dataID.TPU[index+((page+1)*10)].FSN_TPUID}}</div>
+                            <div class="fsn">TPU ID : </div>
+                            <div>{{dataID.TPU[index+((page+1)*10)].TPUID}}</div>
+                          </md-card-header-text>
+                        </md-card-header>
+                      </md-card>
+
+                      <md-card v-if="parseInt(dataID.TPU.length/10) == (page+1)" v-for="(value2,index) in dataID.TPU.length%10"
+                        :key="index">
+                        <md-card-header>
+                          <md-card-header-text>
+                            <div class="fsn">TPU Name : </div>
+                            <div>{{dataID.TPU[index+((page+1)*10)].FSN_TPUID}}</div>
+                            <div class="fsn">TPU ID : </div>
+                            <div>{{dataID.TPU[index+((page+1)*10)].TPUID}}</div>
+                          </md-card-header-text>
+                        </md-card-header>
+                      </md-card>
+                    </div>
+
+
+                    <!--%10 == 0-->
+                    <div v-if="dataID.TPU.length%10 == 0" v-for="(value,page) in 1 " :key="page" :id="'tpu'+value" class="tab-pane fade in active">
+                      <md-card v-for="(value2,index) in 10" :key="index">
+                        <md-card-header>
+                          <md-card-header-text>
+                            <div class="fsn">TPU Name : </div>
+                            <div>{{dataID.TPU[index+(page*10)].FSN_TPUID}}</div>
+                            <div class="fsn">TPU ID : </div>
+                            <div>{{dataID.TPU[index+(page*10)].TPUID}}</div>
+                          </md-card-header-text>
+                        </md-card-header>
+                      </md-card>
+                    </div>
+
+                    <div v-if="dataID.TPU.length%10 == 0 && parseInt(dataID.TPU.length/10) > 1" v-for="(value,page) in (parseInt(dataID.TPU.length/10)-1) "
+                      :key="page+1" :id="'tpu'+(value+1)" class="tab-pane fade">
+                      <md-card v-for="(value2,index) in 10" :key="index">
+                        <md-card-header>
+                          <md-card-header-text>
+                            <div class="fsn">TPU Name : </div>
+                            <div>{{dataID.TPU[index+(page*10)].FSN_TPUID}}</div>
+                            <div class="fsn">TPU ID : </div>
+                            <div>{{dataID.TPU[index+(page*10)].TPUID}}</div>
+                          </md-card-header-text>
+                        </md-card-header>
+                      </md-card>
+                    </div>
+                  </div>
+                </div>
+
               </div>
-              <div class="panel-body">
-                <table class="table table-condensed" style="border-collapse:collapse;">
-                  <thead>
-                    <tr>
-                      <th>&nbsp;</th>
-                      <th>TP ID</th>
-                    </tr>
-                  </thead>
-                  <tbody v-for="ind in 2">
-                    <tr data-toggle="collapse" :data-target="'#rowTP'+ind+index" class="accordion-toggle">
-                      <td><button class="btn btn-default btn-xs"><span class="glyphicon glyphicon-eye-open"></span></button></td>
-                      <td>TP ID {{ind}}</td>
-                    </tr>
-                    <tr>
-                      <td colspan="12" class="hiddenRow">
-                        <div class="accordian-body collapse" :id="'rowTP'+ind+index">
-                          <div class="panel-body">
-                            <table class="table table-condensed" style="border-collapse:collapse;">
-                              <thead>
-                                <tr>
-                                  <th>&nbsp;</th>
-                                  <th>TPU ID</th>
-                                </tr>
-                              </thead>
-                              <tbody v-for="i in 2">
-                                <tr data-toggle="collapse" :data-target="'#rowTPU'+i+ind+index" class="accordion-toggle">
-                                  <td><button class="btn btn-default btn-xs"><span class="glyphicon glyphicon-eye-open"></span></button></td>
-                                  <td>TPU ID {{i}}</td>
-                                </tr>
-                                <tr>
-                                  <td colspan="12" class="hiddenRow">
-                                    <div class="accordian-body collapse" :id="'rowTPU'+i+ind+index">
-                                      <br>
-                                <tr>
-                                  GP ID : {{index}}
-                                </tr>
-                                <br>
-                                <tr>
-                                  TP ID : {{ind}}
-                                </tr>
-                                <br>
-                                <tr>
-                                  TPU ID : {{i}}
-                                </tr>
-                                <br>
-                                <tr>
-                                  Drug Name : aaaaaaaaaaaaaaaa
-                                </tr>
-                                <br>
-                          </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+
+              <md-divider></md-divider>
+            </div>
+
+            <div class="viewport">
+              <md-toolbar :md-elevation="1">
+                <span class="md-title">ATC</span>
+              </md-toolbar>
+              <div class="text_padding">
+                <p>ATC ID : 1234567</p>
+                <p>Description : xxx</p>
               </div>
             </div>
-            </td>
-            </tr>
-            </tbody>
-            </table>
+
+            <div class="viewport">
+              <md-toolbar :md-elevation="1">
+                <span class="md-title">Barcode</span>
+              </md-toolbar>
+              <md-subheader class="md-primary">Barcode ID</md-subheader>
+              <div class="text_padding">
+                <p>Barcode ID : 1234567</p>
+              </div>
+              <md-divider></md-divider>
+              <md-subheader class="md-primary">Barcode Picture</md-subheader>
+              <div class="text_padding">
+                <img src="../assets/logo.png" alt="Barcode" width="50" height="50">
+              </div>
+            </div>
+
+            <div class="viewport">
+              <md-toolbar :md-elevation="1">
+                <span class="md-title">More Information</span>
+              </md-toolbar>
+              <div class="text_padding">
+                <p>Website : http.....</p>
+              </div>
+            </div>
+
           </div>
         </div>
-        </td>
-        </tr>
-        </tbody>
-        </table>
-  </div>
-  <md-divider></md-divider>
-  </div>
-
-  <div class="viewport">
-    <md-toolbar :md-elevation="1">
-      <span class="md-title">ATC</span>
-    </md-toolbar>
-    <div class="text_padding">
-      <p>ATC ID : 1234567</p>
-      <p>Description : xxx</p>
-    </div>
-  </div>
-
-  <div class="viewport">
-    <md-toolbar :md-elevation="1">
-      <span class="md-title">Barcode</span>
-    </md-toolbar>
-    <md-subheader class="md-primary">Barcode ID</md-subheader>
-    <div class="text_padding">
-      <p>Barcode ID : 1234567</p>
-    </div>
-    <md-divider></md-divider>
-    <md-subheader class="md-primary">Barcode Picture</md-subheader>
-    <div class="text_padding">
-      <img src="../assets/logo.png" alt="Barcode" width="50" height="50">
-    </div>
-  </div>
-
-  <div class="viewport">
-    <md-toolbar :md-elevation="1">
-      <span class="md-title">More Information</span>
-    </md-toolbar>
-    <div class="text_padding">
-      <p>Website : http.....</p>
-    </div>
-  </div>
-
-  </div>
-  </div>
-  </md-app-content>
-  </md-app>
+      </md-app-content>
+    </md-app>
   </div>
 
 </template>
 
 <script>
-// eslint-disable-next-line 
-/* eslint-disable */
+  // eslint-disable-next-line 
+  /* eslint-disable */
   import axios from 'axios'
   export default {
     name: 'Drug_Interaction',
@@ -263,7 +547,8 @@
       found: false, //true when found data , false when don't have data from API
       rxcuiID: null, //ID of drug from API
       checkSearch: false, //true when you search something
-      loading: false //true when you have to wait for call API
+      loading: false, //true when you have to wait for call API
+      dataID: null //data GP GPU TP TPU
     }),
     methods: {
       //toggle visible menu
@@ -312,6 +597,11 @@
     },
     async mounted() {
       this.Window_Width = window.innerWidth
+      await axios.get(
+          `http://localhost:8082/info/paracetamol`)
+        .then(Response => {
+          this.dataID = Response.data
+        });
     }
   }
 
@@ -386,7 +676,19 @@
     padding: 20px;
     overflow: auto;
   }
-  #md-drawer md-app-drawer menu_color md-theme-default md-left md-permanent md-permanent-card{
+
+  #md-drawer md-app-drawer menu_color md-theme-default md-left md-permanent md-permanent-card {
     margin-top: 22px;
   }
+
+  .md-card {
+    display: inline-block;
+    margin: 10px;
+    width: 175px;
+  }
+
+  .fsn {
+    font-weight: bold;
+  }
+
 </style>
