@@ -25,7 +25,7 @@ router.get("/", (req, res, next) => {
     });
 });
 
-app.post('/',(req, res, next) => {
+router.post('/',(req, res, next) => {
 
     const Patient = new Patient({
       _id: new mongoose.Types.ObjectId(),
