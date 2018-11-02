@@ -26,7 +26,7 @@ function isEmptyObject(obj) {
 
 app.get('/info/:GenName', (req, res) => {
   console.log('Fetching user with id :' + req.params.GenName)
-  const GenName = req.params.GenName + "%"
+  const GenName = req.params.GenName + " %"
   var CheckGenName
   console.log(GenName)
   var sql = "SELECT GPID , FSN FROM gp WHERE FSN LIKE ?;SELECT GPUID , FSN FROM gpu WHERE FSN LIKE ?;SELECT * FROM tp WHERE TPID IN ( SELECT TPID FROM gptotp WHERE GPID IN ( SELECT GPID FROM gp WHERE FSN LIKE ? )); SELECT * FROM tpu WHERE TPUID IN ( SELECT TPUID FROM tptotpu WHERE TPID IN ( SELECT TPID FROM gptotp WHERE GPID IN ( SELECT GPID FROM gp WHERE FSN LIKE ? )));";

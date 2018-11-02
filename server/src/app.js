@@ -2,32 +2,47 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const morgan = require('morgan')
-
+const mongoose = require('mongoose')
 const app = express()
+
 app.use(morgan('combined'))
 app.use(bodyParser.json())
 app.use(cors())
 
-app.get('/post', (req, res) => {
-    res.send(
-        [{
-            title: "Hello World!",
-            description: "Hi there! How are you?"
-        }]
-    )
+
+
+mongoose.connect('mongodb://Win:'+ process.env.MONGO_ATLAS_PW +'@cluster0-shard-00-00-koz3g.mongodb.net:27017,cluster0-shard-00-01-koz3g.mongodb.net:27017,cluster0-shard-00-02-koz3g.mongodb.net:27017/DrugInteraction?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true',
+{
+  useMongoClient: true
 })
 
-app.listen(process.env.PORT || 8081)
-
-var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/DrugInteraction');
 var db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error"));
 db.once("open", function (callback) {
     console.log("Connection Succeeded");
 });
+/*
+app.listen(process.env.PORT || 8081)
+app.listen(8081, () => {
+  console.log('Server is up and listening on 8081 port ...')
+})
+*/
+const Patient = require("../models/Patient");
 
-var Post = require("../models/post");
+app.post('/',(req, res, next) => {
+
+  const Patient = new Patient({
+    _id: new mongoose.Types.ObjectId(),
+    PatientID : req.body.PatientID ,
+    Firstname : req.body.Firstname ,
+    Lastname : req.body.Lastname
+  })
+
+  Patient.save().then( result => {
+    console.log(result)
+  })
+  .catch(err => console.log(err));
+})
 
 // Add new post
 app.post('/posts', (req, res) => {
