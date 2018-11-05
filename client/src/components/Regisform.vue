@@ -59,7 +59,7 @@
 								</div>
 							<div class="col-sm-6 form-group">
 								<label>Age</label>
-								<input type="text" readonly class="form-control" value="21">
+								<input type="text" readonly class="form-control" value="21 (Auto calculation)">
 							</div>
 						</div>
 <!-- id card -->
@@ -128,12 +128,16 @@
 					</div>	
 				<br>
 				<div class="form-group">
+						<label>Email</label>
+						<input type="text" placeholder="Enter Email Here.." class="form-control">
+					</div>
+				<div class="form-group">
 						<label>Username</label>
-						<input type="text" placeholder="Enter Username allergy Here.." class="form-control">
+						<input type="text" placeholder="Enter Username Here.." class="form-control">
 					</div>
 					<div class="form-group">
 						<label>Password</label>
-						<input type="password" placeholder="Enter Username allergy Here.." class="form-control">
+						<input type="password" placeholder="Enter password Here.. at least 8 character" class="form-control">
 					</div>
 					<button type="button" class="btn btn-lg btn-info" style="margin-left: 7px">Submit</button>
 				</div>
