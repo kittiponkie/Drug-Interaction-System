@@ -1,5 +1,19 @@
 import Vue from 'vue'
-import Router from 'vue-router'
+import VueRouter from 'vue-router'
+Vue.use(VueRouter)
+
+import VueMaterial from 'vue-material'
+import 'vue-material/dist/vue-material.min.css'
+import 'vue-material/dist/theme/black-green-light.css'
+Vue.use(VueMaterial)
+//import 'vue-material/dist/theme/black-green-dark.css'
+//import 'vue-material/dist/theme/default-dark.css'
+//import 'vue-material/dist/theme/default.css'
+
+import BootstrapVue from 'bootstrap-vue'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
+Vue.use(BootstrapVue);
+//import 'bootstrap/dist/css/bootstrap.css'  //conflict with other tool
 
 import HelloWorld from '@/components/HelloWorld' // not use
 import Posts from '@/components/Posts' // test mongo
@@ -12,22 +26,7 @@ import Drug_History from '@/components/Drug_History'
 import Patient_information from '@/components/Patient_information'
 import login from '@/components/login'
 
-// import Vue from 'vue'
-import VueMaterial from 'vue-material'
-import 'vue-material/dist/vue-material.min.css'
-Vue.use(VueMaterial)
-//import 'vue-material/dist/theme/black-green-dark.css'
-import 'vue-material/dist/theme/black-green-light.css'
-//import 'vue-material/dist/theme/default-dark.css'
-//import 'vue-material/dist/theme/default.css'
-
-// import Vue from 'vue'
-import VueRouter from 'vue-router'
-Vue.use(VueRouter)
-
-Vue.use(Router)
-
-export default new Router({
+export default new VueRouter({
   mode: 'history',
   routes: [
     {
