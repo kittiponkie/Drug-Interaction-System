@@ -205,7 +205,7 @@
                         </md-card>
                       </div>
 
-                      <div v-if="((parseInt(dataID.TPU.length/10)-1) > 0) && (dataID.GP.length%10 == 0) && (parseInt(dataID.GP.length/10) > 1)" v-for="(value,page) in (parseInt(dataID.GP.length/10)) "
+                      <div v-if="((parseInt(dataID.GP.length/10)-1) > 0) && (dataID.GP.length%10 == 0) && (parseInt(dataID.GP.length/10) > 1)" v-for="(value,page) in (parseInt(dataID.GP.length/10)) "
                         :key="page+1" :id="'gp'+(value+1)" class="tab-pane fade">
                         <md-card v-if="page != 0" v-for="(value2,index) in 10" :key="index">
                           <md-card-header>
@@ -264,7 +264,7 @@
                         </md-card>
                       </div>
 
-                      <div v-if="dataID.GPU.length%10 != 0 && parseInt(dataID.GP.length/10) > 0" v-for="(value,page) in parseInt(dataID.GPU.length/10)"
+                      <div v-if="dataID.GPU.length%10 != 0 && parseInt(dataID.GPU.length/10) > 0" v-for="(value,page) in parseInt(dataID.GPU.length/10)"
                         :key="page+1" :id="'gpu'+(value+1)" class="tab-pane fade">
 
                         <md-card v-if="parseInt(dataID.GPU.length/10) != (page+1)" v-for="(value2,index) in 10" :key="index">
@@ -307,7 +307,7 @@
                         </md-card>
                       </div>
 
-                      <div v-if="((parseInt(dataID.TPU.length/10)-1) > 0) && (dataID.GPU.length%10 == 0) && (parseInt(dataID.GPU.length/10) > 1)" v-for="(value,page) in (parseInt(dataID.GPU.length/10)) "
+                      <div v-if="((parseInt(dataID.GPU.length/10)-1) > 0) && (dataID.GPU.length%10 == 0) && (parseInt(dataID.GPU.length/10) > 1)" v-for="(value,page) in (parseInt(dataID.GPU.length/10)) "
                         :key="page+1" :id="'gpu'+(value+1)" class="tab-pane fade">
                         <md-card v-if="page != 0" v-for="(value2,index) in 10" :key="index">
                           <md-card-header>
@@ -344,7 +344,7 @@
                           <md-card-header>
                             <md-card-header-text>
                               <div class="fsn">TP Name : </div>
-                              <div><a :href="dataID.TP[index].FSN_TPID.split(' ')[0]" target="_blank">{{dataID.TP[index].FSN_TPID.split(' ')[0]}}</a>{{dataID.TP[index].FSN_TPID.replace(dataID.TP[index].FSN_TPID.split(' ')[0],'')}}</div>
+                              <div><a :href="dataID.TP[index].FSN_TPID.split(' (')[0]" target="_blank">{{dataID.TP[index].FSN_TPID.split(' (')[0]}}</a>{{dataID.TP[index].FSN_TPID.replace(dataID.TP[index].FSN_TPID.split(' (')[0],'')}}</div>
                               <div class="fsn">TP ID : </div>
                               <div>{{dataID.TP[index].TPID}}</div>
                             </md-card-header-text>
@@ -356,7 +356,7 @@
                           <md-card-header>
                             <md-card-header-text>
                               <div class="fsn">TP Name : </div>
-                              <div><a :href="dataID.TP[index+(page*10)].FSN_TPID.split(' ')[0]" target="_blank">{{dataID.TP[index+(page*10)].FSN_TPID.split(' ')[0]}}</a>{{dataID.TP[index+(page*10)].FSN_TPID.replace(dataID.TP[index+(page*10)].FSN_TPID.split(' ')[0],'')}}</div>
+                              <div><a :href="dataID.TP[index+(page*10)].FSN_TPID.split(' (')[0]" target="_blank">{{dataID.TP[index+(page*10)].FSN_TPID.split(' (')[0]}}</a>{{dataID.TP[index+(page*10)].FSN_TPID.replace(dataID.TP[index+(page*10)].FSN_TPID.split(' (')[0],'')}}</div>
                               <div class="fsn">TP ID : </div>
                               <div>{{dataID.TP[index+(page*10)].TPID}}</div>
                             </md-card-header-text>
@@ -364,14 +364,14 @@
                         </md-card>
                       </div>
 
-                      <div v-if="dataID.TP.length%10 != 0 && parseInt(dataID.GP.length/10) > 0" v-for="(value,page) in parseInt(dataID.TP.length/10)"
+                      <div v-if="dataID.TP.length%10 != 0 && parseInt(dataID.TP.length/10) > 0" v-for="(value,page) in parseInt(dataID.TP.length/10)"
                         :key="page+1" :id="'tp'+(value+1)" class="tab-pane fade">
 
                         <md-card v-if="parseInt(dataID.TP.length/10) != (page+1)" v-for="(value2,index) in 10" :key="index">
                           <md-card-header>
                             <md-card-header-text>
                               <div class="fsn">TP Name : </div>
-                              <div><a :href="dataID.TP[index+((page+1)*10)].FSN_TPID.split(' ')[0]" target="_blank">{{dataID.TP[index+((page+1)*10)].FSN_TPID.split(' ')[0]}}</a>{{dataID.TP[index+((page+1)*10)].FSN_TPID.replace(dataID.TP[index+((page+1)*10)].FSN_TPID.split(' ')[0],'')}}</div>
+                              <div><a :href="dataID.TP[index+((page+1)*10)].FSN_TPID.split(' (')[0]" target="_blank">{{dataID.TP[index+((page+1)*10)].FSN_TPID.split(' (')[0]}}</a>{{dataID.TP[index+((page+1)*10)].FSN_TPID.replace(dataID.TP[index+((page+1)*10)].FSN_TPID.split(' (')[0],'')}}</div>
                               <div class="fsn">TP ID : </div>
                               <div>{{dataID.TP[index+((page+1)*10)].TPID}}</div>
                             </md-card-header-text>
@@ -383,7 +383,7 @@
                           <md-card-header>
                             <md-card-header-text>
                               <div class="fsn">TP Name : </div>
-                              <div><a :href="dataID.TP[index+((page+1)*10)].FSN_TPID.split(' ')[0]" target="_blank">{{dataID.TP[index+((page+1)*10)].FSN_TPID.split(' ')[0]}}</a>{{dataID.TP[index+((page+1)*10)].FSN_TPID.replace(dataID.TP[index+((page+1)*10)].FSN_TPID.split(' ')[0],'')}}</div>
+                              <div><a :href="dataID.TP[index+((page+1)*10)].FSN_TPID.split(' (')[0]" target="_blank">{{dataID.TP[index+((page+1)*10)].FSN_TPID.split(' (')[0]}}</a>{{dataID.TP[index+((page+1)*10)].FSN_TPID.replace(dataID.TP[index+((page+1)*10)].FSN_TPID.split(' (')[0],'')}}</div>
                               <div class="fsn">TP ID : </div>
                               <div>{{dataID.TP[index+((page+1)*10)].TPID}}</div>
                             </md-card-header-text>
@@ -399,7 +399,7 @@
                           <md-card-header>
                             <md-card-header-text>
                               <div class="fsn">TP Name : </div>
-                              <div><a :href="dataID.TP[index+(page*10)].FSN_TPID.split(' ')[0]" target="_blank">{{dataID.TP[index+(page*10)].FSN_TPID.split(' ')[0]}}</a>{{dataID.TP[index+(page*10)].FSN_TPID.replace(dataID.TP[index+(page*10)].FSN_TPID.split(' ')[0],'')}}</div>
+                              <div><a :href="dataID.TP[index+(page*10)].FSN_TPID.split(' (')[0]" target="_blank">{{dataID.TP[index+(page*10)].FSN_TPID.split(' (')[0]}}</a>{{dataID.TP[index+(page*10)].FSN_TPID.replace(dataID.TP[index+(page*10)].FSN_TPID.split(' (')[0],'')}}</div>
                               <div class="fsn">TP ID : </div>
                               <div>{{dataID.TP[index+(page*10)].TPID}}</div>
                             </md-card-header-text>
@@ -407,13 +407,13 @@
                         </md-card>
                       </div>
 
-                      <div v-if="((parseInt(dataID.TPU.length/10)-1) > 0) && (dataID.TP.length%10 == 0) && (parseInt(dataID.TP.length/10) > 1)" v-for="(value,page) in (parseInt(dataID.TP.length/10)) "
+                      <div v-if="((parseInt(dataID.TP.length/10)-1) > 0) && (dataID.TP.length%10 == 0) && (parseInt(dataID.TP.length/10) > 1)" v-for="(value,page) in (parseInt(dataID.TP.length/10)) "
                         :key="page+1" :id="'tp'+(value+1)" class="tab-pane fade">
                         <md-card v-if="page != 0" v-for="(value2,index) in 10" :key="index">
                           <md-card-header>
                             <md-card-header-text>
                               <div class="fsn">TP Name : </div>
-                              <div><a :href="dataID.TP[index+(page*10)].FSN_TPID.split(' ')[0]" target="_blank">{{dataID.TP[index+(page*10)].FSN_TPID.split(' ')[0]}}</a>{{dataID.TP[index+(page*10)].FSN_TPID.replace(dataID.TP[index+(page*10)].FSN_TPID.split(' ')[0],'')}}</div>
+                              <div><a :href="dataID.TP[index+(page*10)].FSN_TPID.split(' (')[0]" target="_blank">{{dataID.TP[index+(page*10)].FSN_TPID.split(' (')[0]}}</a>{{dataID.TP[index+(page*10)].FSN_TPID.replace(dataID.TP[index+(page*10)].FSN_TPID.split(' (')[0],'')}}</div>
                               <div class="fsn">TP ID : </div>
                               <div>{{dataID.TP[index+(page*10)].TPID}}</div>
                             </md-card-header-text>
@@ -446,7 +446,7 @@
                           <md-card-header>
                             <md-card-header-text>
                               <div class="fsn">TPU Name : </div>
-                              <div><a :href="dataID.TPU[index].FSN_TPUID.split(' ')[0]" target="_blank">{{dataID.TPU[index].FSN_TPUID.split(' ')[0]}}</a>{{dataID.TPU[index].FSN_TPUID.replace(dataID.TPU[index].FSN_TPUID.split(' ')[0],'')}}</div>
+                              <div><a :href="dataID.TPU[index].FSN_TPUID.split(' (')[0]" target="_blank">{{dataID.TPU[index].FSN_TPUID.split(' (')[0]}}</a>{{dataID.TPU[index].FSN_TPUID.replace(dataID.TPU[index].FSN_TPUID.split(' (')[0],'')}}</div>
                               <div class="fsn">TPU ID : </div>
                               <div>{{dataID.TPU[index].TPUID}}</div>
                             </md-card-header-text>
@@ -458,7 +458,7 @@
                           <md-card-header>
                             <md-card-header-text>
                               <div class="fsn">TPU Name : </div>
-                              <div><a :href="dataID.TPU[index+(page*10)].FSN_TPUID.split(' ')[0]" target="_blank">{{dataID.TPU[index+(page*10)].FSN_TPUID.split(' ')[0]}}</a>{{dataID.TPU[index+(page*10)].FSN_TPUID.replace(dataID.TPU[index+(page*10)].FSN_TPUID.split(' ')[0],'')}}</div>
+                              <div><a :href="dataID.TPU[index+(page*10)].FSN_TPUID.split(' (')[0]" target="_blank">{{dataID.TPU[index+(page*10)].FSN_TPUID.split(' (')[0]}}</a>{{dataID.TPU[index+(page*10)].FSN_TPUID.replace(dataID.TPU[index+(page*10)].FSN_TPUID.split(' (')[0],'')}}</div>
                               <div class="fsn">TPU ID : </div>
                               <div>{{dataID.TPU[index+(page*10)].TPUID}}</div>
                             </md-card-header-text>
@@ -466,14 +466,14 @@
                         </md-card>
                       </div>
 
-                      <div v-if="dataID.TPU.length%10 != 0 && parseInt(dataID.GP.length/10) > 0" v-for="(value,page) in parseInt(dataID.TPU.length/10)"
+                      <div v-if="dataID.TPU.length%10 != 0 && parseInt(dataID.TPU.length/10) > 0" v-for="(value,page) in parseInt(dataID.TPU.length/10)"
                         :key="page+1" :id="'tpu'+(value+1)" class="tab-pane fade">
 
                         <md-card v-if="parseInt(dataID.TPU.length/10) != (page+1)" v-for="(value2,index) in 10" :key="index">
                           <md-card-header>
                             <md-card-header-text>
                               <div class="fsn">TPU Name : </div>
-                              <div><a :href="dataID.TPU[index+((page+1)*10)].FSN_TPUID.split(' ')[0]" target="_blank">{{dataID.TPU[index+((page+1)*10)].FSN_TPUID.split(' ')[0]}}</a>{{dataID.TPU[index+((page+1)*10)].FSN_TPUID.replace(dataID.TPU[index+((page+1)*10)].FSN_TPUID.split(' ')[0],'')}}</div>
+                              <div><a :href="dataID.TPU[index+((page+1)*10)].FSN_TPUID.split(' (')[0]" target="_blank">{{dataID.TPU[index+((page+1)*10)].FSN_TPUID.split(' (')[0]}}</a>{{dataID.TPU[index+((page+1)*10)].FSN_TPUID.replace(dataID.TPU[index+((page+1)*10)].FSN_TPUID.split(' (')[0],'')}}</div>
                               <div class="fsn">TPU ID : </div>
                               <div>{{dataID.TPU[index+((page+1)*10)].TPUID}}</div>
                             </md-card-header-text>
@@ -485,7 +485,7 @@
                           <md-card-header>
                             <md-card-header-text>
                               <div class="fsn">TPU Name : </div>
-                              <div><a :href="dataID.TPU[index+((page+1)*10)].FSN_TPUID.split(' ')[0]" target="_blank">{{dataID.TPU[index+((page+1)*10)].FSN_TPUID.split(' ')[0]}}</a>{{dataID.TPU[index+((page+1)*10)].FSN_TPUID.replace(dataID.TPU[index+((page+1)*10)].FSN_TPUID.split(' ')[0],'')}}</div>
+                              <div><a :href="dataID.TPU[index+((page+1)*10)].FSN_TPUID.split(' (')[0]" target="_blank">{{dataID.TPU[index+((page+1)*10)].FSN_TPUID.split(' (')[0]}}</a>{{dataID.TPU[index+((page+1)*10)].FSN_TPUID.replace(dataID.TPU[index+((page+1)*10)].FSN_TPUID.split(' (')[0],'')}}</div>
                               <div class="fsn">TPU ID : </div>
                               <div>{{dataID.TPU[index+((page+1)*10)].TPUID}}</div>
                             </md-card-header-text>
@@ -501,7 +501,7 @@
                           <md-card-header>
                             <md-card-header-text>
                               <div class="fsn">TPU Name : </div>
-                              <div><a :href="dataID.TPU[index+(page*10)].FSN_TPUID.split(' ')[0]" target="_blank">{{dataID.TPU[index+(page*10)].FSN_TPUID.split(' ')[0]}}</a>{{dataID.TPU[index+(page*10)].FSN_TPUID.replace(dataID.TPU[index+(page*10)].FSN_TPUID.split(' ')[0],'')}}</div>
+                              <div><a :href="dataID.TPU[index+(page*10)].FSN_TPUID.split(' (')[0]" target="_blank">{{dataID.TPU[index+(page*10)].FSN_TPUID.split(' (')[0]}}</a>{{dataID.TPU[index+(page*10)].FSN_TPUID.replace(dataID.TPU[index+(page*10)].FSN_TPUID.split(' (')[0],'')}}</div>
                               <div class="fsn">TPU ID : </div>
                               <div>{{dataID.TPU[index+(page*10)].TPUID}}</div>
                             </md-card-header-text>
@@ -515,7 +515,7 @@
                           <md-card-header>
                             <md-card-header-text>
                               <div class="fsn">TPU Name : </div>
-                              <div><a :href="dataID.TPU[index+(page*10)].FSN_TPUID.split(' ')[0]" target="_blank">{{dataID.TPU[index+(page*10)].FSN_TPUID.split(' ')[0]}}</a>{{dataID.TPU[index+(page*10)].FSN_TPUID.replace(dataID.TPU[index+(page*10)].FSN_TPUID.split(' ')[0],'')}}</div>
+                              <div><a :href="dataID.TPU[index+(page*10)].FSN_TPUID.split(' (')[0]" target="_blank">{{dataID.TPU[index+(page*10)].FSN_TPUID.split(' (')[0]}}</a>{{dataID.TPU[index+(page*10)].FSN_TPUID.replace(dataID.TPU[index+(page*10)].FSN_TPUID.split(' (')[0],'')}}</div>
                               <div class="fsn">TPU ID : </div>
                               <div>{{dataID.TPU[index+(page*10)].TPUID}}</div>
                             </md-card-header-text>
