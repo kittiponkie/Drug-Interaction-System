@@ -19,17 +19,17 @@
         </md-toolbar>
 
         <md-list class="delete_margin">
-          <md-list-item to="/Patient_information" class="unselected">
+          <md-list-item to="/Patient_information" class="selected">
             <md-icon style="margin-right:10px">account_circle</md-icon>
             <span class="md-list-item-text unselected_text">Patient Information</span>
           </md-list-item>
 
-          <md-list-item to="/Drug_History" class="selected">
+          <md-list-item to="/Drug_History" class="unselected">
             <md-icon style="margin-right:10px">folder_shared</md-icon>
-            <span class="md-list-item-text selected_text">Drug History</span>
+            <span class="md-list-item-text unselected_text">Drug History</span>
           </md-list-item>
 
-          <md-list-item to="/Drug_History" class="unselected">
+           <md-list-item to="/Drug_History" class="unselected">
             <md-icon style="margin-right:10px">person_add</md-icon>
             <span class="md-list-item-text selected_text">Friend</span>
           </md-list-item>
@@ -41,7 +41,7 @@
 
           <md-list-item to="/Drug_Interaction" class="unselected">
             <md-icon style="margin-right:10px">bubble_chart</md-icon>
-            <span class="md-list-item-text unselected_text">Drug Interaction</span>
+            <span class="md-list-item-text selected_text">Drug Interaction</span>
           </md-list-item>
 
           <md-list-item to="/login" class="unselected">
@@ -53,47 +53,82 @@
       </md-app-drawer>
 
       <!--content-->
-      <md-app-content>
-        <md-table v-model="searched" md-sort="name" md-sort-order="asc" md-card>
-          <md-table-toolbar>
-            <div class="md-toolbar-section-start">
-              <h1 class="md-title">Users Name</h1>
-            </div>
+      <md-app-content class="text_all">
+        <div class="col-lg-6" style="width:100%;">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3>Doctor id : xxxxxxx {{Doctorid}}</h3>
+              <br>
 
-            <md-field md-clearable class="md-toolbar-section-end">
-              <md-input placeholder="Search by drug name..." v-model="search" @input="searchOnTable" />
-            </md-field>
-          </md-table-toolbar>
-
-          <md-table-empty-state md-label="No users found" :md-description="`No drug name found for this '${search}' query. Try a different search term.`">
-          </md-table-empty-state>
-
-          <md-table-row slot="md-table-row" slot-scope="{ item }">
-            <md-table-cell md-label="ID" md-sort-by="id" md-numeric>{{ item.id }}</md-table-cell>
-            <md-table-cell md-label="Drug Name" md-sort-by="name">{{ item.name }}</md-table-cell>
-            <md-table-cell md-label="Doctor's Name" md-sort-by="email">{{ item.email }}</md-table-cell>
-            <md-table-cell md-label="Status" md-sort-by="gender">{{ item.gender }}</md-table-cell>
-            <md-table-cell md-label="Remark" md-sort-by="title">{{ item.title }}</md-table-cell>
-          </md-table-row>
-        </md-table>
-
-      </md-app-content>
-    </md-app>
+<!-- Doctor data -->
+<form>
+    <!--prefix-->
+  <div class="form-goup row">
+    <label for="prefix" class="col-sm-2 col-form-label">Prefix</label>
+    <div class="col-sm-10">
+    <input type="text" readonly class="form-control" id="prefix" value="MR.">
+  </div>
+  </div>
+  <br>
+  <!--name-->
+  <div class="form-group row">
+    <label for="name" class="col-sm-2 col-form-label">Name</label>
+    <div class="col-sm-10">
+      <input type="text" readonly class="form-control" id="namesurname" value="Naphatsorn">
+    </div> 
+  </div>
+  <!--surname-->
+  <div class="form-group row">
+    <label for="surname" class="col-sm-2 col-form-label">Surname</label>
+    <div class="col-sm-10">
+      <input type="text" readonly class="form-control" id="surname" value="Buarattanakarn">
+    </div> 
+  </div>
+  <!--license no.-->
+  <div class="form-group row">
+    <label for="licnumber" class="col-sm-2 col-form-label">License NO.</label>
+    <div class="col-sm-10">
+      <input type="text" readonly class="form-control" id="licnumber" value="NO.0009">
+    </div> 
+  </div>
+  <!--id card-->
+  <div class="form-group row">
+    <label for="idcard" class="col-sm-2 col-form-label">ID Card</label>
+    <div class="col-sm-10">
+      <input type="text" readonly class="form-control" id="card" value="1849900281533">
+    </div> 
+  </div>
+<!--sex-->
+  <div class="form-group row">
+    <label for="sex" class="col-sm-2 col-form-label">Sex</label>
+    <div class="col-sm-10">
+      <input type="text" readonly class="form-control" id="sex" value="Female">
+    </div> 
+  </div>
+   <!--nationality-->
+  <div class="form-group row">
+    <label for="nationality" class="col-sm-2 col-form-label">Nationality</label>
+    <div class="col-sm-10">
+      <input type="text" readonly class="form-control" id="nationality" value="Thai">
+    </div> 
+  </div>
+   <!--Religion-->
+  <div class="form-group row">
+    <label for="Religion" class="col-sm-2 col-form-label">Religion</label>
+    <div class="col-sm-10">
+      <input type="text" readonly class="form-control" id="Religion" value="Thai">
+    </div> 
+  </div>
+</form>
+      </div>
+</div>
+ </div>
+  </md-app-content>
+  </md-app>
   </div>
 </template>
 
 <script>
-// eslint-disable-next-line
- /* eslint-disable */
-const toLower = text => {
-    return text.toString().toLowerCase()
-  }
-  const searchByName = (items, term) => {
-    if (term) {
-      return items.filter(item => toLower(item.name).includes(toLower(term)))
-    }
-    return items
-  }
   import axios from 'axios'
   export default {
     name: 'Drug_Interaction',
@@ -105,45 +140,7 @@ const toLower = text => {
       found: false, //true when found data , false when don't have data from API
       rxcuiID: null, //ID of drug from API
       checkSearch: false, //true when you search something
-      loading: false, //true when you have to wait for call API  
-      search: null,
-      searched: [],
-      users: [{
-          id: 1,
-          name: "Acetaminophen",
-          email: "Shawna Dubbins",
-          gender: "Using",
-          title: "-"
-        },
-        {
-          id: 2,
-          name: "Omeprazole",
-          email: "Odette Demageard",
-          gender: "Using",
-          title: "-"
-        },
-        {
-          id: 3,
-          name: "Tramadol",
-          email: "Vera Taleworth",
-          gender: "Using",
-          title: "Community Outreach Specialist"
-        },
-        {
-          id: 4,
-          name: "Tramadol",
-          email: "Lonnie Izkovitz",
-          gender: "Stopped using",
-          title: "Operator"
-        },
-        {
-          id: 5,
-          name: "Acetaminophen",
-          email: "Thatcher Stave",
-          gender: "Stopped using",
-          title: "-"
-        }
-      ]
+      loading: false //true when you have to wait for call API
     }),
     methods: {
       //toggle visible menu
@@ -188,16 +185,10 @@ const toLower = text => {
         this.found = false
         this.drugList = null
         this.checkSearch = false
-      },
-      searchOnTable () {
-        this.searched = searchByName(this.users, this.search)
       }
     },
     async mounted() {
       this.Window_Width = window.innerWidth
-    },
-    created () {
-      this.searched = this.users
     }
   }
 
@@ -225,7 +216,8 @@ const toLower = text => {
   }
 
   .md-field {
-    max-width: 300px;
+    max-width: calc(100% - 110px);
+    overflow: auto;
   }
 
   .textSearch {
@@ -267,10 +259,7 @@ const toLower = text => {
   .unselected_text {
     color: black;
   }
-  .md-content md-app-content md-flex md-theme-default{
+  .md-content md-app-content md-flex text_all md-theme-default{
     padding-top: 23px;
-  }
-  .md-drawer md-app-drawer menu_color md-theme-default md-left md-permanent md-permanent-card{
-    padding-top: 20px;
   }
 </style>

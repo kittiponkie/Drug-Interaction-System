@@ -12,6 +12,7 @@ import Drug_History from '@/components/Drug_History'
 import Patient_information from '@/components/Patient_information'
 import login from '@/components/login'
 import Regisform from '@/components/Regisform'
+import Doctor_Information from '@/components/Doctor_Information'
 Vue.use(Router)
 
 export default new Router({
@@ -76,6 +77,11 @@ export default new Router({
       path: '/Regisform',
       name: 'Regisform',
       component: Regisform
+    },
+    {
+      path: '/Doctor_Information',
+      name: 'Doctor_Information',
+      component: Doctor_Information
     }
   ]
 })
