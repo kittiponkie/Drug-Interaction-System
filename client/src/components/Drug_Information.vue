@@ -141,7 +141,7 @@
                           <md-card-header>
                             <md-card-header-text>
                               <div class="fsn">GP Name : </div>
-                              <div>{{dataID.GP[index].FSN_GPID}}</div>
+                              <div><a :href="dataID.GP[index].FSN_GPID.split(' ')[0]" target="_blank">{{dataID.GP[index].FSN_GPID.split(' ')[0]}}</a>{{dataID.GP[index].FSN_GPID.replace(dataID.GP[index].FSN_GPID.split(' ')[0],'')}}</div>
                               <div class="fsn">GP ID : </div>
                               <div>{{dataID.GP[index].GPID}}</div>
                             </md-card-header-text>
@@ -153,7 +153,7 @@
                           <md-card-header>
                             <md-card-header-text>
                               <div class="fsn">GP Name : </div>
-                              <div>{{dataID.GP[index+(page*10)].FSN_GPID}}</div>
+                              <div><a :href="dataID.GP[index].FSN_GPID.split(' ')[0]" target="_blank">{{dataID.GP[index].FSN_GPID.split(' ')[0]}}</a>{{dataID.GP[index].FSN_GPID.replace(dataID.GP[index].FSN_GPID.split(' ')[0],'')}}</div>
                               <div class="fsn">GP ID : </div>
                               <div>{{dataID.GP[index+(page*10)].GPID}}</div>
                             </md-card-header-text>
@@ -168,7 +168,7 @@
                           <md-card-header>
                             <md-card-header-text>
                               <div class="fsn">GP Name : </div>
-                              <div>{{dataID.GP[index+((page+1)*10)].FSN_GPID}}</div>
+                              <div><a :href="dataID.GP[index+((page+1)*10)].FSN_GPID.split(' ')[0]" target="_blank">{{dataID.GP[index+((page+1)*10)].FSN_GPID.split(' ')[0]}}</a>{{dataID.GP[index+((page+1)*10)].FSN_GPID.replace(dataID.GP[index+((page+1)*10)].FSN_GPID.split(' ')[0],'')}}</div>
                               <div class="fsn">GP ID : </div>
                               <div>{{dataID.GP[index+((page+1)*10)].GPID}}</div>
                             </md-card-header-text>
@@ -180,7 +180,7 @@
                           <md-card-header>
                             <md-card-header-text>
                               <div class="fsn">GP Name : </div>
-                              <div>{{dataID.GP[index+((page+1)*10)].FSN_GPID}}</div>
+                              <div><a :href="dataID.GP[index+((page+1)*10)].FSN_GPID.split(' ')[0]" target="_blank">{{dataID.GP[index+((page+1)*10)].FSN_GPID.split(' ')[0]}}</a>{{dataID.GP[index+((page+1)*10)].FSN_GPID.replace(dataID.GP[index+((page+1)*10)].FSN_GPID.split(' ')[0],'')}}</div>
                               <div class="fsn">GP ID : </div>
                               <div>{{dataID.GP[index+((page+1)*10)].GPID}}</div>
                             </md-card-header-text>
@@ -196,6 +196,7 @@
                           <md-card-header>
                             <md-card-header-text>
                               <div class="fsn">GP Name : </div>
+                              <div><a :href="dataID.GP[index+(page*10)].FSN_GPID.split(' ')[0]" target="_blank">{{dataID.GP[index+(page*10)].FSN_GPID.split(' ')[0]}}</a>{{dataID.GP[index+(page*10)].FSN_GPID.replace(dataID.GP[index+(page*10)].FSN_GPID.split(' ')[0],'')}}</div>
                               <div>{{dataID.GP[index+(page*10)].FSN_GPID}}</div>
                               <div class="fsn">GP ID : </div>
                               <div>{{dataID.GP[index+(page*10)].GPID}}</div>
@@ -210,7 +211,7 @@
                           <md-card-header>
                             <md-card-header-text>
                               <div class="fsn">GP Name : </div>
-                              <div>{{dataID.GP[index+(page*10)].FSN_GPID}}</div>
+                              <div><a :href="dataID.GP[index+(page*10)].FSN_GPID.split(' ')[0]" target="_blank">{{dataID.GP[index+(page*10)].FSN_GPID.split(' ')[0]}}</a>{{dataID.GP[index+(page*10)].FSN_GPID.replace(dataID.GP[index+(page*10)].FSN_GPID.split(' ')[0],'')}}</div>
                               <div class="fsn">GP ID : </div>
                               <div>{{dataID.GP[index+(page*10)].GPID}}</div>
                             </md-card-header-text>
@@ -243,7 +244,7 @@
                           <md-card-header>
                             <md-card-header-text>
                               <div class="fsn">GPU Name : </div>
-                              <div>{{dataID.GPU[index].FSN_GPUID}}</div>
+                              <div><a :href="dataID.GPU[index].FSN_GPUID.split(' ')[0]" target="_blank">{{dataID.GPU[index].FSN_GPUID.split(' ')[0]}}</a>{{dataID.GPU[index].FSN_GPUID.replace(dataID.GPU[index].FSN_GPUID.split(' ')[0],'')}}</div>
                               <div class="fsn">GPU ID : </div>
                               <div>{{dataID.GPU[index].GPUID}}</div>
                             </md-card-header-text>
@@ -255,7 +256,7 @@
                           <md-card-header>
                             <md-card-header-text>
                               <div class="fsn">GPU Name : </div>
-                              <div>{{dataID.GPU[index+(page*10)].FSN_GPUID}}</div>
+                              <div><a :href="dataID.GPU[index+(page*10)].FSN_GPUID.split(' ')[0]" target="_blank">{{dataID.GPU[index+(page*10)].FSN_GPUID.split(' ')[0]}}</a>{{dataID.GPU[index+(page*10)].FSN_GPUID.replace(dataID.GPU[index+(page*10)].FSN_GPUID.split(' ')[0],'')}}</div>
                               <div class="fsn">GPU ID : </div>
                               <div>{{dataID.GPU[index+(page*10)].GPUID}}</div>
                             </md-card-header-text>
@@ -270,7 +271,7 @@
                           <md-card-header>
                             <md-card-header-text>
                               <div class="fsn">GPU Name : </div>
-                              <div>{{dataID.GPU[index+((page+1)*10)].FSN_GPUID}}</div>
+                              <div><a :href="dataID.GPU[index+((page+1)*10)].FSN_GPUID.split(' ')[0]" target="_blank">{{dataID.GPU[index+((page+1)*10)].FSN_GPUID.split(' ')[0]}}</a>{{dataID.GPU[index+((page+1)*10)].FSN_GPUID.replace(dataID.GPU[index+((page+1)*10)].FSN_GPUID.split(' ')[0],'')}}</div>
                               <div class="fsn">GPU ID : </div>
                               <div>{{dataID.GPU[index+((page+1)*10)].GPUID}}</div>
                             </md-card-header-text>
@@ -282,7 +283,7 @@
                           <md-card-header>
                             <md-card-header-text>
                               <div class="fsn">GPU Name : </div>
-                              <div>{{dataID.GPU[index+((page+1)*10)].FSN_GPUID}}</div>
+                              <div><a :href="dataID.GPU[index+((page+1)*10)].FSN_GPUID.split(' ')[0]" target="_blank">{{dataID.GPU[index+((page+1)*10)].FSN_GPUID.split(' ')[0]}}</a>{{dataID.GPU[index+((page+1)*10)].FSN_GPUID.replace(dataID.GPU[index+((page+1)*10)].FSN_GPUID.split(' ')[0],'')}}</div>
                               <div class="fsn">GPU ID : </div>
                               <div>{{dataID.GPU[index+((page+1)*10)].GPUID}}</div>
                             </md-card-header-text>
@@ -298,7 +299,7 @@
                           <md-card-header>
                             <md-card-header-text>
                               <div class="fsn">GPU Name : </div>
-                              <div>{{dataID.GPU[index+(page*10)].FSN_GPUID}}</div>
+                              <div><a :href="dataID.GPU[index+(page*10)].FSN_GPUID.split(' ')[0]" target="_blank">{{dataID.GPU[index+(page*10)].FSN_GPUID.split(' ')[0]}}</a>{{dataID.GPU[index+(page*10)].FSN_GPUID.replace(dataID.GPU[index+(page*10)].FSN_GPUID.split(' ')[0],'')}}</div>
                               <div class="fsn">GPU ID : </div>
                               <div>{{dataID.GPU[index+(page*10)].GPUID}}</div>
                             </md-card-header-text>
@@ -312,7 +313,7 @@
                           <md-card-header>
                             <md-card-header-text>
                               <div class="fsn">GPU Name : </div>
-                              <div>{{dataID.GPU[index+(page*10)].FSN_GPUID}}</div>
+                              <div><a :href="dataID.GPU[index+(page*10)].FSN_GPUID.split(' ')[0]" target="_blank">{{dataID.GPU[index+(page*10)].FSN_GPUID.split(' ')[0]}}</a>{{dataID.GPU[index+(page*10)].FSN_GPUID.replace(dataID.GPU[index+(page*10)].FSN_GPUID.split(' ')[0],'')}}</div>
                               <div class="fsn">GPU ID : </div>
                               <div>{{dataID.GPU[index+(page*10)].GPUID}}</div>
                             </md-card-header-text>
@@ -343,7 +344,7 @@
                           <md-card-header>
                             <md-card-header-text>
                               <div class="fsn">TP Name : </div>
-                              <div>{{dataID.TP[index].FSN_TPID}}</div>
+                              <div><a :href="dataID.TP[index].FSN_TPID.split(' ')[0]" target="_blank">{{dataID.TP[index].FSN_TPID.split(' ')[0]}}</a>{{dataID.TP[index].FSN_TPID.replace(dataID.TP[index].FSN_TPID.split(' ')[0],'')}}</div>
                               <div class="fsn">TP ID : </div>
                               <div>{{dataID.TP[index].TPID}}</div>
                             </md-card-header-text>
@@ -355,7 +356,7 @@
                           <md-card-header>
                             <md-card-header-text>
                               <div class="fsn">TP Name : </div>
-                              <div>{{dataID.TP[index+(page*10)].FSN_TPID}}</div>
+                              <div><a :href="dataID.TP[index+(page*10)].FSN_TPID.split(' ')[0]" target="_blank">{{dataID.TP[index+(page*10)].FSN_TPID.split(' ')[0]}}</a>{{dataID.TP[index+(page*10)].FSN_TPID.replace(dataID.TP[index+(page*10)].FSN_TPID.split(' ')[0],'')}}</div>
                               <div class="fsn">TP ID : </div>
                               <div>{{dataID.TP[index+(page*10)].TPID}}</div>
                             </md-card-header-text>
@@ -370,7 +371,7 @@
                           <md-card-header>
                             <md-card-header-text>
                               <div class="fsn">TP Name : </div>
-                              <div>{{dataID.TP[index+((page+1)*10)].FSN_TPID}}</div>
+                              <div><a :href="dataID.TP[index+((page+1)*10)].FSN_TPID.split(' ')[0]" target="_blank">{{dataID.TP[index+((page+1)*10)].FSN_TPID.split(' ')[0]}}</a>{{dataID.TP[index+((page+1)*10)].FSN_TPID.replace(dataID.TP[index+((page+1)*10)].FSN_TPID.split(' ')[0],'')}}</div>
                               <div class="fsn">TP ID : </div>
                               <div>{{dataID.TP[index+((page+1)*10)].TPID}}</div>
                             </md-card-header-text>
@@ -382,7 +383,7 @@
                           <md-card-header>
                             <md-card-header-text>
                               <div class="fsn">TP Name : </div>
-                              <div>{{dataID.TP[index+((page+1)*10)].FSN_TPID}}</div>
+                              <div><a :href="dataID.TP[index+((page+1)*10)].FSN_TPID.split(' ')[0]" target="_blank">{{dataID.TP[index+((page+1)*10)].FSN_TPID.split(' ')[0]}}</a>{{dataID.TP[index+((page+1)*10)].FSN_TPID.replace(dataID.TP[index+((page+1)*10)].FSN_TPID.split(' ')[0],'')}}</div>
                               <div class="fsn">TP ID : </div>
                               <div>{{dataID.TP[index+((page+1)*10)].TPID}}</div>
                             </md-card-header-text>
@@ -398,7 +399,7 @@
                           <md-card-header>
                             <md-card-header-text>
                               <div class="fsn">TP Name : </div>
-                              <div>{{dataID.TP[index+(page*10)].FSN_TPID}}</div>
+                              <div><a :href="dataID.TP[index+(page*10)].FSN_TPID.split(' ')[0]" target="_blank">{{dataID.TP[index+(page*10)].FSN_TPID.split(' ')[0]}}</a>{{dataID.TP[index+(page*10)].FSN_TPID.replace(dataID.TP[index+(page*10)].FSN_TPID.split(' ')[0],'')}}</div>
                               <div class="fsn">TP ID : </div>
                               <div>{{dataID.TP[index+(page*10)].TPID}}</div>
                             </md-card-header-text>
@@ -412,7 +413,7 @@
                           <md-card-header>
                             <md-card-header-text>
                               <div class="fsn">TP Name : </div>
-                              <div>{{dataID.TP[index+(page*10)].FSN_TPID}}</div>
+                              <div><a :href="dataID.TP[index+(page*10)].FSN_TPID.split(' ')[0]" target="_blank">{{dataID.TP[index+(page*10)].FSN_TPID.split(' ')[0]}}</a>{{dataID.TP[index+(page*10)].FSN_TPID.replace(dataID.TP[index+(page*10)].FSN_TPID.split(' ')[0],'')}}</div>
                               <div class="fsn">TP ID : </div>
                               <div>{{dataID.TP[index+(page*10)].TPID}}</div>
                             </md-card-header-text>
@@ -445,7 +446,7 @@
                           <md-card-header>
                             <md-card-header-text>
                               <div class="fsn">TPU Name : </div>
-                              <div>{{dataID.TPU[index].FSN_TPUID}}</div>
+                              <div><a :href="dataID.TPU[index].FSN_TPUID.split(' ')[0]" target="_blank">{{dataID.TPU[index].FSN_TPUID.split(' ')[0]}}</a>{{dataID.TPU[index].FSN_TPUID.replace(dataID.TPU[index].FSN_TPUID.split(' ')[0],'')}}</div>
                               <div class="fsn">TPU ID : </div>
                               <div>{{dataID.TPU[index].TPUID}}</div>
                             </md-card-header-text>
@@ -457,7 +458,7 @@
                           <md-card-header>
                             <md-card-header-text>
                               <div class="fsn">TPU Name : </div>
-                              <div>{{dataID.TPU[index+(page*10)].FSN_TPUID}}</div>
+                              <div><a :href="dataID.TPU[index+(page*10)].FSN_TPUID.split(' ')[0]" target="_blank">{{dataID.TPU[index+(page*10)].FSN_TPUID.split(' ')[0]}}</a>{{dataID.TPU[index+(page*10)].FSN_TPUID.replace(dataID.TPU[index+(page*10)].FSN_TPUID.split(' ')[0],'')}}</div>
                               <div class="fsn">TPU ID : </div>
                               <div>{{dataID.TPU[index+(page*10)].TPUID}}</div>
                             </md-card-header-text>
@@ -472,7 +473,7 @@
                           <md-card-header>
                             <md-card-header-text>
                               <div class="fsn">TPU Name : </div>
-                              <div>{{dataID.TPU[index+((page+1)*10)].FSN_TPUID}}</div>
+                              <div><a :href="dataID.TPU[index+((page+1)*10)].FSN_TPUID.split(' ')[0]" target="_blank">{{dataID.TPU[index+((page+1)*10)].FSN_TPUID.split(' ')[0]}}</a>{{dataID.TPU[index+((page+1)*10)].FSN_TPUID.replace(dataID.TPU[index+((page+1)*10)].FSN_TPUID.split(' ')[0],'')}}</div>
                               <div class="fsn">TPU ID : </div>
                               <div>{{dataID.TPU[index+((page+1)*10)].TPUID}}</div>
                             </md-card-header-text>
@@ -484,7 +485,7 @@
                           <md-card-header>
                             <md-card-header-text>
                               <div class="fsn">TPU Name : </div>
-                              <div>{{dataID.TPU[index+((page+1)*10)].FSN_TPUID}}</div>
+                              <div><a :href="dataID.TPU[index+((page+1)*10)].FSN_TPUID.split(' ')[0]" target="_blank">{{dataID.TPU[index+((page+1)*10)].FSN_TPUID.split(' ')[0]}}</a>{{dataID.TPU[index+((page+1)*10)].FSN_TPUID.replace(dataID.TPU[index+((page+1)*10)].FSN_TPUID.split(' ')[0],'')}}</div>
                               <div class="fsn">TPU ID : </div>
                               <div>{{dataID.TPU[index+((page+1)*10)].TPUID}}</div>
                             </md-card-header-text>
@@ -500,7 +501,7 @@
                           <md-card-header>
                             <md-card-header-text>
                               <div class="fsn">TPU Name : </div>
-                              <div>{{dataID.TPU[index+(page*10)].FSN_TPUID}}</div>
+                              <div><a :href="dataID.TPU[index+(page*10)].FSN_TPUID.split(' ')[0]" target="_blank">{{dataID.TPU[index+(page*10)].FSN_TPUID.split(' ')[0]}}</a>{{dataID.TPU[index+(page*10)].FSN_TPUID.replace(dataID.TPU[index+(page*10)].FSN_TPUID.split(' ')[0],'')}}</div>
                               <div class="fsn">TPU ID : </div>
                               <div>{{dataID.TPU[index+(page*10)].TPUID}}</div>
                             </md-card-header-text>
@@ -514,7 +515,7 @@
                           <md-card-header>
                             <md-card-header-text>
                               <div class="fsn">TPU Name : </div>
-                              <div>{{dataID.TPU[index+(page*10)].FSN_TPUID}}</div>
+                              <div><a :href="dataID.TPU[index+(page*10)].FSN_TPUID.split(' ')[0]" target="_blank">{{dataID.TPU[index+(page*10)].FSN_TPUID.split(' ')[0]}}</a>{{dataID.TPU[index+(page*10)].FSN_TPUID.replace(dataID.TPU[index+(page*10)].FSN_TPUID.split(' ')[0],'')}}</div>
                               <div class="fsn">TPU ID : </div>
                               <div>{{dataID.TPU[index+(page*10)].TPUID}}</div>
                             </md-card-header-text>
@@ -646,6 +647,15 @@
           }
           else {
             console.log("test2"+Response.data.GP+"x")
+            //for(var i=0 ;i<this.dataID.GP.length;i++) {
+              //var x = this.dataID.GP[i].FSN_GPID.split(' ')
+             // console.log(i+' '+ this.dataID.GP[i].FSN_GPID.replace(this.dataID.GP[i].FSN_GPID.split(' ')[0],''))
+             //if(x.length >1){
+              //  x[1] = this.dataID.GP[i].FSN_GPID
+             // }
+           // }
+            //this.dataID.TPU[index+(page*10)].FSN_TPUID
+
             this.found2 =true
             this.loading2 = false
           }
@@ -676,13 +686,15 @@
                 this.found = true
                 this.loading = false
               }
-            });
+
+
+            });           
         }
 
         
       },
       change() {
-        console.log(this.drugName)
+        console.log('Drug that search is '+this.drugName)      
         this.searchFinish = false
         this.loading = false
         this.loading2 = false
@@ -694,7 +706,11 @@
     },
     async mounted() {
       this.Window_Width = window.innerWidth
-      
+      if(this.$route.params.drugname != null){
+        this.drugName = this.$route.params.drugname
+        await this.change()
+        await this.getData()        
+      } 
     }
   }
 
