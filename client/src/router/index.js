@@ -13,6 +13,7 @@ import Patient_information from '@/components/Patient_information'
 import login from '@/components/login'
 import Regisform from '@/components/Regisform'
 import Doctor_Information from '@/components/Doctor_Information'
+import Admin_Accept from '@/components/Admin_Accept'
 Vue.use(Router)
 
 export default new Router({
@@ -82,6 +83,11 @@ export default new Router({
       path: '/Doctor_Information',
       name: 'Doctor_Information',
       component: Doctor_Information
+    },
+    {
+      path: '/Admin_Accept',
+      name: 'Admin_Accept',
+      component: Admin_Accept
     }
   ]
 })

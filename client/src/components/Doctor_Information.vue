@@ -66,7 +66,7 @@
   <div class="form-goup row">
     <label for="prefix" class="col-sm-2 col-form-label">Prefix</label>
     <div class="col-sm-10">
-    <input type="text" readonly class="form-control" id="prefix" value="MR.">
+    <input type="text" readonly class="form-control" id="prefix" value="Ms.">
   </div>
   </div>
   <br>
@@ -84,18 +84,18 @@
       <input type="text" readonly class="form-control" id="surname" value="Buarattanakarn">
     </div> 
   </div>
-  <!--license no.-->
+   <!--Affiliation-->
   <div class="form-group row">
-    <label for="licnumber" class="col-sm-2 col-form-label">License NO.</label>
+    <label for="Affiliation" class="col-sm-2 col-form-label">Affiliation</label>
     <div class="col-sm-10">
-      <input type="text" readonly class="form-control" id="licnumber" value="NO.0009">
+      <input type="text" readonly class="form-control" id="Affiliation" value="Rama hospital">
     </div> 
   </div>
-  <!--id card-->
+  <!--ward-->
   <div class="form-group row">
-    <label for="idcard" class="col-sm-2 col-form-label">ID Card</label>
+    <label for="ward" class="col-sm-2 col-form-label">Ward</label>
     <div class="col-sm-10">
-      <input type="text" readonly class="form-control" id="card" value="1849900281533">
+      <input type="text" readonly class="form-control" id="ward" value="xxxxxxxx">
     </div> 
   </div>
 <!--sex-->
@@ -105,18 +105,25 @@
       <input type="text" readonly class="form-control" id="sex" value="Female">
     </div> 
   </div>
-   <!--nationality-->
+  <!--id card-->
   <div class="form-group row">
-    <label for="nationality" class="col-sm-2 col-form-label">Nationality</label>
+    <label for="idcard" class="col-sm-2 col-form-label">ID Card</label>
     <div class="col-sm-10">
-      <input type="text" readonly class="form-control" id="nationality" value="Thai">
+      <input type="text" readonly class="form-control" id="card" value="1849900281533">
     </div> 
   </div>
-   <!--Religion-->
+   <!--Address-->
   <div class="form-group row">
-    <label for="Religion" class="col-sm-2 col-form-label">Religion</label>
+    <label for="Address" class="col-sm-2 col-form-label">Address</label>
     <div class="col-sm-10">
-      <input type="text" readonly class="form-control" id="Religion" value="Thai">
+      <input type="text" readonly class="form-control" id="Address" value="RC mansion room206 Phutthamonthon Sai 4 Road Salaya, Phutthamonthon Nakhonpathom, 73170 Thailand">
+    </div> 
+  </div>
+  <!--PhoneNumber-->
+  <div class="form-group row">
+    <label for="PhoneNumber" class="col-sm-2 col-form-label">Phone Number</label>
+    <div class="col-sm-10">
+      <input type="text" readonly class="form-control" id="PhoneNumber" value="0865076630">
     </div> 
   </div>
 </form>
