@@ -21,14 +21,14 @@
 							<span class="input-group-addon">
 							<span class="glyphicon glyphicon-lock"></span>
 							</span>
-							<input type="password" class="form-control" placeholder="Password" />
+							<input type="password" class="form-control" placeholder="Fill your Password" />
 						</div>
 
 					</div>
 
 					<div class="form-group text-center">
 						<button type="submit" class="btn btn-success btn-lg">Login</button>
-						<a href="components/forgotpassword" class="btn btn-link">forget Password?</a>
+						<a href="http://localhost:8080/components/forgotpassword" class="btn btn-link">forget Password?</a>
 					</div>
 
 				</form>

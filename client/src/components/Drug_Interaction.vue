@@ -29,6 +29,11 @@
             <span class="md-list-item-text unselected_text">Drug History</span>
           </md-list-item>
 
+          <md-list-item to="/Drug_History" class="unselected">
+            <md-icon style="margin-right:10px">person_add</md-icon>
+            <span class="md-list-item-text selected_text">Friend</span>
+          </md-list-item>
+
           <md-list-item to="/Drug_Information" class="unselected">
             <md-icon style="margin-right:10px">description</md-icon>
             <span class="md-list-item-text unselected_text">Drug Information</span>
