@@ -86,6 +86,7 @@ app.post('/post/PatientInfo', (req, res) => {
   var Sex = req.body.Sex
   var DOB = req.body.DOB
   var Age = req.body.Age
+  var Email = req.body.Email
   var Weight = req.body.Weight
   var Height = req.body.Height
   var IDcardNumber = req.body.IDcardNumber
@@ -105,6 +106,7 @@ app.post('/post/PatientInfo', (req, res) => {
     Sex: Sex,
     DOB: DOB,
     Age: Age,
+    Email: Email,
     Weight: Weight,
     Height: Height,
     IDcardNumber: IDcardNumber,
@@ -180,6 +182,7 @@ app.put("/update/PatientInfo/:Id", (req, res, next) => {
         if (req.body.Sex) { foundObject.Sex = req.body.Sex }
         if (req.body.DOB) { foundObject.DOB = req.body.DOB }
         if (req.body.Age) { foundObject.Age = req.body.Age }
+        if (req.body.Email) { foundObject.Age = req.body.Email }
         if (req.body.Weight) { foundObject.Weight = req.body.Weight }
         if (req.body.Height) { foundObject.Height = req.body.Height }
         if (req.body.IDcardNumber) { foundObject.IDcardNumber = req.body.IDcardNumber }

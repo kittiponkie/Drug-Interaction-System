@@ -1,5 +1,5 @@
 <template>
-  <div class="posts">
+  <div class="PatientInfo">
     <h1>PatientInfo</h1>
     <div v-if="PatientInfo.length > 0" class="table-wrap">
       <div>
