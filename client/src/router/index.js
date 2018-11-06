@@ -6,6 +6,11 @@ import Posts from '@/components/Posts' // test mongo
 import NewPost from '@/components/NewPost' // test mongo
 import EditPost from '@/components/EditPost' // test mongo
 import interaction from '@/components/interaction' // not use
+
+import PatientInfo from '@/components/PatientInfo' // mongo
+import NewPatient from '@/components/NewPatient' // test mongo
+import EditPatient from '@/components/EditPatient' // test mongo
+
 import Drug_Interaction from '@/components/Drug_Interaction'
 import Drug_Information from '@/components/Drug_Information'
 import Drug_History from '@/components/Drug_History'
@@ -46,14 +51,29 @@ export default new Router({
       component: Posts
     },
     {
+      path: '/PatientInfo',
+      name: 'PatientInfo',
+      component: PatientInfo
+    },
+    {
       path: '/posts/new',
       name: 'NewPost',
       component: NewPost
     },
     {
+      path: '/PatientInfo/new',
+      name: 'NewPatient',
+      component: NewPatient
+    },
+    {
       path: '/posts/:id',
       name: 'EditPost',
       component: EditPost
+    },
+    {
+      path: '/update/PatientInfo/:Id',
+      name: 'EditPatient',
+      component: EditPatient
     },
     {
       path: '/drug_info',

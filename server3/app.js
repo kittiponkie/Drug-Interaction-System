@@ -9,9 +9,7 @@ const orderRoutes = require("./api/routes/orders");
 
 
 mongoose.connect(
-  "mongodb://Win:"
-  + process.env.MONGO_ATLAS_PW 
-  +"@cluster0-shard-00-00-koz3g.mongodb.net:27017,cluster0-shard-00-01-koz3g.mongodb.net:27017,cluster0-shard-00-02-koz3g.mongodb.net:27017/DrugInteraction?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true",
+  "mongodb://Win:winwin@cluster0-shard-00-00-koz3g.mongodb.net:27017,cluster0-shard-00-01-koz3g.mongodb.net:27017,cluster0-shard-00-02-koz3g.mongodb.net:27017/DrugInteraction?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true",
   {
     useMongoClient: true
   }
@@ -45,6 +43,7 @@ app.use("/Patient", PatientRoutes);
 app.use("/orders", orderRoutes);
 
 app.use((req, res, next) => {
+  console.log("error")
   const error = new Error("Not found");
   error.status = 404;
   next(error);
