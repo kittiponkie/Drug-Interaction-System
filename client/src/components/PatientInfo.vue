@@ -1,6 +1,6 @@
 <template>
   <div class="PatientInfo">
-    <h1>PatientInfo</h1>
+    <h1>{{PatientInfo}}</h1>
     <div v-if="PatientInfo.length > 0" class="table-wrap">
       <div>
         <router-link v-bind:to="{ name: 'NewPatient' }" class="">Add Patient</router-link>
