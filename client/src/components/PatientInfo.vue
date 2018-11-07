@@ -47,6 +47,7 @@ export default {
     async getPatient() {
       const response = await PostsService.fetchPatient()
       this.PatientInfo = response.data.PatientInfo
+      console.log(this.PatientInfo)
     },
     async deletePatient(id) {
       await PostsService.deletePatient(id)

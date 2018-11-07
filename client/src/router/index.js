@@ -10,6 +10,7 @@ import interaction from '@/components/interaction' // not use
 import PatientInfo from '@/components/PatientInfo' // mongo
 import NewPatient from '@/components/NewPatient' // test mongo
 import EditPatient from '@/components/EditPatient' // test mongo
+import test from '@/components/test' 
 
 import Drug_Interaction from '@/components/Drug_Interaction'
 import Drug_Information from '@/components/Drug_Information'
@@ -54,6 +55,11 @@ export default new Router({
       path: '/PatientInfo',
       name: 'PatientInfo',
       component: PatientInfo
+    },
+    {
+      path: '/test',
+      name: 'test',
+      component: test
     },
     {
       path: '/posts/new',
