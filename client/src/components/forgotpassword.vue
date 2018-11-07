@@ -24,14 +24,9 @@
             <span class="md-list-item-text unselected_text">Patient Information</span>
           </md-list-item>
 
-          <md-list-item to="/Drug_History" class="selected">
-            <md-icon style="margin-right:10px">folder_shared</md-icon>
-            <span class="md-list-item-text selected_text">Drug History</span>
-          </md-list-item>
-
           <md-list-item to="/Drug_History" class="unselected">
-            <md-icon style="margin-right:10px">person_add</md-icon>
-            <span class="md-list-item-text selected_text">Friend</span>
+            <md-icon style="margin-right:10px">folder_shared</md-icon>
+            <span class="md-list-item-text unselected_text">Drug History</span>
           </md-list-item>
 
           <md-list-item to="/Drug_Information" class="unselected">
@@ -39,9 +34,9 @@
             <span class="md-list-item-text unselected_text">Drug Information</span>
           </md-list-item>
 
-          <md-list-item to="/Drug_Interaction" class="unselected">
+          <md-list-item to="/Drug_Interaction" class="selected">
             <md-icon style="margin-right:10px">bubble_chart</md-icon>
-            <span class="md-list-item-text unselected_text">Drug Interaction</span>
+            <span class="md-list-item-text selected_text">Drug Interaction</span>
           </md-list-item>
 
           <md-list-item to="/login" class="unselected">
@@ -53,50 +48,80 @@
       </md-app-drawer>
 
       <!--content-->
-      <md-app-content>
-        <md-table v-model="searched" md-sort="name" md-sort-order="asc" md-card>
-          <md-table-toolbar>
-            <div class="md-toolbar-section-start">
-              <h1 class="md-title">Users Name</h1>
+      <md-app-content class="text_all">
+        <div class="col-lg-6" style="width:100%;">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3>Drug Name : {{drugName}}</h3>
+              <!-- search -->
+              <form v-on:submit.prevent="getData">
+                <md-field md-clearable class="md-toolbar-section-end textSearch">
+                  <md-input placeholder="Search by Drug name..." v-model="drugName" @input="change"></md-input>
+                </md-field>
+                <md-button type="submit" class="md-raised buttonSearch">search</md-button>
+              </form>
+              <br>
             </div>
+            <!--data-->
+            <div class="panel-body" v-if="found">
+              <table class="table table-condensed" style="border-collapse:collapse;">
+                <thead>
+                  <tr>
+                    <th>&nbsp;</th>
+                    <th>Drug Name</th>
+                  </tr>
+                </thead>
+                <tbody v-for="(value,index) in drugList" :key="index">
+                  <tr data-toggle="collapse" :data-target="'#row'+index" class="accordion-toggle">
+                    <td><button class="btn btn-default btn-xs"><span class="glyphicon glyphicon-triangle-bottom"></span></button></td>
+                    <td>{{value.interactionConcept[1].minConceptItem.name}}</td>
+                  </tr>
+                  <tr>
+                    <td colspan="12" class="hiddenRow">
+                      <div class="accordian-body collapse" :id="'row'+index">
+                        <br>
+                  <tr>
+                   <b> RXCUI ID :</b> {{value.interactionConcept[1].minConceptItem.rxcui}}
+                  </tr>
+                  <br>
+                  <tr>
+                   <b> Generic Drug Name :</b> {{value.interactionConcept[1].minConceptItem.name}}
+                  </tr>
+                  <br>
+                  <tr>
+                  <b>  Interaction Description :</b> {{value.description}}
+                  </tr>
+                  <br>
+                  <tr>
+                   <b> Severity :</b> {{value.severity}}
+                  </tr>
+                  <br>
+            </div>
+            </td>
+            </tr>
+            </tbody>
+            </table>
+          </div>
+          <!--empty state-->
+          <div class="panel-body " v-else-if="!found && checkSearch">
+            <md-empty-state md-label="Not found" :md-description="`No drug found for this query.  Please Try again.`">
+            </md-empty-state>
+          </div>
+          <!-- loading-->
+          <div class="panel-body " v-else-if="loading">
+            <md-empty-state md-label="Loading" :md-description="`Please wait a second`">
+              <md-progress-spinner md-mode="indeterminate"></md-progress-spinner>
+            </md-empty-state>
+          </div>
+        </div>
+  </div>
 
-            <md-field md-clearable class="md-toolbar-section-end">
-              <md-input placeholder="Search by drug name..." v-model="search" @input="searchOnTable" />
-            </md-field>
-          </md-table-toolbar>
-
-          <md-table-empty-state md-label="No users found" :md-description="`No drug name found for this '${search}' query. Try a different search term.`">
-          </md-table-empty-state>
-
-          <md-table-row slot="md-table-row" slot-scope="{ item }">
-            <md-table-cell md-label="ID" md-sort-by="id" md-numeric>{{ item.id }}</md-table-cell>
-            <md-table-cell md-label="Drug Name" md-sort-by="name">{{ item.name }}</md-table-cell>
-            <md-table-cell md-label="Doctor's Name" md-sort-by="email">{{ item.email }}</md-table-cell>
-            <md-table-cell md-label="Status" md-sort-by="gender">{{ item.gender }}</md-table-cell>
-            <md-table-cell md-label="Remark" md-sort-by="title">{{ item.title }}</md-table-cell>
-          </md-table-row>
-        </md-table>
-<div>
-      {{test}}
-    </div>
-      </md-app-content>
-    </md-app>
-    
+  </md-app-content>
+  </md-app>
   </div>
 </template>
 
 <script>
-// eslint-disable-next-line 
-/* eslint-disable */
-const toLower = text => {
-    return text.toString().toLowerCase()
-  }
-  const searchByName = (items, term) => {
-    if (term) {
-      return items.filter(item => toLower(item.name).includes(toLower(term)))
-    }
-    return items
-  }
   import axios from 'axios'
   export default {
     name: 'Drug_Interaction',
@@ -108,46 +133,7 @@ const toLower = text => {
       found: false, //true when found data , false when don't have data from API
       rxcuiID: null, //ID of drug from API
       checkSearch: false, //true when you search something
-      loading: false, //true when you have to wait for call API  
-      search: null,
-      searched: [],
-      test:'nulaaaaaaaaaaaaaaaaaaaal',
-      users: [{
-          id: 1,
-          name: "Acetaminophen",
-          email: "Shawna Dubbins",
-          gender: "Using",
-          title: "-"
-        },
-        {
-          id: 2,
-          name: "Omeprazole",
-          email: "Odette Demageard",
-          gender: "Using",
-          title: "-"
-        },
-        {
-          id: 3,
-          name: "Tramadol",
-          email: "Vera Taleworth",
-          gender: "Using",
-          title: "Community Outreach Specialist"
-        },
-        {
-          id: 4,
-          name: "Tramadol",
-          email: "Lonnie Izkovitz",
-          gender: "Stopped using",
-          title: "Operator"
-        },
-        {
-          id: 5,
-          name: "Acetaminophen",
-          email: "Thatcher Stave",
-          gender: "Stopped using",
-          title: "-"
-        }
-      ]
+      loading: false //true when you have to wait for call API
     }),
     methods: {
       //toggle visible menu
@@ -192,22 +178,10 @@ const toLower = text => {
         this.found = false
         this.drugList = null
         this.checkSearch = false
-      },
-      searchOnTable () {
-        this.searched = searchByName(this.users, this.search)
       }
     },
     async mounted() {
       this.Window_Width = window.innerWidth
-      /*axios.get(
-              `http://localhost:8082/info/GP/paracetamol`)
-            .then(Response => {
-             this.test = Response
-            });*/
-        
-    },
-    created () {
-      this.searched = this.users
     }
   }
 
@@ -235,7 +209,8 @@ const toLower = text => {
   }
 
   .md-field {
-    max-width: 300px;
+    max-width: calc(100% - 110px);
+    overflow: auto;
   }
 
   .textSearch {
@@ -277,10 +252,7 @@ const toLower = text => {
   .unselected_text {
     color: black;
   }
-  .md-content md-app-content md-flex md-theme-default{
+  .md-content md-app-content md-flex text_all md-theme-default{
     padding-top: 23px;
-  }
-  .md-drawer md-app-drawer menu_color md-theme-default md-left md-permanent md-permanent-card{
-    padding-top: 20px;
   }
 </style>

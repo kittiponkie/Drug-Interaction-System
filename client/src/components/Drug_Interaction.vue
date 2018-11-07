@@ -29,6 +29,11 @@
             <span class="md-list-item-text unselected_text">Drug History</span>
           </md-list-item>
 
+          <md-list-item to="/Drug_History" class="unselected">
+            <md-icon style="margin-right:10px">person_add</md-icon>
+            <span class="md-list-item-text selected_text">Friend</span>
+          </md-list-item>
+
           <md-list-item to="/Drug_Information" class="unselected">
             <md-icon style="margin-right:10px">description</md-icon>
             <span class="md-list-item-text unselected_text">Drug Information</span>
@@ -37,6 +42,11 @@
           <md-list-item to="/Drug_Interaction" class="selected">
             <md-icon style="margin-right:10px">bubble_chart</md-icon>
             <span class="md-list-item-text selected_text">Drug Interaction</span>
+          </md-list-item>
+
+          <md-list-item to="/login" class="unselected">
+            <md-icon style="margin-right:10px">power_settings_new</md-icon>
+            <span class="md-list-item-text unselected_text">Logout</span>
           </md-list-item>
         </md-list>
       </md-app-drawer>
@@ -116,8 +126,6 @@
 </template>
 
 <script>
-// eslint-disable-next-line 
-/* eslint-disable */
   import axios from 'axios'
   export default {
     name: 'Drug_Interaction',
@@ -136,15 +144,22 @@
       toggleMenu() {
         this.menuVisible = !this.menuVisible
       },
-
       //get data from API
       async getData() {
         this.loading = true
         this.rxcui = null
         var checkfound = false
-        await axios.get(`http://localhost:8082/info/GP/paracetamol`).then(Response => {
-          this.test = Response
-          console.log(Response)
+        await axios.get(`https://rxnav.nlm.nih.gov/REST/rxcui?name=${this.drugName}`).then(Response => {
+          if (Response.data.idGroup.rxnormId == null) {
+            console.log('rxcui id is null')
+            this.found = false
+            this.checkSearch = true
+            this.loading = false
+          } else {
+            this.rxcui = Response.data.idGroup.rxnormId[0]
+            checkfound = true
+            console.log('rxcui ok')
+          }
         });
         if (checkfound == true) {
           await axios.get(
@@ -172,7 +187,6 @@
       this.Window_Width = window.innerWidth
     }
   }
-
 </script>
 
 <style lang="scss" scoped>
@@ -180,65 +194,50 @@
     height: calc(100vh);
     border: 1px solid rgba(#000, .12);
   }
-
   .md-drawer {
     width: 230px;
     max-width: calc(100vw - 125px);
   }
-
   .span_center {
     text-align: center;
     width: 100%;
     font-size: 14px;
   }
-
   .text_all {
     font-size: 14px;
   }
-
   .md-field {
     max-width: calc(100% - 110px);
     overflow: auto;
   }
-
   .textSearch {
     float: left;
   }
-
   .buttonSearch {
     margin-top: 16px;
   }
-
   .md-input {
     max-width: calc(100%);
   }
-
   .menu_color {
     background-color: #f1f1f1;
-
   }
-
   .delete_margin {
     width: 100%;
     background-color: #f1f1f1;
   }
-
   .selected {
     background-color: #5DBFA8;
     margin: 2px;
   }
-
   .unselected {
     background-color: #f1f1f1;
     margin: 2px;
   }
-
   .selected_text {
     color: black;
   }
-
   .unselected_text {
     color: black;
   }
-
 </style>

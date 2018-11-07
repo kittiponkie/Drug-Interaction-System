@@ -1,5 +1,19 @@
 import Vue from 'vue'
-import Router from 'vue-router'
+import VueRouter from 'vue-router'
+Vue.use(VueRouter)
+
+import VueMaterial from 'vue-material'
+import 'vue-material/dist/vue-material.min.css'
+import 'vue-material/dist/theme/black-green-light.css'
+Vue.use(VueMaterial)
+//import 'vue-material/dist/theme/black-green-dark.css'
+//import 'vue-material/dist/theme/default-dark.css'
+//import 'vue-material/dist/theme/default.css'
+
+import BootstrapVue from 'bootstrap-vue'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
+Vue.use(BootstrapVue);
+//import 'bootstrap/dist/css/bootstrap.css'  //conflict with other tool
 
 import HelloWorld from '@/components/HelloWorld' // not use
 import Posts from '@/components/Posts' // test mongo
@@ -15,20 +29,13 @@ import test from '@/components/test'
 import Drug_Interaction from '@/components/Drug_Interaction'
 import Drug_Information from '@/components/Drug_Information'
 import Drug_History from '@/components/Drug_History'
+import Patient_information from '@/components/Patient_information'
+import login from '@/components/login'
+import Regisform from '@/components/Regisform'
+import Doctor_Information from '@/components/Doctor_Information'
+import Admin_Accept from '@/components/Admin_Accept'
 
-// import Vue from 'vue'
-import VueMaterial from 'vue-material'
-import 'vue-material/dist/vue-material.min.css'
-
-// import 'vue-material/dist/theme/black-green-dark.css'
-import 'vue-material/dist/theme/black-green-light.css'
-
-// import Vue from 'vue'
-import VueRouter from 'vue-router'
-
-Vue.use(Router)
-
-export default new Router({
+export default new VueRouter({
   mode: 'history',
   routes: [
     {
@@ -95,12 +102,32 @@ export default new Router({
       path: '/interaction',
       name: 'interaction',
       component: interaction
+    },
+   {
+      path: '/Patient_information',
+      name: 'Patient_information',
+      component: Patient_information
+    },
+   {
+      path: '/login',
+      name: 'login',
+      component: login
+    },
+   {
+      path: '/Regisform',
+      name: 'Regisform',
+      component: Regisform
+    },
+    {
+      path: '/Doctor_Information',
+      name: 'Doctor_Information',
+      component: Doctor_Information
+    },
+    {
+      path: '/Admin_Accept',
+      name: 'Admin_Accept',
+      component: Admin_Accept
     }
   ]
 })
-// import 'vue-material/dist/theme/default-dark.css'
-// import 'vue-material/dist/theme/default.css'
 
-Vue.use(VueMaterial)
-
-Vue.use(VueRouter)
