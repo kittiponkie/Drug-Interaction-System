@@ -18,19 +18,19 @@
           <input type="text" name="Sex" placeholder="Sex" v-model="Sex">
         </div>
         <div>
-          <input type="date" name="Birthdate" placeholder="Birthdate" v-model="DOB">
+          <input type="text" name="Birthdate" placeholder="Birthdate" v-model="DOB">
         </div>
         <div>
-          <input type="number" name="Age" placeholder="Age" v-model="Age">
+          <input type="text" name="Age" placeholder="Age" v-model="Age">
         </div>
         <div>
           <input type="text" name="Email" placeholder="Email" v-model="Age">
         </div>
         <div>
-          <input type="number" name="Weight" placeholder="Weight" v-model="Weight">
+          <input type="text" name="Weight" placeholder="Weight" v-model="Weight">
         </div>
         <div>
-          <input type="number" name="Height" placeholder="Height" v-model="Height">
+          <input type="text" name="Height" placeholder="Height" v-model="Height">
         </div>
         <div>
           <input type="text" name="IDcardNumber" placeholder="IDcardNumber / PassportID" v-model="IDcardNumber">
