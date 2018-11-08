@@ -27,9 +27,11 @@ db.once("open", function (callback) {
   console.log("Connection Succeeded");
 });
 
-var Post = require("../models/post");
 var PatientInfo = require("../models/Patient");
+var DoctorInfo = require("../models/Doctor");
 
+
+// PatientInfo
 // Fetch single post
 app.get("/PatientInfo/:Id", (req, res) => {
   console.log('GET method')
@@ -129,41 +131,6 @@ app.post('/post/PatientInfo', (req, res) => {
   })
 })
 
-/*
-// Update a post
-app.put('/update/PatientInfo/:id', (req, res) => {
-  var db = req.db;
-  PatientInfo.find({"_id" : req.params.id}, 'title description', function (error, post) {
-    if (error) { console.error(error); }
-    PatientInfo.PatientID = req.body.PatientID
-    PatientInfo.Prefix = req.body.Prefix
-    PatientInfo.Firstname = req.body.Firstname
-    PatientInfo.Lastname = req.body.Lastname
-    PatientInfo.Sex = req.body.Sex
-    PatientInfo.DOB = req.body.DOB
-    PatientInfo.Age = req.body.Age
-    PatientInfo.Weight = req.body.Weight
-    PatientInfo.Height = req.body.Height
-    PatientInfo.IDcardNumber = req.body.IDcardNumber
-    PatientInfo.Status = req.body.Status
-    PatientInfo.Race = req.body.Race
-    PatientInfo.Nation = req.body.Nation
-    PatientInfo.Religion = req.body.Religion
-    PatientInfo.Bloodgroup = req.body.Bloodgroup
-    PatientInfo.Address = req.body.Address
-    PatientInfo.Phone = req.body.Phone
-    PatientInfo.save(function (error) {
-      if (error) {
-        console.log(error)
-      }
-      res.send({
-        success: true
-      })
-    })
-  })
-})
-*/
-
 app.put("/update/PatientInfo/:Id", (req, res, next) => {
   console.log("POST Method")
   var id = req.params.Id
@@ -209,14 +176,150 @@ app.put("/update/PatientInfo/:Id", (req, res, next) => {
 
 // Delete a post
 app.delete('/remove/PatientInfo/:id', (req, res) => {
-    var db = req.db;
-    PatientInfo.remove({
-      _id: req.params.id
-    }, function (err, post) {
-      if (err)
-        res.send(err)
-      res.send({
-        success: true
-      })
+  var db = req.db;
+  PatientInfo.remove({
+    _id: req.params.id
+  }, function (err, post) {
+    if (err)
+      res.send(err)
+    res.send({
+      success: true
     })
   })
+})
+
+// DoctorInfo
+// Fetch single post
+app.get("/DoctorInfo/:Id", (req, res) => {
+  console.log('GET method')
+  const id = req.params.Id;
+  DoctorInfo.find({ "_id": id })
+    .exec()
+    .then(doc => {
+      console.log("Doctorid :"+id);
+      console.log("From database", doc);
+      if (doc) {
+        res.status(200).json(doc);
+      } else {
+        res
+          .status(404)
+          .json({ message: "No valid entry found for provided ID" });
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({ error: err });
+    });
+
+});
+
+// Fetch all posts
+app.get("/DoctorInfo", (req, res, next) => {
+  console.log('GET method')
+  DoctorInfo.find()
+    .exec()
+    .then(docs => {
+      console.log(docs);
+      if (docs.length >= 0) {
+        res.status(200).json(docs);
+      } else {
+        res.status(404).json({
+          message: 'No entries found'
+        });
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({
+        error: err
+      });
+    });
+});
+
+app.post('/post/DoctorInfo', (req, res) => {
+  var db = req.db;
+  var DoctorID= req.body.DoctorID
+  var Prefix = req.body.Prefix
+  var Firstname = req.body.Firstname
+  var Lastname = req.body.Lastname
+  var Sex = req.body.Sex
+  var Email = req.body.Email
+  var IDcardNumber = req.body.IDcardNumber
+  var Ward = req.body.ward
+  var Affiliation = req.body.Affiliation
+  var Address = req.body.Address
+  var Phone = req.body.Phone
+
+  var new_Doctor = new DoctorInfo({
+    DoctorID: DoctorID,
+    Prefix: Prefix,
+    Firstname: Firstname,
+    Lastname: Lastname,
+    Email: Email,
+    Affiliation: Affiliation,
+    Ward: Ward,
+    Sex: Sex,
+    IDcardNumber: IDcardNumber,
+    Address: Address,
+    Phone: Phone
+  })
+  new_Doctor.save(function (error) {
+    if (error) {
+      console.log(error)
+    }
+    res.send({
+      success: true,
+      message: 'Post saved successfully!'
+    })
+  })
+})
+
+app.put("/update/DoctorInfo/:Id", (req, res, next) => {
+  console.log("POST Method")
+  var id = req.params.Id
+  DoctorInfo.findOne({ _id: id }, function (err, foundObject) {
+    if (err) {
+      console.log(err)
+      res.status(500).send()
+    } else {
+      if (!foundObject) {
+        res.status(404).send()
+      } else {
+        if (req.body.DoctorID) { foundObject.DoctorID = req.body.DoctorID }
+        if (req.body.Prefix) { foundObject.Prefix = req.body.Prefix }
+        if (req.body.Firstname) { foundObject.Firstname = req.body.Firstname }
+        if (req.body.Lastname) { foundObject.Lastname = req.body.Lastname }
+        if (req.body.Ward) { foundObject.Ward = req.body.Ward }
+        if (req.body.Affiliation) { foundObject.Affiliation = req.body.Affiliation }
+        if (req.body.Sex) { foundObject.Sex = req.body.Sex }
+        if (req.body.Email) { foundObject.Email = req.body.Email }
+        if (req.body.IDcardNumber) { foundObject.IDcardNumber = req.body.IDcardNumber }
+        if (req.body.Address) { foundObject.Address = req.body.Address }
+        if (req.body.Phone) { foundObject.Phone = req.body.Phone }
+
+        foundObject.save(function (err, updateObject) {
+          if (err) {
+            console.log(err)
+            res.status(500).send();
+          } else {
+            res.send(updateObject)
+          }
+        })
+      }
+    }
+  })
+})
+
+// Delete a post
+app.delete('/remove/DoctorInfo/:id', (req, res) => {
+  var db = req.db;
+  DoctorInfo.remove({
+    _id: req.params.id
+  }, function (err, post) {
+    if (err)
+      res.send(err)
+    res.send({
+      success: true
+    })
+  })
+})
