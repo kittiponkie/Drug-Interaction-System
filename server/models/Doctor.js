@@ -5,7 +5,7 @@ const DoctorSchema = mongoose.Schema({
     Firstname: String,
     Lastname: String,
     Email: String,
-    Affiliation: String,
+    Department: String,
     Ward: String,
     Sex: String,
     IDcardNumber: String,
