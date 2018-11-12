@@ -2,6 +2,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const morgan = require('morgan')
+const axios = require('axios')
 
 const app = express()
 app.use(morgan('combined'))
@@ -359,35 +360,54 @@ app.post('/post/AllergicDrug', (req, res) => {
   var db = req.db;
   var PatientID = req.body.PatientID
   var GPName = req.body.GPName
-  var GPID = req.body.GPID
-  var RXCUI = req.body.RXCUI
+  //var GPID = req.body.GPID
 
-  var new_AllergicDrug = new AllergicDrug({
-    PatientID: PatientID,
-    GPName: GPName,
-    GPIP: GPID,
-    RXCUI: RXCUI
-  })
-  new_AllergicDrug.save(function (error) {
-    if (error) {
-      console.log(error)
-    }
-    res.send({
-      success: true,
-      message: 'Post saved successfully!'
+  console.log("POST Method")
+  async function getData() {
+    await axios.get('https://rxnav.nlm.nih.gov/REST/rxcui?name=' + GPName).then(Response => {
+      console.log('Axios OK')
+      if (Response.data.idGroup.rxnormId == null) {
+        console.log('rxcui id is null')
+        res.send({
+          success: false,
+          message: 'RXCUI is NULL'
+        })
+      } else {
+        RXCUI = Response.data.idGroup.rxnormId
+        console.log('rxcui ok : ' + RXCUI)
+      }
+    });
+
+    console.log('rxcui : ' + RXCUI)
+    var new_AllergicDrug = new AllergicDrug({
+      PatientID: PatientID,
+      GPName: GPName,
+      //GPIP: GPID,
+      RXCUI: RXCUI
     })
-  })
+    new_AllergicDrug.save(function (error) {
+      if (error) {
+        console.log(error)
+      }
+      res.send({
+        success: true,
+        message: 'Post saved successfully!'
+      })
+    })
+  };
+
+  getData()
 })
 
-// Delete AllergicDrug By PatientID and GPID 
-app.delete('/remove/AllergicDrug/:PatientID/:GPID', (req, res) => {
+// Delete AllergicDrug By PatientID and GPName 
+app.delete('/remove/AllergicDrug/:PatientID/:GPName', (req, res) => {
   var db = req.db;
   var PatientID = req.params.PatientID
-  var GPID = req.params.GPID
+  var GPName = req.params.GPName
 
   AllergicDrug.remove({
     "PatientID": PatientID,
-    "GPID": GPID
+    "GPName": GPName
   }, function (err, post) {
     if (err)
       res.send(err)
@@ -447,9 +467,12 @@ app.get("/AccountRelation/Doctor/:DoctorID", (req, res) => {
 // ADD Relation between Account and Check ralation had already or not?
 app.post('/post/AccountRelation', (req, res) => {
   var db = req.db;
+  var D 
   var PatientID = req.body.PatientID
   var DoctorID = req.body.DoctorID
-  var Date = req.body.Date
+  var DateTime = new Date();
+  var DateNow = DateTime.toLocaleDateString();
+  console.log(DateNow);
   var PatientReq = req.body.PatientReq
   var DoctorReq = req.body.DoctorReq
 
@@ -461,12 +484,12 @@ app.post('/post/AccountRelation', (req, res) => {
     .exec()
     .then(doc => {
       console.log(doc)
-      
-     if(isEmptyObject(doc)){
+
+      if (isEmptyObject(doc)) {
         var new_AccountRelation = new AccountRelation({
           PatientID: PatientID,
           DoctorID: DoctorID,
-          Date: Date,
+          Date: DateNow,
           PatientReq: PatientReq,
           DoctorReq: DoctorReq,
         })
@@ -479,13 +502,13 @@ app.post('/post/AccountRelation', (req, res) => {
             message: 'Post saved successfully!'
           })
         })
-      }else {
+      } else {
         res
-        .status(404)
-        .json({
-          success: false,
-          message: "This relation had already"
-        })
+          .status(404)
+          .json({
+            success: false,
+            message: "This relation had already"
+          })
       }
     })
     .catch(err => {
