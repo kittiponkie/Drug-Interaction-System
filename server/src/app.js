@@ -467,7 +467,6 @@ app.get("/AccountRelation/Doctor/:DoctorID", (req, res) => {
 // ADD Relation between Account and Check ralation had already or not?
 app.post('/post/AccountRelation', (req, res) => {
   var db = req.db;
-  var D 
   var PatientID = req.body.PatientID
   var DoctorID = req.body.DoctorID
   var DateTime = new Date();
@@ -568,3 +567,176 @@ app.delete('/remove/AccountRelation/:PatientID/:DoctorID', (req, res) => {
     })
   })
 })
+
+
+// Account 
+// Register (ADD an account)
+app.post('/Register', (req, res) => {
+  var ID = req.body.ID
+  var Username = req.body.Username
+  var Password = req.body.Password
+  var Email = req.body.Email
+  var AccountType = req.body.AccountType
+  var RegisterStatus
+
+  if (AccountType == 'Doctor') { RegisterStatus = '0' }
+  else { RegisterStatus = '1' }
+
+  function isEmptyObject(obj) { return !Object.keys(obj).length; }
+
+  Account.find({ "๊Username": Username })
+    .exec()
+    .then(doc => {
+      console.log(doc)
+
+      if (isEmptyObject(doc)) {
+
+        Account.find({ "Email": Email })
+          .exec()
+          .then(doc => {
+            console.log(doc)
+            if (isEmptyObject(doc)) {
+              var new_Account = new Account({
+                ID: ID,
+                Username: Username,
+                Password: Password,
+                Email: Email,
+                AccountType: AccountType,
+                RegisterStatus: RegisterStatus
+              })
+              new_Account.save(function (error) {
+                if (error) {
+                  console.log(error)
+                }
+                res.status(200).send({
+                  success: true,
+                  message: 'Post saved successfully!'
+                })
+              })
+            } else {
+              res
+                .status(404)
+                .json({
+                  success: false,
+                  message: "Email had already"
+                })
+            }
+          })
+      } else {
+        res
+          .status(404)
+          .json({
+            success: false,
+            message: "๊Username had already"
+          })
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({ error: err });
+    });
+})
+
+
+// Login
+app.post('/Login', (req, res) => {
+  var Username = req.body.Username
+  var Password = req.body.Password
+  Account.findOne({ 'Username': Username, 'Password': Password })
+    .exec()
+    .then(doc => {
+      console.log(doc)
+
+      if (doc) {
+        if (doc.RegisterStatus == '0') {
+          res
+            .status(404)
+            .json({
+              success: false,
+              message: "Account is not verified By Administrator"
+            })
+        }
+        else {
+          res
+            .status(200)
+          .json({
+            success: true,
+            message: "๊Login Success"
+          })
+        }
+      } else {
+        res
+          .status(404)
+          .json({
+            success: false,
+            message: "Username and/or Password incorrect"
+          })
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({ error: err });
+    });
+})
+
+//  Change Username / Password vetify By Email
+app.put("/update/Account/:Email", (req, res, next) => {
+  console.log("POST Method")
+  var Email = req.params.Email
+  Account.findOne({ "Email": Email }, function (err, foundObject) {
+    if (err) {
+      console.log(err)
+      res.status(500).send()
+    } else {
+      if (!foundObject) {
+        res.status(404).send()
+      } else {
+        if (req.body.Username) { foundObject.Username = req.body.Username }
+        if (req.body.Password) { foundObject.Password = req.body.Password }
+        if (req.body.ID) { foundObject.ID = req.body.ID }
+        if (req.body.Email) { foundObject.Email = req.body.Email }
+        foundObject.save(function (err, updateObject) {
+          if (err) {
+            console.log(err)
+            res.status(500).send();
+          } else {
+            res.send({
+              success: true,
+              message: 'Update successfully!'
+            })
+          }
+        })
+      }
+    }
+  })
+})
+
+// Confirm Account for ADMIN section By ID 
+app.put("/ConfirmAccount/:ID", (req, res, next) => {
+  console.log("POST Method")
+  var ID = req.params.ID
+  Account.findOne({ "ID": ID }, function (err, foundObject) {
+    if (err) {
+      console.log(err)
+      res.status(500).send()
+    } else {
+      if (!foundObject) {
+        res.status(404).send()
+      } else {
+        foundObject.RegisterStatus = "1"
+        foundObject.save(function (err, updateObject) {
+          if (err) {
+            console.log(err)
+            res.status(500).send();
+          } else {
+            res.send({
+              success: true,
+              message: 'Update successfully!'
+            })
+          }
+        })
+      }
+    }
+  })
+})
+
