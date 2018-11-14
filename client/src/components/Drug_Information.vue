@@ -124,14 +124,25 @@
                   <div v-if="dataID.GP!=null" id="gp" class="tab-pane fade in active text_padding">
                     <div class="text-center">
                       <ul class="pagination nav" v-if="dataID.GP.length%10 != 0">
-                        <li class="active"><a :href="'#gp'+1" data-toggle="tab">1</a></li>
-                        <li v-for="i in (parseInt(dataID.GP.length/10))" :key="i"><a :href="'#gp'+(i+1)" data-toggle="tab">{{i+1}}</a></li>
+                        <li><a :href="'#gp'+1"  @click="update(1)" data-toggle="tab">
+                          <span aria-hidden="true">&laquo;</span>
+                          <span class="sr-only">First</span>
+                        </a></li>
+                        <li v-if="currentPage>=3" class="disabled"><a>...</a></li>
+                        <li v-if="currentPage < 3" ><a :href="'#gp'+1"  @click="update(1)" data-toggle="tab">1</a></li>
+                        <li v-if="(currentPage >= i &&  i+2 >= currentPage) " v-for="i in (parseInt(dataID.GP.length/10))" :key="i"><a :href="'#gp'+(i+1)" @click="update(i+1)" data-toggle="tab">{{i+1}}</a></li>
+                        <li v-if="currentPage<=parseInt(dataID.GP.length/10)-1" class="disabled"><a>...</a></li>
+                        <li><a :href="'#gp'+(parseInt(dataID.GP.length/10)+1)"  @click="update(parseInt(dataID.GP.length/10)+1)" data-toggle="tab">
+                          <span aria-hidden="true">&raquo;</span>
+                          <span class="sr-only">Last</span>
+                        </a></li>                        
                       </ul>
                       <ul class="pagination nav" v-if="dataID.GP.length%10 == 0">
                         <li class="active"><a :href="'#gp'+1" data-toggle="tab">1</a></li>
                         <li v-for="i in (parseInt(dataID.GP.length/10)-1)" :key="i"><a :href="'#gp'+(i+1)" data-toggle="tab">{{i+1}}</a></li>
                       </ul>
                     </div>
+
 
                     <div class="tab-content">
                       <!--%10 != 0-->
@@ -620,14 +631,19 @@
       loading: false, //true when you have to wait for call API
       loading2: false, //true when you have to wait for call Database
       searchFinish: false,
-      dataID: null //data GP GPU TP TPU
+      dataID: null, //data GP GPU TP TPU
+      currentPage: 1
     }),
     methods: {
       //toggle visible menu
       toggleMenu() {
         this.menuVisible = !this.menuVisible
       },
-
+      update(i){
+        this.currentPage=i
+        console.log(this.currentPage)
+        return null
+      },
       //get data from API
       async getData() {
         this.searchFinish = true
