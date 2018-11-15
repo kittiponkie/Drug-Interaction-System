@@ -135,11 +135,21 @@
                         <li><a :href="'#gp'+(parseInt(dataID.GP.length/10)+1)"  @click="update(parseInt(dataID.GP.length/10)+1)" data-toggle="tab">
                           <span aria-hidden="true">&raquo;</span>
                           <span class="sr-only">Last</span>
-                        </a></li>                        
+                        </a></li>    
                       </ul>
                       <ul class="pagination nav" v-if="dataID.GP.length%10 == 0">
-                        <li class="active"><a :href="'#gp'+1" data-toggle="tab">1</a></li>
-                        <li v-for="i in (parseInt(dataID.GP.length/10)-1)" :key="i"><a :href="'#gp'+(i+1)" data-toggle="tab">{{i+1}}</a></li>
+                        <li><a :href="'#gp'+1"  @click="update(1)" data-toggle="tab">
+                          <span aria-hidden="true">&laquo;</span>
+                          <span class="sr-only">First</span>
+                        </a></li>
+                        <li v-if="currentPage>=3" class="disabled"><a>...</a></li>
+                        <li v-if="currentPage < 3" ><a :href="'#gp'+1"  @click="update(1)" data-toggle="tab">1</a></li>
+                        <li v-if="(currentPage >= i &&  i+2 >= currentPage) " v-for="i in (parseInt(dataID.GP.length/10)-1)" :key="i"><a :href="'#gp'+(i+1)" @click="update(i+1)" data-toggle="tab">{{i+1}}</a></li>
+                        <li v-if="currentPage<=parseInt(dataID.GP.length/10)-2" class="disabled"><a>...</a></li>
+                        <li><a :href="'#gp'+(parseInt(dataID.GP.length/10))"  @click="update(parseInt(dataID.GP.length/10))" data-toggle="tab">
+                          <span aria-hidden="true">&raquo;</span>
+                          <span class="sr-only">Last</span>
+                        </a></li> 
                       </ul>
                     </div>
 
@@ -217,7 +227,7 @@
                       </div>
 
                       <div v-if="((parseInt(dataID.GP.length/10)-1) > 0) && (dataID.GP.length%10 == 0) && (parseInt(dataID.GP.length/10) > 1)" v-for="(value,page) in (parseInt(dataID.GP.length/10)) "
-                        :key="page+1" :id="'gp'+(value+1)" class="tab-pane fade">
+                        :key="page" :id="'gp'+(value)" class="tab-pane fade">
                         <md-card v-if="page != 0" v-for="(value2,index) in 10" :key="index">
                           <md-card-header>
                             <md-card-header-text>
@@ -236,13 +246,32 @@
                   <div v-if="dataID.GPU!=null" id="gpu" class="tab-pane fade text_padding">
                     <div class="text-center">
                       <ul class="pagination nav" v-if="dataID.GPU.length%10 != 0">
-                        <li class="active"><a :href="'#gpu'+1" data-toggle="tab">1</a></li>
-                        <li v-for="i in (parseInt(dataID.GPU.length/10))" :key="i"><a :href="'#gpu'+(i+1)" data-toggle="tab">{{i+1}}</a></li>
+                        <li><a :href="'#gpu'+1"  @click="update2(1)" data-toggle="tab">
+                          <span aria-hidden="true">&laquo;</span>
+                          <span class="sr-only">First</span>
+                        </a></li>
+                        <li v-if="currentPage2>=3" class="disabled"><a>...</a></li>
+                        <li v-if="currentPage2 < 3" ><a :href="'#gpu'+1"  @click="update2(1)" data-toggle="tab">1</a></li>
+                        <li v-if="(currentPage2 >= i &&  i+2 >= currentPage2) " v-for="i in (parseInt(dataID.GPU.length/10))" :key="i"><a :href="'#gpu'+(i+1)" @click="update2(i+1)" data-toggle="tab">{{i+1}}</a></li>
+                        <li v-if="currentPage2<=parseInt(dataID.GPU.length/10)-1" class="disabled"><a>...</a></li>
+                        <li><a :href="'#gpu'+(parseInt(dataID.GPU.length/10)+1)"  @click="update2(parseInt(dataID.GPU.length/10)+1)" data-toggle="tab">
+                          <span aria-hidden="true">&raquo;</span>
+                          <span class="sr-only">Last</span>
+                        </a></li>    
                       </ul>
                       <ul class="pagination nav" v-if="dataID.GPU.length%10 == 0">
-                        <li class="active"><a :href="'#gpu'+1" data-toggle="tab">1</a></li>
-                        <li v-for="i in (parseInt(dataID.GPU.length/10)-1)" :key="i"><a :href="'#gpu'+(i+1)"
-                            data-toggle="tab">{{i+1}}</a></li>
+                        <li><a :href="'#gpu'+1"  @click="update2(1)" data-toggle="tab">
+                          <span aria-hidden="true">&laquo;</span>
+                          <span class="sr-only">First</span>
+                        </a></li>
+                        <li v-if="currentPage2>=3" class="disabled"><a>...</a></li>
+                        <li v-if="currentPage2 < 3" ><a :href="'#gpu'+1"  @click="update2(1)" data-toggle="tab">1</a></li>
+                        <li v-if="(currentPage2 >= i &&  i+2 >= currentPage2) " v-for="i in (parseInt(dataID.GPU.length/10)-1)" :key="i"><a :href="'#gpu'+(i+1)" @click="update2(i+1)" data-toggle="tab">{{i+1}}</a></li>
+                        <li v-if="currentPage2<=parseInt(dataID.GPU.length/10)-2" class="disabled"><a>...</a></li>
+                        <li><a :href="'#gpu'+(parseInt(dataID.GPU.length/10))"  @click="update2(parseInt(dataID.GPU.length/10))" data-toggle="tab">
+                          <span aria-hidden="true">&raquo;</span>
+                          <span class="sr-only">Last</span>
+                        </a></li> 
                       </ul>
                     </div>
 
@@ -319,7 +348,7 @@
                       </div>
 
                       <div v-if="((parseInt(dataID.GPU.length/10)-1) > 0) && (dataID.GPU.length%10 == 0) && (parseInt(dataID.GPU.length/10) > 1)" v-for="(value,page) in (parseInt(dataID.GPU.length/10)) "
-                        :key="page+1" :id="'gpu'+(value+1)" class="tab-pane fade">
+                        :key="page" :id="'gpu'+(value)" class="tab-pane fade">
                         <md-card v-if="page != 0" v-for="(value2,index) in 10" :key="index">
                           <md-card-header>
                             <md-card-header-text>
@@ -338,12 +367,32 @@
                   <div v-if="dataID.TP!=null" id="tp" class="tab-pane fade text_padding">
                     <div class="text-center">
                       <ul class="pagination nav" v-if="dataID.TP.length%10 != 0">
-                        <li class="active"><a :href="'#tp'+1" data-toggle="tab">1</a></li>
-                        <li v-for="i in (parseInt(dataID.TP.length/10))" :key="i"><a :href="'#tp'+(i+1)" data-toggle="tab">{{i+1}}</a></li>
+                        <li><a :href="'#tp'+1"  @click="update3(1)" data-toggle="tab">
+                          <span aria-hidden="true">&laquo;</span>
+                          <span class="sr-only">First</span>
+                        </a></li>
+                        <li v-if="currentPage3>=3" class="disabled"><a>...</a></li>
+                        <li v-if="currentPage3 < 3" ><a :href="'#tp'+1"  @click="update3(1)" data-toggle="tab">1</a></li>
+                        <li v-if="(currentPage3 >= i &&  i+2 >= currentPage3) " v-for="i in (parseInt(dataID.TP.length/10))" :key="i"><a :href="'#tp'+(i+1)" @click="update3(i+1)" data-toggle="tab">{{i+1}}</a></li>
+                        <li v-if="currentPage3<=parseInt(dataID.TP.length/10)-1" class="disabled"><a>...</a></li>
+                        <li><a :href="'#tp'+(parseInt(dataID.TP.length/10)+1)"  @click="update3(parseInt(dataID.TP.length/10)+1)" data-toggle="tab">
+                          <span aria-hidden="true">&raquo;</span>
+                          <span class="sr-only">Last</span>
+                        </a></li>    
                       </ul>
                       <ul class="pagination nav" v-if="dataID.TP.length%10 == 0">
-                        <li class="active"><a :href="'#tp'+1" data-toggle="tab">1</a></li>
-                        <li v-for="i in (parseInt(dataID.TP.length/10)-1)" :key="i"><a :href="'#tp'+(i+1)" data-toggle="tab">{{i+1}}</a></li>
+                        <li><a :href="'#tp'+1"  @click="update3(1)" data-toggle="tab">
+                          <span aria-hidden="true">&laquo;</span>
+                          <span class="sr-only">First</span>
+                        </a></li>
+                        <li v-if="currentPage3>=3" class="disabled"><a>...</a></li>
+                        <li v-if="currentPage3 < 3" ><a :href="'#tp'+1"  @click="update3(1)" data-toggle="tab">1</a></li>
+                        <li v-if="(currentPage3 >= i &&  i+2 >= currentPage3) " v-for="i in (parseInt(dataID.TP.length/10)-1)" :key="i"><a :href="'#tp'+(i+1)" @click="update3(i+1)" data-toggle="tab">{{i+1}}</a></li>
+                        <li v-if="currentPage3<=parseInt(dataID.TP.length/10)-2" class="disabled"><a>...</a></li>
+                        <li><a :href="'#tp'+(parseInt(dataID.TP.length/10))"  @click="update3(parseInt(dataID.TP.length/10))" data-toggle="tab">
+                          <span aria-hidden="true">&raquo;</span>
+                          <span class="sr-only">Last</span>
+                        </a></li> 
                       </ul>
                     </div>
 
@@ -419,7 +468,7 @@
                       </div>
 
                       <div v-if="((parseInt(dataID.TP.length/10)-1) > 0) && (dataID.TP.length%10 == 0) && (parseInt(dataID.TP.length/10) > 1)" v-for="(value,page) in (parseInt(dataID.TP.length/10)) "
-                        :key="page+1" :id="'tp'+(value+1)" class="tab-pane fade">
+                        :key="page" :id="'tp'+(value)" class="tab-pane fade">
                         <md-card v-if="page != 0" v-for="(value2,index) in 10" :key="index">
                           <md-card-header>
                             <md-card-header-text>
@@ -438,13 +487,32 @@
                   <div v-if="dataID.TPU!=null" id="tpu" class="tab-pane fade text_padding">
                     <div class="text-center">
                       <ul class="pagination nav" v-if="dataID.TPU.length%10 != 0">
-                        <li class="active"><a :href="'#tpu'+1" data-toggle="tab">1</a></li>
-                        <li v-for="i in (parseInt(dataID.TPU.length/10))" :key="i"><a :href="'#tpu'+(i+1)" data-toggle="tab">{{i+1}}</a></li>
+                        <li><a :href="'#tpu'+1"  @click="update4(1)" data-toggle="tab">
+                          <span aria-hidden="true">&laquo;</span>
+                          <span class="sr-only">First</span>
+                        </a></li>
+                        <li v-if="currentPage4>=3" class="disabled"><a>...</a></li>
+                        <li v-if="currentPage4 < 3" ><a :href="'#tpu'+1"  @click="update4(1)" data-toggle="tab">1</a></li>
+                        <li v-if="(currentPage4 >= i &&  i+2 >= currentPage4) " v-for="i in (parseInt(dataID.TPU.length/10))" :key="i"><a :href="'#tpu'+(i+1)" @click="update4(i+1)" data-toggle="tab">{{i+1}}</a></li>
+                        <li v-if="currentPage4<=parseInt(dataID.TPU.length/10)-1" class="disabled"><a>...</a></li>
+                        <li><a :href="'#tpu'+(parseInt(dataID.TPU.length/10)+1)"  @click="update4(parseInt(dataID.TPU.length/10)+1)" data-toggle="tab">
+                          <span aria-hidden="true">&raquo;</span>
+                          <span class="sr-only">Last</span>
+                        </a></li>    
                       </ul>
                       <ul class="pagination nav" v-if="dataID.TPU.length%10 == 0">
-                        <li class="active"><a :href="'#tpu'+1" data-toggle="tab">1</a></li>
-                        <li v-for="i in (parseInt(dataID.TPU.length/10)-1)" :key="i"><a :href="'#tpu'+(i+1)"
-                            data-toggle="tab">{{i+1}}</a></li>
+                        <li><a :href="'#tpu'+1"  @click="update4(1)" data-toggle="tab">
+                          <span aria-hidden="true">&laquo;</span>
+                          <span class="sr-only">First</span>
+                        </a></li>
+                        <li v-if="currentPage4>=3" class="disabled"><a>...</a></li>
+                        <li v-if="currentPage4 < 3" ><a :href="'#tpu'+1"  @click="update4(1)" data-toggle="tab">1</a></li>
+                        <li v-if="(currentPage4 >= i &&  i+2 >= currentPage4) " v-for="i in (parseInt(dataID.TPU.length/10)-1)" :key="i"><a :href="'#tpu'+(i+1)" @click="update4(i+1)" data-toggle="tab">{{i+1}}</a></li>
+                        <li v-if="currentPage4<=parseInt(dataID.TPU.length/10)-2" class="disabled"><a>...</a></li>
+                        <li><a :href="'#tpu'+(parseInt(dataID.TPU.length/10))"  @click="update4(parseInt(dataID.TPU.length/10))" data-toggle="tab">
+                          <span aria-hidden="true">&raquo;</span>
+                          <span class="sr-only">Last</span>
+                        </a></li> 
                       </ul>
                     </div>
 
@@ -521,7 +589,7 @@
                       </div>
 
                       <div v-if="((parseInt(dataID.TPU.length/10)-1) > 0) && (dataID.TPU.length%10 == 0) && (parseInt(dataID.TPU.length/10) > 1)" v-for="(value,page) in (parseInt(dataID.TPU.length/10)) "
-                        :key="page+1" :id="'tpu'+(value+1)" class="tab-pane fade">
+                        :key="page" :id="'tpu'+(value)" class="tab-pane fade">
                         <md-card v-if="page != 0" v-for="(value2,index) in 10" :key="index">
                           <md-card-header>
                             <md-card-header-text>
@@ -632,7 +700,10 @@
       loading2: false, //true when you have to wait for call Database
       searchFinish: false,
       dataID: null, //data GP GPU TP TPU
-      currentPage: 1
+      currentPage: 1,
+      currentPage2: 1,
+      currentPage3: 1,
+      currentPage4: 1
     }),
     methods: {
       //toggle visible menu
@@ -641,7 +712,19 @@
       },
       update(i){
         this.currentPage=i
-        console.log(this.currentPage)
+        //console.log(this.currentPage)
+        return null
+      },update2(i){
+        this.currentPage2=i
+        //console.log(this.currentPage2)
+        return null
+      },update3(i){
+        this.currentPage3=i
+        //console.log(this.currentPage3)
+        return null
+      },update4(i){
+        this.currentPage4=i
+        //console.log(this.currentPage4)
         return null
       },
       //get data from API
