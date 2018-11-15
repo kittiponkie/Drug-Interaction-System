@@ -4,7 +4,7 @@ const AccountRelationSchema = mongoose.Schema({
     DoctorID: String,
     Date: String,
     PatientReq: String,
-    DoctorReq: String,
+    DoctorReq: String
 })
 
 module.exports = mongoose.model('AccountRelation', AccountRelationSchema)

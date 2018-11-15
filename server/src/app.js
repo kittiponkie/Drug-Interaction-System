@@ -33,6 +33,7 @@ var DoctorInfo = require("../models/Doctor");
 var AllergicDrug = require("../models/AllergicDrug")
 var Account = require("../models/Account")
 var AccountRelation = require("../models/AccountRelation")
+var DrugHistory = require("../models/DrugHistory")
 
 // PatientInfo
 // Fetch single post
@@ -740,3 +741,102 @@ app.put("/ConfirmAccount/:ID", (req, res, next) => {
   })
 })
 
+// Drug History 
+// List Drug History By PatientID 
+app.get("/AccountRelation/Doctor/:PatientID", (req, res) => {
+  console.log('GET method')
+  const PatientID = req.params.PatientID;
+  DrugHistory.find({ "PatientID": PatientID })
+    .exec()
+    .then(doc => {
+      console.log("PatientID :" + PatientID);
+      console.log("From database", doc);
+      if (doc) {
+        res.status(200).json(doc);
+      } else {
+        res
+          .status(404)
+          .json({ message: "No valid entry found for provided ID" });
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({ error: err });
+    });
+});
+
+// List Drug History By PatientID and filter DoctorID
+app.get("/AccountRelation/Doctor/:PatientID/:DoctorID", (req, res) => {
+  console.log('GET method')
+  const PatientID = req.params.PatientID;
+  const DoctorID = req.params.DoctorID;
+  DrugHistory.find({ "PatientID": PatientID , "DoctorID": DoctorID  })
+    .exec()
+    .then(doc => {
+      console.log("PatientID :" + PatientID);
+      console.log("From database", doc);
+      if (doc) {
+        res.status(200).json(doc);
+      } else {
+        res
+          .status(404)
+          .json({ message: "No valid entry found for provided ID" });
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({ error: err });
+    });
+});
+
+// ADD DrugHistory -> Drug Dispensing
+app.post('/post/AccountRelation', (req, res) => {
+  var db = req.db;
+  var PatientID = req.body.PatientID
+  var DoctorID = req.body.DoctorID
+  var DateTime = new Date();
+  var DateNow = DateTime.toLocaleDateString();
+  console.log(DateNow);
+  var PatientReq = req.body.PatientReq
+  var DoctorReq = req.body.DoctorReq
+
+  function isEmptyObject(obj) {
+    return !Object.keys(obj).length;
+  }
+
+  AccountRelation.find({ "PatientID": PatientID, "DoctorID": DoctorID })
+    .exec()
+    .then(doc => {
+      console.log(doc)
+
+      if (isEmptyObject(doc)) {
+        var new_AccountRelation = new AccountRelation({
+          PatientID: PatientID,
+          DoctorID: DoctorID,
+          Date: DateNow,
+          PatientReq: PatientReq,
+          DoctorReq: DoctorReq,
+        })
+        new_AccountRelation.save(function (error) {
+          if (error) {
+            console.log(error)
+          }
+          res.status(200).send({
+            success: true,
+            message: 'Post saved successfully!'
+          })
+        })
+      } else {
+        res
+          .status(404)
+          .json({
+            success: false,
+            message: "This relation had already"
+          })
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({ error: err });
+    });
+})
