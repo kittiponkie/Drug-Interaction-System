@@ -1,23 +1,23 @@
 import Api from '@/services/Api'
 
 export default {
-  fetchPosts () {
-    return Api().get('posts')
+  fetchPatient () {
+    return Api().get('PatientInfo')
   },
 
-  addPost (params) {
-    return Api().post('posts', params)
+  addPatient (params) {
+    return Api().post('post/PatientInfo', params)
   },
 
-  updatePost (params) {
-    return Api().put('posts/' + params.id, params)
+  updatePatient (params) {
+    return Api().put('update/PatientInfo/' + params.id, params)
   },
 
-  getPost (params) {
-    return Api().get('post/' + params.id)
+  getPatient (params) {
+    return Api().get('PatientInfo/' + params.id)
   },
 
-  deletePost (id) {
-    return Api().delete('posts/' + id)
+  deletePatient (id) {
+    return Api().delete('remove/PatientInfo/' + id)
   }
 }

@@ -82,17 +82,17 @@ export default new VueRouter({
       name: 'interaction',
       component: interaction
     },
-   {
+    {
       path: '/Patient_information',
       name: 'Patient_information',
       component: Patient_information
     },
-   {
+    {
       path: '/login',
       name: 'login',
       component: login
     },
-   {
+    {
       path: '/Regisform',
       name: 'Regisform',
       component: Regisform
