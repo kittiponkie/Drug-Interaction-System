@@ -43,6 +43,11 @@ export default new VueRouter({
       component: Drug_Information
     },
     {
+      path: '/Drug_Information/:drugname',
+      name: 'Drug_Information',
+      component: Drug_Information
+    },
+    {
       path: '/Drug_History',
       name: 'Drug_History',
       component: Drug_History
