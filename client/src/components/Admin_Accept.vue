@@ -58,55 +58,37 @@
            </md-table-cell>
           </md-table-row>
         </md-table>
-<!-- line -->
-              <div class="row">
-                <div class="col-xs-12 ">
-                  <nav>
-                    <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-                      <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Patient</a>
-                      <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Doctor</a>
-                      <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Pharmacist</a>
-                      <a class="nav-item nav-link" id="nav-about-tab" data-toggle="tab" href="#nav-about" role="tab" aria-controls="nav-about" aria-selected="false">Admin</a>
+        <br/>
+        <!-- line -->
+<div class="container">
+    <div class="row">
+        <div class="col-md-offset-0 col-md-12">
+            <div class="tab" role="tabpanel">
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#Section1" aria-controls="home" role="tab" data-toggle="tab">Section 1</a></li>
+                    <li role="presentation"><a href="#Section2" aria-controls="profile" role="tab" data-toggle="tab">Section 2</a></li>
+                    <li role="presentation"><a href="#Section3" aria-controls="messages" role="tab" data-toggle="tab">Section 3</a></li>
+                </ul>
+                <!-- Tab panes -->
+                <div class="tab-content tabs">
+                    <div role="tabpanel" class="tab-pane fade in active" id="Section1">
+                        <h3>Section 1</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nec urna aliquam, ornare eros vel, malesuada lorem. Nullam faucibus lorem at eros consectetur lobortis. Maecenas nec nibh congue, placerat sem id, rutrum velit. Phasellus porta enim at facilisis condimentum. Maecenas pharetra dolor vel elit tempor pellentesque sed sed eros. Aenean vitae mauris tincidunt, imperdiet orci semper, rhoncus ligula. Vivamus scelerisque.</p>
                     </div>
-                  </nav>
-                  <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
-                    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-<!--content -->
-<md-table v-model="searched" md-sort="name" md-sort-order="asc" md-card>
-          <md-table-toolbar>
-            <div class="md-toolbar-section-start">
-              <h1 class="md-title">Admin Page</h1>
-            </div>
-
-        <!--    <md-field md-clearable class="md-toolbar-section-end">
-              <md-input placeholder="Search by doctor name..." v-model="search" @input="searchOnTable" />
-            </md-field> -->
-          </md-table-toolbar>
-          <md-table-empty-state md-label="No users found" :md-description="`No drug name found for this '${search}' query. Try a different search term.`">
-          </md-table-empty-state>
-
-          <md-table-row slot="md-table-row" slot-scope="{ item }">
-            <md-table-cell md-label="ID" md-sort-by="id" md-numeric>{{ item.id }}</md-table-cell>
-            <md-table-cell md-label="Patient Name" md-sort-by="name">{{ item.name }}</md-table-cell>
-            <md-table-cell md-label="Status" >           
-               <button type="button" class="btn btn-danger"  style="border-top-width: 0px;">Delete</button>
-           </md-table-cell>
-          </md-table-row>
-        </md-table>
-<!-- end -->
+                    <div role="tabpanel" class="tab-pane fade" id="Section2">
+                        <h3>Section 2</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nec urna aliquam, ornare eros vel, malesuada lorem. Nullam faucibus lorem at eros consectetur lobortis. Maecenas nec nibh congue, placerat sem id, rutrum velit. Phasellus porta enim at facilisis condimentum. Maecenas pharetra dolor vel elit tempor pellentesque sed sed eros. Aenean vitae mauris tincidunt, imperdiet orci semper, rhoncus ligula. Vivamus scelerisque.</p>
                     </div>
-                    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                      Et et consectetur ipsum labore excepteur est proident excepteur ad velit occaecat qui minim occaecat veniam. Fugiat veniam incididunt anim aliqua enim pariatur veniam sunt est aute sit dolor anim. Velit non irure adipisicing aliqua ullamco irure incididunt irure non esse consectetur nostrud minim non minim occaecat. Amet duis do nisi duis veniam non est eiusmod tempor incididunt tempor dolor ipsum in qui sit. Exercitation mollit sit culpa nisi culpa non adipisicing reprehenderit do dolore. Duis reprehenderit occaecat anim ullamco ad duis occaecat ex.
+                    <div role="tabpanel" class="tab-pane fade" id="Section3">
+                        <h3>Section 3</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nec urna aliquam, ornare eros vel, malesuada lorem. Nullam faucibus lorem at eros consectetur lobortis. Maecenas nec nibh congue, placerat sem id, rutrum velit. Phasellus porta enim at facilisis condimentum. Maecenas pharetra dolor vel elit tempor pellentesque sed sed eros. Aenean vitae mauris tincidunt, imperdiet orci semper, rhoncus ligula. Vivamus scelerisque.</p>
                     </div>
-                    <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-                      Et et consectetur ipsum labore excepteur est proident excepteur ad velit occaecat qui minim occaecat veniam. Fugiat veniam incididunt anim aliqua enim pariatur veniam sunt est aute sit dolor anim. Velit non irure adipisicing aliqua ullamco irure incididunt irure non esse consectetur nostrud minim non minim occaecat. Amet duis do nisi duis veniam non est eiusmod tempor incididunt tempor dolor ipsum in qui sit. Exercitation mollit sit culpa nisi culpa non adipisicing reprehenderit do dolore. Duis reprehenderit occaecat anim ullamco ad duis occaecat ex.
-                    </div>
-                    <div class="tab-pane fade" id="nav-about" role="tabpanel" aria-labelledby="nav-about-tab">
-                      Et et consectetur ipsum labore excepteur est proident excepteur ad velit occaecat qui minim occaecat veniam. Fugiat veniam incididunt anim aliqua enim pariatur veniam sunt est aute sit dolor anim. Velit non irure adipisicing aliqua ullamco irure incididunt irure non esse consectetur nostrud minim non minim occaecat. Amet duis do nisi duis veniam non est eiusmod tempor incididunt tempor dolor ipsum in qui sit. Exercitation mollit sit culpa nisi culpa non adipisicing reprehenderit do dolore. Duis reprehenderit occaecat anim ullamco ad duis occaecat ex.
-                    </div>
-                  </div>
                 </div>
-              </div>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- end line -->
       </md-app-content>
     </md-app>
@@ -286,7 +268,7 @@ const toLower = text => {
   }
 
   .unselected_text {
-    color:#f1f1f1 ;
+    color:black ;
   }
   .md-content md-app-content md-flex md-theme-default{
     padding-top: 23px;
@@ -299,51 +281,75 @@ const toLower = text => {
   }
 
 /*Tab Bar*/
-nav > .nav.nav-tabs{
-
-  border: none;
-    color:#fff;
-    background:#272e38;
-    border-radius:0;
-
+:hover,a:focus{
+    outline: none;
+    text-decoration: none;
 }
-nav > div a.nav-item.nav-link,
-nav > div a.nav-item.nav-link.active
-{
-  border: none;
-    padding: 18px 25px;
-    color:black;
-    background:#5DBFA8;
-    border-radius:0;
+.tab .nav-tabs{
+    position: relative;
+    border-bottom: none;
 }
-
-nav > div a.nav-item.nav-link.active:after
- {
-  content: "";
-  position: relative;
-  bottom: -60px;
-  left: -10%;
-  border: 15px solid transparent;
-  border-top-color: #fdfdfd ;
+.tab .nav-tabs li{
+    margin: 0;
+    width: 100%;
 }
-.tab-content{
-  background: #fdfdfd;
-    line-height: 25px;
-    border: 1px solid #ddd;
-    border-top:5px solid #5DBFA8;
-    border-bottom:5px solid #5DBFA8;
-    padding:30px 25px;
+.tab .nav-tabs li a{
+    display: block;
+    padding: 20px 15px;
+    background: #fff;
+    font-size: 17px;
+    font-weight: 700;
+    color: #f2bd47;
+    text-transform: uppercase;
+    text-align: center;
+    border-radius: 0;
+    border: none;
+    margin-right: 0;
+    overflow: hidden;
+    z-index: 1;
+    position: relative;
+    transition: all 0.3s ease 0s;
 }
-
-nav > div a.nav-item.nav-link:hover,
-nav > div a.nav-item.nav-link:focus
-{
-  border: none;
-    background: #5DBFA8;
-    color:#fff;
-    border-radius:0;
-    transition:background 0.20s linear;
+.tab .nav-tabs li a:after{
+    content: "";
+    width: 100%;
+    height: 100%;
+    background: #e9e9e9;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    perspective-origin: 50% 100%;
+    transform: perspective(900px) rotate3d(1, 0, 0, 90deg);
+    transform-origin: 50% 100% 0;
+    transition: transform 0.3s ease 0s, background-color 0.3s ease 0s;
 }
-
+.tab .nav-tabs li.active a:after{
+    background: #eee6d2;
+    transform: perspective(900px) rotate3d(1, 0, 0, 0deg);
+}
+.tab .nav-tabs li.active a,
+.tab .nav-tabs li a:hover{
+    color: #4b489b;
+    border: none;
+}
+.tab .tab-content{
+    padding: 20px;
+    background: #eee6d2;
+    font-size: 15px;
+    color: #757575;
+    line-height: 26px;
+    width: 100%;
+}
+.tab .tab-content h3{
+    font-size: 24px;
+    margin-top: 0;
+}
+@media only screen and (max-width: 479px){
+    .tab .nav-tabs li{
+        width: 100%;
+        text-align: center;
+    }
+}
 
 </style>
