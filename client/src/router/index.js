@@ -25,9 +25,12 @@ import Drug_Information from '@/components/Drug_Information'
 import Drug_History from '@/components/Drug_History'
 import Patient_information from '@/components/Patient_information'
 import login from '@/components/login'
-import Regisform from '@/components/Regisform'
 import Doctor_Information from '@/components/Doctor_Information'
 import Admin_Accept from '@/components/Admin_Accept'
+import RegisterDoc from '@/components/Register/Doctor'
+import RegisterPha from '@/components/Register/Pharmacist'
+import RegisterPat from '@/components/Register/Patient'
+
 
 export default new VueRouter({
   mode: 'history',
@@ -93,11 +96,6 @@ export default new VueRouter({
       component: login
     },
     {
-      path: '/Regisform',
-      name: 'Regisform',
-      component: Regisform
-    },
-    {
       path: '/Doctor_Information',
       name: 'Doctor_Information',
       component: Doctor_Information
@@ -106,6 +104,26 @@ export default new VueRouter({
       path: '/Admin_Accept',
       name: 'Admin_Accept',
       component: Admin_Accept
+    },
+    {
+      path: '/register',
+      name: 'register',
+      component: RegisterPat
+    },
+    {
+      path: '/register/doctor',
+      name: 'registerDoctor',
+      component: RegisterDoc
+    },
+    {
+      path: '/register/pharmacist',
+      name: 'registerPharmacist',
+      component: RegisterPha
+    },
+    {
+      path: '/register/patient',
+      name: 'registerPatient',
+      component: RegisterPat
     }
   ]
 })

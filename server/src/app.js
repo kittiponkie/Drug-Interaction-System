@@ -28,8 +28,9 @@ db.once("open", function (callback) {
   console.log("Connection Succeeded");
 });
 
-var PatientInfo = require("../models/Patient");
-var DoctorInfo = require("../models/Doctor");
+var PatientInfo = require("../models/Patient")
+var DoctorInfo = require("../models/Doctor")
+var PharmacistInfo = require("../models/Pharmacist");
 var AllergicDrug = require("../models/AllergicDrug")
 var Account = require("../models/Account")
 var AccountRelation = require("../models/AccountRelation")
@@ -329,6 +330,148 @@ app.delete('/remove/DoctorInfo/:id', (req, res) => {
     })
   })
 })
+
+
+
+// PharmacistInfo
+// Fetch single post
+app.get("/PharmacistInfo/:Id", (req, res) => {
+  console.log('GET method')
+  const id = req.params.Id;
+  PharmacistInfo.find({ "_id": id })
+    .exec()
+    .then(doc => {
+      console.log("Pharmacistid :" + id);
+      console.log("From database", doc);
+      if (doc) {
+        res.status(200).json(doc);
+      } else {
+        res
+          .status(404)
+          .json({ message: "No valid entry found for provided ID" });
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({ error: err });
+    });
+
+});
+
+// Fetch all posts
+app.get("/PharmacistInfo", (req, res, next) => {
+  console.log('GET method')
+  PharmacistInfo.find()
+    .exec()
+    .then(docs => {
+      console.log(docs);
+      if (docs.length >= 0) {
+        res.status(200).json(docs);
+      } else {
+        res.status(404).json({
+          message: 'No entries found'
+        });
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({
+        error: err
+      });
+    });
+});
+
+app.post('/post/PharmacistInfo', (req, res) => {
+  var db = req.db;
+  var PharmacistID = req.body.PharmacistID
+  var Prefix = req.body.Prefix
+  var Firstname = req.body.Firstname
+  var Lastname = req.body.Lastname
+  var Sex = req.body.Sex
+  var Email = req.body.Email
+  var IDcardNumber = req.body.IDcardNumber
+  var Ward = req.body.ward
+  var Department = req.body.Department
+  var Address = req.body.Address
+  var Phone = req.body.Phone
+
+  var new_Pharmacist = new PharmacistInfo({
+    PharmacistID: PharmacistID,
+    Prefix: Prefix,
+    Firstname: Firstname,
+    Lastname: Lastname,
+    Email: Email,
+    Department: Department,
+    Ward: Ward,
+    Sex: Sex,
+    IDcardNumber: IDcardNumber,
+    Address: Address,
+    Phone: Phone
+  })
+  new_Pharmacist.save(function (error) {
+    if (error) {
+      console.log(error)
+    }
+    res.send({
+      success: true,
+      message: 'Post saved successfully!'
+    })
+  })
+})
+
+app.put("/update/PharmacistInfo/:Id", (req, res, next) => {
+  console.log("POST Method")
+  var id = req.params.Id
+  PharmacistInfo.findOne({ _id: id }, function (err, foundObject) {
+    if (err) {
+      console.log(err)
+      res.status(500).send()
+    } else {
+      if (!foundObject) {
+        res.status(404).send()
+      } else {
+        if (req.body.PharmacistID) { foundObject.PharmacistID = req.body.PharmacistID }
+        if (req.body.Prefix) { foundObject.Prefix = req.body.Prefix }
+        if (req.body.Firstname) { foundObject.Firstname = req.body.Firstname }
+        if (req.body.Lastname) { foundObject.Lastname = req.body.Lastname }
+        if (req.body.Ward) { foundObject.Ward = req.body.Ward }
+        if (req.body.Department) { foundObject.Department = req.body.Department }
+        if (req.body.Sex) { foundObject.Sex = req.body.Sex }
+        if (req.body.Email) { foundObject.Email = req.body.Email }
+        if (req.body.IDcardNumber) { foundObject.IDcardNumber = req.body.IDcardNumber }
+        if (req.body.Address) { foundObject.Address = req.body.Address }
+        if (req.body.Phone) { foundObject.Phone = req.body.Phone }
+
+        foundObject.save(function (err, updateObject) {
+          if (err) {
+            console.log(err)
+            res.status(500).send();
+          } else {
+            res.send({
+              success: true,
+              message: 'Update successfully!'
+            })
+          }
+        })
+      }
+    }
+  })
+})
+
+// Delete a post
+app.delete('/remove/PharmacistInfo/:id', (req, res) => {
+  var db = req.db;
+  PharmacistInfo.remove({
+    _id: req.params.id
+  }, function (err, post) {
+    if (err)
+      res.send(err)
+    res.send({
+      success: true
+    })
+  })
+})
+
 
 // AllergicDrug 
 // Get list of Allergic Drug for 1 Patient By PatientID

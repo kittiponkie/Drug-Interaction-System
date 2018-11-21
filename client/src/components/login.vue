@@ -40,65 +40,19 @@
 
 <script>
 import axios from 'axios'
+import registerService from '@/services/registerService'
+
   export default {
     name: 'Drug_Interaction',
     data: () => ({
-      menuVisible: false, //toggle visible menu when responsive
-      Window_Width: 0, //width of window
-      drugName: null, //drug name that submit already
-      drugList: null, //list of drug that interaction with drugName
-      found: false, //true when found data , false when don't have data from API
-      rxcuiID: null, //ID of drug from API
-      checkSearch: false, //true when you search something
-      loading: false //true when you have to wait for call API
+      testFetch: 0
     }),
     methods: {
-      //toggle visible menu
-      toggleMenu() {
-        this.menuVisible = !this.menuVisible
-      },
-
-      //get data from API
-      async getData() {
-        this.loading = true
-        this.rxcui = null
-        var checkfound = false
-        await axios.get(`https://rxnav.nlm.nih.gov/REST/rxcui?name=${this.drugName}`).then(Response => {
-          if (Response.data.idGroup.rxnormId == null) {
-            console.log('rxcui id is null')
-            this.found = false
-            this.checkSearch = true
-            this.loading = false
-          } else {
-            this.rxcui = Response.data.idGroup.rxnormId[0]
-            checkfound = true
-            console.log('rxcui ok')
-          }
-        });
-        if (checkfound == true) {
-          await axios.get(
-              `https://rxnav.nlm.nih.gov/REST/interaction/interaction.json?rxcui=${this.rxcui}&sources=DrugBank`)
-            .then(Response => {
-              this.drugList = Response.data.interactionTypeGroup[0].interactionType[0].interactionPair
-              if (Response.data == null) console.log('data is null')
-              else {
-                console.log(this.drugList)
-                this.found = true
-                this.loading = false
-              }
-            });
-        }
-      },
-      change() {
-        console.log(this.drugName)
-        this.loading = false
-        this.found = false
-        this.drugList = null
-        this.checkSearch = false
-      }
+      
     },
     async mounted() {
       this.Window_Width = window.innerWidth
+    
     }
   }
 </script>
