@@ -7,7 +7,7 @@
       </md-tab>
 
       <md-tab id="tab-doctor" md-label="Doctor" to="/register/doctor">
-      {{Window.test}}
+      
       </md-tab>
       <md-tab id="tab-pharmacist" md-label="Pharmacist" to="/register/pharmacist">
       </md-tab>

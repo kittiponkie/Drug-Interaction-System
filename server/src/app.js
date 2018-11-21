@@ -40,7 +40,9 @@ var AccountRelation = require("../models/AccountRelation")
 app.get("/PatientInfo/:Id", (req, res) => {
   console.log('GET method')
   const id = req.params.Id;
-  PatientInfo.find({ "_id": id })
+  PatientInfo.find({
+      "PatientID": id
+    })
     .exec()
     .then(doc => {
       console.log(id);
@@ -50,15 +52,20 @@ app.get("/PatientInfo/:Id", (req, res) => {
       } else {
         res
           .status(404)
-          .json({ message: "No valid entry found for provided ID" });
+          .json({
+            message: "No valid entry found for provided ID"
+          });
       }
     })
     .catch(err => {
       console.log(err);
-      res.status(500).json({ error: err });
+      res.status(500).json({
+        error: err
+      });
     });
 
 });
+
 
 // Fetch all posts
 app.get("/PatientInfo", (req, res, next) => {
@@ -103,42 +110,75 @@ app.post('/post/PatientInfo', (req, res) => {
   var Bloodgroup = req.body.Bloodgroup
   var Address = req.body.Address
   var Phone = req.body.Phone
-
-  var new_Patient = new PatientInfo({
-    PatientID: PatientID,
-    Prefix: Prefix,
-    Firstname: Firstname,
-    Lastname: Lastname,
-    Sex: Sex,
-    DOB: DOB,
-    Age: Age,
-    Email: Email,
-    Weight: Weight,
-    Height: Height,
-    IDcardNumber: IDcardNumber,
-    Status: Status,
-    Race: Race,
-    Nation: Nation,
-    Religion: Religion,
-    Bloodgroup: Bloodgroup,
-    Address: Address,
-    Phone: Phone
-  })
-  new_Patient.save(function (error) {
-    if (error) {
-      console.log(error)
-    }
-    res.send({
-      success: true,
-      message: 'Post saved successfully!'
+  PatientInfo.find()
+    .exec()
+    .then(docs => {
+      //console.log(docs);
+      if (docs.length >= 0) {
+        //res.status(200).json(docs);
+        var x = docs[docs.length-1].PatientID.split('P')
+        //console.log(x)
+        PatientID = parseInt(x[1])+1
+        PatientID = PatientID.toString()
+        if(PatientID.length == 1) PatientID = "P0000"+PatientID
+        else if(PatientID.length == 2) PatientID = "P000"+PatientID
+        else if(PatientID.length == 3) PatientID = "P00"+PatientID
+        else if(PatientID.length == 4) PatientID = "P0"+PatientID
+        //console.log(PatientID.length)
+        //console.log(PatientID)
+        var new_Patient = new PatientInfo({
+          PatientID: PatientID,
+          Prefix: Prefix,
+          Firstname: Firstname,
+          Lastname: Lastname,
+          Sex: Sex,
+          DOB: DOB,
+          Age: Age,
+          Email: Email,
+          Weight: Weight,
+          Height: Height,
+          IDcardNumber: IDcardNumber,
+          Status: Status,
+          Race: Race,
+          Nation: Nation,
+          Religion: Religion,
+          Bloodgroup: Bloodgroup,
+          Address: Address,
+          Phone: Phone
+        })
+        new_Patient.save(function (error) {
+          if (error) {
+            console.log(error)
+          }
+          /*res.send({
+            success: true,
+            message: 'Post saved successfully!'
+          })*/
+          res.status(200).json(new_Patient)
+          //console.log("success first")
+        })
+      } else {
+        res.status(404).json({
+          message: 'No entries found'
+        });
+      }
     })
-  })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({
+        error: err
+      });
+    });
+
+  
 })
 
 app.put("/update/PatientInfo/:Id", (req, res, next) => {
   console.log("POST Method")
   var id = req.params.Id
-  PatientInfo.findOne({ _id: id }, function (err, foundObject) {
+  PatientInfo.findOne({
+    _id: id
+  }, function (err, foundObject) {
     if (err) {
       console.log(err)
       res.status(500).send()
@@ -146,24 +186,60 @@ app.put("/update/PatientInfo/:Id", (req, res, next) => {
       if (!foundObject) {
         res.status(404).send()
       } else {
-        if (req.body.PatientID) { foundObject.PatientID = req.body.PatientID }
-        if (req.body.Prefix) { foundObject.Prefix = req.body.Prefix }
-        if (req.body.Firstname) { foundObject.Firstname = req.body.Firstname }
-        if (req.body.Lastname) { foundObject.Lastname = req.body.Lastname }
-        if (req.body.Sex) { foundObject.Sex = req.body.Sex }
-        if (req.body.DOB) { foundObject.DOB = req.body.DOB }
-        if (req.body.Age) { foundObject.Age = req.body.Age }
-        if (req.body.Email) { foundObject.Email = req.body.Email }
-        if (req.body.Weight) { foundObject.Weight = req.body.Weight }
-        if (req.body.Height) { foundObject.Height = req.body.Height }
-        if (req.body.IDcardNumber) { foundObject.IDcardNumber = req.body.IDcardNumber }
-        if (req.body.Status) { foundObject.Status = req.body.Status }
-        if (req.body.Race) { foundObject.Race = req.body.Race }
-        if (req.body.Nation) { foundObject.Nation = req.body.Nation }
-        if (req.body.Religion) { foundObject.Religion = req.body.Religion }
-        if (req.body.Bloodgroup) { foundObject.Bloodgroup = req.body.Bloodgroup }
-        if (req.body.Address) { foundObject.Address = req.body.Address }
-        if (req.body.Phone) { foundObject.Phone = req.body.Phone }
+        if (req.body.PatientID) {
+          foundObject.PatientID = req.body.PatientID
+        }
+        if (req.body.Prefix) {
+          foundObject.Prefix = req.body.Prefix
+        }
+        if (req.body.Firstname) {
+          foundObject.Firstname = req.body.Firstname
+        }
+        if (req.body.Lastname) {
+          foundObject.Lastname = req.body.Lastname
+        }
+        if (req.body.Sex) {
+          foundObject.Sex = req.body.Sex
+        }
+        if (req.body.DOB) {
+          foundObject.DOB = req.body.DOB
+        }
+        if (req.body.Age) {
+          foundObject.Age = req.body.Age
+        }
+        if (req.body.Email) {
+          foundObject.Email = req.body.Email
+        }
+        if (req.body.Weight) {
+          foundObject.Weight = req.body.Weight
+        }
+        if (req.body.Height) {
+          foundObject.Height = req.body.Height
+        }
+        if (req.body.IDcardNumber) {
+          foundObject.IDcardNumber = req.body.IDcardNumber
+        }
+        if (req.body.Status) {
+          foundObject.Status = req.body.Status
+        }
+        if (req.body.Race) {
+          foundObject.Race = req.body.Race
+        }
+        if (req.body.Nation) {
+          foundObject.Nation = req.body.Nation
+        }
+        if (req.body.Religion) {
+          foundObject.Religion = req.body.Religion
+        }
+        if (req.body.Bloodgroup) {
+          foundObject.Bloodgroup = req.body.Bloodgroup
+        }
+        if (req.body.Address) {
+          foundObject.Address = req.body.Address
+        }
+        if (req.body.Phone) {
+          foundObject.Phone = req.body.Phone
+        }
 
         foundObject.save(function (err, updateObject) {
           if (err) {
@@ -197,7 +273,9 @@ app.delete('/remove/PatientInfo/:id', (req, res) => {
 app.get("/DoctorInfo/:Id", (req, res) => {
   console.log('GET method')
   const id = req.params.Id;
-  DoctorInfo.find({ "_id": id })
+  DoctorInfo.find({
+      "_id": id
+    })
     .exec()
     .then(doc => {
       console.log("Doctorid :" + id);
@@ -207,12 +285,16 @@ app.get("/DoctorInfo/:Id", (req, res) => {
       } else {
         res
           .status(404)
-          .json({ message: "No valid entry found for provided ID" });
+          .json({
+            message: "No valid entry found for provided ID"
+          });
       }
     })
     .catch(err => {
       console.log(err);
-      res.status(500).json({ error: err });
+      res.status(500).json({
+        error: err
+      });
     });
 
 });
@@ -281,7 +363,9 @@ app.post('/post/DoctorInfo', (req, res) => {
 app.put("/update/DoctorInfo/:Id", (req, res, next) => {
   console.log("POST Method")
   var id = req.params.Id
-  DoctorInfo.findOne({ _id: id }, function (err, foundObject) {
+  DoctorInfo.findOne({
+    _id: id
+  }, function (err, foundObject) {
     if (err) {
       console.log(err)
       res.status(500).send()
@@ -289,17 +373,39 @@ app.put("/update/DoctorInfo/:Id", (req, res, next) => {
       if (!foundObject) {
         res.status(404).send()
       } else {
-        if (req.body.DoctorID) { foundObject.DoctorID = req.body.DoctorID }
-        if (req.body.Prefix) { foundObject.Prefix = req.body.Prefix }
-        if (req.body.Firstname) { foundObject.Firstname = req.body.Firstname }
-        if (req.body.Lastname) { foundObject.Lastname = req.body.Lastname }
-        if (req.body.Ward) { foundObject.Ward = req.body.Ward }
-        if (req.body.Department) { foundObject.Department = req.body.Department }
-        if (req.body.Sex) { foundObject.Sex = req.body.Sex }
-        if (req.body.Email) { foundObject.Email = req.body.Email }
-        if (req.body.IDcardNumber) { foundObject.IDcardNumber = req.body.IDcardNumber }
-        if (req.body.Address) { foundObject.Address = req.body.Address }
-        if (req.body.Phone) { foundObject.Phone = req.body.Phone }
+        if (req.body.DoctorID) {
+          foundObject.DoctorID = req.body.DoctorID
+        }
+        if (req.body.Prefix) {
+          foundObject.Prefix = req.body.Prefix
+        }
+        if (req.body.Firstname) {
+          foundObject.Firstname = req.body.Firstname
+        }
+        if (req.body.Lastname) {
+          foundObject.Lastname = req.body.Lastname
+        }
+        if (req.body.Ward) {
+          foundObject.Ward = req.body.Ward
+        }
+        if (req.body.Department) {
+          foundObject.Department = req.body.Department
+        }
+        if (req.body.Sex) {
+          foundObject.Sex = req.body.Sex
+        }
+        if (req.body.Email) {
+          foundObject.Email = req.body.Email
+        }
+        if (req.body.IDcardNumber) {
+          foundObject.IDcardNumber = req.body.IDcardNumber
+        }
+        if (req.body.Address) {
+          foundObject.Address = req.body.Address
+        }
+        if (req.body.Phone) {
+          foundObject.Phone = req.body.Phone
+        }
 
         foundObject.save(function (err, updateObject) {
           if (err) {
@@ -338,7 +444,9 @@ app.delete('/remove/DoctorInfo/:id', (req, res) => {
 app.get("/PharmacistInfo/:Id", (req, res) => {
   console.log('GET method')
   const id = req.params.Id;
-  PharmacistInfo.find({ "_id": id })
+  PharmacistInfo.find({
+      "_id": id
+    })
     .exec()
     .then(doc => {
       console.log("Pharmacistid :" + id);
@@ -348,12 +456,16 @@ app.get("/PharmacistInfo/:Id", (req, res) => {
       } else {
         res
           .status(404)
-          .json({ message: "No valid entry found for provided ID" });
+          .json({
+            message: "No valid entry found for provided ID"
+          });
       }
     })
     .catch(err => {
       console.log(err);
-      res.status(500).json({ error: err });
+      res.status(500).json({
+        error: err
+      });
     });
 
 });
@@ -422,7 +534,9 @@ app.post('/post/PharmacistInfo', (req, res) => {
 app.put("/update/PharmacistInfo/:Id", (req, res, next) => {
   console.log("POST Method")
   var id = req.params.Id
-  PharmacistInfo.findOne({ _id: id }, function (err, foundObject) {
+  PharmacistInfo.findOne({
+    _id: id
+  }, function (err, foundObject) {
     if (err) {
       console.log(err)
       res.status(500).send()
@@ -430,17 +544,39 @@ app.put("/update/PharmacistInfo/:Id", (req, res, next) => {
       if (!foundObject) {
         res.status(404).send()
       } else {
-        if (req.body.PharmacistID) { foundObject.PharmacistID = req.body.PharmacistID }
-        if (req.body.Prefix) { foundObject.Prefix = req.body.Prefix }
-        if (req.body.Firstname) { foundObject.Firstname = req.body.Firstname }
-        if (req.body.Lastname) { foundObject.Lastname = req.body.Lastname }
-        if (req.body.Ward) { foundObject.Ward = req.body.Ward }
-        if (req.body.Department) { foundObject.Department = req.body.Department }
-        if (req.body.Sex) { foundObject.Sex = req.body.Sex }
-        if (req.body.Email) { foundObject.Email = req.body.Email }
-        if (req.body.IDcardNumber) { foundObject.IDcardNumber = req.body.IDcardNumber }
-        if (req.body.Address) { foundObject.Address = req.body.Address }
-        if (req.body.Phone) { foundObject.Phone = req.body.Phone }
+        if (req.body.PharmacistID) {
+          foundObject.PharmacistID = req.body.PharmacistID
+        }
+        if (req.body.Prefix) {
+          foundObject.Prefix = req.body.Prefix
+        }
+        if (req.body.Firstname) {
+          foundObject.Firstname = req.body.Firstname
+        }
+        if (req.body.Lastname) {
+          foundObject.Lastname = req.body.Lastname
+        }
+        if (req.body.Ward) {
+          foundObject.Ward = req.body.Ward
+        }
+        if (req.body.Department) {
+          foundObject.Department = req.body.Department
+        }
+        if (req.body.Sex) {
+          foundObject.Sex = req.body.Sex
+        }
+        if (req.body.Email) {
+          foundObject.Email = req.body.Email
+        }
+        if (req.body.IDcardNumber) {
+          foundObject.IDcardNumber = req.body.IDcardNumber
+        }
+        if (req.body.Address) {
+          foundObject.Address = req.body.Address
+        }
+        if (req.body.Phone) {
+          foundObject.Phone = req.body.Phone
+        }
 
         foundObject.save(function (err, updateObject) {
           if (err) {
@@ -478,7 +614,9 @@ app.delete('/remove/PharmacistInfo/:id', (req, res) => {
 app.get("/AllergicDrug/:PatientID", (req, res) => {
   console.log('GET method')
   const PatientID = req.params.PatientID;
-  AllergicDrug.find({ "PatientID": PatientID })
+  AllergicDrug.find({
+      "PatientID": PatientID
+    })
     .exec()
     .then(doc => {
       console.log("PatientID :" + PatientID);
@@ -488,12 +626,16 @@ app.get("/AllergicDrug/:PatientID", (req, res) => {
       } else {
         res
           .status(404)
-          .json({ message: "No valid entry found for provided ID" });
+          .json({
+            message: "No valid entry found for provided ID"
+          });
       }
     })
     .catch(err => {
       console.log(err);
-      res.status(500).json({ error: err });
+      res.status(500).json({
+        error: err
+      });
     });
 
 });
@@ -503,25 +645,10 @@ app.post('/post/AllergicDrug', (req, res) => {
   var db = req.db;
   var PatientID = req.body.PatientID
   var GPName = req.body.GPName
+  var RXCUI = req.body.RXCUI
   //var GPID = req.body.GPID
 
-  console.log("POST Method")
-  async function getData() {
-    await axios.get('https://rxnav.nlm.nih.gov/REST/rxcui?name=' + GPName).then(Response => {
-      console.log('Axios OK')
-      if (Response.data.idGroup.rxnormId == null) {
-        console.log('rxcui id is null')
-        res.send({
-          success: false,
-          message: 'RXCUI is NULL'
-        })
-      } else {
-        RXCUI = Response.data.idGroup.rxnormId
-        console.log('rxcui ok : ' + RXCUI)
-      }
-    });
-
-    console.log('rxcui : ' + RXCUI)
+  console.log("POST Method")  
     var new_AllergicDrug = new AllergicDrug({
       PatientID: PatientID,
       GPName: GPName,
@@ -537,9 +664,7 @@ app.post('/post/AllergicDrug', (req, res) => {
         message: 'Post saved successfully!'
       })
     })
-  };
 
-  getData()
 })
 
 // Delete AllergicDrug By PatientID and GPName 
@@ -565,7 +690,9 @@ app.delete('/remove/AllergicDrug/:PatientID/:GPName', (req, res) => {
 app.get("/AccountRelation/Patient/:PatientID", (req, res) => {
   console.log('GET method')
   const PatientID = req.params.PatientID;
-  AccountRelation.find({ "PatientID": PatientID })
+  AccountRelation.find({
+      "PatientID": PatientID
+    })
     .exec()
     .then(doc => {
       console.log("PatientID :" + PatientID);
@@ -575,12 +702,16 @@ app.get("/AccountRelation/Patient/:PatientID", (req, res) => {
       } else {
         res
           .status(404)
-          .json({ message: "No valid entry found for provided ID" });
+          .json({
+            message: "No valid entry found for provided ID"
+          });
       }
     })
     .catch(err => {
       console.log(err);
-      res.status(500).json({ error: err });
+      res.status(500).json({
+        error: err
+      });
     });
 });
 
@@ -588,7 +719,9 @@ app.get("/AccountRelation/Patient/:PatientID", (req, res) => {
 app.get("/AccountRelation/Doctor/:DoctorID", (req, res) => {
   console.log('GET method')
   const DoctorID = req.params.DoctorID;
-  AccountRelation.find({ "DoctorID": DoctorID })
+  AccountRelation.find({
+      "DoctorID": DoctorID
+    })
     .exec()
     .then(doc => {
       console.log("DoctorID :" + DoctorID);
@@ -598,12 +731,16 @@ app.get("/AccountRelation/Doctor/:DoctorID", (req, res) => {
       } else {
         res
           .status(404)
-          .json({ message: "No valid entry found for provided ID" });
+          .json({
+            message: "No valid entry found for provided ID"
+          });
       }
     })
     .catch(err => {
       console.log(err);
-      res.status(500).json({ error: err });
+      res.status(500).json({
+        error: err
+      });
     });
 });
 
@@ -622,7 +759,10 @@ app.post('/post/AccountRelation', (req, res) => {
     return !Object.keys(obj).length;
   }
 
-  AccountRelation.find({ "PatientID": PatientID, "DoctorID": DoctorID })
+  AccountRelation.find({
+      "PatientID": PatientID,
+      "DoctorID": DoctorID
+    })
     .exec()
     .then(doc => {
       console.log(doc)
@@ -655,7 +795,9 @@ app.post('/post/AccountRelation', (req, res) => {
     })
     .catch(err => {
       console.log(err);
-      res.status(500).json({ error: err });
+      res.status(500).json({
+        error: err
+      });
     });
 })
 
@@ -675,8 +817,12 @@ app.put("/update/AccountRelation/:PatientID/:DoctorID", (req, res, next) => {
       if (!foundObject) {
         res.status(404).send()
       } else {
-        if (req.body.PatientReq) { foundObject.PatientReq = req.body.PatientReq }
-        if (req.body.DoctorReq) { foundObject.DoctorReq = req.body.DoctorReq }
+        if (req.body.PatientReq) {
+          foundObject.PatientReq = req.body.PatientReq
+        }
+        if (req.body.DoctorReq) {
+          foundObject.DoctorReq = req.body.DoctorReq
+        }
         foundObject.save(function (err, updateObject) {
           if (err) {
             console.log(err)
@@ -722,19 +868,28 @@ app.post('/Register', (req, res) => {
   var AccountType = req.body.AccountType
   var RegisterStatus
 
-  if (AccountType == 'Doctor') { RegisterStatus = '0' }
-  else { RegisterStatus = '1' }
+  if (AccountType == 'Doctor') {
+    RegisterStatus = '0'
+  } else {
+    RegisterStatus = '1'
+  }
 
-  function isEmptyObject(obj) { return !Object.keys(obj).length; }
+  function isEmptyObject(obj) {
+    return !Object.keys(obj).length;
+  }
 
-  Account.find({ "๊Username": Username })
+  Account.find({
+      "๊Username": Username
+    })
     .exec()
     .then(doc => {
       console.log(doc)
 
       if (isEmptyObject(doc)) {
 
-        Account.find({ "Email": Email })
+        Account.find({
+            "Email": Email
+          })
           .exec()
           .then(doc => {
             console.log(doc)
@@ -776,7 +931,9 @@ app.post('/Register', (req, res) => {
     })
     .catch(err => {
       console.log(err);
-      res.status(500).json({ error: err });
+      res.status(500).json({
+        error: err
+      });
     });
 })
 
@@ -785,7 +942,10 @@ app.post('/Register', (req, res) => {
 app.post('/Login', (req, res) => {
   var Username = req.body.Username
   var Password = req.body.Password
-  Account.findOne({ 'Username': Username, 'Password': Password })
+  Account.findOne({
+      'Username': Username,
+      'Password': Password
+    })
     .exec()
     .then(doc => {
       console.log(doc)
@@ -798,14 +958,13 @@ app.post('/Login', (req, res) => {
               success: false,
               message: "Account is not verified By Administrator"
             })
-        }
-        else {
+        } else {
           res
             .status(200)
-          .json({
-            success: true,
-            message: "๊Login Success"
-          })
+            .json({
+              success: true,
+              message: "๊Login Success"
+            })
         }
       } else {
         res
@@ -818,7 +977,9 @@ app.post('/Login', (req, res) => {
     })
     .catch(err => {
       console.log(err);
-      res.status(500).json({ error: err });
+      res.status(500).json({
+        error: err
+      });
     });
 })
 
@@ -826,7 +987,9 @@ app.post('/Login', (req, res) => {
 app.put("/update/Account/:Email", (req, res, next) => {
   console.log("POST Method")
   var Email = req.params.Email
-  Account.findOne({ "Email": Email }, function (err, foundObject) {
+  Account.findOne({
+    "Email": Email
+  }, function (err, foundObject) {
     if (err) {
       console.log(err)
       res.status(500).send()
@@ -834,10 +997,18 @@ app.put("/update/Account/:Email", (req, res, next) => {
       if (!foundObject) {
         res.status(404).send()
       } else {
-        if (req.body.Username) { foundObject.Username = req.body.Username }
-        if (req.body.Password) { foundObject.Password = req.body.Password }
-        if (req.body.ID) { foundObject.ID = req.body.ID }
-        if (req.body.Email) { foundObject.Email = req.body.Email }
+        if (req.body.Username) {
+          foundObject.Username = req.body.Username
+        }
+        if (req.body.Password) {
+          foundObject.Password = req.body.Password
+        }
+        if (req.body.ID) {
+          foundObject.ID = req.body.ID
+        }
+        if (req.body.Email) {
+          foundObject.Email = req.body.Email
+        }
         foundObject.save(function (err, updateObject) {
           if (err) {
             console.log(err)
@@ -858,7 +1029,9 @@ app.put("/update/Account/:Email", (req, res, next) => {
 app.put("/ConfirmAccount/:ID", (req, res, next) => {
   console.log("POST Method")
   var ID = req.params.ID
-  Account.findOne({ "ID": ID }, function (err, foundObject) {
+  Account.findOne({
+    "ID": ID
+  }, function (err, foundObject) {
     if (err) {
       console.log(err)
       res.status(500).send()
@@ -882,4 +1055,3 @@ app.put("/ConfirmAccount/:ID", (req, res, next) => {
     }
   })
 })
-

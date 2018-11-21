@@ -24,5 +24,5 @@ export default {
   //use model AllergicDrug
   allergicDrug (params) {
     return Api().post('/post/AllergicDrug', params)
-  },
+  }
 }
