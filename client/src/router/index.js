@@ -27,7 +27,7 @@ import Patient_information from '@/components/Patient_information'
 import login from '@/components/login'
 import Regisform from '@/components/Regisform'
 import Doctor_Information from '@/components/Doctor_Information'
-import Admin_Accept from '@/components/Admin_Accept'
+import Admin_Accept from '@/components/Adminpage'
 
 export default new VueRouter({
   mode: 'history',
