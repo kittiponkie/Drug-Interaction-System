@@ -29,8 +29,9 @@
 </template>
 
 <script>
-// eslint-disable-next-line
- /* eslint-disable */
+// eslint-disable-next-line 
+/* eslint-disable */
+
 import PostsService from '@/services/PostsService'
 export default {
   name: 'posts',

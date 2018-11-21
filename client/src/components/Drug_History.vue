@@ -76,15 +76,18 @@
             <md-table-cell md-label="Remark" md-sort-by="title">{{ item.title }}</md-table-cell>
           </md-table-row>
         </md-table>
-
+<div>
+      {{test}}
+    </div>
       </md-app-content>
     </md-app>
+    
   </div>
 </template>
 
 <script>
-// eslint-disable-next-line
- /* eslint-disable */
+// eslint-disable-next-line 
+/* eslint-disable */
 const toLower = text => {
     return text.toString().toLowerCase()
   }
@@ -108,6 +111,7 @@ const toLower = text => {
       loading: false, //true when you have to wait for call API  
       search: null,
       searched: [],
+      test:'nulaaaaaaaaaaaaaaaaaaaal',
       users: [{
           id: 1,
           name: "Acetaminophen",
@@ -195,6 +199,12 @@ const toLower = text => {
     },
     async mounted() {
       this.Window_Width = window.innerWidth
+      /*axios.get(
+              `http://localhost:8082/info/GP/paracetamol`)
+            .then(Response => {
+             this.test = Response
+            });*/
+        
     },
     created () {
       this.searched = this.users

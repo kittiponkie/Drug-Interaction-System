@@ -54,6 +54,7 @@
           <tr>
             <td>Loading...</td>
             <td>Please Wait...</td>
+            <td> eiei + {{data.GP[0].GPID.name}} </td>
           </tr>
         </table>
       </div>
@@ -67,6 +68,9 @@
   </div>
 </template>
 <script>
+// eslint-disable-next-line 
+/* eslint-disable */
+
   import axios from 'axios'
   export default {
     name: 'interaction',
@@ -89,14 +93,14 @@
           await this.getName()
           this.data = null
         }
-        await axios.get(`https://rxnav.nlm.nih.gov/REST/rxcui?name=${this.Drug_name}`).then(Response => {
-          this.name_rxnormId = Response.data
-          this.rxcui = this.name_rxnormId.idGroup.rxnormId[0]
+        await axios.get(`http://localhost:8082/info/GP/paracetamol`).then(Response => {
+          this.data = Response.data
         });
-        axios.get(`https://rxnav.nlm.nih.gov/REST/interaction/interaction.json?rxcui=${this.rxcui}&sources=DrugBank`)
+        /*axios.get(`https://rxnav.nlm.nih.gov/REST/interaction/interaction.json?rxcui=${this.rxcui}&sources=DrugBank`)
           .then(Response => {
             this.data = Response.data
-          });
+          }
+          );*/
       },
       getName() {
         this.Drug_name = this.getDrug
