@@ -9,15 +9,6 @@ app.use(morgan('combined'))
 app.use(bodyParser.json())
 app.use(cors())
 
-app.get('/post', (req, res) => {
-  res.send(
-    [{
-      title: "Hello World!",
-      description: "Hi there! How are you?"
-    }]
-  )
-})
-
 app.listen(process.env.PORT || 8081)
 
 var mongoose = require('mongoose');
@@ -40,9 +31,10 @@ var DrugHistory = require("../models/DrugHistory")
 app.get("/PatientInfo/:Id", (req, res) => {
   console.log('GET method')
   const id = req.params.Id;
-  PatientInfo.find({ "_id": id })
+  PatientInfo.find({ "PatientID": id })
     .exec()
     .then(doc => {
+
       console.log(id);
       console.log("From database", doc);
       if (doc) {
@@ -85,60 +77,84 @@ app.get("/PatientInfo", (req, res, next) => {
 
 app.post('/post/PatientInfo', (req, res) => {
   var db = req.db;
-  var PatientID = req.body.PatientID
-  var Prefix = req.body.Prefix
-  var Firstname = req.body.Firstname
-  var Lastname = req.body.Lastname
-  var Sex = req.body.Sex
-  var DOB = req.body.DOB
-  var Age = req.body.Age
-  var Email = req.body.Email
-  var Weight = req.body.Weight
-  var Height = req.body.Height
-  var IDcardNumber = req.body.IDcardNumber
-  var Status = req.body.Status
-  var Race = req.body.Race
-  var Nation = req.body.Nation
-  var Religion = req.body.Religion
-  var Bloodgroup = req.body.Bloodgroup
-  var Address = req.body.Address
-  var Phone = req.body.Phone
+  var newID
+  async function main() {
+    await PatientInfo.findOne({}, null, { "sort": { "PatientID": -1 } })
+      .exec()
+      .then(doc => {
+        if (doc) {
+          console.log("LastID :", doc.PatientID);
+          newID = doc.PatientID.replace('U', '');
+          newID = (newID * 1) + 1
+          if (newID <= 9) newID = "U0000" + newID
+          else if (newID <= 99) newID = "U000" + newID
+          else if (newID <= 999) newID = "U00" + newID
+          else if (newID <= 9999) newID = "U0" + newID
+          else newID = "U" + newID
+          console.log("์NewID :", newID);
+        } else {
+          newID = "U00001"
+        }
+      })
 
-  var new_Patient = new PatientInfo({
-    PatientID: PatientID,
-    Prefix: Prefix,
-    Firstname: Firstname,
-    Lastname: Lastname,
-    Sex: Sex,
-    DOB: DOB,
-    Age: Age,
-    Email: Email,
-    Weight: Weight,
-    Height: Height,
-    IDcardNumber: IDcardNumber,
-    Status: Status,
-    Race: Race,
-    Nation: Nation,
-    Religion: Religion,
-    Bloodgroup: Bloodgroup,
-    Address: Address,
-    Phone: Phone
-  })
-  new_Patient.save(function (error) {
-    if (error) {
-      console.log(error)
-    }
-    res.send({
-      success: true,
-      message: 'Post saved successfully!'
+    var PatientID = newID
+    var Prefix = req.body.Prefix
+    var Firstname = req.body.Firstname
+    var Lastname = req.body.Lastname
+    var Sex = req.body.Sex
+    var DOB = req.body.DOB
+    var Age = req.body.Age
+    var Email = req.body.Email
+    var Weight = req.body.Weight
+    var Height = req.body.Height
+    var IDcardNumber = req.body.IDcardNumber
+    var Status = req.body.Status
+    var Race = req.body.Race
+    var Nation = req.body.Nation
+    var Religion = req.body.Religion
+    var Bloodgroup = req.body.Bloodgroup
+    var Address = req.body.Address
+    var Phone = req.body.Phone
+
+    var new_Patient = new PatientInfo({
+      PatientID: PatientID,
+      Prefix: Prefix,
+      Firstname: Firstname,
+      Lastname: Lastname,
+      Sex: Sex,
+      DOB: DOB,
+      Age: Age,
+      Email: Email,
+      Weight: Weight,
+      Height: Height,
+      IDcardNumber: IDcardNumber,
+      Status: Status,
+      Race: Race,
+      Nation: Nation,
+      Religion: Religion,
+      Bloodgroup: Bloodgroup,
+      Address: Address,
+      Phone: Phone
     })
-  })
+    new_Patient.save(function (error) {
+      if (error) {
+        console.log(error)
+      }
+      res.send({
+        success: true,
+        message: 'Post saved successfully!'
+      })
+    })
+  }
+
+  main()
+
 })
 
 app.put("/update/PatientInfo/:Id", (req, res, next) => {
   console.log("POST Method")
   var id = req.params.Id
-  PatientInfo.findOne({ _id: id }, function (err, foundObject) {
+  PatientInfo.findOne({ "PatientID": id }, function (err, foundObject) {
     if (err) {
       console.log(err)
       res.status(500).send()
@@ -182,7 +198,7 @@ app.put("/update/PatientInfo/:Id", (req, res, next) => {
 app.delete('/remove/PatientInfo/:id', (req, res) => {
   var db = req.db;
   PatientInfo.remove({
-    _id: req.params.id
+    "PatientID": req.params.id
   }, function (err, post) {
     if (err)
       res.send(err)
@@ -197,7 +213,7 @@ app.delete('/remove/PatientInfo/:id', (req, res) => {
 app.get("/DoctorInfo/:Id", (req, res) => {
   console.log('GET method')
   const id = req.params.Id;
-  DoctorInfo.find({ "_id": id })
+  DoctorInfo.find({ "DoctorID": id })
     .exec()
     .then(doc => {
       console.log("Doctorid :" + id);
@@ -242,46 +258,67 @@ app.get("/DoctorInfo", (req, res, next) => {
 
 app.post('/post/DoctorInfo', (req, res) => {
   var db = req.db;
-  var DoctorID = req.body.DoctorID
-  var Prefix = req.body.Prefix
-  var Firstname = req.body.Firstname
-  var Lastname = req.body.Lastname
-  var Sex = req.body.Sex
-  var Email = req.body.Email
-  var IDcardNumber = req.body.IDcardNumber
-  var Ward = req.body.ward
-  var Department = req.body.Department
-  var Address = req.body.Address
-  var Phone = req.body.Phone
+  var newID
+  async function main() {
+    await DoctorInfo.findOne({}, null, { "sort": { "DoctorID": -1 } })
+      .exec()
+      .then(doc => {
+        if (doc) {
+          console.log("LastID :", doc.DoctorID);
+          newID = doc.DoctorID.replace('D', '');
+          newID = (newID * 1) + 1
+          if (newID <= 9) newID = "D0000" + newID
+          else if (newID <= 99) newID = "D000" + newID
+          else if (newID <= 999) newID = "D00" + newID
+          else if (newID <= 9999) newID = "D0" + newID
+          else newID = "D" + newID
+          console.log("์NewID :", newID);
+        } else {
+          newID = "D00001"
+        }
+      })
+    var DoctorID = newID
+    var Prefix = req.body.Prefix
+    var Firstname = req.body.Firstname
+    var Lastname = req.body.Lastname
+    var Sex = req.body.Sex
+    var Email = req.body.Email
+    var IDcardNumber = req.body.IDcardNumber
+    var Ward = req.body.ward
+    var Department = req.body.Department
+    var Address = req.body.Address
+    var Phone = req.body.Phone
 
-  var new_Doctor = new DoctorInfo({
-    DoctorID: DoctorID,
-    Prefix: Prefix,
-    Firstname: Firstname,
-    Lastname: Lastname,
-    Email: Email,
-    Department: Department,
-    Ward: Ward,
-    Sex: Sex,
-    IDcardNumber: IDcardNumber,
-    Address: Address,
-    Phone: Phone
-  })
-  new_Doctor.save(function (error) {
-    if (error) {
-      console.log(error)
-    }
-    res.send({
-      success: true,
-      message: 'Post saved successfully!'
+    var new_Doctor = new DoctorInfo({
+      DoctorID: DoctorID,
+      Prefix: Prefix,
+      Firstname: Firstname,
+      Lastname: Lastname,
+      Email: Email,
+      Department: Department,
+      Ward: Ward,
+      Sex: Sex,
+      IDcardNumber: IDcardNumber,
+      Address: Address,
+      Phone: Phone
     })
-  })
+    new_Doctor.save(function (error) {
+      if (error) {
+        console.log(error)
+      }
+      res.send({
+        success: true,
+        message: 'Post saved successfully!'
+      })
+    })
+  }
+  main()
 })
 
 app.put("/update/DoctorInfo/:Id", (req, res, next) => {
   console.log("POST Method")
   var id = req.params.Id
-  DoctorInfo.findOne({ _id: id }, function (err, foundObject) {
+  DoctorInfo.findOne({ "DoctorID": id }, function (err, foundObject) {
     if (err) {
       console.log(err)
       res.status(500).send()
@@ -321,7 +358,7 @@ app.put("/update/DoctorInfo/:Id", (req, res, next) => {
 app.delete('/remove/DoctorInfo/:id', (req, res) => {
   var db = req.db;
   DoctorInfo.remove({
-    _id: req.params.id
+    "DoctorID": req.params.id
   }, function (err, post) {
     if (err)
       res.send(err)
@@ -330,6 +367,166 @@ app.delete('/remove/DoctorInfo/:id', (req, res) => {
     })
   })
 })
+
+
+// PharmacistInfo
+// Fetch single post
+app.get("/PharmacistInfo/:Id", (req, res) => {
+  console.log('GET method')
+  const id = req.params.Id;
+  PharmacistInfo.find({ "PharmacistID": id })
+    .exec()
+    .then(doc => {
+      console.log("Pharmacistid :" + id);
+      console.log("From database", doc);
+      if (doc) {
+        res.status(200).json(doc);
+      } else {
+        res
+          .status(404)
+          .json({ message: "No valid entry found for provided ID" });
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({ error: err });
+    });
+
+});
+
+// Fetch all posts
+app.get("/PharmacistInfo", (req, res, next) => {
+  console.log('GET method')
+  PharmacistInfo.find()
+    .exec()
+    .then(docs => {
+      console.log(docs);
+      if (docs.length >= 0) {
+        res.status(200).json(docs);
+      } else {
+        res.status(404).json({
+          message: 'No entries found'
+        });
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({
+        error: err
+      });
+    });
+});
+
+app.post('/post/PharmacistInfo', (req, res) => {
+  var db = req.db;
+  var newID
+  async function main() {
+    await PharmacistInfo.findOne({}, null, { "sort": { "PharmacistID": -1 } })
+      .exec()
+      .then(doc => {
+        if (doc) {
+          console.log("LastID :", doc.PharmacistID);
+          newID = doc.PharmacistID.replace('P', '');
+          newID = (newID * 1) + 1
+          if (newID <= 9) newID = "P0000" + newID
+          else if (newID <= 99) newID = "P000" + newID
+          else if (newID <= 999) newID = "P00" + newID
+          else if (newID <= 9999) newID = "P0" + newID
+          else newID = "P" + newID
+          console.log("์NewID :", newID);
+        } else {
+          newID = "P00001"
+        }
+      })
+    var PharmacistID = newID
+    var Prefix = req.body.Prefix
+    var Firstname = req.body.Firstname
+    var Lastname = req.body.Lastname
+    var Sex = req.body.Sex
+    var Email = req.body.Email
+    var IDcardNumber = req.body.IDcardNumber
+    var Department = req.body.Department
+    var Address = req.body.Address
+    var Phone = req.body.Phone
+
+    var new_Pharmacist = new PharmacistInfo({
+      PharmacistID: PharmacistID,
+      Prefix: Prefix,
+      Firstname: Firstname,
+      Lastname: Lastname,
+      Email: Email,
+      Department: Department,
+      Sex: Sex,
+      IDcardNumber: IDcardNumber,
+      Address: Address,
+      Phone: Phone
+    })
+    new_Pharmacist.save(function (error) {
+      if (error) {
+        console.log(error)
+      }
+      res.send({
+        success: true,
+        message: 'Post saved successfully!'
+      })
+    })
+  }
+  main()
+})
+
+app.put("/update/PharmacistInfo/:Id", (req, res, next) => {
+  console.log("POST Method")
+  var id = req.params.Id
+  DoctorInfo.findOne({ "PharmacistID": id }, function (err, foundObject) {
+    if (err) {
+      console.log(err)
+      res.status(500).send()
+    } else {
+      if (!foundObject) {
+        res.status(404).send()
+      } else {
+        if (req.body.DoctorID) { foundObject.DoctorID = req.body.DoctorID }
+        if (req.body.Prefix) { foundObject.Prefix = req.body.Prefix }
+        if (req.body.Firstname) { foundObject.Firstname = req.body.Firstname }
+        if (req.body.Lastname) { foundObject.Lastname = req.body.Lastname }
+        if (req.body.Ward) { foundObject.Ward = req.body.Ward }
+        if (req.body.Department) { foundObject.Department = req.body.Department }
+        if (req.body.Sex) { foundObject.Sex = req.body.Sex }
+        if (req.body.Email) { foundObject.Email = req.body.Email }
+        if (req.body.IDcardNumber) { foundObject.IDcardNumber = req.body.IDcardNumber }
+        if (req.body.Address) { foundObject.Address = req.body.Address }
+        if (req.body.Phone) { foundObject.Phone = req.body.Phone }
+
+        foundObject.save(function (err, updateObject) {
+          if (err) {
+            console.log(err)
+            res.status(500).send();
+          } else {
+            res.send({
+              success: true,
+              message: 'Update successfully!'
+            })
+          }
+        })
+      }
+    }
+  })
+})
+
+// Delete a post
+app.delete('/remove/PharmacistInfo/:id', (req, res) => {
+  var db = req.db;
+  DoctorInfo.remove({
+    "PharmacistID": req.params.id
+  }, function (err, post) {
+    if (err)
+      res.send(err)
+    res.send({
+      success: true
+    })
+  })
+})
+
 
 // AllergicDrug 
 // Get list of Allergic Drug for 1 Patient By PatientID
@@ -660,10 +857,10 @@ app.post('/Login', (req, res) => {
         else {
           res
             .status(200)
-          .json({
-            success: true,
-            message: "๊Login Success"
-          })
+            .json({
+              success: true,
+              message: "๊Login Success"
+            })
         }
       } else {
         res
@@ -765,12 +962,12 @@ app.get("/AccountRelation/Doctor/:PatientID", (req, res) => {
     });
 });
 
-// List Drug History By PatientID and filter DoctorID
+// List Drug History By PatientID and filter By DoctorID
 app.get("/AccountRelation/Doctor/:PatientID/:DoctorID", (req, res) => {
   console.log('GET method')
   const PatientID = req.params.PatientID;
   const DoctorID = req.params.DoctorID;
-  DrugHistory.find({ "PatientID": PatientID , "DoctorID": DoctorID  })
+  DrugHistory.find({ "PatientID": PatientID, "DoctorID": DoctorID })
     .exec()
     .then(doc => {
       console.log("PatientID :" + PatientID);
@@ -789,35 +986,50 @@ app.get("/AccountRelation/Doctor/:PatientID/:DoctorID", (req, res) => {
     });
 });
 
-// ADD DrugHistory -> Drug Dispensing
+// ADD DrugHistory -> Drug Dispensing Page
 app.post('/post/AccountRelation', (req, res) => {
   var db = req.db;
   var PatientID = req.body.PatientID
   var DoctorID = req.body.DoctorID
-  var DateTime = new Date();
-  var DateNow = DateTime.toLocaleDateString();
-  console.log(DateNow);
-  var PatientReq = req.body.PatientReq
-  var DoctorReq = req.body.DoctorReq
+  var PharmacistID = req.body.PharmacistID
+  var StartDate = req.body.StartDate
+  var Duration = req.body.Duration
+  var UsingStatus = req.body.UsingStatus
+  var DispendStatus = req.body.DispendStatus
+  var GPName = req.body.GPName
+  var GPID = req.body.GPID
+  var RXCUI = req.body.RXCUI
+  var Dosage = req.body.Dosage
+  var Frequency = req.body.Frequency
+  var Times = req.body.Times
+  var Description = req.body.Description
 
   function isEmptyObject(obj) {
     return !Object.keys(obj).length;
   }
 
-  AccountRelation.find({ "PatientID": PatientID, "DoctorID": DoctorID })
+  DrugHistory.find({ "PatientID": PatientID, "DoctorID": DoctorID })
     .exec()
     .then(doc => {
       console.log(doc)
 
       if (isEmptyObject(doc)) {
-        var new_AccountRelation = new AccountRelation({
+        var new_DrugHistory = new DrugHistory({
           PatientID: PatientID,
           DoctorID: DoctorID,
-          Date: DateNow,
-          PatientReq: PatientReq,
-          DoctorReq: DoctorReq,
+          PharmacistID: PharmacistID,
+          StartDate: StartDate,
+          Duration: Duration,
+          UsingStatus: UsingStatus,
+          DispendStatus: DispendStatus,
+          GPName: GPName,
+          Dosage: Dosage,
+          Frequency: Frequency,
+          Times: Times,
+          Description: Description
         })
-        new_AccountRelation.save(function (error) {
+
+        new_DrugHistory.save(function (error) {
           if (error) {
             console.log(error)
           }
