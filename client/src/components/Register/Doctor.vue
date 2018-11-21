@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h1 class="well">Register</h1>
+    <h1 class="well"><a href="http://localhost:8080/login" target="_parent"><button type="button" class="btn btn-lg btn-info" style="margin-right: 20px">Back</button></a>Register</h1>
     <md-tabs md-sync-route>
       <md-tab id="tab-patient" md-label="Patient" to="/register/patient">
         

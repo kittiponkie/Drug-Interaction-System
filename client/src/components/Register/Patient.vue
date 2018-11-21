@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h1 class="well">Register</h1>
+    <h1 class="well"><a href="http://localhost:8080/login" target="_parent"><button type="button" class="btn btn-lg btn-info" style="margin-right: 20px">Back</button></a>Register</h1>
     <md-tabs md-sync-route>
       <md-tab id="tab-patient" md-label="Patient" to="/register/patient">
         <div>
@@ -166,7 +166,7 @@
                   <input id="password" type="password" placeholder="Enter password Here.. at least 8 character" class="form-control">
                 </div>
                 <button type="button" class="btn btn-lg btn-info" style="margin-left: 7px" @click="submit">Submit</button>
-                <button type="button" class="btn btn-lg btn-info" style="margin-left: 7px">cancel</button>
+                <button type="button" class="btn btn-lg btn-info" style="margin-left: 7px" @click="cancel">cancel</button>
               </div>
             </form>
 
@@ -232,18 +232,12 @@
       test: null
     }),
     methods: {
+      cancel(){
+        window.location.href = "http://localhost:8080/register/patient";
+      },
       async submit() {
         await this.DataPatient()
-        console.log("finish 1.1")
-        /*await registerService.getPatient(this.dataPatient.Email).then( Response => {
-            if(Response.data != "") {
-              this.dataPatient.PatientID = Response.data.PatientID
-            }
-            //console.log("finish 1.2")
-        })*/
-        console.log("finish 1.3")
         await this.DataAccount()
-        console.log("finish 2")
         await this.DataAllergic()
       },
       async DataPatient() {
@@ -274,10 +268,8 @@
             if (Response.data != "") {
               this.dataPatient.PatientID = Response.data.PatientID
             }
-            console.log(this.dataPatient.PatientID)
           })
         }
-        console.log("finish one")
       },
       DataAccount() {
         this.dataAccount.ID = this.dataPatient.PatientID
@@ -296,15 +288,6 @@
     },
     async mounted() {
       this.Window_Width = window.innerWidth
-      /*this.userInfo = {
-        ID: 'String',
-        Username: 'String',
-        Password: 'String',
-        Email: 'String',
-        AccountType: 'String',
-        RegisterStatus: 'String'
-			}*/
-      //if(this.userInfo != null) registerService.register(this.userInfo)
     }
   }
 

@@ -1,9 +1,9 @@
 <template>
-<form>
+
   <div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-heading">
-				<h2 class="text-center">Please Login</h2>
+				<h2 class="text-center">Login</h2>
 			</div>
 		<!--	<hr /> -->
 			<div class="modal-body">
@@ -24,18 +24,18 @@
 							<input type="password" class="form-control" placeholder="Fill your Password" />
 						</div>
 
-					</div>
-
-					<div class="form-group text-center">
-						<button type="submit" class="btn btn-success btn-lg">Login</button>
-						<a href="http://localhost:8080/components/forgotpassword" class="btn btn-link">forget Password?</a>
-					</div>
-
+					</div>	
 				</form>
+				<div class="form-group text-center">
+						<button type="submit" class="btn btn-success btn-lg">Login</button>
+						<a href="http://localhost:8080/register" target="_parent"><button class="btn btn-success btn-lg">Register</button></a>
+						<a href="http://localhost:8080/forgotpassword" target="_blank" class="btn btn-link">forget Password?</a>
+				</div>
+				
 			</div>
 		</div>
 	</div>
-</form>
+
 </template>
 
 <script>

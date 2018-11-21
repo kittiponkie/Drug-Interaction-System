@@ -664,7 +664,6 @@ app.post('/post/AllergicDrug', (req, res) => {
         message: 'Post saved successfully!'
       })
     })
-
 })
 
 // Delete AllergicDrug By PatientID and GPName 
