@@ -76,7 +76,7 @@
                     <div role="tabpanel" class="tab-pane fade in active" id="Section1">
                         <h3>Section 1</h3>
 <!--content-->
-                        <md-table v-model="searched" md-sort="name" md-sort-order="asc" md-card>
+          <md-table v-model="searched" md-sort="name" md-sort-order="asc" md-card>
           <md-table-toolbar>
             <div class="md-toolbar-section-start">
               <h1 class="md-title">Admin Page</h1>

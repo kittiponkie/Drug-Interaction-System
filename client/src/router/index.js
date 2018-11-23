@@ -28,6 +28,9 @@ import login from '@/components/login'
 import Regisform from '@/components/Regisform'
 import Doctor_Information from '@/components/Doctor_Information'
 import Admin_Accept from '@/components/Adminpage'
+import Friend_Page from '@/components/Friend_Page'
+import Order_Drug from '@/components/Order_Drug'
+
 
 export default new VueRouter({
   mode: 'history',
@@ -106,6 +109,16 @@ export default new VueRouter({
       path: '/Admin_Accept',
       name: 'Admin_Accept',
       component: Admin_Accept
+    },
+    {
+      path: '/Friend_Page',
+      name: 'Friend_Page',
+      component: Friend_Page
+    },
+    {
+      path: '/Order_Drug',
+      name: 'Order_Drug',
+      component: Order_Drug
     }
   ]
 })
