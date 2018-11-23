@@ -950,9 +950,9 @@ app.post('/Login', (req, res) => {
       console.log(doc)
 
       if (doc) {
-        if (doc.RegisterStatus == '0') {
+        if (doc.RegisterStatus == '0') {          
           res
-            .status(404)
+            .status(200)
             .json({
               success: false,
               message: "Account is not verified By Administrator"
@@ -960,14 +960,11 @@ app.post('/Login', (req, res) => {
         } else {
           res
             .status(200)
-            .json({
-              success: true,
-              message: "๊Login Success"
-            })
+            .json(doc)
         }
       } else {
         res
-          .status(404)
+          .status(200)
           .json({
             success: false,
             message: "Username and/or Password incorrect"
