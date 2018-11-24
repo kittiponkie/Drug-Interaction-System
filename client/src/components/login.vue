@@ -61,7 +61,7 @@
 				
         loginService.checkLogin(this.login).then(Response=>{
 					if(Response.data.success == false) {					
-						this.test = "not found Please Login again"
+						this.test = Response.data.message
 					}
 					else {
 						this.test = Response.data.ID
@@ -74,7 +74,6 @@
     },
     async mounted() {
       this.Window_Width = window.innerWidth
-
     }
   }
 

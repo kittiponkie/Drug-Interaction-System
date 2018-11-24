@@ -113,19 +113,17 @@ app.post('/post/PatientInfo', (req, res) => {
   PatientInfo.find()
     .exec()
     .then(docs => {
-      //console.log(docs);
-      if (docs.length >= 0) {
-        //res.status(200).json(docs);
-        var x = docs[docs.length-1].PatientID.split('P')
-        //console.log(x)
-        PatientID = parseInt(x[1])+1
+      if (docs.length > 0) {
+        var x = docs[docs.length - 1].PatientID.split('P')
+
+        PatientID = parseInt(x[1]) + 1
         PatientID = PatientID.toString()
-        if(PatientID.length == 1) PatientID = "P0000"+PatientID
-        else if(PatientID.length == 2) PatientID = "P000"+PatientID
-        else if(PatientID.length == 3) PatientID = "P00"+PatientID
-        else if(PatientID.length == 4) PatientID = "P0"+PatientID
-        //console.log(PatientID.length)
-        //console.log(PatientID)
+        if (PatientID.length == 1) PatientID = "P0000" + PatientID
+        else if (PatientID.length == 2) PatientID = "P000" + PatientID
+        else if (PatientID.length == 3) PatientID = "P00" + PatientID
+        else if (PatientID.length == 4) PatientID = "P0" + PatientID
+        else PatientID = "P" + PatientID
+
         var new_Patient = new PatientInfo({
           PatientID: PatientID,
           Prefix: Prefix,
@@ -150,17 +148,36 @@ app.post('/post/PatientInfo', (req, res) => {
           if (error) {
             console.log(error)
           }
-          /*res.send({
-            success: true,
-            message: 'Post saved successfully!'
-          })*/
           res.status(200).json(new_Patient)
-          //console.log("success first")
         })
       } else {
-        res.status(404).json({
-          message: 'No entries found'
-        });
+        PatientID = "P00000"
+        var new_Patient = new PatientInfo({
+          PatientID: PatientID,
+          Prefix: Prefix,
+          Firstname: Firstname,
+          Lastname: Lastname,
+          Sex: Sex,
+          DOB: DOB,
+          Age: Age,
+          Email: Email,
+          Weight: Weight,
+          Height: Height,
+          IDcardNumber: IDcardNumber,
+          Status: Status,
+          Race: Race,
+          Nation: Nation,
+          Religion: Religion,
+          Bloodgroup: Bloodgroup,
+          Address: Address,
+          Phone: Phone
+        })
+        new_Patient.save(function (error) {
+          if (error) {
+            console.log(error)
+          }
+          res.status(200).json(new_Patient)
+        })
       }
     })
     .catch(err => {
@@ -170,7 +187,7 @@ app.post('/post/PatientInfo', (req, res) => {
       });
     });
 
-  
+
 })
 
 app.put("/update/PatientInfo/:Id", (req, res, next) => {
@@ -335,29 +352,70 @@ app.post('/post/DoctorInfo', (req, res) => {
   var Department = req.body.Department
   var Address = req.body.Address
   var Phone = req.body.Phone
+  
+  DoctorInfo.find()
+    .exec()
+    .then(docs => {
+      if (docs.length > 0) {
+        var x = docs[docs.length - 1].DoctorID.split('D')
 
-  var new_Doctor = new DoctorInfo({
-    DoctorID: DoctorID,
-    Prefix: Prefix,
-    Firstname: Firstname,
-    Lastname: Lastname,
-    Email: Email,
-    Department: Department,
-    Ward: Ward,
-    Sex: Sex,
-    IDcardNumber: IDcardNumber,
-    Address: Address,
-    Phone: Phone
-  })
-  new_Doctor.save(function (error) {
-    if (error) {
-      console.log(error)
-    }
-    res.send({
-      success: true,
-      message: 'Post saved successfully!'
+        DoctorID = parseInt(x[1]) + 1
+        DoctorID = DoctorID.toString()
+        if (DoctorID.length == 1) DoctorID = "D0000" + DoctorID
+        else if (DoctorID.length == 2) DoctorID = "D000" + DoctorID
+        else if (DoctorID.length == 3) DoctorID = "D00" + DoctorID
+        else if (DoctorID.length == 4) DoctorID = "D0" + DoctorID
+        else DoctorID = "D" + DoctorID
+
+        var new_Doctor = new DoctorInfo({
+          DoctorID: DoctorID,
+          Prefix: Prefix,
+          Firstname: Firstname,
+          Lastname: Lastname,
+          Email: Email,
+          Department: Department,
+          Ward: Ward,
+          Sex: Sex,
+          IDcardNumber: IDcardNumber,
+          Address: Address,
+          Phone: Phone
+        })
+        new_Doctor.save(function (error) {
+          if (error) {
+            console.log(error)
+          }
+          res.status(200).json(new_Doctor)
+        })
+      } else {
+        DoctorID = "D00000"
+
+        var new_Doctor = new DoctorInfo({
+          DoctorID: DoctorID,
+          Prefix: Prefix,
+          Firstname: Firstname,
+          Lastname: Lastname,
+          Email: Email,
+          Department: Department,
+          Ward: Ward,
+          Sex: Sex,
+          IDcardNumber: IDcardNumber,
+          Address: Address,
+          Phone: Phone
+        })
+        new_Doctor.save(function (error) {
+          if (error) {
+            console.log(error)
+          }
+          res.status(200).json(new_Doctor)
+        })
+      }
     })
-  })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({
+        error: err
+      });
+    });
 })
 
 app.put("/update/DoctorInfo/:Id", (req, res, next) => {
@@ -502,33 +560,72 @@ app.post('/post/PharmacistInfo', (req, res) => {
   var Sex = req.body.Sex
   var Email = req.body.Email
   var IDcardNumber = req.body.IDcardNumber
-  var Ward = req.body.ward
   var Department = req.body.Department
   var Address = req.body.Address
   var Phone = req.body.Phone
 
-  var new_Pharmacist = new PharmacistInfo({
-    PharmacistID: PharmacistID,
-    Prefix: Prefix,
-    Firstname: Firstname,
-    Lastname: Lastname,
-    Email: Email,
-    Department: Department,
-    Ward: Ward,
-    Sex: Sex,
-    IDcardNumber: IDcardNumber,
-    Address: Address,
-    Phone: Phone
-  })
-  new_Pharmacist.save(function (error) {
-    if (error) {
-      console.log(error)
-    }
-    res.send({
-      success: true,
-      message: 'Post saved successfully!'
+  
+  PharmacistInfo.find()
+    .exec()
+    .then(docs => {
+      if (docs.length > 0) {
+        var x = docs[docs.length - 1].PharmacistID.split('PH')
+
+        PharmacistID = parseInt(x[1]) + 1
+        PharmacistID = PharmacistID.toString()
+        if (PharmacistID.length == 1) PharmacistID = "PH0000" + PharmacistID
+        else if (PharmacistID.length == 2) PharmacistID = "PH000" + PharmacistID
+        else if (PharmacistID.length == 3) PharmacistID = "PH00" + PharmacistID
+        else if (PharmacistID.length == 4) PharmacistID = "PH0" + PharmacistID
+        else PharmacistID = "PH" + PharmacistID
+
+        var new_Pharmacist = new PharmacistInfo({
+          PharmacistID: PharmacistID,
+          Prefix: Prefix,
+          Firstname: Firstname,
+          Lastname: Lastname,
+          Email: Email,
+          Department: Department,
+          Sex: Sex,
+          IDcardNumber: IDcardNumber,
+          Address: Address,
+          Phone: Phone
+        })
+        new_Pharmacist.save(function (error) {
+          if (error) {
+            console.log(error)
+          }
+          res.status(200).json(new_Pharmacist)
+        })
+      } else {
+        PharmacistID = "PH00000"
+
+        var new_Pharmacist = new PharmacistInfo({
+          PharmacistID: PharmacistID,
+          Prefix: Prefix,
+          Firstname: Firstname,
+          Lastname: Lastname,
+          Email: Email,
+          Department: Department,
+          Sex: Sex,
+          IDcardNumber: IDcardNumber,
+          Address: Address,
+          Phone: Phone
+        })
+        new_Pharmacist.save(function (error) {
+          if (error) {
+            console.log(error)
+          }
+          res.status(200).json(new_Pharmacist)
+        })
+      }
     })
-  })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({
+        error: err
+      });
+    });
 })
 
 app.put("/update/PharmacistInfo/:Id", (req, res, next) => {
@@ -648,22 +745,22 @@ app.post('/post/AllergicDrug', (req, res) => {
   var RXCUI = req.body.RXCUI
   //var GPID = req.body.GPID
 
-  console.log("POST Method")  
-    var new_AllergicDrug = new AllergicDrug({
-      PatientID: PatientID,
-      GPName: GPName,
-      //GPIP: GPID,
-      RXCUI: RXCUI
+  console.log("POST Method")
+  var new_AllergicDrug = new AllergicDrug({
+    PatientID: PatientID,
+    GPName: GPName,
+    //GPIP: GPID,
+    RXCUI: RXCUI
+  })
+  new_AllergicDrug.save(function (error) {
+    if (error) {
+      console.log(error)
+    }
+    res.send({
+      success: true,
+      message: 'Post saved successfully!'
     })
-    new_AllergicDrug.save(function (error) {
-      if (error) {
-        console.log(error)
-      }
-      res.send({
-        success: true,
-        message: 'Post saved successfully!'
-      })
-    })
+  })
 })
 
 // Delete AllergicDrug By PatientID and GPName 
@@ -950,7 +1047,7 @@ app.post('/Login', (req, res) => {
       console.log(doc)
 
       if (doc) {
-        if (doc.RegisterStatus == '0') {          
+        if (doc.RegisterStatus == '0') {
           res
             .status(200)
             .json({

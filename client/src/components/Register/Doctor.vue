@@ -1,12 +1,13 @@
 <template>
   <div class="container">
-    <h1 class="well"><a href="http://localhost:8080/login" target="_parent"><button type="button" class="btn btn-lg btn-info" style="margin-right: 20px">Back</button></a>Register</h1>
+    <h1 class="well"><a href="http://localhost:8080/login" target="_parent"><button type="button" class="btn btn-lg btn-info"
+          style="margin-right: 20px">Back</button></a>Register</h1>
     <md-tabs md-sync-route>
-      <md-tab id="tab-patient" md-label="Patient" to="/register/patient">        
+      <md-tab id="tab-patient" md-label="Patient" to="/register/patient">
       </md-tab>
 
       <md-tab id="tab-doctor" md-label="Doctor" to="/register/doctor">
-      <div>
+        <div>
           <div class="row">
             <form>
               <div class="col-sm-12">
@@ -55,97 +56,25 @@
                       <option>Other</option>
                     </select>
                   </div>
-                  <!-- DOB -->
+                  <!-- id card -->
                   <div class="col-sm-6 form-group">
-                    <label>DOB</label>
-                    <input id="dob" type="text" placeholder="Enter DOB Here.." class="form-control">
+                    <label>ID Card</label>
+                    <input id="idcard" type="text" placeholder="Enter Designation Here.." class="form-control">
                   </div>
                 </div>
 
                 <!-- Weight & Height -->
                 <div class="row">
                   <div class="col-sm-6 form-group">
-                    <label>Weight</label>
-                    <input id="weight" type="text" placeholder="Enter Weight Here.." class="form-control">
+                    <label>Department</label>
+                    <input id="department" type="text" placeholder="Enter Department Here.." class="form-control">
                   </div>
                   <div class="col-sm-6 form-group">
-                    <label>Height</label>
-                    <input id="height" type="text" placeholder="Enter Height Here.." class="form-control">
+                    <label>Ward</label>
+                    <input id="ward" type="text" placeholder="Enter Ward Here.." class="form-control">
                   </div>
                 </div>
 
-                <!-- Birthday & Age(autocalculation) -->
-                <div class="row">
-                  <div class="col-sm-6 form-group">
-                    <label>Birthday</label>
-                    <div class='input-group date' id='datetimepicker1'>
-                      <input id="birthday" type='text' class="form-control" placeholder="Enter Birthday Here.." />
-                      <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                      </span>
-                    </div>
-                  </div>
-                  <div class="col-sm-6 form-group">
-                    <label>Age</label>
-                    <input id="age" type="text" class="form-control" placeholder="Enter Age Here..">
-                    <!--input id="age" type="text" readonly class="form-control" value="21 (Auto calculation)"-->
-                  </div>
-                </div>
-
-                <!-- id card -->
-                <div class="form-group">
-                  <div class="row">
-                    <div class="col-sm-6 form-group">
-                      <label>ID Card</label>
-                      <input id="idcard" type="text" placeholder="Enter Designation Here.." class="form-control">
-                    </div>
-                    <div class="col-sm-6 form-group">
-                      <div class="col-sm-6">
-                        <label>Status</label>
-                        <select id="status" class="form-control">
-                          <option selected="">Single </option>
-                          <option>Married </option>
-                          <option>Divorced </option>
-                          <option>Separate</option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- Rac & Nationality & Religion-->
-                  <div class="row">
-                    <div class="col-sm-6 form-group">
-                      <label>Nationality</label>
-                      <input id="nation" type="text" placeholder="Enter Nationality Here.." class="form-control">
-                    </div>
-                    <div class="col-sm-6 form-group">
-                      <label>Rac</label>
-                      <input id="rac" type="text" placeholder="Enter Rac Here.." class="form-control">
-                    </div>
-                    <div class="col-sm-6 form-group">
-                      <label>Religion</label>
-                      <input id="religion" type="text" placeholder="Enter Religion Here.." class="form-control">
-                    </div>
-                  </div>
-                  <!-- blood -->
-                  <div class="row">
-                    <div class="col-sm-6 form-group">
-                      <label>Blood</label>
-                      <select id="blood" class="form-control">
-                        <option selected="">A </option>
-                        <option>B</option>
-                        <option>AB</option>
-                        <option>O</option>
-                        <option>Rh-positive</option>
-                        <option>Rh-negative</option>
-                        <option>Unknown</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label>Drug allergy</label>
-                  <input id="drugAllergy" type="text" placeholder="Enter Drug allergy Here.." class="form-control">
-                </div>
                 <div class="form-group">
                   <label> Address</label>
                   <textarea id="address" placeholder="Enter Address Here.." rows="3" class="form-control"></textarea>
@@ -174,9 +103,8 @@
 
           </div>
           <div>
-            <h3>{{dataPatient}}</h3>
+            <h3>{{dataDoctor}}</h3>
             <h3>{{dataAccount}}</h3>
-            <h3>{{dataAllergic}}</h3>
           </div>
         </div>
       </md-tab>
@@ -195,23 +123,16 @@
   export default {
     name: 'DoctorRegister',
     data: () => ({
-      dataPatient: {
-        PatientID: String,
+      dataDoctor: {
+        DoctorID: String,
         Prefix: String,
         Firstname: String,
         Lastname: String,
-        Sex: String,
-        DOB: String,
-        Age: String,
         Email: String,
-        Weight: String,
-        Height: String,
+        Department: String,
+        Ward: String,
+        Sex: String,
         IDcardNumber: String,
-        Status: String,
-        Race: String,
-        Nation: String,
-        Religion: String,
-        Bloodgroup: String,
         Address: String,
         Phone: String
       },
@@ -223,69 +144,47 @@
         AccountType: String,
         RegisterStatus: String
       },
-      dataAllergic: {
-        PatientID: String,
-        GPName: String,
-        //GPID: String,
-        RXCUI: String
-      },
       test: null
     }),
     methods: {
-      cancel(){
+      cancel() {
         window.location.href = "http://localhost:8080/register/patient";
       },
-      async submit() {/*
-        await this.DataPatient()
+      async submit() {
+        await this.DataDoctor()
         await this.DataAccount()
-        await this.DataAllergic()*/
       },
-      async DataPatient() {
+      async DataDoctor() {
         //save value on variable
-        /*
-        this.dataPatient.PatientID = null
+
+        this.dataDoctor.DoctorID = null
         var e = document.getElementById("prefix")
-        this.dataPatient.Prefix = e.options[e.selectedIndex].text
-        this.dataPatient.Firstname = document.getElementById("firstname").value
-        this.dataPatient.Lastname = document.getElementById("lastname").value
+        this.dataDoctor.Prefix = e.options[e.selectedIndex].text
+        this.dataDoctor.Firstname = document.getElementById("firstname").value
+        this.dataDoctor.Lastname = document.getElementById("lastname").value
         e = document.getElementById("sex")
-        this.dataPatient.Sex = e.options[e.selectedIndex].text
-        this.dataPatient.DOB = document.getElementById("dob").value
-        this.dataPatient.Age = document.getElementById("age").value
-        this.dataPatient.Email = document.getElementById("email").value
-        this.dataPatient.Weight = document.getElementById("weight").value
-        this.dataPatient.Height = document.getElementById("height").value
-        this.dataPatient.IDcardNumber = document.getElementById("idcard").value
-        e = document.getElementById("status")
-        this.dataPatient.Status = e.options[e.selectedIndex].text
-        this.dataPatient.Race = document.getElementById("rac").value
-        this.dataPatient.Nation = document.getElementById("nation").value
-        this.dataPatient.Religion = document.getElementById("religion").value
-        this.dataPatient.Bloodgroup = document.getElementById("blood").value
-        this.dataPatient.Address = document.getElementById("address").value
-        this.dataPatient.Phone = document.getElementById("phone").value
+        this.dataDoctor.Sex = e.options[e.selectedIndex].text
+        this.dataDoctor.Email = document.getElementById("email").value
+        this.dataDoctor.Department = document.getElementById("department").value
+        this.dataDoctor.Ward = document.getElementById("ward").value
+        this.dataDoctor.IDcardNumber = document.getElementById("idcard").value
+        this.dataDoctor.Address = document.getElementById("address").value
+        this.dataDoctor.Phone = document.getElementById("phone").value
         if (document.getElementById("username").value != null) {
-          await registerService.patientInfo(this.dataPatient).then(Response => {
+          await registerService.doctorInfo(this.dataDoctor).then(Response => {
             if (Response.data != "") {
-              this.dataPatient.PatientID = Response.data.PatientID
+              this.dataDoctor.DoctorID = Response.data.DoctorID
             }
           })
-        }*/
+        }
       },
-      DataAccount() {/*
-        this.dataAccount.ID = this.dataPatient.PatientID
+      DataAccount() {
+        this.dataAccount.ID = this.dataDoctor.DoctorID
         this.dataAccount.Username = document.getElementById("username").value
         this.dataAccount.Password = document.getElementById("password").value
         this.dataAccount.Email = document.getElementById("email").value
-        this.dataAccount.AccountType = "Patient"
-        registerService.register(this.dataAccount)*/
-      },
-      DataAllergic() {
-        /*
-        this.dataAllergic.PatientID = this.dataPatient.PatientID
-        this.dataAllergic.GPName = document.getElementById("drugAllergy").value
-        this.dataAllergic.RXCUI = "not done"
-        registerService.allergicDrug(this.dataAllergic)*/
+        this.dataAccount.AccountType = "Doctor"
+        registerService.register(this.dataAccount)
       }
     },
     async mounted() {
