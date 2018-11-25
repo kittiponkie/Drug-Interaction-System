@@ -13,16 +13,41 @@
           <div class="md-toolbar-section-end">
             <span class="span_center">Menu</span>
             <md-button class="md-icon-button md-dense" @click="toggleMenu" v-if="!(Window_Width>600)">
-              <md-icon>keyboard_arrow_left</md-icon>
             </md-button>
           </div>
         </md-toolbar>
 
-        <md-list class="delete_margin">
-          <md-list-item to="/Patient_information" class="selected">
+       <md-list class="delete_margin">
+          <md-list-item to="/Patient_information" class="unselected">
             <md-icon style="margin-right:10px">account_circle</md-icon>
-            <span class="md-list-item-text unselected_text">Admin Page</span>
+            <span class="md-list-item-text unselected_text">Patient Information</span>
           </md-list-item>
+
+          <md-list-item to="/Drug_History" class="unselected">
+            <md-icon style="margin-right:10px">folder_shared</md-icon>
+            <span class="md-list-item-text unselected_text">Drug History</span>
+          </md-list-item>
+
+           <md-list-item to="/Drug_History" class="unselected">
+            <md-icon style="margin-right:10px">person_add</md-icon>
+            <span class="md-list-item-text selected_text">Friend</span>
+          </md-list-item>
+
+          <md-list-item to="/Drug_Information" class="unselected">
+            <md-icon style="margin-right:10px">description</md-icon>
+            <span class="md-list-item-text unselected_text">Drug Information</span>
+          </md-list-item>
+
+          <md-list-item to="/Drug_Interaction" class="unselected">
+            <md-icon style="margin-right:10px">bubble_chart</md-icon>
+            <span class="md-list-item-text selected_text">Drug Interaction</span>
+          </md-list-item>
+
+          <md-list-item to="/Drug_Interaction" class="selected">
+            <md-icon style="margin-right:10px">grain</md-icon>
+            <span class="md-list-item-text selected_text">Drug Dispensing</span>
+          </md-list-item>
+
 
           <md-list-item to="/login" class="unselected">
             <md-icon style="margin-right:10px">power_settings_new</md-icon>
