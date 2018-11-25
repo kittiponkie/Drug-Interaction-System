@@ -9,6 +9,12 @@ Vue.use(VueMaterial)
 //import 'vue-material/dist/theme/black-green-dark.css'
 //import 'vue-material/dist/theme/default-dark.css'
 //import 'vue-material/dist/theme/default.css'
+/* popup */
+import { Modal } from 'bootstrap-vue/es/components';
+Vue.use(Modal);
+import vBModal from 'bootstrap-vue/es/directives/modal/modal';
+
+Vue.directive('b-modal', vBModal);
 
 import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
@@ -30,6 +36,7 @@ import Doctor_Information from '@/components/Doctor_Information'
 import Admin_Accept from '@/components/Adminpage'
 import Friend_Page from '@/components/Friend_Page'
 import Order_Drug from '@/components/Order_Drug'
+import Dispend_Drug from '@/components/Dispend_Drug'
 
 
 export default new VueRouter({
@@ -119,6 +126,11 @@ export default new VueRouter({
       path: '/Order_Drug',
       name: 'Order_Drug',
       component: Order_Drug
+    },
+    {
+      path: '/Dispend_Drug',
+      name: 'Dispend_Drug',
+      component: Dispend_Drug
     }
   ]
 })
