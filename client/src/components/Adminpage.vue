@@ -39,10 +39,6 @@
             <div class="md-toolbar-section-start">
               <h1 class="md-title">Admin Page</h1>
             </div>
-
-        <!--    <md-field md-clearable class="md-toolbar-section-end">
-              <md-input placeholder="Search by doctor name..." v-model="search" @input="searchOnTable" />
-            </md-field> -->
           </md-table-toolbar>
           <md-table-empty-state md-label="No users found" :md-description="`No drug name found for this '${search}' query. Try a different search term.`">
           </md-table-empty-state>
@@ -66,24 +62,90 @@
             <div class="tab" role="tabpanel">
                 <!-- Nav tabs -->
                 <ul class="nav nav-tabs" role="tablist">
-                    <li role="presentation" class="active"><a href="#Section1" aria-controls="home" role="tab" data-toggle="tab">Section 1</a></li>
-                    <li role="presentation"><a href="#Section2" aria-controls="profile" role="tab" data-toggle="tab">Section 2</a></li>
-                    <li role="presentation"><a href="#Section3" aria-controls="messages" role="tab" data-toggle="tab">Section 3</a></li>
+                   <li role="presentation" class="active"><a href="#Section1" aria-controls="home" role="tab" data-toggle="tab">Patient</a></li>
+                    <li role="presentation"><a href="#Section2" aria-controls="profile" role="tab" data-toggle="tab">Doctor</a></li>
+                    <li role="presentation"><a href="#Section3" aria-controls="messages" role="tab" data-toggle="tab">Pharmacist</a></li>
+                    <li role="presentation"><a href="#Section4" aria-controls="messages" role="tab" data-toggle="tab">Admin</a></li>
                 </ul>
                 <!-- Tab panes -->
                 <div class="tab-content tabs">
                     <div role="tabpanel" class="tab-pane fade in active" id="Section1">
-                        <h3>Section 1</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nec urna aliquam, ornare eros vel, malesuada lorem. Nullam faucibus lorem at eros consectetur lobortis. Maecenas nec nibh congue, placerat sem id, rutrum velit. Phasellus porta enim at facilisis condimentum. Maecenas pharetra dolor vel elit tempor pellentesque sed sed eros. Aenean vitae mauris tincidunt, imperdiet orci semper, rhoncus ligula. Vivamus scelerisque.</p>
-                    </div>
+                          <md-table v-model="searched" md-sort="name" md-sort-order="asc" md-card>
+                                    <md-table-toolbar>
+                                      <div class="md-toolbar-section-start">
+                                      </div>
+                                    </md-table-toolbar>
+                                    <md-table-empty-state md-label="No users found" :md-description="`No drug name found for this '${search}' query. Try a different search term.`">
+                                    </md-table-empty-state>
+
+                                    <md-table-row slot="md-table-row" slot-scope="{ item }">
+                                      <md-table-cell md-label="ID" md-sort-by="id" md-numeric>{{ item.id }}</md-table-cell>
+                                      <md-table-cell md-label="Name" md-sort-by="name">{{ item.name }}</md-table-cell>
+                                      <md-table-cell md-label="Status" >           
+                                        <button type="button" class="btn btn-danger"  style="border-top-width: 0px;">Delete Account</button>
+                                      <button type="button" class="close" aria-label="Close"  style="border-top-width: 0px,font:10px;" ><span aria-hidden="true">&times;</span></button> 
+                                    </md-table-cell>
+                                    </md-table-row>
+                                  </md-table>                   
+                     </div>
                     <div role="tabpanel" class="tab-pane fade" id="Section2">
-                        <h3>Section 2</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nec urna aliquam, ornare eros vel, malesuada lorem. Nullam faucibus lorem at eros consectetur lobortis. Maecenas nec nibh congue, placerat sem id, rutrum velit. Phasellus porta enim at facilisis condimentum. Maecenas pharetra dolor vel elit tempor pellentesque sed sed eros. Aenean vitae mauris tincidunt, imperdiet orci semper, rhoncus ligula. Vivamus scelerisque.</p>
+                                  <md-table v-model="searched" md-sort="name" md-sort-order="asc" md-card>
+                                    <md-table-toolbar>
+                                      <div class="md-toolbar-section-start">
+                                      </div>
+                                    </md-table-toolbar>
+                                    <md-table-empty-state md-label="No users found" :md-description="`No drug name found for this '${search}' query. Try a different search term.`">
+                                    </md-table-empty-state>
+
+                                    <md-table-row slot="md-table-row" slot-scope="{ item }">
+                                      <md-table-cell md-label="ID" md-sort-by="id" md-numeric>{{ item.id }}</md-table-cell>
+                                      <md-table-cell md-label="Name" md-sort-by="name">{{ item.name }}</md-table-cell>
+                                      <md-table-cell md-label="Ward" md-sort-by="email">{{ item.email }}</md-table-cell>
+                                      <md-table-cell md-label="Status" >           
+                                        <button type="button" class="btn btn-danger"  style="border-top-width: 0px;">Delete Account</button>
+                                      <button type="button" class="close" aria-label="Close"  style="border-top-width: 0px,font:10px;" ><span aria-hidden="true">&times;</span></button> 
+                                    </md-table-cell>
+                                    </md-table-row>
+                                  </md-table>                           
                     </div>
                     <div role="tabpanel" class="tab-pane fade" id="Section3">
-                        <h3>Section 3</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nec urna aliquam, ornare eros vel, malesuada lorem. Nullam faucibus lorem at eros consectetur lobortis. Maecenas nec nibh congue, placerat sem id, rutrum velit. Phasellus porta enim at facilisis condimentum. Maecenas pharetra dolor vel elit tempor pellentesque sed sed eros. Aenean vitae mauris tincidunt, imperdiet orci semper, rhoncus ligula. Vivamus scelerisque.</p>
+                         <md-table v-model="searched" md-sort="name" md-sort-order="asc" md-card>
+                                    <md-table-toolbar>
+                                      <div class="md-toolbar-section-start">
+                                      </div>
+                                    </md-table-toolbar>
+                                    <md-table-empty-state md-label="No users found" :md-description="`No drug name found for this '${search}' query. Try a different search term.`">
+                                    </md-table-empty-state>
+
+                                    <md-table-row slot="md-table-row" slot-scope="{ item }">
+                                      <md-table-cell md-label="ID" md-sort-by="id" md-numeric>{{ item.id }}</md-table-cell>
+                                      <md-table-cell md-label="Name" md-sort-by="name">{{ item.name }}</md-table-cell>
+                                      <md-table-cell md-label="Status" >           
+                                        <button type="button" class="btn btn-danger"  style="border-top-width: 0px;">Delete Account</button>
+                                      <button type="button" class="close" aria-label="Close"  style="border-top-width: 0px,font:10px;" ><span aria-hidden="true">&times;</span></button> 
+                                    </md-table-cell>
+                                    </md-table-row>
+                                  </md-table>
                     </div>
+                     <div role="tabpanel" class="tab-pane fade" id="Section4">
+                                  <md-table v-model="searched" md-sort="name" md-sort-order="asc" md-card>
+                                    <md-table-toolbar>
+                                      <div class="md-toolbar-section-start">
+                                      </div>
+                                    </md-table-toolbar>
+                                    <md-table-empty-state md-label="No users found" :md-description="`No drug name found for this '${search}' query. Try a different search term.`">
+                                    </md-table-empty-state>
+
+                                    <md-table-row slot="md-table-row" slot-scope="{ item }">
+                                      <md-table-cell md-label="ID" md-sort-by="id" md-numeric>{{ item.id }}</md-table-cell>
+                                      <md-table-cell md-label="Name" md-sort-by="name">{{ item.name }}</md-table-cell>
+                                      <md-table-cell md-label="Status" >           
+                                        <button type="button" class="btn btn-danger"  style="border-top-width: 0px;">Delete Account</button>
+                                      <button type="button" class="close" aria-label="Close"  style="border-top-width: 0px,font:10px;" ><span aria-hidden="true">&times;</span></button> 
+                                    </md-table-cell>
+                                    </md-table-row>
+                                  </md-table>               
+                      </div>
                 </div>
             </div>
         </div>
@@ -281,9 +343,14 @@ const toLower = text => {
   }
 
 /*Tab Bar*/
-:hover,a:focus{
+:hover:focus{
     outline: none;
     text-decoration: none;
+}
+.a{
+   outline: none;
+    text-decoration: none;
+    width: 25%;
 }
 .tab .nav-tabs{
     position: relative;
@@ -299,7 +366,7 @@ const toLower = text => {
     background: #fff;
     font-size: 17px;
     font-weight: 700;
-    color: #f2bd47;
+    color: black;
     text-transform: uppercase;
     text-align: center;
     border-radius: 0;
@@ -314,7 +381,7 @@ const toLower = text => {
     content: "";
     width: 100%;
     height: 100%;
-    background: #e9e9e9;
+    background: #f1f1f1;
     position: absolute;
     top: 0;
     left: 0;
@@ -325,19 +392,20 @@ const toLower = text => {
     transition: transform 0.3s ease 0s, background-color 0.3s ease 0s;
 }
 .tab .nav-tabs li.active a:after{
-    background: #eee6d2;
+    background: #f1f1f1;
     transform: perspective(900px) rotate3d(1, 0, 0, 0deg);
 }
 .tab .nav-tabs li.active a,
 .tab .nav-tabs li a:hover{
-    color: #4b489b;
+    color: #5DBFA8;
     border: none;
 }
 .tab .tab-content{
     padding: 20px;
-    background: #eee6d2;
+    background-color: #5DBFA8;
+    
     font-size: 15px;
-    color: #757575;
+    color: #fffefe;
     line-height: 26px;
     width: 100%;
 }

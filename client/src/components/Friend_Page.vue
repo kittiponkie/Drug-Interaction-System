@@ -54,7 +54,35 @@
     <!--content-->
 <md-app-content>
         <h3>Friend</h3>
-        <md-button id="addbutton" type="button" class="btn" style="float:right;">ADD</md-button>
+ <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#basicExampleModal" style="float:right;" >Add Friend</button>
+
+<!-- Modal -->
+<div class="modal fade" id="basicExampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Summary</h5><br/>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+       </div>
+       <!--content summary -->
+       <div class="modal-body">
+        <p>list of drug</p>
+       </div>
+       <!-- confirm to dispend drug button -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Confirm</button>
+        <button type="button" class="btn btn-primary">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end modal -->
+         
+       
+<!-- end modal -->
         <md-card md-with-hover>
         <md-ripple>
 <!--card1-->

@@ -58,7 +58,7 @@
            </md-table-cell>
           </md-table-row>
         </md-table>
-        <br/>
+    <br/>
         <!-- line -->
 <div class="container">
     <div class="row">
@@ -102,21 +102,105 @@
         </md-table>
 <!-- end -->
                     <div role="tabpanel" class="home" id="Section1">
-                        <h3>Section 1</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nec urna aliquam, ornare eros vel, malesuada lorem. Nullam faucibus lorem at eros consectetur lobortis. Maecenas nec nibh congue, placerat sem id, rutrum velit. Phasellus porta enim at facilisis condimentum. Maecenas pharetra dolor vel elit tempor pellentesque sed sed eros. Aenean vitae mauris tincidunt, imperdiet orci semper, rhoncus ligula. Vivamus scelerisque.</p>
-                    </div>
+<md-table v-model="searched" md-sort="name" md-sort-order="asc" md-card>
+          <md-table-toolbar>
+            <div class="md-toolbar-section-start">
+              <h1 class="md-title">Admin Page</h1>
+            </div>
+
+        <!--    <md-field md-clearable class="md-toolbar-section-end">
+              <md-input placeholder="Search by doctor name..." v-model="search" @input="searchOnTable" />
+            </md-field> -->
+          </md-table-toolbar>
+          <md-table-empty-state md-label="No users found" :md-description="`No drug name found for this '${search}' query. Try a different search term.`">
+          </md-table-empty-state>
+
+          <md-table-row slot="md-table-row" slot-scope="{ item }">
+            <md-table-cell md-label="ID" md-sort-by="id" md-numeric>{{ item.id }}</md-table-cell>
+            <md-table-cell md-label="Doctor Name" md-sort-by="name">{{ item.name }}</md-table-cell>
+            <md-table-cell md-label="Ward" md-sort-by="email">{{ item.email }}</md-table-cell>
+            <md-table-cell md-label="Status" >           
+               <button type="button" class="btn btn-success" style="border-top-width: 0px;">Accept</button>
+               <button type="button" class="btn btn-danger"  style="border-top-width: 0px;">Reject</button>
+            <button type="button" class="close" aria-label="Close"  style="border-top-width: 0px,font:10px;" ><span aria-hidden="true">&times;</span></button> 
+           </md-table-cell>
+          </md-table-row>
+        </md-table>                    </div>
                     <div role="tabpanel" class="tab-pane fade" id="Section2">
-                        <h3>Section 2</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nec urna aliquam, ornare eros vel, malesuada lorem. Nullam faucibus lorem at eros consectetur lobortis. Maecenas nec nibh congue, placerat sem id, rutrum velit. Phasellus porta enim at facilisis condimentum. Maecenas pharetra dolor vel elit tempor pellentesque sed sed eros. Aenean vitae mauris tincidunt, imperdiet orci semper, rhoncus ligula. Vivamus scelerisque.</p>
-                    </div>
+<md-table v-model="searched" md-sort="name" md-sort-order="asc" md-card>
+          <md-table-toolbar>
+            <div class="md-toolbar-section-start">
+              <h1 class="md-title">Admin Page</h1>
+            </div>
+
+        <!--    <md-field md-clearable class="md-toolbar-section-end">
+              <md-input placeholder="Search by doctor name..." v-model="search" @input="searchOnTable" />
+            </md-field> -->
+          </md-table-toolbar>
+          <md-table-empty-state md-label="No users found" :md-description="`No drug name found for this '${search}' query. Try a different search term.`">
+          </md-table-empty-state>
+
+          <md-table-row slot="md-table-row" slot-scope="{ item }">
+            <md-table-cell md-label="ID" md-sort-by="id" md-numeric>{{ item.id }}</md-table-cell>
+            <md-table-cell md-label="Doctor Name" md-sort-by="name">{{ item.name }}</md-table-cell>
+            <md-table-cell md-label="Ward" md-sort-by="email">{{ item.email }}</md-table-cell>
+            <md-table-cell md-label="Status" >           
+               <button type="button" class="btn btn-success" style="border-top-width: 0px;">Accept</button>
+               <button type="button" class="btn btn-danger"  style="border-top-width: 0px;">Reject</button>
+            <button type="button" class="close" aria-label="Close"  style="border-top-width: 0px,font:10px;" ><span aria-hidden="true">&times;</span></button> 
+           </md-table-cell>
+          </md-table-row>
+        </md-table>                    </div>
                     <div role="tabpanel" class="tab-pane fade" id="Section3">
-                        <h3>Section 3</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nec urna aliquam, ornare eros vel, malesuada lorem. Nullam faucibus lorem at eros consectetur lobortis. Maecenas nec nibh congue, placerat sem id, rutrum velit. Phasellus porta enim at facilisis condimentum. Maecenas pharetra dolor vel elit tempor pellentesque sed sed eros. Aenean vitae mauris tincidunt, imperdiet orci semper, rhoncus ligula. Vivamus scelerisque.</p>
-                    </div>
+<md-table v-model="searched" md-sort="name" md-sort-order="asc" md-card>
+          <md-table-toolbar>
+            <div class="md-toolbar-section-start">
+              <h1 class="md-title">Admin Page</h1>
+            </div>
+
+        <!--    <md-field md-clearable class="md-toolbar-section-end">
+              <md-input placeholder="Search by doctor name..." v-model="search" @input="searchOnTable" />
+            </md-field> -->
+          </md-table-toolbar>
+          <md-table-empty-state md-label="No users found" :md-description="`No drug name found for this '${search}' query. Try a different search term.`">
+          </md-table-empty-state>
+
+          <md-table-row slot="md-table-row" slot-scope="{ item }">
+            <md-table-cell md-label="ID" md-sort-by="id" md-numeric>{{ item.id }}</md-table-cell>
+            <md-table-cell md-label="Doctor Name" md-sort-by="name">{{ item.name }}</md-table-cell>
+            <md-table-cell md-label="Ward" md-sort-by="email">{{ item.email }}</md-table-cell>
+            <md-table-cell md-label="Status" >           
+               <button type="button" class="btn btn-success" style="border-top-width: 0px;">Accept</button>
+               <button type="button" class="btn btn-danger"  style="border-top-width: 0px;">Reject</button>
+            <button type="button" class="close" aria-label="Close"  style="border-top-width: 0px,font:10px;" ><span aria-hidden="true">&times;</span></button> 
+           </md-table-cell>
+          </md-table-row>
+        </md-table>                    </div>
                     <div role="tabpanel" class="tab-pane fade" id="Section4">
-                        <h3>Section 4</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nec urna aliquam, ornare eros vel, malesuada lorem. Nullam faucibus lorem at eros consectetur lobortis. Maecenas nec nibh congue, placerat sem id, rutrum velit. Phasellus porta enim at facilisis condimentum. Maecenas pharetra dolor vel elit tempor pellentesque sed sed eros. Aenean vitae mauris tincidunt, imperdiet orci semper, rhoncus ligula. Vivamus scelerisque.</p>
-                    </div>
+<md-table v-model="searched" md-sort="name" md-sort-order="asc" md-card>
+          <md-table-toolbar>
+            <div class="md-toolbar-section-start">
+              <h1 class="md-title">Admin Page</h1>
+            </div>
+
+        <!--    <md-field md-clearable class="md-toolbar-section-end">
+              <md-input placeholder="Search by doctor name..." v-model="search" @input="searchOnTable" />
+            </md-field> -->
+          </md-table-toolbar>
+          <md-table-empty-state md-label="No users found" :md-description="`No drug name found for this '${search}' query. Try a different search term.`">
+          </md-table-empty-state>
+
+          <md-table-row slot="md-table-row" slot-scope="{ item }">
+            <md-table-cell md-label="ID" md-sort-by="id" md-numeric>{{ item.id }}</md-table-cell>
+            <md-table-cell md-label="Doctor Name" md-sort-by="name">{{ item.name }}</md-table-cell>
+            <md-table-cell md-label="Ward" md-sort-by="email">{{ item.email }}</md-table-cell>
+            <md-table-cell md-label="Status" >           
+               <button type="button" class="btn btn-success" style="border-top-width: 0px;">Accept</button>
+               <button type="button" class="btn btn-danger"  style="border-top-width: 0px;">Reject</button>
+            <button type="button" class="close" aria-label="Close"  style="border-top-width: 0px,font:10px;" ><span aria-hidden="true">&times;</span></button> 
+           </md-table-cell>
+          </md-table-row>
+        </md-table>                    </div>
                 </div>
             </div>
         </div>
