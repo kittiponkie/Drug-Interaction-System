@@ -81,9 +81,33 @@
                                     <md-table-row slot="md-table-row" slot-scope="{ item }">
                                       <md-table-cell md-label="ID" md-sort-by="id" md-numeric>{{ item.id }}</md-table-cell>
                                       <md-table-cell md-label="Name" md-sort-by="name">{{ item.name }}</md-table-cell>
-                                      <md-table-cell md-label="Status" >           
-                                        <button type="button" class="btn btn-danger"  style="border-top-width: 0px;">Delete Account</button>
-                                      <button type="button" class="close" aria-label="Close"  style="border-top-width: 0px,font:10px;" ><span aria-hidden="true">&times;</span></button> 
+                                      <md-table-cell md-label="" >           
+                               <!--       <button type="button" class="btn btn-danger"  style="border-top-width: 0px;">Delete Account</button>-->
+
+                                      <!-- Button trigger modal -->
+                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#basicExampleModal">Delete Account</button>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="basicExampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                      <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                          <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Confirm to delete User Account?</h5><br/>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                              <span aria-hidden="true">&times;</span>
+                                            </button>
+                                          </div>
+                                          <!-- confirm to dispend drug button -->
+                                          <div class="modal-footer">
+                                            <button type="button" class="btn btn-primary">Confirm</button>
+                                            <button type="button" class="btn btn-primary">Cancle</button>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <!-- end modal -->
+                                      <button type="button" class="close" aria-label="Close"  style="border-top-width: 0px,font:10px;" ><span aria-hidden="true">&times;</span></button>
+                                       
                                     </md-table-cell>
                                     </md-table-row>
                                   </md-table>                   
@@ -101,8 +125,33 @@
                                       <md-table-cell md-label="ID" md-sort-by="id" md-numeric>{{ item.id }}</md-table-cell>
                                       <md-table-cell md-label="Name" md-sort-by="name">{{ item.name }}</md-table-cell>
                                       <md-table-cell md-label="Ward" md-sort-by="email">{{ item.email }}</md-table-cell>
-                                      <md-table-cell md-label="Status" >           
-                                        <button type="button" class="btn btn-danger"  style="border-top-width: 0px;">Delete Account</button>
+                                      <md-table-cell md-label="" >           
+                               <!--       <button type="button" class="btn btn-danger"  style="border-top-width: 0px;">Delete Account</button>-->
+
+                                      <!-- Button trigger modal -->
+                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#basicExampleModal2">Delete Account</button>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="basicExampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                      <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                          <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Confirm to delete User Account?</h5><br/>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                              <span aria-hidden="true">&times;</span>
+                                            </button>
+                                          </div>
+                                          <!-- confirm to dispend drug button -->
+                                          <div class="modal-footer">
+                                            <button type="button" class="btn btn-primary">Confirm</button>
+                                            <button type="button" class="btn btn-primary">Cancle</button>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <!-- end modal -->
+
+                              
                                       <button type="button" class="close" aria-label="Close"  style="border-top-width: 0px,font:10px;" ><span aria-hidden="true">&times;</span></button> 
                                     </md-table-cell>
                                     </md-table-row>
@@ -120,8 +169,31 @@
                                     <md-table-row slot="md-table-row" slot-scope="{ item }">
                                       <md-table-cell md-label="ID" md-sort-by="id" md-numeric>{{ item.id }}</md-table-cell>
                                       <md-table-cell md-label="Name" md-sort-by="name">{{ item.name }}</md-table-cell>
-                                      <md-table-cell md-label="Status" >           
-                                        <button type="button" class="btn btn-danger"  style="border-top-width: 0px;">Delete Account</button>
+                                      <md-table-cell md-label="" >           
+                               <!--       <button type="button" class="btn btn-danger"  style="border-top-width: 0px;">Delete Account</button>-->
+
+                                      <!-- Button trigger modal -->
+                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#basicExampleModal3">Delete Account</button>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="basicExampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                      <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                          <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Confirm to delete User Account?</h5><br/>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                              <span aria-hidden="true">&times;</span>
+                                            </button>
+                                          </div>
+                                          <!-- confirm to dispend drug button -->
+                                          <div class="modal-footer">
+                                            <button type="button" class="btn btn-primary">Confirm</button>
+                                            <button type="button" class="btn btn-primary">Cancle</button>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <!-- end modal -->
                                       <button type="button" class="close" aria-label="Close"  style="border-top-width: 0px,font:10px;" ><span aria-hidden="true">&times;</span></button> 
                                     </md-table-cell>
                                     </md-table-row>
@@ -139,8 +211,31 @@
                                     <md-table-row slot="md-table-row" slot-scope="{ item }">
                                       <md-table-cell md-label="ID" md-sort-by="id" md-numeric>{{ item.id }}</md-table-cell>
                                       <md-table-cell md-label="Name" md-sort-by="name">{{ item.name }}</md-table-cell>
-                                      <md-table-cell md-label="Status" >           
-                                        <button type="button" class="btn btn-danger"  style="border-top-width: 0px;">Delete Account</button>
+                                     <md-table-cell md-label="" >           
+                               <!--       <button type="button" class="btn btn-danger"  style="border-top-width: 0px;">Delete Account</button>-->
+
+                                      <!-- Button trigger modal -->
+                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#basicExampleModal4">Delete Account</button>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="basicExampleModal4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                      <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                          <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Confirm to delete User Account?</h5><br/>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                              <span aria-hidden="true">&times;</span>
+                                            </button>
+                                          </div>
+                                          <!-- confirm to dispend drug button -->
+                                          <div class="modal-footer">
+                                            <button type="button" class="btn btn-primary">Confirm</button>
+                                            <button type="button" class="btn btn-primary">Cancle</button>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <!-- end modal -->
                                       <button type="button" class="close" aria-label="Close"  style="border-top-width: 0px,font:10px;" ><span aria-hidden="true">&times;</span></button> 
                                     </md-table-cell>
                                     </md-table-row>
