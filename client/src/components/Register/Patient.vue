@@ -244,7 +244,7 @@
       },
       async DataPatient() {
         //save value on variable
-        this.dataPatient.PatientID = null
+        this.dataPatient.PatientID = null 
         this.dataPatient.Prefix = this.$refs.prefix.value
         this.dataPatient.Firstname = this.$refs.firstname.value 
         this.dataPatient.Lastname = this.$refs.lastname.value 
