@@ -1,14 +1,21 @@
 <template>
-  <div class="container">    
-    <h1 class="well"><a href="http://localhost:8080/login" target="_parent"><button type="button" class="btn btn-lg btn-info" style="margin-right: 20px">Back</button></a>Register</h1>
+  <div class="container">
+    <h1 class="well">
+      <router-link to="/login" target="_parent">
+        <button type="button" class="btn btn-lg btn-info" style="margin-right: 20px">
+          Back
+        </button>
+      </router-link>
+      Register
+    </h1>
     <md-tabs md-sync-route>
-      <md-tab id="tab-patient" md-label="Patient" to="/register/patient">        
+      <md-tab id="tab-patient" md-label="Patient" to="/register/patient">
       </md-tab>
       <md-tab id="tab-doctor" md-label="Doctor" to="/register/doctor">
       </md-tab>
 
       <md-tab id="tab-pharmacist" md-label="Pharmacist" to="/register/pharmacist">
-      <div>
+        <div>
           <div class="row">
             <form>
               <div class="col-sm-12">
@@ -183,6 +190,7 @@
       this.Window_Width = window.innerWidth
     }
   }
+
 </script>
 
 

@@ -15,6 +15,9 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 Vue.use(BootstrapVue);
 //import 'bootstrap/dist/css/bootstrap.css'  //conflict with other tool
 
+import VueLocalStorage from 'vue-localstorage' 
+Vue.use(VueLocalStorage)
+
 import HelloWorld from '@/components/HelloWorld' // not use
 import Posts from '@/components/Posts' // test mongo
 import NewPost from '@/components/NewPost' // test mongo
