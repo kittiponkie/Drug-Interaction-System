@@ -62,8 +62,14 @@
           if (Response.data.success == false) {
             this.test = "Message : "+Response.data.message
           } else {
-            this.test = Response.data.ID
-            this.$router.push('/patient_information')
+            //Response.data.ID
+            this.test = Response.data.AccountType
+            if(Response.data.AccountType == 'Patient') this.$router.push('/patient_information')
+            else if(Response.data.AccountType == 'Doctor') this.$router.push('/doctor_information')
+            else if(Response.data.AccountType == 'Pharmacist') this.$router.push('/pharmacist_information')
+            else if(Response.data.AccountType == 'Admin') this.$router.push('/admin')
+            else this.test = "error type not found"
+            
           }
         })
       }

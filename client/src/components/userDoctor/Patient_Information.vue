@@ -26,7 +26,7 @@
             <md-icon style="margin-right:10px">arrow_back_ios</md-icon>
             <span class="md-list-item-text selected_text">Back</span>
           </md-list-item>
-          <md-list-item to="/doctor/patient_infomation" class="selected">
+          <md-list-item to="/doctor/patient_information" class="selected">
             <md-icon style="margin-right:10px">account_circle</md-icon>
             <span class="md-list-item-text unselected_text">Patient Information</span>
           </md-list-item>

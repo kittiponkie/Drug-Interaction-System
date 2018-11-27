@@ -19,20 +19,23 @@ Vue.use(BootstrapVue);
 import SlimDialog from 'v-slim-dialog'
 Vue.use(SlimDialog)
 
-import VueLocalStorage from 'vue-localstorage' 
+import VueLocalStorage from 'vue-localstorage'
 Vue.use(VueLocalStorage)
 
 import login from '@/components/Login/login'
+import forgotpassword from '@/components/Login/forgotpassword'
 import RegisterPatient from '@/components/Register/Patient'
 import RegisterDoctor from '@/components/Register/Doctor'
 import registerPharmacist from '@/components/Register/Pharmacist'
-//patient
+//Admin
+import admin from '@/components/Admin/admin'
+//Patient
 import Patient_Information from '@/components/userPatient/Patient_Information'
 import Patient_Drug_History from '@/components/userPatient/Drug_History'
 import Patient_Relation from '@/components/userPatient/Relation'
 import Patient_Drug_Information from '@/components/userPatient/Drug_Information'
 import Patient_Drug_Interaction from '@/components/userPatient/Drug_Interaction'
-//doctor
+//Doctor
 import Doctor_Information from '@/components/userDoctor/Doctor_Information'
 import Doctor_Relation from '@/components/userDoctor/Relation'
 import Doctor_Drug_Information from '@/components/userDoctor/Drug_Information'
@@ -43,6 +46,18 @@ import Doctor_Order_Drug from '@/components/userDoctor/Order_Drug'
 import Doctor_Drug_History from '@/components/userDoctor/Drug_History'
 import Doctor_Doctor_Drug_Information from '@/components/userDoctor/Drug_Information_inside'
 import Doctor_Doctor_Drug_Interaction from '@/components/userDoctor/Drug_Interaction_inside'
+//Pharmacist
+import Pharmacist_Information from '@/components/userPharmacist/Pharmacist_Information'
+import Pharmacist_Relation from '@/components/userPharmacist/Relation'
+import Pharmacist_Drug_Information from '@/components/userPharmacist/Drug_Information'
+import Pharmacist_Drug_Interaction from '@/components/userPharmacist/Drug_Interaction'
+
+import Pharmacist_Patient_Information from '@/components/userPharmacist/Patient_Information'
+import Pharmacist_Drug_Dispend from '@/components/userPharmacist/Drug_Dispend'
+import Pharmacist_Drug_History from '@/components/userPharmacist/Drug_History'
+import Pharmacist_Pharmacist_Drug_Information from '@/components/userPharmacist/Drug_Information_inside'
+import Pharmacist_Pharmacist_Drug_Interaction from '@/components/userPharmacist/Drug_Interaction_inside'
+
 
 
 import Drug_Interaction from '@/components/Drug_Interaction'
@@ -52,7 +67,12 @@ import Drug_Information from '@/components/Drug_Information'
 
 export default new VueRouter({
   mode: 'history',
-  routes: [    
+  routes: [
+    {
+      path: '/admin',
+      name: 'admin',
+      component: admin
+    },
     {
       path: '/',
       name: 'home',
@@ -62,6 +82,11 @@ export default new VueRouter({
       path: '/login',
       name: 'login',
       component: login
+    },
+    {
+      path: '/forgotpassword',
+      name: 'forgotpassword',
+      component: forgotpassword
     },
     {
       path: '/register',
@@ -144,12 +169,12 @@ export default new VueRouter({
     },
     {
       path: '/doctor',
-      name: 'Docto_Patient_Information',
+      name: 'Doctor_Patient_Information',
       component: Doctor_Patient_Information
     },
     {
-      path: '/doctor/patient_infomation',
-      name: 'Docto_Patient_Information',
+      path: '/doctor/patient_information',
+      name: 'Doctor_Patient_Information',
       component: Doctor_Patient_Information
     },
     {
@@ -178,7 +203,67 @@ export default new VueRouter({
       component: Doctor_Doctor_Drug_Interaction
     },
 
-
+    //pharmacist    
+    {
+      path: '/pharmacist_information',
+      name: 'Pharmacist_Information',
+      component: Pharmacist_Information
+    },
+    {
+      path: '/pharmacist_relation',
+      name: 'Pharmacist_Relation',
+      component: Pharmacist_Relation
+    },
+    {
+      path: '/pharmacist_drug_information',
+      name: 'Pharmacist_drug_information',
+      component: Pharmacist_Drug_Information
+    },
+    {
+      path: '/pharmacist_drug_information/:drugname',
+      name: 'Pharmacist_drug_information',
+      component: Pharmacist_Drug_Information
+    },
+    {
+      path: '/pharmacist_drug_interaction',
+      name: 'Pharmacist_drug_interaction',
+      component: Pharmacist_Drug_Interaction
+    },
+    {
+      path: '/pharmacist',
+      name: 'Pharmacist_Patient_Information',
+      component: Pharmacist_Patient_Information
+    },
+    {
+      path: '/pharmacist/patient_information',
+      name: 'Pharmacist_Patient_Information',
+      component: Pharmacist_Patient_Information
+    },
+    {
+      path: '/pharmacist/pharmacist_drug_dispend',
+      name: 'Pharmacist_Drug_Dispend',
+      component: Pharmacist_Drug_Dispend
+    },
+    {
+      path: '/pharmacist/pharmacist_drug_history',
+      name: 'Pharmacist_drug_history',
+      component: Pharmacist_Drug_History
+    },
+    {
+      path: '/pharmacist/pharmacist_drug_information',
+      name: 'Pharmacist_drug_information',
+      component: Pharmacist_Pharmacist_Drug_Information
+    },
+    {
+      path: '/pharmacist/pharmacist_drug_information/:drugname',
+      name: 'Pharmacist_drug_information',
+      component: Pharmacist_Pharmacist_Drug_Information
+    },
+    {
+      path: '/pharmacist/pharmacist_drug_interaction',
+      name: 'Pharmacist_drug_interaction',
+      component: Pharmacist_Pharmacist_Drug_Interaction
+    },
 
     {
       path: '/Drug_Interaction',
@@ -194,7 +279,9 @@ export default new VueRouter({
       path: '/Drug_Information/:drugname',
       name: 'Drug_Information',
       component: Drug_Information
-    }    
+    }
+
+
     /*{
       path: '/posts',
       name: 'Posts',
@@ -209,7 +296,6 @@ export default new VueRouter({
       path: '/posts/:id',
       name: 'EditPost',
       component: EditPost
-    }*/    
+    }*/
   ]
 })
-

@@ -3,7 +3,7 @@
     <div class="col-lg-6" style="width:100%;">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h3>Doctor id : xxxxxxx </h3>
+          <h3>Pharmacist id : xxxxxxx </h3>
           <br>
           <!-- patient data -->
           <form>

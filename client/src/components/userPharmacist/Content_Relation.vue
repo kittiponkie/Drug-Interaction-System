@@ -35,60 +35,49 @@
       </div>
     </div>
     <!-- end modal -->
+    <!-- Modal -->
+    <div class="modal fade" id="basicExampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Add Friend</h5><br />
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <!--content summary -->
+          <div class="modal-body">
+            <p>Please Search Friend ID</p>
+            <div class="row">
+              <div class="col-sm-6 form-group">
+                <input type="text" placeholder="Enter First Name Here.." class="form-control">
+                <!-- ยังไม่ได้ทำ auto complete -->
+              </div>
+            </div>
+          </div>
 
-
-    <!-- end modal -->
-    <md-card md-with-hover>
-      <md-ripple>
-        <!--card1-->
-        <md-card-header>
-          <div class="md-title">Doctor</div>
-          <div class="md-subhead">Name : xxxxxxx </div>
-        </md-card-header>
-
-        <md-card-actions>
-          <md-button>See data</md-button>
-        </md-card-actions>
-      </md-ripple>
-    </md-card>
-    <!-- end card1-->
-    <br />
-    <md-card md-with-hover>
-      <md-ripple>
-        <!--card2-->
-        <md-card-header>
-          <div class="md-title">Pharmacist</div>
-          <div class="md-subhead">Name :xxxxxxx</div>
-        </md-card-header>
-        <md-card-actions>
-          <!--   <md-button>See data</md-button> -->
-          <md-button class="md-primary" ng-click="showAdvanced($event)">See data</md-button>
-          <script type="text/ng-template" id="dialog1.tmpl.html"></script>
-        </md-card-actions>
-      </md-ripple>
-    </md-card>
-    <!-- end display card -->
-    <br />
-    <md-table v-model="searched" md-sort="name" md-sort-order="asc" md-card>
-      <md-table-toolbar>
-        <div class="md-toolbar-section-start" style="width: 782px;">
-          <h1 class="md-title">Friend Request</h1>
+          <!-- confirm to dispend drug button -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary">Add Friend</button>
+            <button type="button" class="btn btn-primary">Cancle</button>
+          </div>
         </div>
-      </md-table-toolbar>
-      <md-table-empty-state md-label="No users found" :md-description="`No drug name found for this '${search}' query. Try a different search term.`">
-      </md-table-empty-state>
-      <md-table-row slot="md-table-row" slot-scope="{ item }">
-        <md-table-cell md-label="ID" md-sort-by="id" md-numeric>{{ item.id }}</md-table-cell>
-        <md-table-cell md-label="Name" md-sort-by="name">{{ item.name }}</md-table-cell>
-        <md-table-cell md-label="Surname" md-sort-by="email">{{ item.email }}</md-table-cell>
-        <md-table-cell md-label="Status">
-          <button type="button" class="btn btn-success" style="border-top-width: 0px;">Accept</button>
-          <button type="button" class="btn btn-danger" style="border-top-width: 0px;">Reject</button>
-          <button type="button" class="close" aria-label="Close" style="border-top-width: 0px,font:10px;"><span
-              aria-hidden="true">&times;</span></button>
-        </md-table-cell>
-      </md-table-row>
-    </md-table>
+      </div>
+    </div>
+    <!-- end modal -->
+    <!--card1-->
+    <div class="inline" v-for="i in 5" :key="i">
+      <router-link to="/pharmacist">
+        <md-card md-with-hover>
+            <md-card-header>
+              <div class="md-title">Patient</div>
+              <div class="md-subhead">Name : xxxxxxx </div>
+            </md-card-header>
+        </md-card>
+      </router-link>
+    </div>
+    <!-- end card1-->
   </div>
 </template>
 
@@ -251,6 +240,10 @@
 
   .dialogdemoThemeInheritance .container {
     text-align: center;
+  }
+
+  .inline{
+    display: inline-block;
   }
 
 </style>

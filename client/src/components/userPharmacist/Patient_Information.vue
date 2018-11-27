@@ -18,28 +18,35 @@
           </div>
         </md-toolbar>
 
+
+
+          
         <md-list class="delete_margin">
-          <md-list-item to="/patient_information" class="selected">
+          <md-list-item to="/pharmacist_relation" class="unselected">
+            <md-icon style="margin-right:10px">arrow_back_ios</md-icon>
+            <span class="md-list-item-text selected_text">Back</span>
+          </md-list-item>
+          <md-list-item to="/pharmacist/patient_information" class="selected">
             <md-icon style="margin-right:10px">account_circle</md-icon>
             <span class="md-list-item-text unselected_text">Patient Information</span>
           </md-list-item>
 
-          <md-list-item to="/patient_drug_history" class="unselected">
+          <md-list-item to="/pharmacist/pharmacist_drug_dispend" class="unselected">
+            <md-icon style="margin-right:10px">grain</md-icon>
+            <span class="md-list-item-text selected_text">Drug Dispend</span>
+          </md-list-item>
+
+          <md-list-item to="/pharmacist/pharmacist_drug_history" class="unselected">
             <md-icon style="margin-right:10px">folder_shared</md-icon>
             <span class="md-list-item-text selected_text">Drug History</span>
           </md-list-item>
 
-          <md-list-item to="/patient_relation" class="unselected">
-            <md-icon style="margin-right:10px">person_add</md-icon>
-            <span class="md-list-item-text selected_text">Friend</span>
-          </md-list-item>
-
-          <md-list-item to="/patient_drug_information" class="unselected">
+          <md-list-item to="/pharmacist/pharmacist_drug_information" class="unselected">
             <md-icon style="margin-right:10px">description</md-icon>
             <span class="md-list-item-text unselected_text">Drug Information</span>
           </md-list-item>
 
-          <md-list-item to="/patient_drug_interaction" class="unselected">
+          <md-list-item to="/pharmacist/pharmacist_drug_interaction" class="unselected">
             <md-icon style="margin-right:10px">bubble_chart</md-icon>
             <span class="md-list-item-text unselected_text">Drug Interaction</span>
           </md-list-item>
@@ -63,7 +70,7 @@
 
 <script>
   import axios from 'axios'
-  import contentA from './Content_Patient_Information.vue'
+  import contentA from './Content_Patient_Information'
   export default {
     name: 'Drug_Interaction',
     components: {
@@ -84,6 +91,7 @@
     },
     async mounted() {
       this.Window_Width = window.innerWidth
+      this.test = this.$route.params.id
     }
   }
 
