@@ -47,7 +47,7 @@ export default {
   }
 }
 </script>
-<style type="text/css">
+<style type="text/css" scoped>
 .form input, .form textarea {
   width: 500px;
   padding: 10px;

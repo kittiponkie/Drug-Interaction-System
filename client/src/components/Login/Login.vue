@@ -1,5 +1,5 @@
 <template>
-  <div class="modal-dialog">
+  <div class="modal-dialog fix_top">
     <div class="modal-content">
       <div class="modal-heading">
         <h2 class="text-center">Login</h2>
@@ -30,8 +30,7 @@
           </button>
           <router-link to="/register" target="_parent"><button class="btn btn-success btn-lg">Register</button></router-link>
           <router-link to="/forgotpassword" target="_blank" class="btn btn-link">forget Password?</router-link>
-        </div>
-        test
+        </div>        
         {{test}}
       </div>
     </div>
@@ -61,10 +60,10 @@
 
         loginService.checkLogin(this.login).then(Response => {
           if (Response.data.success == false) {
-            this.test = Response.data.message
+            this.test = "Message : "+Response.data.message
           } else {
             this.test = Response.data.ID
-            this.$router.push('/register')
+            this.$router.push('/patient_information')
           }
         })
       }
@@ -80,10 +79,9 @@
 
 </script>
 
-<style>
+<style lang="scss" scoped>
   .modal-content {
     background-color: #5DBFA8;
-    padding-top: 0px;
   }
 
   .btn-link {
@@ -98,4 +96,8 @@
     background-color: white;
   }
 
+  .fix_top{
+    margin-top:0px;
+    padding-top:30px;
+  }
 </style>

@@ -29,12 +29,12 @@
             <span class="md-list-item-text selected_text">Drug History</span>
           </md-list-item>
 
-          <md-list-item to="/patient_relation" class="selected">
+          <md-list-item to="/patient_relation" class="unselected">
             <md-icon style="margin-right:10px">person_add</md-icon>
             <span class="md-list-item-text selected_text">Friend</span>
           </md-list-item>
 
-          <md-list-item to="/patient_drug_information" class="unselected">
+          <md-list-item to="/patient_drug_information" class="selected">
             <md-icon style="margin-right:10px">description</md-icon>
             <span class="md-list-item-text unselected_text">Drug Information</span>
           </md-list-item>
@@ -63,7 +63,7 @@
 
 <script>
   import axios from 'axios'
-  import contentA from './Content_Relation.vue'
+  import contentA from '../Drug_Information.vue'
   export default {
     name: 'Drug_Interaction',
     components: {

@@ -15,28 +15,27 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 Vue.use(BootstrapVue);
 //import 'bootstrap/dist/css/bootstrap.css'  //conflict with other tool
 
+//import 'v-slim-dialog/dist/v-slim-dialog.css'
+import SlimDialog from 'v-slim-dialog'
+Vue.use(SlimDialog)
+
 import VueLocalStorage from 'vue-localstorage' 
 Vue.use(VueLocalStorage)
 
-import login from '@/components/login'
+import login from '@/components/Login/login'
 import RegisterPatient from '@/components/Register/Patient'
 import RegisterDoctor from '@/components/Register/Doctor'
 import registerPharmacist from '@/components/Register/Pharmacist'
 import Patient_Information from '@/components/userPatient/Patient_Information'
+import Patient_Drug_History from '@/components/userPatient/Drug_History'
+import Patient_Relation from '@/components/userPatient/Relation'
+import Patient_Drug_Information from '@/components/userPatient/Drug_Information'
+import Patient_Drug_Interaction from '@/components/userPatient/Drug_Interaction'
+
+
 
 import Drug_Interaction from '@/components/Drug_Interaction'
 import Drug_Information from '@/components/Drug_Information'
-import HelloWorld from '@/components/HelloWorld' // not use
-import Posts from '@/components/Posts' // test mongo
-import NewPost from '@/components/NewPost' // test mongo
-import EditPost from '@/components/EditPost' // test mongo
-import interaction from '@/components/interaction' // not use
-
-import Drug_History from '@/components/Drug_History'
-import Patient_information from '@/components/Patient_information'
-
-import Doctor_Information from '@/components/Doctor_Information'
-import Admin_Accept from '@/components/Admin_Accept'
 
 
 
@@ -77,6 +76,26 @@ export default new VueRouter({
       path: '/patient_information',
       name: 'Patient_Information',
       component: Patient_Information
+    },
+    {
+      path: '/patient_drug_history',
+      name: 'Patient_drug_history',
+      component: Patient_Drug_History
+    },
+    {
+      path: '/patient_relation',
+      name: 'Patient_Relation',
+      component: Patient_Relation
+    },
+    {
+      path: '/patient_drug_information',
+      name: 'Patient_drug_information',
+      component: Patient_Drug_Information
+    },
+    {
+      path: '/patient_drug_interaction',
+      name: 'Patient_drug_interaction',
+      component: Patient_Drug_Interaction
     },
 
 

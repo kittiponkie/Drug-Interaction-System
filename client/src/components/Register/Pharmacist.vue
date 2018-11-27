@@ -206,10 +206,6 @@
 
 <style>
   /* Space out content a bit */
-  body {
-    padding-top: 20px;
-    padding-bottom: 20px;
-  }
 
   body {
     background: url('https://images.unsplash.com/photo-1464618663641-bbdd760ae84a?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=62a77bae48158b98b0acdf9fa674410e&auto=format&fit=crop&w=1050&q=80') no-repeat center center fixed;
