@@ -23,7 +23,7 @@
                   <!-- prefix -->
                   <div class="col-sm-6 form-group">
                     <label>Prefix</label>
-                    <select id="prefix" class="form-control">
+                    <select ref="prefix" class="form-control">
                       <option selected="">MR.</option>
                       <option>MRS.</option>
                       <option>Miss</option>
@@ -46,11 +46,11 @@
                 <div class="row">
                   <div class="col-sm-6 form-group">
                     <label>First Name</label>
-                    <input id="firstname" type="text" placeholder="Enter First Name Here.." class="form-control">
+                    <input ref="firstname" type="text" placeholder="Enter First Name Here.." class="form-control">
                   </div>
                   <div class="col-sm-6 form-group">
                     <label>Last Name</label>
-                    <input id="lastname" type="text" placeholder="Enter Last Name Here.." class="form-control">
+                    <input ref="lastname" type="text" placeholder="Enter Last Name Here.." class="form-control">
                   </div>
                 </div>
 
@@ -58,7 +58,7 @@
                   <!-- Sex -->
                   <div class="col-sm-6 form-group">
                     <label>Sex</label>
-                    <select id="sex" class="form-control">
+                    <select ref="sex" class="form-control">
                       <option selected="">Male</option>
                       <option>Female</option>
                       <option>Other</option>
@@ -67,7 +67,7 @@
                   <!-- id card -->
                   <div class="col-sm-6 form-group">
                     <label>ID Card</label>
-                    <input id="idcard" type="text" placeholder="Enter Designation Here.." class="form-control">
+                    <input ref="idcard" type="text" placeholder="Enter Designation Here.." class="form-control">
                   </div>
                 </div>
 
@@ -75,30 +75,30 @@
                 <div class="row">
                   <div class="col-sm-6 form-group">
                     <label>Department</label>
-                    <input id="department" type="text" placeholder="Enter Department Here.." class="form-control">
+                    <input ref="department" type="text" placeholder="Enter Department Here.." class="form-control">
                   </div>
                 </div>
 
                 <div class="form-group">
                   <label> Address</label>
-                  <textarea id="address" placeholder="Enter Address Here.." rows="3" class="form-control"></textarea>
+                  <textarea ref="address" placeholder="Enter Address Here.." rows="3" class="form-control"></textarea>
                 </div>
                 <div class="form-group">
                   <label>Phone</label>
-                  <input id="phone" type="text" placeholder="Enter Phone Here.." class="form-control">
+                  <input ref="phone" type="text" placeholder="Enter Phone Here.." class="form-control">
                 </div>
                 <br>
                 <div class="form-group">
                   <label>Email</label>
-                  <input id="email" type="text" placeholder="Enter Email Here.." class="form-control">
+                  <input ref="email" type="text" placeholder="Enter Email Here.." class="form-control">
                 </div>
                 <div class="form-group">
                   <label>Username</label>
-                  <input id="username" type="text" placeholder="Enter Username Here.." class="form-control">
+                  <input ref="username" type="text" placeholder="Enter Username Here.." class="form-control">
                 </div>
                 <div class="form-group">
                   <label>Password</label>
-                  <input id="password" type="password" placeholder="Enter password Here.. at least 8 character" class="form-control">
+                  <input ref="password" type="password" placeholder="Enter password Here.. at least 8 character" class="form-control">
                 </div>
                 <button type="button" class="btn btn-lg btn-info" style="margin-left: 7px" @click="submit">Submit</button>
                 <button type="button" class="btn btn-lg btn-info" style="margin-left: 7px" @click="cancel">cancel</button>
@@ -148,28 +148,28 @@
     }),
     methods: {
       cancel() {
-        window.location.href = "http://localhost:8080/register/patient";
+        window.location.href = "http://localhost:8080/register/pharmacist";
       },
       async submit() {
-        await this.DataPharmacist()
-        await this.DataAccount()
+        if (this.$refs.username.value != '') {
+          await this.DataPharmacist()
+          await this.DataAccount()
+        }        
       },
       async DataPharmacist() {
         //save value on variable
 
         this.dataPharmacist.PharmacistID = null
-        var e = document.getElementById("prefix")
-        this.dataPharmacist.Prefix = e.options[e.selectedIndex].text
-        this.dataPharmacist.Firstname = document.getElementById("firstname").value
-        this.dataPharmacist.Lastname = document.getElementById("lastname").value
-        e = document.getElementById("sex")
-        this.dataPharmacist.Sex = e.options[e.selectedIndex].text
-        this.dataPharmacist.Email = document.getElementById("email").value
-        this.dataPharmacist.Department = document.getElementById("department").value
-        this.dataPharmacist.IDcardNumber = document.getElementById("idcard").value
-        this.dataPharmacist.Address = document.getElementById("address").value
-        this.dataPharmacist.Phone = document.getElementById("phone").value
-        if (document.getElementById("username").value != null) {
+        this.dataPharmacist.Prefix = this.$refs.prefix.value
+        this.dataPharmacist.Firstname = this.$refs.firstname.value
+        this.dataPharmacist.Lastname = this.$refs.Lastname.value
+        this.dataPharmacist.Sex = this.$refs.sex.value
+        this.dataPharmacist.Email = this.$refs.email.value
+        this.dataPharmacist.Department = this.$refs.department.value
+        this.dataPharmacist.IDcardNumber = this.$refs.idcard.value
+        this.dataPharmacist.Address = this.$refs.address.value
+        this.dataPharmacist.Phone = this.$refs.phone.value
+        if (this.$refs.username.value != '') {
           await registerService.pharmacistInfo(this.dataPharmacist).then(Response => {
             if (Response.data != "") {
               this.dataPharmacist.PharmacistID = Response.data.PharmacistID
@@ -179,9 +179,9 @@
       },
       DataAccount() {
         this.dataAccount.ID = this.dataPharmacist.PharmacistID
-        this.dataAccount.Username = document.getElementById("username").value
-        this.dataAccount.Password = document.getElementById("password").value
-        this.dataAccount.Email = document.getElementById("email").value
+        this.dataAccount.Username = this.$refs.username.value
+        this.dataAccount.Password = this.$refs.password.value
+        this.dataAccount.Email = this.$refs.email.value
         this.dataAccount.AccountType = "Pharmacist"
         registerService.register(this.dataAccount)
       }

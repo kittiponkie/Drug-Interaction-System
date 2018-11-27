@@ -88,7 +88,7 @@
                   <div class="col-sm-6 form-group">
                     <label>Age</label>
                     <input ref="age" type="text" class="form-control" placeholder="Enter Age Here..">
-                    <!--input id="age" type="text" readonly class="form-control" value="21 (Auto calculation)"-->
+                    <!--input ref="age" type="text" readonly class="form-control" value="21 (Auto calculation)"-->
                   </div>
                 </div>
 
@@ -228,7 +228,6 @@
       dataAllergic: {
         PatientID: String,
         GPName: String,
-        //GPID: String,
         RXCUI: String
       },
       test: null
@@ -238,50 +237,50 @@
         window.location.href = "http://localhost:8080/register/patient";
       },
       async submit() {
-        await this.DataPatient()
-        await this.DataAccount()
-        await this.DataAllergic()
+        if (this.$refs.username.value != '') {
+          await this.DataPatient()
+          await this.DataAccount()
+          if (this.$refs.drugAllergy.value != '') await this.DataAllergic()
+        }
       },
       async DataPatient() {
         //save value on variable
-        this.dataPatient.PatientID = null  
+        this.dataPatient.PatientID = null
         this.dataPatient.Prefix = this.$refs.prefix.value
-        this.dataPatient.Firstname = this.$refs.firstname.value 
-        this.dataPatient.Lastname = this.$refs.lastname.value 
+        this.dataPatient.Firstname = this.$refs.firstname.value
+        this.dataPatient.Lastname = this.$refs.lastname.value
         this.dataPatient.Sex = this.$refs.sex.value
-        this.dataPatient.DOB = this.$refs.birthday.value 
-        this.dataPatient.Age = this.$refs.age.value 
-        this.dataPatient.Email = this.$refs.email.value 
-        this.dataPatient.Weight = this.$refs.weight.value 
-        this.dataPatient.Height = this.$refs.height.value 
-        this.dataPatient.IDcardNumber = this.$refs.idcard.value 
-        this.dataPatient.Status = this.$refs.status.value 
-        this.dataPatient.Race = this.$refs.rac.value 
-        this.dataPatient.Nation = this.$refs.nation.value 
-        this.dataPatient.Religion = this.$refs.religion.value 
-        this.dataPatient.Bloodgroup = this.$refs.blood.value 
-        this.dataPatient.Address = this.$refs.address.value 
+        this.dataPatient.DOB = this.$refs.birthday.value
+        this.dataPatient.Age = this.$refs.age.value
+        this.dataPatient.Email = this.$refs.email.value
+        this.dataPatient.Weight = this.$refs.weight.value
+        this.dataPatient.Height = this.$refs.height.value
+        this.dataPatient.IDcardNumber = this.$refs.idcard.value
+        this.dataPatient.Status = this.$refs.status.value
+        this.dataPatient.Race = this.$refs.rac.value
+        this.dataPatient.Nation = this.$refs.nation.value
+        this.dataPatient.Religion = this.$refs.religion.value
+        this.dataPatient.Bloodgroup = this.$refs.blood.value
+        this.dataPatient.Address = this.$refs.address.value
         this.dataPatient.Phone = this.$refs.phone.value
-        
-        if (document.getElementById("username").value != null) {
-          await registerService.patientInfo(this.dataPatient).then(Response => {
-            if (Response.data != "") {
-              this.dataPatient.PatientID = Response.data.PatientID
-            }
-          })
-        }
+
+        await registerService.patientInfo(this.dataPatient).then(Response => {
+          if (Response.data != "") {
+            this.dataPatient.PatientID = Response.data.PatientID
+          }
+        })
       },
       DataAccount() {
         this.dataAccount.ID = this.dataPatient.PatientID
-        this.dataAccount.Username = this.$refs.username.value 
-        this.dataAccount.Password = this.$refs.password.value 
-        this.dataAccount.Email = this.$refs.email.value 
+        this.dataAccount.Username = this.$refs.username.value
+        this.dataAccount.Password = this.$refs.password.value
+        this.dataAccount.Email = this.$refs.email.value
         this.dataAccount.AccountType = "Patient"
         registerService.register(this.dataAccount)
       },
       DataAllergic() {
         this.dataAllergic.PatientID = this.dataPatient.PatientID
-        this.dataAllergic.GPName = this.$refs.drugAllergy.value  
+        this.dataAllergic.GPName = this.$refs.drugAllergy.value
         this.dataAllergic.RXCUI = "not done"
         registerService.allergicDrug(this.dataAllergic)
       }

@@ -18,26 +18,69 @@ Vue.use(BootstrapVue);
 import VueLocalStorage from 'vue-localstorage' 
 Vue.use(VueLocalStorage)
 
+import login from '@/components/login'
+import RegisterPatient from '@/components/Register/Patient'
+import RegisterDoctor from '@/components/Register/Doctor'
+import registerPharmacist from '@/components/Register/Pharmacist'
+import Patient_Information from '@/components/userPatient/Patient_Information'
+
+import Drug_Interaction from '@/components/Drug_Interaction'
+import Drug_Information from '@/components/Drug_Information'
 import HelloWorld from '@/components/HelloWorld' // not use
 import Posts from '@/components/Posts' // test mongo
 import NewPost from '@/components/NewPost' // test mongo
 import EditPost from '@/components/EditPost' // test mongo
 import interaction from '@/components/interaction' // not use
-import Drug_Interaction from '@/components/Drug_Interaction'
-import Drug_Information from '@/components/Drug_Information'
+
 import Drug_History from '@/components/Drug_History'
 import Patient_information from '@/components/Patient_information'
-import login from '@/components/login'
+
 import Doctor_Information from '@/components/Doctor_Information'
 import Admin_Accept from '@/components/Admin_Accept'
-import RegisterDoc from '@/components/Register/Doctor'
-import RegisterPha from '@/components/Register/Pharmacist'
-import RegisterPat from '@/components/Register/Patient'
+
 
 
 export default new VueRouter({
   mode: 'history',
-  routes: [
+  routes: [    
+    {
+      path: '/',
+      name: 'home',
+      component: login
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: login
+    },
+    {
+      path: '/register',
+      name: 'register',
+      component: RegisterPatient
+    },
+    {
+      path: '/register/patient',
+      name: 'registerPatient',
+      component: RegisterPatient
+    },
+    {
+      path: '/register/doctor',
+      name: 'registerDoctor',
+      component: RegisterDoctor
+    },
+    {
+      path: '/register/pharmacist',
+      name: 'registerPharmacist',
+      component: registerPharmacist
+    },
+    {
+      path: '/patient_information',
+      name: 'Patient_Information',
+      component: Patient_Information
+    },
+
+
+
     {
       path: '/Drug_Interaction',
       name: 'Drug_Interaction',
@@ -52,7 +95,7 @@ export default new VueRouter({
       path: '/Drug_Information/:drugname',
       name: 'Drug_Information',
       component: Drug_Information
-    },
+    }/*,
     {
       path: '/Drug_History',
       name: 'Drug_History',
@@ -72,7 +115,7 @@ export default new VueRouter({
       path: '/posts/:id',
       name: 'EditPost',
       component: EditPost
-    },
+},
     {
       path: '/drug_info',
       name: 'HelloWorld',
@@ -92,12 +135,7 @@ export default new VueRouter({
       path: '/Patient_information',
       name: 'Patient_information',
       component: Patient_information
-    },
-    {
-      path: '/login',
-      name: 'login',
-      component: login
-    },
+    }*/,/*
     {
       path: '/Doctor_Information',
       name: 'Doctor_Information',
@@ -107,27 +145,8 @@ export default new VueRouter({
       path: '/Admin_Accept',
       name: 'Admin_Accept',
       component: Admin_Accept
-    },
-    {
-      path: '/register',
-      name: 'register',
-      component: RegisterPat
-    },
-    {
-      path: '/register/doctor',
-      name: 'registerDoctor',
-      component: RegisterDoc
-    },
-    {
-      path: '/register/pharmacist',
-      name: 'registerPharmacist',
-      component: RegisterPha
-    },
-    {
-      path: '/register/patient',
-      name: 'registerPatient',
-      component: RegisterPat
-    }
+    },*/
+    
   ]
 })
 
