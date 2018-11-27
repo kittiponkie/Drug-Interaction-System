@@ -19,27 +19,31 @@
         </md-toolbar>
 
         <md-list class="delete_margin">
-          <md-list-item to="/patient_information" class="unselected">
+          <md-list-item to="/doctor_relation" class="unselected">
+            <md-icon style="margin-right:10px">arrow_back_ios</md-icon>
+            <span class="md-list-item-text selected_text">Back</span>
+          </md-list-item>
+          <md-list-item to="/doctor/patient_infomation" class="unselected">
             <md-icon style="margin-right:10px">account_circle</md-icon>
             <span class="md-list-item-text unselected_text">Patient Information</span>
           </md-list-item>
 
-          <md-list-item to="/patient_drug_history" class="unselected">
+          <md-list-item to="/doctor/doctor_order_drug" class="unselected">
+            <md-icon style="margin-right:10px">dns</md-icon>
+            <span class="md-list-item-text selected_text">Drug Order</span>
+          </md-list-item>
+
+          <md-list-item to="/doctor/doctor_drug_history" class="unselected">
             <md-icon style="margin-right:10px">folder_shared</md-icon>
             <span class="md-list-item-text selected_text">Drug History</span>
           </md-list-item>
 
-          <md-list-item to="/patient_relation" class="unselected">
-            <md-icon style="margin-right:10px">person_add</md-icon>
-            <span class="md-list-item-text selected_text">Friend</span>
-          </md-list-item>
-
-          <md-list-item to="/patient_drug_information" class="unselected">
+          <md-list-item to="/doctor/doctor_drug_information" class="selected">
             <md-icon style="margin-right:10px">description</md-icon>
             <span class="md-list-item-text unselected_text">Drug Information</span>
           </md-list-item>
 
-          <md-list-item to="/patient_drug_interaction" class="selected">
+          <md-list-item to="/doctor/doctor_drug_interaction" class="unselected">
             <md-icon style="margin-right:10px">bubble_chart</md-icon>
             <span class="md-list-item-text unselected_text">Drug Interaction</span>
           </md-list-item>
@@ -63,7 +67,7 @@
 
 <script>
   import axios from 'axios'
-  import contentA from '../Drug_Interaction'
+  import contentA from '../Drug_Information'
   export default {
     name: 'Drug_Interaction',
     components: {
@@ -78,12 +82,13 @@
       toggleMenu() {
         this.menuVisible = !this.menuVisible
       },
-      logout(){
+      logout() {
         this.$router.push('/login')
       }
     },
     async mounted() {
       this.Window_Width = window.innerWidth
+      this.test = this.$route.params.id
     }
   }
 

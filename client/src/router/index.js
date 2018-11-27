@@ -26,12 +26,23 @@ import login from '@/components/Login/login'
 import RegisterPatient from '@/components/Register/Patient'
 import RegisterDoctor from '@/components/Register/Doctor'
 import registerPharmacist from '@/components/Register/Pharmacist'
+//patient
 import Patient_Information from '@/components/userPatient/Patient_Information'
 import Patient_Drug_History from '@/components/userPatient/Drug_History'
 import Patient_Relation from '@/components/userPatient/Relation'
 import Patient_Drug_Information from '@/components/userPatient/Drug_Information'
 import Patient_Drug_Interaction from '@/components/userPatient/Drug_Interaction'
+//doctor
+import Doctor_Information from '@/components/userDoctor/Doctor_Information'
+import Doctor_Relation from '@/components/userDoctor/Relation'
+import Doctor_Drug_Information from '@/components/userDoctor/Drug_Information'
+import Doctor_Drug_Interaction from '@/components/userDoctor/Drug_Interaction'
 
+import Doctor_Patient_Information from '@/components/userDoctor/Patient_Information'
+import Doctor_Order_Drug from '@/components/userDoctor/Order_Drug'
+import Doctor_Drug_History from '@/components/userDoctor/Drug_History'
+import Doctor_Doctor_Drug_Information from '@/components/userDoctor/Drug_Information_inside'
+import Doctor_Doctor_Drug_Interaction from '@/components/userDoctor/Drug_Interaction_inside'
 
 
 import Drug_Interaction from '@/components/Drug_Interaction'
@@ -72,6 +83,8 @@ export default new VueRouter({
       name: 'registerPharmacist',
       component: registerPharmacist
     },
+
+    //patient
     {
       path: '/patient_information',
       name: 'Patient_Information',
@@ -93,9 +106,76 @@ export default new VueRouter({
       component: Patient_Drug_Information
     },
     {
+      path: '/patient_drug_information/:drugname',
+      name: 'Patient_drug_information',
+      component: Patient_Drug_Information
+    },
+    {
       path: '/patient_drug_interaction',
       name: 'Patient_drug_interaction',
       component: Patient_Drug_Interaction
+    },
+
+    //doctor    
+    {
+      path: '/doctor_information',
+      name: 'Doctor_Information',
+      component: Doctor_Information
+    },
+    {
+      path: '/doctor_relation',
+      name: 'Doctor_Relation',
+      component: Doctor_Relation
+    },
+    {
+      path: '/doctor_drug_information',
+      name: 'Doctor_drug_information',
+      component: Doctor_Drug_Information
+    },
+    {
+      path: '/doctor_drug_information/:drugname',
+      name: 'Doctor_drug_information',
+      component: Doctor_Drug_Information
+    },
+    {
+      path: '/doctor_drug_interaction',
+      name: 'Doctor_drug_interaction',
+      component: Doctor_Drug_Interaction
+    },
+    {
+      path: '/doctor',
+      name: 'Docto_Patient_Information',
+      component: Doctor_Patient_Information
+    },
+    {
+      path: '/doctor/patient_infomation',
+      name: 'Docto_Patient_Information',
+      component: Doctor_Patient_Information
+    },
+    {
+      path: '/doctor/doctor_order_drug',
+      name: 'Doctor_Order_Drug',
+      component: Doctor_Order_Drug
+    },
+    {
+      path: '/doctor/doctor_drug_history',
+      name: 'Doctor_drug_history',
+      component: Doctor_Drug_History
+    },
+    {
+      path: '/doctor/doctor_drug_information',
+      name: 'Doctor_drug_information',
+      component: Doctor_Doctor_Drug_Information
+    },
+    {
+      path: '/doctor/doctor_drug_information/:drugname',
+      name: 'Doctor_drug_information',
+      component: Doctor_Doctor_Drug_Information
+    },
+    {
+      path: '/doctor/doctor_drug_interaction',
+      name: 'Doctor_drug_interaction',
+      component: Doctor_Doctor_Drug_Interaction
     },
 
 
@@ -114,13 +194,8 @@ export default new VueRouter({
       path: '/Drug_Information/:drugname',
       name: 'Drug_Information',
       component: Drug_Information
-    }/*,
-    {
-      path: '/Drug_History',
-      name: 'Drug_History',
-      component: Drug_History
-    },
-    {
+    }    
+    /*{
       path: '/posts',
       name: 'Posts',
       component: Posts
@@ -134,38 +209,7 @@ export default new VueRouter({
       path: '/posts/:id',
       name: 'EditPost',
       component: EditPost
-},
-    {
-      path: '/drug_info',
-      name: 'HelloWorld',
-      component: HelloWorld
-    },
-    {
-      path: '/drug_info/:Drug_Name/:id',
-      name: 'HelloWorld',
-      component: HelloWorld
-    },
-    {
-      path: '/interaction',
-      name: 'interaction',
-      component: interaction
-    },
-    {
-      path: '/Patient_information',
-      name: 'Patient_information',
-      component: Patient_information
-    }*/,/*
-    {
-      path: '/Doctor_Information',
-      name: 'Doctor_Information',
-      component: Doctor_Information
-    },
-    {
-      path: '/Admin_Accept',
-      name: 'Admin_Accept',
-      component: Admin_Accept
-    },*/
-    
+    }*/    
   ]
 })
 

@@ -1,54 +1,5 @@
 <template>
-  <div class="page-container">
-    <md-app md-mode="reveal">
-      <md-app-toolbar class="md-primary" md-elevation="0" style="background-color:#5DBFA8;">
-        <md-button class="md-icon-button" @click="toggleMenu" v-if="!(Window_Width>600)">
-          <md-icon>menu</md-icon>
-        </md-button>
-        <span class="md-title">Smart Drug Use</span>
-      </md-app-toolbar>
-
-      <!--menu card-->
-      <md-app-drawer md-permanent="card" :md-active.sync="menuVisible" class="menu_color">
-        <md-toolbar class="md-transparent" md-elevation="0">
-          <div class="md-toolbar-section-end">
-            <span class="span_center">Menu</span>
-            <md-button class="md-icon-button md-dense" @click="toggleMenu" v-if="!(Window_Width>600)">
-              <md-icon>keyboard_arrow_left</md-icon>
-            </md-button>
-          </div>
-        </md-toolbar>
-
-        <md-list class="delete_margin">
-          <md-list-item to="/Patient_information" class="unselected">
-            <md-icon style="margin-right:10px">account_circle</md-icon>
-            <span class="md-list-item-text unselected_text">Patient Information</span>
-          </md-list-item>
-
-          <md-list-item to="/Drug_History" class="unselected">
-            <md-icon style="margin-right:10px">folder_shared</md-icon>
-            <span class="md-list-item-text unselected_text">Drug History</span>
-          </md-list-item>
-
-          <md-list-item to="/Drug_Information" class="selected">
-            <md-icon style="margin-right:10px">description</md-icon>
-            <span class="md-list-item-text selected_text">Drug Information</span>
-          </md-list-item>
-
-          <md-list-item to="/Drug_Interaction" class="unselected">
-            <md-icon style="margin-right:10px">bubble_chart</md-icon>
-            <span class="md-list-item-text unselected_text">Drug Interaction</span>
-          </md-list-item>
-
-          <md-list-item to="/login" class="unselected">
-            <md-icon style="margin-right:10px">power_settings_new</md-icon>
-            <span class="md-list-item-text unselected_text">Logout</span>
-          </md-list-item>
-        </md-list>
-      </md-app-drawer>
-
-      <!--content-->
-      <md-app-content class="text_all">
+  <div>
         <div class="col-lg-6" style="width:100%;">
           <div class="panel panel-default">
             <div class="panel-heading">
@@ -671,11 +622,7 @@
           </div>
 
         </div>
-
-      </md-app-content>
-
-    </md-app>
-  </div>
+    </div>
 
 </template>
 

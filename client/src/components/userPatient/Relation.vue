@@ -63,7 +63,7 @@
 
 <script>
   import axios from 'axios'
-  import contentA from './Content_Relation.vue'
+  import contentA from './Content_Relation'
   export default {
     name: 'Drug_Interaction',
     components: {
