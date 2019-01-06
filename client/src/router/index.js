@@ -22,8 +22,21 @@ Vue.use(SlimDialog)
 import VueLocalStorage from 'vue-localstorage'
 Vue.use(VueLocalStorage)
 
+//checkbox
+import bModal from 'bootstrap-vue/es/components/modal/modal'
+import bModalDirective from 'bootstrap-vue/es/directives/modal/modal'
+
+//alert
+import swal from 'sweetalert';
+import VueSwal from 'vue-swal'
+Vue.use(VueSwal)
+
 import login from '@/components/Login/login'
 import forgotpassword from '@/components/Login/forgotpassword'
+import test from '@/components/Login/test'
+
+
+
 import RegisterPatient from '@/components/Register/Patient'
 import RegisterDoctor from '@/components/Register/Doctor'
 import registerPharmacist from '@/components/Register/Pharmacist'
@@ -62,6 +75,7 @@ import Pharmacist_Pharmacist_Drug_Interaction from '@/components/userPharmacist/
 
 import Drug_Interaction from '@/components/Drug_Interaction'
 import Drug_Information from '@/components/Drug_Information'
+
 
 
 
@@ -107,6 +121,11 @@ export default new VueRouter({
       path: '/register/pharmacist',
       name: 'registerPharmacist',
       component: registerPharmacist
+    },
+    {
+      path: '/Login/test',
+      name: 'test',
+      component: test
     },
 
     //patient

@@ -3,47 +3,126 @@
     <md-table v-model="searched" md-sort="name" md-sort-order="asc" md-card>
       <md-table-toolbar>
         <div class="md-toolbar-section-start">
-          <h1 class="md-title">Order Number : O00001</h1>
         </div>
       </md-table-toolbar>
       <md-table-empty-state md-label="No users found" :md-description="`No drug name found for this '${search}' query. Try a different search term.`">
       </md-table-empty-state>
 
       <md-table-row slot="md-table-row" slot-scope="{ item }">
-        <md-table-cell md-label="patient ID" md-sort-by="id" md-numeric>{{ item.id }}</md-table-cell>
+        <md-table-cell md-label="Patient ID" md-sort-by="id" md-numeric>{{ item.id }}</md-table-cell>
+        <md-table-cell md-label="Order ID" md-sort-by="Oid" md-numeric>{{ item.Oid }}</md-table-cell>
         <md-table-cell md-label="Patient Name" md-sort-by="name">{{ item.name }}</md-table-cell>
         <md-table-cell md-label="Doctor Name" md-sort-by="email">{{ item.email }}</md-table-cell>
-        <md-table-cell md-label="Status">
-          <!--     <button type="button" class="btn" style="border-top-width: 0px;">See data</button>-->
-          <button type="button" class="close" aria-label="Close" style="border-top-width: 0px,font:10px;"><span
-              aria-hidden="true">&times;</span></button>
-          <!-- Button trigger modal -->
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#basicExampleModal">See data</button>
+        <md-table-cell md-label="Date" md-sort-by="Date">{{ item.Date }}</md-table-cell>
 
-          <!-- Modal -->
-          <div class="modal fade" id="basicExampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Summary</h5><br />
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <!--content summary -->
-                <div class="modal-body">
-                  <p>list of drug</p>
-                </div>
-                <!-- confirm to dispend drug button -->
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-primary">Confirm</button>
-                  <button type="button" class="btn btn-primary">Close</button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- end modal -->
+        <md-table-cell md-label="Status">
+          <!--<button type="button" class="btn" style="border-top-width: 0px;">See data</button>-->
+          <button type="button" class="close" aria-label="Close" style="border-top-width: 0px,font:10px;"><span aria-hidden="true">&times;</span></button>
+          <!-- Button trigger modal -->
+          <!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target=swal>See data</button> -->
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#basicExampleModal">see data</button>
+
+          <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+  Launch demo modal
+</button>
+
+<div class="modal fade" tabindex="-1" role="dialog" id = "myModal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Modal title</h4>
+      </div>
+      <div class="modal-body">
+        <p>One fine body&hellip;</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+        <!-- Modal -->
+  <div class="modal fade" id="basicExampleModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Modal Header</h4>
+        </div>
+        <div class="modal-body">
+          <p>Some text in the modal.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+
+
+<!--
+ Button trigger modal 
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  Launch demo modal
+</button>
+
+<! Modal 
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>-->
+
+
+
+<!-- modal temp 
+
+swal({
+  title: "Are you confirm?",
+  text: "Summary Drug Ordering",
+  icon: "warning",
+  buttons: true,
+  dangerMode: true,
+})
+.then((willDelete) => {
+  if (willDelete) {
+    swal("Your drug dispend file has been deleted!", {
+      icon: "success",
+    });
+  } else {
+    swal("success");
+  }
+});
+
+-->
+
+
+
+
+
         </md-table-cell>
       </md-table-row>
     </md-table>
@@ -79,27 +158,37 @@
       users: [{
           id: 1,
           name: "khaofang pebble",
+          Oid: "O00001",
           email: "xxxxxx",
+          Date: '10/09/2561' 
         },
         {
           id: 2,
           name: "Omeprazole",
+          Oid: "O00002",
           email: "xxxxxxx",
+          Date: '9/09/2561'
         },
         {
           id: 3,
           name: "Tramadol",
+          Oid: "O00003",
           email: "xxxxxxxxxxxx",
+          Date: '8/09/2561'
         },
         {
           id: 4,
           name: "Tramadol",
+          Oid: "O00004",
           email: "xxxxxxxxxxxxxx",
+          Date: '8/09/2561'
         },
         {
           id: 5,
           name: "Acetaminophen",
+          Oid: "O00005",
           email: "xxxxxxxxxxx",
+          Date: '5/09/2561'
         }
       ]
     }),
@@ -161,7 +250,6 @@
   //modal
 
 </script>
-
 <style lang="scss" scoped>
   .md-app {
     height: calc(100vh);

@@ -50,7 +50,7 @@
                     </div>
                   </div>
                 </div>
-                <!-- Frequency -->
+                <!-- Frequency 
                 <div class="row">
                   <div class="col-sm-6 form-group">
                     <label>Frequency</label>
@@ -69,8 +69,23 @@
                       <option>เมื่อมีอาการ</option>
                     </select>
                   </div>
-                </div>
-                <!-- desc. -->
+                </div>-->
+                    <div id='checkbox'>
+                      <label>Frequency</label>
+                      <input type="checkbox" id="bfeat" value="bfeat" v-model="checkedNames">
+                      <label for="jack">ก่อนอาหาร</label>
+                      <input type="checkbox" id="afeat" value="afeat" v-model="checkedNames">
+                      <label for="john">หลังอาหาร</label>
+                      <input type="checkbox" id="morning" value="morning" v-model="checkedNames">
+                      <label for="mike">เช้า</label>
+                      <input type="checkbox" id="morning" value="morning" v-model="checkedNames">
+                      <label for="mike">กลางวัน</label>
+                      <input type="checkbox" id="morning" value="morning" v-model="checkedNames">
+                      <label for="mike">เย็น</label>
+                      <input type="checkbox" id="morning" value="morning" v-model="checkedNames">
+                      <label for="mike">ก่อนนอน</label>
+                    </div>
+                <!-- descroption. -->
                 <div class="row">
                   <div class="col-sm-6 form-group">
                     <label>Description</label>
@@ -78,13 +93,11 @@
                   </div>
                 </div>
                 <!-- confirm button -->
-                <br />
+                <br/>
                 <div class="row">
                   <div class="col-sm-5">
                     <button type="button" class="btn btn-success" style="border-top-width: 0px;">Confirm</button>
                     <button type="button" class="btn btn-danger" style="border-top-width: 0px;">Cancle</button>
-
-
                   </div>
                 </div>
                 <!-- Button trigger modal -->
@@ -115,7 +128,6 @@
                   </div>
                 </div>
                 <!-- end modal -->
-
               </form>
             </div>
           </div>
