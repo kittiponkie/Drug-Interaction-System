@@ -52,7 +52,36 @@
       </md-app-content>
     </md-app>
 
+    <div class="container">
+      <h2>Small Modal</h2>
+      <!-- Button to Open the Modal -->
+      <button
+        type="button"
+        class="btn btn-primary"
+        data-toggle="modal"
+        data-target="#myModal"
+      >Open modal</button>
 
+      <!-- The Modal -->
+      <div class="modal fade" id="basicExampleModal">
+        <div class="modal-dialog modal-sm">
+          <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Summary</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">// Show Summary data //</div>
+            <!-- Modal footer1 -->
+            <div class="modal-footer">
+              <button type="button" class="btn btn-success">Save changes</button>
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
