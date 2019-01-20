@@ -4,8 +4,6 @@
     <!-- Button trigger modal -->
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#basicExampleModal2" style="float: right;margin-right: 20px;">Add Friend</button>
 
-    
-    
     <!--card1-->
     <div class="inline" v-for="i in 5" :key="i">
       <router-link to="/pharmacist">
