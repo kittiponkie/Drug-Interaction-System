@@ -12,7 +12,11 @@
         <md-toolbar class="md-transparent" md-elevation="0">
           <div class="md-toolbar-section-end">
             <span class="span_center">Menu</span>
-            <md-button class="md-icon-button md-dense" @click="toggleMenu" v-if="!(Window_Width>600)">
+            <md-button
+              class="md-icon-button md-dense"
+              @click="toggleMenu"
+              v-if="!(Window_Width>600)"
+            >
               <md-icon>keyboard_arrow_left</md-icon>
             </md-button>
           </div>
@@ -52,119 +56,142 @@
             <md-icon style="margin-right:10px">power_settings_new</md-icon>
             <span class="md-list-item-text unselected_text">Logout</span>
           </md-list-item>
-
         </md-list>
-
-      </md-app-drawer>
-      <md-app-content>
-        <contentA />
+        </md-app-drawer>
+        <md-app-content>
+        <contentA/>
       </md-app-content>
     </md-app>
-
+<!-- Modal -->
+                <div class="modal fade" id="basicExampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                  aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Summary</h5><br />
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <!--content summary -->
+                      <div class="modal-body">
+                        <p>list of drug</p>
+                      </div>
+                      <!-- confirm to dispend drug button -->
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-primary">Confirm</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- end modal -->
 
   </div>
 </template>
 
 <script>
-  import axios from 'axios'
-  import contentA from './Content_Order_Drug'
-  export default {
-    name: 'Drug_Interaction',
-    components: {
-      contentA
+import axios from "axios";
+import contentA from "./Content_Order_Drug";
+export default {
+  name: "Drug_Interaction",
+  components: {
+    contentA
+  },
+  data: () => ({
+    menuVisible: false, //toggle visible menu when responsive
+    Window_Width: 0 //width of window
+  }),
+  methods: {
+    //toggle visible menu
+    toggleMenu() {
+      this.menuVisible = !this.menuVisible;
     },
-    data: () => ({
-      menuVisible: false, //toggle visible menu when responsive
-      Window_Width: 0, //width of window
-    }),
-    methods: {
-      //toggle visible menu
-      toggleMenu() {
-        this.menuVisible = !this.menuVisible
-      },
-      logout() {
-        this.$router.push('/login')
-      }
-    },
-    async mounted() {
-      this.Window_Width = window.innerWidth
-      this.test = this.$route.params.id
+    logout() {
+      this.$router.push("/login");
     }
+  },
+  async mounted() {
+    this.Window_Width = window.innerWidth;
+    this.test = this.$route.params.id;
   }
-
+};
 </script>
 
 <style lang="scss" scoped>
-  .md-app {
-    height: calc(100vh);
-    border: 1px solid rgba(#000, .12);
-  }
+.md-app {
+  height: calc(100vh);
+  border: 1px solid rgba(#000, 0.12);
+}
 
-  .md-drawer {
-    width: 230px;
-    max-width: calc(100vw - 125px);
-  }
+.md-drawer {
+  width: 230px;
+  max-width: calc(100vw - 125px);
+}
 
-  .span_center {
-    text-align: center;
-    width: 100%;
-    font-size: 14px;
-  }
+.span_center {
+  text-align: center;
+  width: 100%;
+  font-size: 14px;
+}
 
-  .text_all {
-    font-size: 14px;
-  }
+.text_all {
+  font-size: 14px;
+}
 
-  .md-field {
-    max-width: 300px;
-  }
+.md-field {
+  max-width: 300px;
+}
 
-  .textSearch {
-    float: left;
-  }
+.textSearch {
+  float: left;
+}
 
-  .buttonSearch {
-    margin-top: 16px;
-  }
+.buttonSearch {
+  margin-top: 16px;
+}
 
-  .md-input {
-    max-width: calc(100%);
-  }
+.md-input {
+  max-width: calc(100%);
+}
 
-  .menu_color {
-    background-color: #f1f1f1;
+.menu_color {
+  background-color: #f1f1f1;
+}
 
-  }
+.delete_margin {
+  width: 100%;
+  background-color: #f1f1f1;
+}
 
-  .delete_margin {
-    width: 100%;
-    background-color: #f1f1f1;
-  }
+.selected {
+  background-color: #5dbfa8;
+  margin: 2px;
+}
 
-  .selected {
-    background-color: #5DBFA8;
-    margin: 2px;
-  }
+.unselected {
+  background-color: #f1f1f1;
+  margin: 2px;
+}
 
-  .unselected {
-    background-color: #f1f1f1;
-    margin: 2px;
-  }
+.selected_text {
+  color: black;
+}
 
-  .selected_text {
-    color: black;
-  }
+.unselected_text {
+  color: black;
+}
 
-  .unselected_text {
-    color: black;
-  }
+.md-content md-app-content md-flex md-theme-default {
+  padding-top: 23px;
+}
 
-  .md-content md-app-content md-flex md-theme-default {
-    padding-top: 23px;
-  }
-
-  .md-drawer md-app-drawer menu_color md-theme-default md-left md-permanent md-permanent-card {
-    padding-top: 20px;
-  }
-
+.md-drawer
+  md-app-drawer
+  menu_color
+  md-theme-default
+  md-left
+  md-permanent
+  md-permanent-card {
+  padding-top: 20px;
+}
 </style>

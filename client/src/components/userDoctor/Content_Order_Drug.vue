@@ -96,7 +96,7 @@
                 <br/>
                 <div class="row">
                   <div class="col-sm-5">
-                    <button type="button" class="btn btn-success" style="border-top-width: 0px;">Confirm</button>
+                    <button type="button" class="btn btn-success"  data-toggle="modal" data-target="#basicExampleModal" style="border-top-width: 0px;">Confirm</button>
                     <button type="button" class="btn btn-danger" style="border-top-width: 0px;">Cancle</button>
                   </div>
                 </div>
@@ -104,30 +104,7 @@
                 <button style="margin-top:20px" type="button" class="btn btn-success" data-toggle="modal" data-target="#basicExampleModal">Confirm</button>
                 <button style="margin-top:20px" type="button" class="btn btn-danger" >Cancle</button>
 
-                <!-- Modal -->
-                <div class="modal fade" id="basicExampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                  aria-hidden="true">
-                  <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Summary</h5><br />
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                      </div>
-                      <!--content summary -->
-                      <div class="modal-body">
-                        <p>list of drug</p>
-                      </div>
-                      <!-- confirm to dispend drug button -->
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-primary">Confirm</button>
-                        <button type="button" class="btn btn-primary">Close</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <!-- end modal -->
+                
               </form>
             </div>
           </div>
