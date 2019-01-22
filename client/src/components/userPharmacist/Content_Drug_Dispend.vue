@@ -18,12 +18,7 @@
 
         <md-table-cell md-label="Status">
           <!--<button type="button" class="btn" style="border-top-width: 0px;">See data</button>-->
-          <button
-            type="button"
-            class="close"
-            aria-label="Close"
-            style="border-top-width: 0px,font:10px;"
-          >
+          <button type="button" class="close" aria-label="Close" data-dismiss="modal" data-toggle="modal" data-target="#myModalclose" style="border-top-width: 0px,font:10px;">
             <span aria-hidden="true">&times;</span>
           </button>
           <!-- Button trigger modal -->
@@ -35,27 +30,6 @@
             data-target="#basicExampleModal"
           >see data</button>
 
-          <!-- Button to Open the Modal -->
-          <!-- modal temp 
-
-swal({
-  title: "Are you confirm?",
-  text: "Summary Drug Ordering",
-  icon: "warning",
-  buttons: true,
-  dangerMode: true,
-})
-.then((willDelete) => {
-  if (willDelete) {
-    swal("Your drug dispend file has been deleted!", {
-      icon: "success",
-    });
-  } else {
-    swal("success");
-  }
-});
-
-          -->
         </md-table-cell>
       </md-table-row>
     </md-table>

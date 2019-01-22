@@ -64,15 +64,6 @@
     </md-app>
 
     <div class="container">
-      <h2>Small Modal</h2>
-      <!-- Button to Open the Modal -->
-      <button
-        type="button"
-        class="btn btn-primary"
-        data-toggle="modal"
-        data-target="#myModal"
-      >Open modal</button>
-
       <!-- The Modal -->
       <div class="modal fade" id="basicExampleModal">
         <div class="modal-dialog modal-sm">
@@ -86,14 +77,65 @@
             <div class="modal-body">// Show Summary data //</div>
             <!-- Modal footer1 -->
             <div class="modal-footer">
-              <button type="button" class="btn btn-success">Save changes</button>
-              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+              <button
+                type="button"
+                class="btn btn-success"
+                data-toggle="modal"
+                data-target="#myModal"
+                data-dismiss="modal"
+              >dispend</button>
             </div>
           </div>
         </div>
       </div>
+      <!-- 2nd modal -->
+      <div class="modal" id="myModal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Are you confirm to dispending drug?</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+              <button type="button" class="btn btn-success" data-dismiss="modal">confirm</button>
+              <button
+                type="button"
+                class="btn btn-danger"
+                data-dismiss="modal"
+                data-toggle="modal"
+                data-target="#basicExampleModal"
+              >cancle</button>
+            </div>
+          </div>
+        </div>
+      </div>
+        <!-- end 2nd modal -->
+         <!-- 3rd modal -->
+      <div class="modal" id="myModalclose">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Are you confirm to delete?</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+              <button type="button" class="btn btn-success" data-dismiss="modal">confirm</button>
+              <button type="button" class="btn btn-danger" data-dismiss="modal" >cancle</button>
+            </div>
+          </div>
+        </div>
+      </div>
+        <!-- end 3rd modal -->
+      </div>
     </div>
+    
+   
   </div>
+  
 </template>
 
 
@@ -121,6 +163,14 @@ export default {
   async mounted() {
     this.Window_Width = window.innerWidth;
     this.test = this.$route.params.id;
+  },
+  fireDelete(id) {
+    axios.delete("/item/" + id).then();
+  },
+
+  deleteData(items, id) {
+    // this.items = null // These parts may not
+    this.fireDelete(id); // match your exact code, but I hope
   }
 };
 </script>
