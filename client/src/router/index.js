@@ -18,25 +18,14 @@ Vue.use(BootstrapVue);
 //import 'v-slim-dialog/dist/v-slim-dialog.css'
 import SlimDialog from 'v-slim-dialog'
 Vue.use(SlimDialog)
-
+//VueLocalStorage
 import VueLocalStorage from 'vue-localstorage'
 Vue.use(VueLocalStorage)
-
-//checkbox
-import bModal from 'bootstrap-vue/es/components/modal/modal'
-import bModalDirective from 'bootstrap-vue/es/directives/modal/modal'
-
-//alert
-import swal from 'sweetalert';
-import VueSwal from 'vue-swal'
-Vue.use(VueSwal)
-
+//Login forgotpassword 
 import login from '@/components/Login/login'
 import forgotpassword from '@/components/Login/forgotpassword'
 import test from '@/components/Login/test'
-
-
-
+//Register
 import RegisterPatient from '@/components/Register/Patient'
 import RegisterDoctor from '@/components/Register/Doctor'
 import registerPharmacist from '@/components/Register/Pharmacist'

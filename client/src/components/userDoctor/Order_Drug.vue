@@ -57,35 +57,153 @@
             <span class="md-list-item-text unselected_text">Logout</span>
           </md-list-item>
         </md-list>
-        </md-app-drawer>
-        <md-app-content>
+      </md-app-drawer>
+      <md-app-content>
         <contentA/>
       </md-app-content>
     </md-app>
-<!-- Modal -->
-                <div class="modal fade" id="basicExampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                  aria-hidden="true">
-                  <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Summary</h5><br />
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                      </div>
-                      <!--content summary -->
-                      <div class="modal-body">
-                        <p>list of drug</p>
-                      </div>
-                      <!-- confirm to dispend drug button -->
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-primary">Confirm</button>
-                      </div>
+    <!-- order modal -->
+    <div class="modal fade" id="ordermodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="col-lg-12" style="width: 100%;padding-left: 0px;padding-right: 0px;padding-bottom: 0px;">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3>Ordering Drug</h3>
+              <br>
+              <!-- Ordering Drug data -->
+              <form>
+                <!--Drug Name-->
+
+                <div class="row">
+                  <div class="col-sm-6 form-group">
+                    <label>Drug Name</label>
+                    <input type="text" placeholder="Enter Drug Name Here.." class="form-control">
+                  </div>
+                </div>
+                <!--Drug ID -->
+                <div class="row">
+                  <div class="col-sm-6 form-group">
+                    <label>Drug ID</label>
+                    <input type="text" placeholder="drug id show Here.." readonly class="form-control">
+                  </div>
+                </div>
+                <!--dose/times-->
+                <div class="row">
+                  <div class="col-sm-6 form-group">
+                    <label>Dose</label>
+                    <input type="text" placeholder="Enter dose Here.." class="form-control">
+                  </div>
+                </div>
+                <!-- Quantity -->
+                <div class="row">
+                  <div class="col-sm-6 form-group">
+                    <label>Quantity</label>
+                    <input type="text" placeholder="Quantity Here.." class="form-control">
+                  </div>
+                </div>
+                <!-- Date duration -->
+                <div class="row">
+                  <div class="col-sm-6 form-group">
+                    <label>duration</label>
+                    <input type="text" placeholder="duration Here.." class="form-control">
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-6 form-group">
+                      <label>Date</label>
+                      <input type="text" placeholder="Date show Here.." readonly class="form-control">
                     </div>
                   </div>
                 </div>
-                <!-- end modal -->
-
+                <!-- Frequency 
+                <div class="row">
+                  <div class="col-sm-6 form-group">
+                    <label>Frequency</label>
+                    <input type="text" placeholder="Frequency Here..(times/day)" class="form-control">
+                  </div>
+                  <div class="col-sm-6">
+                    <label>Times</label>
+                    <select id="inputState" class="form-control">
+                      <option selected="">ก่อนอาหาร-ตอนเช้า</option>
+                      <option>ก่อนอาหาร-ตอนกลางวัน</option>
+                      <option>ก่อนอาหาร-ตอนเย็น</option>
+                      <option>หลังอาหาร-ตอนเช้า</option>
+                      <option>หลังอาหาร-ตอนกลางวัน</option>
+                      <option>หลังอาหาร-ตอนเย็น</option>
+                      <option>หลังอาหาร-ตอนเย็น</option>
+                      <option>เมื่อมีอาการ</option>
+                    </select>
+                  </div>
+                </div>-->
+                    <div id='checkbox'>
+                      <label>Frequency</label>
+                      <input type="checkbox" id="bfeat" value="bfeat" v-model="checkedNames">
+                      <label for="jack">ก่อนอาหาร</label>
+                      <input type="checkbox" id="afeat" value="afeat" v-model="checkedNames">
+                      <label for="john">หลังอาหาร</label>
+                      <input type="checkbox" id="morning" value="morning" v-model="checkedNames">
+                      <label for="mike">เช้า</label>
+                      <input type="checkbox" id="morning" value="morning" v-model="checkedNames">
+                      <label for="mike">กลางวัน</label>
+                      <input type="checkbox" id="morning" value="morning" v-model="checkedNames">
+                      <label for="mike">เย็น</label>
+                      <input type="checkbox" id="morning" value="morning" v-model="checkedNames">
+                      <label for="mike">ก่อนนอน</label>
+                    </div>
+                <!-- descroption. -->
+                <div class="row">
+                  <div class="col-sm-6 form-group">
+                    <label>Description</label>
+                    <input type="text" placeholder="Description Here.." class="form-control">
+                  </div>
+                </div>
+                <!-- confirm button -->
+                <br/>
+                <div class="row">
+                  <div class="col-sm-5">
+                    <!-- click Add Drug -> show data in table -->
+                    <button type="button" class="btn btn-success" data-dismiss="modal" style="border-top-width: 0px;">Add Drug</button> 
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" style="border-top-width: 0px;">Cancle</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <!-- end order modal -->
+  <!-- Modal -->
+    <div
+      class="modal fade"
+      id="basicExampleModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Summary</h5>
+            <br>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <!--content summary -->
+          <div class="modal-body">
+            <p>list of drug</p>
+          </div>
+          <!-- confirm to dispend drug button -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary">Confirm</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end modal -->
   </div>
 </template>
 

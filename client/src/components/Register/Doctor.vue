@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h1 class="well">
+    <h1 class="well" >
       <router-link to="/login" target="_parent">
         <button type="button" class="btn btn-lg btn-info" style="margin-right: 20px">
           Back
