@@ -83,8 +83,8 @@
                         v-if="found"
                       >
                     </div>
-
                     <input type="hidden" class="hide" name="token" id="token" value>
+                  <md-button class="md-raised md-cornered">Submit</md-button>
                   </form>
                 </div>
               </div>
