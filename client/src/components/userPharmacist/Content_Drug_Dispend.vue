@@ -18,7 +18,7 @@
 
         <md-table-cell md-label="Status">
           <!--<button type="button" class="btn" style="border-top-width: 0px;">See data</button>-->
-          <button type="button" class="close" aria-label="Close" data-dismiss="modal" data-toggle="modal" data-target="#myModalclose" style="border-top-width: 0px,font:10px;">
+          <button id="b1" type="button" class="close" aria-label="Close" data-dismiss="modal" data-toggle="modal" data-target="#myModalclose" style="border-top-width: 0px,font:10px;">
             <span aria-hidden="true">&times;</span>
           </button>
           <!-- Button trigger modal -->
@@ -29,12 +29,12 @@
             data-toggle="modal"
             data-target="#basicExampleModal"
           >see data</button>
-
         </md-table-cell>
       </md-table-row>
     </md-table>
     <br>
     <!-- end line -->
+    
   </div>
 </template>
 
@@ -163,8 +163,10 @@ export default {
   }
 };
 //modal
-$("#myModal").on("shown.bs.modal", function() {
-  $("#myInput").trigger("focus");
+$(document).ready(function(){
+  $("#b1").click(function(){
+    $("#basicExampleModal").modal();
+  });
 });
 </script>
 <style lang="scss" scoped>
@@ -329,4 +331,5 @@ a:focus {
     text-align: center;
   }
 }
+
 </style>

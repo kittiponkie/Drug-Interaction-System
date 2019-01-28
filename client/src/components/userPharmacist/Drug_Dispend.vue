@@ -60,12 +60,12 @@
       </md-app-drawer>
       <md-app-content>
         <contentA/>
-      </md-app-content>
+       </md-app-content>
     </md-app>
-
-    <div class="container">
+    <!-- The Modal -->
+      <div class="container">
       <!-- The Modal -->
-      <div class="modal fade" id="basicExampleModal">
+      <div class="modal fade" id="basicExampleModal" >
         <div class="modal-dialog modal-sm">
           <div class="modal-content">
             <!-- Modal Header -->
@@ -105,8 +105,7 @@
                 class="btn btn-danger"
                 data-dismiss="modal"
                 data-toggle="modal"
-                data-target="#basicExampleModal"
-              >cancle</button>
+                data-target="#basicExampleModal">cancle</button>
             </div>
           </div>
         </div>
@@ -131,11 +130,8 @@
       </div>
         <!-- end 3rd modal -->
       </div>
-    </div>
-    
-   
   </div>
-  
+      
 </template>
 
 
@@ -173,6 +169,11 @@ export default {
     this.fireDelete(id); // match your exact code, but I hope
   }
 };
+$(document).ready(function(){
+  $("#b1").click(function(){
+    $("#basicExampleModal").modal();
+  });
+});
 </script>
 
 <style lang="scss" scoped>

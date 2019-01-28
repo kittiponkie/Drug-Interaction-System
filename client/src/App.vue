@@ -1,15 +1,5 @@
 <template>
   <div id="App">
-    <!-- <div class="col-3 menu li">
-         <ul>
-         <li>Patient data</li>
-         <li>Drug Information</li>
-         <li>Drug Interaction</li>
-         <li>Logout</li>
-         </ul>
-         <div class="col-9 col-m-12">
-    </div>
-    </div>-->
     <router-view />
   </div>
 </template>
