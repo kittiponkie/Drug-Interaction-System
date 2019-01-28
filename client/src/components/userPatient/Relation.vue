@@ -58,9 +58,103 @@
         <contentA/>
       </md-app-content>
     </md-app>
-     
-     
-  </div>
+     <!-- Add friend Modal -->
+    <div
+      class="modal fade"
+      id="addfriendmodal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Add Friend</h5>
+            <br>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <!--content add friend -->
+           <form>
+                    <div class="col-sm-9 form-group">
+                      <br>
+                      <label>Search your friend ID</label>
+                      <input type="text" placeholder="Enter ID Here.."  class="form-control">
+                    </div>
+            </form>
+       
+          <!-- confirm to dispend drug button -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-success" data-dismiss="modal">Add Friend</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end Add friend Modal-->
+    <!-- confirm Modal -->
+    <div
+      class="modal fade"
+      id="confirmmodal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Are you sure to confirm ?</h5>
+            <br>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <!--content summary -->
+          <div class="modal-body">
+            <p>Accept : ID number XXXXXX</p>
+          </div>
+          <!-- confirm to dispend drug button -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-success" data-dismiss="modal">Confirm</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end modal -->
+
+    <!-- cancle Modal -->
+    <div
+      class="modal fade"
+      id="canclemodal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Are you sure to reject ?</h5>
+            <br>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <!--content summary -->
+          <div class="modal-body">
+            <p>Reject : ID number XXXXXX</p>
+          </div>
+          <!-- confirm to dispend drug button -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">reject</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end modal -->
+  </div>  
 </template>
 
 <script>

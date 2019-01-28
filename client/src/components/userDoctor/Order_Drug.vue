@@ -81,13 +81,13 @@
                     <input type="text" placeholder="Enter Drug Name Here.." class="form-control">
                   </div>
                 </div>
-                <!--Drug ID -->
+                <!--Drug ID  คอมเม้นท์ไว้ก่อน ไม่แน่ใจเรื่องนำมาโชว์
                 <div class="row">
                   <div class="col-sm-6 form-group">
                     <label>Drug ID</label>
                     <input type="text" placeholder="drug id show Here.." readonly class="form-control">
                   </div>
-                </div>
+                </div>-->
                 <!--dose/times-->
                 <div class="row">
                   <div class="col-sm-6 form-group">
@@ -109,7 +109,7 @@
                     <input type="text" placeholder="duration Here.." class="form-control">
                   </div>
                   <div class="row">
-                    <div class="col-sm-6 form-group">
+                    <div class="col-sm-12 form-group">
                       <label>Date</label>
                       <input type="text" placeholder="Date show Here.." readonly class="form-control">
                     </div>
@@ -141,6 +141,7 @@
                       <label for="jack">ก่อนอาหาร</label>
                       <input type="checkbox" id="afeat" value="afeat" v-model="checkedNames">
                       <label for="john">หลังอาหาร</label>
+                      <br>
                       <input type="checkbox" id="morning" value="morning" v-model="checkedNames">
                       <label for="mike">เช้า</label>
                       <input type="checkbox" id="morning" value="morning" v-model="checkedNames">
@@ -152,7 +153,7 @@
                     </div>
                 <!-- descroption. -->
                 <div class="row">
-                  <div class="col-sm-6 form-group">
+                  <div class="col-sm-12 form-group">
                     <label>Description</label>
                     <input type="text" placeholder="Description Here.." class="form-control">
                   </div>

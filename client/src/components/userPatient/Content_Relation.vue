@@ -2,7 +2,7 @@
   <div class="page-container">
     <h3>Friend</h3>
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" style="float:right;margin-right:10px;">AddFriend</button>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addfriendmodal" style="float:right;margin-right:10px;">AddFriend</button>
     <md-card md-with-hover>
       <md-ripple>
         <!--card1-->
@@ -47,9 +47,9 @@
         <md-table-cell md-label="Name" md-sort-by="name">{{ item.name }}</md-table-cell>
         <md-table-cell md-label="Surname" md-sort-by="email">{{ item.email }}</md-table-cell>
         <md-table-cell md-label="Status">
-          <button type="button" class="btn btn-success"  style="border-top-width: 0px;">Accept</button>
-          <button type="button" class="btn btn-danger"  style="border-top-width: 0px;">Reject</button>
-          <button type="button" class="close" aria-label="Close" style="border-top-width: 0px,font:10px;"><span aria-hidden="true">&times;</span></button>
+          <button type="button" class="btn btn-success" data-toggle="modal" data-target="#confirmmodal"  style="border-top-width: 0px;">Accept</button>
+          <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#canclemodal" style="border-top-width: 0px;">Reject</button>
+     <!--     <button type="button" class="close" aria-label="Close" style="border-top-width: 0px,font:10px;"><span aria-hidden="true">&times;</span></button>-->
         </md-table-cell>
       </md-table-row>
     </md-table>

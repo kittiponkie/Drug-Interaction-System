@@ -60,12 +60,12 @@
       </md-app-drawer>
       <md-app-content>
         <contentA/>
-       </md-app-content>
+      </md-app-content>
     </md-app>
     <!-- The Modal -->
-      <div class="container">
+    <div class="container">
       <!-- The Modal -->
-      <div class="modal fade" id="basicExampleModal" >
+      <div class="modal fade" id="basicExampleModal">
         <div class="modal-dialog modal-sm">
           <div class="modal-content">
             <!-- Modal Header -->
@@ -88,7 +88,7 @@
           </div>
         </div>
       </div>
-      <!-- 2nd modal -->
+      <!-- 2nd modal dispend modal-->
       <div class="modal" id="myModal">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -105,13 +105,14 @@
                 class="btn btn-danger"
                 data-dismiss="modal"
                 data-toggle="modal"
-                data-target="#basicExampleModal">cancle</button>
+                data-target="#basicExampleModal"
+              >cancle</button>
             </div>
           </div>
         </div>
       </div>
-        <!-- end 2nd modal -->
-         <!-- 3rd modal -->
+      <!-- end 2nd modal -->
+      <!-- 3rd modal close modal -->
       <div class="modal" id="myModalclose">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -123,15 +124,14 @@
             <!-- Modal footer -->
             <div class="modal-footer">
               <button type="button" class="btn btn-success" data-dismiss="modal">confirm</button>
-              <button type="button" class="btn btn-danger" data-dismiss="modal" >cancle</button>
+              <button type="button" class="btn btn-danger" data-dismiss="modal">cancle</button>
             </div>
           </div>
         </div>
       </div>
-        <!-- end 3rd modal -->
-      </div>
+      <!-- end 3rd modal -->
+    </div>
   </div>
-      
 </template>
 
 
@@ -169,8 +169,8 @@ export default {
     this.fireDelete(id); // match your exact code, but I hope
   }
 };
-$(document).ready(function(){
-  $("#b1").click(function(){
+$(document).ready(function() {
+  $("#b1").click(function() {
     $("#basicExampleModal").modal();
   });
 });
