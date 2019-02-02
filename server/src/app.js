@@ -290,13 +290,14 @@ app.delete('/remove/PatientInfo/:id', (req, res) => {
 app.get("/DoctorInfo/:Id", (req, res) => {
   console.log('GET method')
   const id = req.params.Id;
+  console.log("ID ===== >"+id)
   DoctorInfo.find({
-      "_id": id
+      "DoctorID": id
     })
     .exec()
     .then(doc => {
-      console.log("Doctorid :" + id);
-      console.log("From database", doc);
+      //console.log("Doctorid :" + id);
+      //console.log("From database", doc);
       if (doc) {
         res.status(200).json(doc);
       } else {
@@ -318,7 +319,7 @@ app.get("/DoctorInfo/:Id", (req, res) => {
 
 // Fetch all posts
 app.get("/DoctorInfo", (req, res, next) => {
-  console.log('GET method')
+  console.log('GET method all')
   DoctorInfo.find()
     .exec()
     .then(docs => {
