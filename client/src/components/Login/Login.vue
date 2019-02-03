@@ -64,6 +64,7 @@
           } else {
             //Response.data.ID
             this.test = Response.data.AccountType
+            this.$localStorage.set('userID', Response.data.ID)
             if(Response.data.AccountType == 'Patient') this.$router.push('/patient_information')
             else if(Response.data.AccountType == 'Doctor') this.$router.push('/doctor_information')
             else if(Response.data.AccountType == 'Pharmacist') this.$router.push('/pharmacist_information')

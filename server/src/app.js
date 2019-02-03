@@ -1,3 +1,4 @@
+//AccountRelation
 const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
@@ -34,7 +35,7 @@ var PharmacistInfo = require("../models/Pharmacist");
 var AllergicDrug = require("../models/AllergicDrug")
 var Account = require("../models/Account")
 var AccountRelation = require("../models/AccountRelation")
-
+var DoctorRelation = require("../models/DoctorRelation")
 // PatientInfo
 // Fetch single post
 app.get("/PatientInfo/:Id", (req, res) => {
@@ -813,10 +814,10 @@ app.get("/AccountRelation/Patient/:PatientID", (req, res) => {
 });
 
 // Get friend list of Patient By DoctorID
-app.get("/AccountRelation/Doctor/:DoctorID", (req, res) => {
+app.get("/DoctorRelation/Doctor/:DoctorID", (req, res) => {
   console.log('GET method')
   const DoctorID = req.params.DoctorID;
-  AccountRelation.find({
+  DoctorRelation.find({
       "DoctorID": DoctorID
     })
     .exec()

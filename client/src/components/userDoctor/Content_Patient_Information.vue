@@ -3,7 +3,7 @@
     <div class="col-lg-6" style="width:100%;">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h3>Patient id : xxxxxxx </h3>
+          <h3>Patient id : {{patientID}} </h3>
           <br>
           <!-- patient data -->
           <form>
@@ -126,32 +126,15 @@
   export default {
     name: 'Drug_Interaction',
     data: () => ({
-      menuVisible: false, //toggle visible menu when responsive
       Window_Width: 0, //width of window
-      found: false, //true when found data , false when don't have data from API
-      checkSearch: false, //true when you search something
-      loading: false //true when you have to wait for call API
+      patientID: null
     }),
     methods: {
-      //toggle visible menu
-      toggleMenu() {
-        this.menuVisible = !this.menuVisible
-      },
 
-      //get data from API
-      async getData() {
-
-      },
-      change() {
-        console.log(this.drugName)
-        this.loading = false
-        this.found = false
-        this.drugList = null
-        this.checkSearch = false
-      }
     },
     async mounted() {
       this.Window_Width = window.innerWidth
+      this.patientID = this.$localStorage.get('doctor_patient')
     }
   }
 

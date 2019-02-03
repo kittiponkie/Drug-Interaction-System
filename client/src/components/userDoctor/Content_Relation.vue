@@ -2,97 +2,53 @@
   <div>
     <h3>Friend</h3>
     <!--card1-->
-    <div class="inline" v-for="i in 5" :key="i">
-      <router-link to="/doctor">
+    <div class="inline" v-for="(i,index) in users" :key="index" @click="gotoDetail(index)">
+      <!--router-link to="/doctor"-->
         <md-card md-with-hover>
-            <md-card-header>
-              <div class="md-title">Patient</div>
-              <div class="md-subhead">Name : xxxxxxx </div>
-            </md-card-header>
+          <md-card-header>
+            <div class="md-title">{{users_name[index]}}</div>
+            <div class="md-subhead">ID : {{i.PatientID}} </div>
+          </md-card-header>
         </md-card>
-      </router-link>
+      <!--/router-link-->
     </div>
     <!-- end card1-->
   </div>
 </template>
 
 <script>
-  const toLower = text => {
-    return text.toString().toLowerCase()
-  }
-  const searchByName = (items, term) => {
-    if (term) {
-      return items.filter(item => toLower(item.name).includes(toLower(term)))
-    }
-    return items
-  }
   import axios from 'axios'
+  import doctorServices from '@/services/doctor'
   export default {
     name: 'Drug_Interaction',
     data: () => ({
-      menuVisible: false, //toggle visible menu when responsive
       Window_Width: 0, //width of window
-      drugName: null, //drug name that submit already
-      drugList: null, //list of drug that interaction with drugName
-      found: false, //true when found data , false when don't have data from API
-      rxcuiID: null, //ID of drug from API
-      checkSearch: false, //true when you search something
-      loading: false, //true when you have to wait for call API  
-      search: null,
-      searched: [],
-      users: [{
-          id: 1,
-          name: "khaofang pebble",
-          email: "pebble",
-        },
-        {
-          id: 2,
-          name: "name2",
-          email: "surname2",
-        },
-        {
-          id: 3,
-          name: "name3",
-          email: "surname2",
-        },
-        {
-          id: 4,
-          name: "name4",
-          email: "surname4",
-        },
-        {
-          id: 5,
-          name: "name5",
-          email: "surname5",
-        }
-      ]
+      users: [],
+      users_name: []
     }),
     methods: {
-      //toggle visible menu
-      toggleMenu() {
-        this.menuVisible = !this.menuVisible
+      getPatientInfo(){
+        for(var i in this.users){
+          console.log(this.users[i].PatientID)
+          doctorServices.patientInfo(this.users[i].PatientID).then(Response =>{
+            console.log(Response.data[0])
+            this.users_name.push(Response.data[0].Firstname+" "+Response.data[0].Lastname)
+          })
+        }
       },
-
-      //get data from API
-      async getData() {
-
-      },
-      change() {
-        console.log(this.drugName)
-        this.loading = false
-        this.found = false
-        this.drugList = null
-        this.checkSearch = false
-      },
-      searchOnTable() {
-        this.searched = searchByName(this.users, this.search)
+      gotoDetail(index){
+        console.log(this.users[index].PatientID)
+        this.$localStorage.set('doctor_patient', this.users[index].PatientID)
+        this.$router.push('/doctor')
       }
     },
     async mounted() {
       this.Window_Width = window.innerWidth
-    },
-    created() {
-      this.searched = this.users
+      await doctorServices.doctorRelation(this.$localStorage.get('userID')).then(Response => {
+        //console.log(Response.data)
+        this.users = Response.data
+      })
+      await this.getPatientInfo()
     }
   }
 
@@ -177,7 +133,7 @@
     text-align: center;
   }
 
-  .inline{
+  .inline {
     display: inline-block;
   }
 
