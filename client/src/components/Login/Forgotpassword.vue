@@ -1,13 +1,14 @@
-<template>
+<!--<template>
+
   <div class="page-container">
     <md-app md-mode="reveal">
-      <!--content-->
+    
       <md-app-content class="text_all">
         <div class="col-lg-6" style="width:100%;">
           <div class="panel panel-default">
             <div class="panel-heading">
               <h3>Forgot Password</h3>
-              <!-- search -->
+              
               <form v-on:submit.prevent="getData">
                 <md-field md-clearable class="md-toolbar-section-end textSearch">
                   <md-input placeholder="Search by E-mail ..." v-model="drugName" @input="change"></md-input>
@@ -16,15 +17,15 @@
               </form>
               <br>
             </div>
-            <!--data-->
+          
             <div class="panel-body" v-if="found">
             </div>
-          <!--empty state-->
+          
           <div class="panel-body " v-else-if="!found && checkSearch">
             <md-empty-state md-label="Not found" :md-description="`No drug found for this query.  Please Try again.`">
             </md-empty-state>
           </div>
-          <!-- loading-->
+          
           <div class="panel-body " v-else-if="loading">
             <md-empty-state md-label="Loading" :md-description="`Please wait a second`">
               <md-progress-spinner md-mode="indeterminate"></md-progress-spinner>
@@ -36,7 +37,69 @@
   </md-app-content>
   </md-app>
   </div>
+</template> -->
+<template>
+  <div class="form-gap">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <div class="text-center">
+                <h3>
+                  <i class="fa fa-lock fa-4x"></i>
+                </h3>
+                <h2 class="text-center">Forgot Password?</h2>
+                <p>You can reset your password here.</p>
+                <div class="panel-body">
+                  <form
+                    id="register-form"
+                    role="form"
+                    autocomplete="off"
+                    class="form"
+                    method="post"
+                    v-on:submit.prevent="getData"
+                  >
+                    <div class="form-group">
+                      <div class="input-group">
+                        <span class="input-group-addon">
+                          <i class="glyphicon glyphicon-envelope color-blue"></i>
+                        </span>
+                        <input
+                          id="email"
+                          name="email"
+                          placeholder="email address"
+                          class="form-control"
+                          type="email"
+                        >
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <input
+                        name="recover-submit"
+                        class="btn btn-lg btn-primary btn-block"
+                        value="Reset Password"
+                        type="submit"
+                        v-if="found"
+                      >
+                    </div>
+                    <input type="hidden" class="hide" name="token" id="token" value>
+                  <md-button class="md-raised md-cornered">Submit</md-button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
+
+
+
+
+
 
 <script>
   import axios from 'axios'
@@ -145,4 +208,7 @@
   .md-content md-app-content md-flex text_all md-theme-default{
     padding-top: 23px;
   }
+.form-gap {
+    padding-top: 70px;
+}
 </style>

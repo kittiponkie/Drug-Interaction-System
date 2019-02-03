@@ -52,8 +52,71 @@
       </md-app-content>
     </md-app>
 
+    <div class="container">
+      <h2>Small Modal</h2>
+      <!-- Button to Open the Modal -->
+      <button
+        type="button"
+        class="btn btn-primary"
+        data-toggle="modal"
+        data-target="#myModal"
+      >Open modal</button>
 
+      <!-- The Modal -->
+      <div class="modal fade" id="basicExampleModal">
+        <div class="modal-dialog modal-sm">
+          <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Summary</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">// Show Summary data //</div>
+            <!-- Modal footer1 -->
+            <div class="modal-footer">
+              <button type="button" class="btn btn-success">Save changes</button>
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  <div class="container">
+   <!-- Modal add friend -->
+    <div class="modal fade" id="basicExampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Add Friend</h5><br />
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <!--content summary -->
+          <div class="modal-body">
+            <p>กรุณากรอก ID ที่ต้องการเพิ่มเพื่อน</p>
+            <div class="row">
+              <div class="col-sm-6 form-group">
+                <input type="text" placeholder="ตัวอย่าง D00001" class="form-control">
+                <!-- ยังไม่ได้ทำ auto complete -->
+              </div>
+            </div>
+          </div>
+          <!-- confirm to dispend drug button -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary">Add Friend</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end add friend modal -->
   </div>
+  
+  
+  </div> <!-- end -->
 </template>
 
 <script>

@@ -31,7 +31,7 @@
           <router-link to="/register" target="_parent"><button class="btn btn-success btn-lg">Register</button></router-link>
           <router-link to="/forgotpassword" target="_blank" class="btn btn-link">forget Password?</router-link>
         </div>        
-        {{message}}
+        {{test}}
       </div>
     </div>
   </div>
@@ -49,7 +49,8 @@
         Username: null,
         Password: null
       },
-      message: null
+      test: null
+
     }),
     methods: {
       async Login() {
@@ -59,17 +60,15 @@
 
         loginService.checkLogin(this.login).then(Response => {
           if (Response.data.success == false) {
-            this.message = "Message : "+Response.data.message
+            this.test = "Message : "+Response.data.message
           } else {
             //Response.data.ID
-            this.message = Response.data.AccountType
-            this.$localStorage.set('userID', Response.data.ID)
-            console.log(this.$localStorage.get('userID'))
+            this.test = Response.data.AccountType
             if(Response.data.AccountType == 'Patient') this.$router.push('/patient_information')
             else if(Response.data.AccountType == 'Doctor') this.$router.push('/doctor_information')
             else if(Response.data.AccountType == 'Pharmacist') this.$router.push('/pharmacist_information')
             else if(Response.data.AccountType == 'Admin') this.$router.push('/admin')
-            else this.message = "error type not found"
+            else this.test = "error type not found"
             
           }
         })
@@ -77,7 +76,7 @@
     },
     async mounted() {
       this.Window_Width = window.innerWidth
-      //let lsValue = this.$localStorage.get('someBoolean')
+      //let lsValue = this.$localStorage.get('someNumber')
       //console.log(lsValue)
       //this.$localStorage.set('someBoolean', false)
       //this.$localStorage.remove('someBoolean')

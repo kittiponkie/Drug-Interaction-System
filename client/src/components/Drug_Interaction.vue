@@ -66,7 +66,38 @@
       </div>
     </div>
   </div>
+  <!-- Modal -->
+    <div class="modal fade" id="basicExampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Add Friend</h5><br />
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <!--content summary -->
+          <div class="modal-body">
+            <p>Please Search Friend ID</p>
+            <div class="row">
+              <div class="col-sm-6 form-group">
+                <input type="text" placeholder="Enter First Name Here.." class="form-control">
+                <!-- ยังไม่ได้ทำ auto complete -->
+              </div>
+            </div>
+          </div>
+          <!-- confirm to dispend drug button -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary">Add Friend</button>
+            <button type="button" class="btn btn-primary">Cancle</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end modal -->
   </div>
+  
 </template>
 
 <script>

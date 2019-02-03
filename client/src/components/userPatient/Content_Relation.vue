@@ -1,43 +1,8 @@
 <template>
-  <div>
+  <div class="page-container">
     <h3>Friend</h3>
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#basicExampleModal" style="float:right;">Add
-      Friend</button>
-
-    <!-- Modal -->
-    <div class="modal fade" id="basicExampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-      aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Add Friend</h5><br />
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <!--content summary -->
-          <div class="modal-body">
-            <p>Please Search Friend ID</p>
-            <div class="row">
-              <div class="col-sm-6 form-group">
-                <input type="text" placeholder="Enter First Name Here.." class="form-control">
-                <!-- ยังไม่ได้ทำ auto complete -->
-              </div>
-            </div>
-          </div>
-          <!-- confirm to dispend drug button -->
-          <div class="modal-footer">
-            <button type="button" class="btn btn-primary">Add Friend</button>
-            <button type="button" class="btn btn-primary">Cancle</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- end modal -->
-
-
-    <!-- end modal -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addfriendmodal" style="float:right;margin-right:10px;">AddFriend</button>
     <md-card md-with-hover>
       <md-ripple>
         <!--card1-->
@@ -82,10 +47,9 @@
         <md-table-cell md-label="Name" md-sort-by="name">{{ item.name }}</md-table-cell>
         <md-table-cell md-label="Surname" md-sort-by="email">{{ item.email }}</md-table-cell>
         <md-table-cell md-label="Status">
-          <button type="button" class="btn btn-success" style="border-top-width: 0px;">Accept</button>
-          <button type="button" class="btn btn-danger" style="border-top-width: 0px;">Reject</button>
-          <button type="button" class="close" aria-label="Close" style="border-top-width: 0px,font:10px;"><span
-              aria-hidden="true">&times;</span></button>
+          <button type="button" class="btn btn-success" data-toggle="modal" data-target="#confirmmodal"  style="border-top-width: 0px;">Accept</button>
+          <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#canclemodal" style="border-top-width: 0px;">Reject</button>
+     <!--     <button type="button" class="close" aria-label="Close" style="border-top-width: 0px,font:10px;"><span aria-hidden="true">&times;</span></button>-->
         </md-table-cell>
       </md-table-row>
     </md-table>

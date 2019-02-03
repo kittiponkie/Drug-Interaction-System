@@ -20,6 +20,7 @@
         <md-table-cell md-label="Status" md-sort-by="gender">{{ item.gender }}</md-table-cell>
         <md-table-cell md-label="Remark" md-sort-by="title">{{ item.title }}</md-table-cell>
       </md-table-row>
+      
     </md-table>
   </div>
 </template>
