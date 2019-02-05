@@ -1,65 +1,77 @@
 <template>
-  <div class="form-gap">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-4 col-md-offset-4">
-          <div class="panel panel-default">
-            <div class="panel-body">
-              <div class="text-center">
-                <h3>
-                  <i class="fa fa-lock fa-4x"></i>
-                </h3>
-                <h2 class="text-center">Forgot Password?</h2>
-                <p>You can reset your password here.</p>
-                <div class="panel-body">
-                  <form
-                    id="register-form"
-                    role="form"
-                    autocomplete="off"
-                    class="form"
-                    method="post"
-                  >
-                    <div class="form-group">
-                      <div class="input-group">
-                        <span class="input-group-addon">
-                          <i class="glyphicon glyphicon-envelope color-blue"></i>
-                        </span>
-                        <input
-                          id="email"
-                          name="email"
-                          placeholder="email address"
-                          class="form-control"
-                          type="email"
-                        >
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <input
-                        name="recover-submit"
-                        class="btn btn-lg btn-primary btn-block"
-                        value="Reset Password"
-                        type="submit"
-                      >
-                    </div>
-
-                    <input type="hidden" class="hide" name="token" id="token" value>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+  <div class="col-xs-12">
+            <div class="col-md-12" >
+                <h3> Actions</h3>
+                <div id="field">
+                <div id="field0">
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="action_id">Action Id</label>  
+  <div class="col-md-5">
+  <input id="action_id" name="action_id" type="text" placeholder="" class="form-control input-md">
+    
   </div>
+</div>
+<br><br>
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="action_name">Action Name</label>  
+  <div class="col-md-5">
+  <input id="action_name" name="action_name" type="text" placeholder="" class="form-control input-md">
+    
+  </div>
+</div>
+<br><br>
+       <!-- File Button 
+<div class="form-group">
+  <label class="col-md-4 control-label" for="action_json">Action JSON File</label>
+  <div class="col-md-4">
+              <input type="file" id="action_json" name="action_json" class="input-file" accept=".txt,.json">
+     <div id="action_jsondisplay"></div>
+  </div>
+</div>--> 
+
+</div>
+</div>
+<!-- Button -->
+<div class="form-group">
+  <div class="col-md-4">
+    <button id="add-more" name="add-more" class="btn btn-primary">Add More</button>
+  </div>
+</div>
+<br><br>
+              
+            </div>
+        </div>
+	
 </template>
 
 <script>
-export default {};
-</script>
+$(document).ready(function () {
+    //@naresh action dynamic childs
+    var next = 0;
+    $("#add-more").click(function(e){
+        e.preventDefault();
+        var addto = "#field" + next;
+        var addRemove = "#field" + (next);
+        next = next + 1;
+        var newIn = ' <div id="field'+ next +'" name="field'+ next +'"><!-- Text input--><div class="form-group"> <label class="col-md-4 control-label" for="action_id">Action Id</label> <div class="col-md-5"> <input id="action_id" name="action_id" type="text" placeholder="" class="form-control input-md"> </div></div><br><br> <!-- Text input--><div class="form-group"> <label class="col-md-4 control-label" for="action_name">Action Name</label> <div class="col-md-5"> <input id="action_name" name="action_name" type="text" placeholder="" class="form-control input-md"> </div></div><br><br><!-- File Button --> <div class="form-group"> <label class="col-md-4 control-label" for="action_json">Action JSON File</label> <div class="col-md-4"> <input id="action_json" name="action_json" class="input-file" type="file"> </div></div></div>';
+        var newInput = $(newIn);
+        var removeBtn = '<button id="remove' + (next - 1) + '" class="btn btn-danger remove-me" >Remove</button></div></div><div id="field">';
+        var removeButton = $(removeBtn);
+        $(addto).after(newInput);
+        $(addRemove).after(removeButton);
+        $("#field" + next).attr('data-source',$(addto).attr('data-source'));
+        $("#count").val(next);  
+        
+            $('.remove-me').click(function(e){
+                e.preventDefault();
+                var fieldNum = this.id.charAt(this.id.length-1);
+                var fieldID = "#field" + fieldNum;
+                $(this).remove();
+                $(fieldID).remove();
+            });
+    });
 
-<style>
-.form-gap {
-    padding-top: 70px;
-}
-</style>
+});
+</script>

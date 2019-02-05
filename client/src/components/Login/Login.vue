@@ -1,8 +1,11 @@
 <template>
   <div class="modal-dialog fix_top">
     <div class="modal-content">
+         
+
       <div class="modal-heading">
         <h2 class="text-center">Login</h2>
+
       </div>
       <!--	<hr /> -->
       <div class="modal-body">
@@ -35,6 +38,7 @@
       </div>
     </div>
   </div>
+
 
 </template>
 

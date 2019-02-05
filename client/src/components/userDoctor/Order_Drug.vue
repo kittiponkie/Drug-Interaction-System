@@ -58,64 +58,78 @@
           </md-list-item>
         </md-list>
       </md-app-drawer>
-      <md-app-content>
+      <md-app-content style="width: 0px;">
         <contentA/>
       </md-app-content>
     </md-app>
     <!-- order modal -->
-    <div class="modal fade" id="ordermodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div
+      class="modal fade"
+      id="ordermodal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
       <div class="modal-dialog" role="document">
         <div class="modal-content">
-        <div class="col-lg-12" style="width: 100%;padding-left: 0px;padding-right: 0px;padding-bottom: 0px;">
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <h3>Ordering Drug</h3>
-              <br>
-              <!-- Ordering Drug data -->
-              <form>
-                <!--Drug Name-->
-
-                <div class="row">
-                  <div class="col-sm-6 form-group">
-                    <label>Drug Name</label>
-                    <input type="text" placeholder="Enter Drug Name Here.." class="form-control">
+          <div
+            class="col-lg-12"
+            style="width: 100%;padding-left: 0px;padding-right: 0px;padding-bottom: 0px;"
+          >
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3>Ordering Drug</h3>
+                <br>
+                <!-- Ordering Drug data -->
+                <form>
+                  <!--Drug Name-->
+                  <div class="row">
+                    <div class="col-sm-6 form-group">
+                      <label>Drug Name</label>
+                      <input type="text" placeholder="Enter Drug Name Here.." class="form-control">
+                    </div>
                   </div>
-                </div>
-                <!--Drug ID  คอมเม้นท์ไว้ก่อน ไม่แน่ใจเรื่องนำมาโชว์
+                  <!--Drug ID  คอมเม้นท์ไว้ก่อน ไม่แน่ใจเรื่องนำมาโชว์
                 <div class="row">
                   <div class="col-sm-6 form-group">
                     <label>Drug ID</label>
                     <input type="text" placeholder="drug id show Here.." readonly class="form-control">
                   </div>
-                </div>-->
-                <!--dose/times-->
-                <div class="row">
-                  <div class="col-sm-6 form-group">
-                    <label>Dose</label>
-                    <input type="text" placeholder="Enter dose Here.." class="form-control">
-                  </div>
-                </div>
-                <!-- Quantity -->
-                <div class="row">
-                  <div class="col-sm-6 form-group">
-                    <label>Quantity</label>
-                    <input type="text" placeholder="Quantity Here.." class="form-control">
-                  </div>
-                </div>
-                <!-- Date duration -->
-                <div class="row">
-                  <div class="col-sm-6 form-group">
-                    <label>duration</label>
-                    <input type="text" placeholder="duration Here.." class="form-control">
-                  </div>
+                  </div>-->
+                  <!--dose/times-->
                   <div class="row">
-                    <div class="col-sm-12 form-group">
-                      <label>Date</label>
-                      <input type="text" placeholder="Date show Here.." readonly class="form-control">
+                    <div class="col-sm-6 form-group">
+                      <label>Dose</label>
+                      <input type="text" placeholder="Enter dose Here.." class="form-control">
                     </div>
                   </div>
-                </div>
-                <!-- Frequency 
+                  <!-- Quantity -->
+                  <div class="row">
+                    <div class="col-sm-6 form-group">
+                      <label>Quantity</label>
+                      <input type="text" placeholder="Quantity Here.." class="form-control">
+                    </div>
+                  </div>
+                  <!-- Date duration -->
+                  <div class="row">
+                    <div class="col-sm-6 form-group">
+                      <label>duration</label>
+                      <input type="text" placeholder="duration Here.." class="form-control">
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-12 form-group">
+                        <label>Date</label>
+                        <input
+                          type="text"
+                          placeholder="Date show Here.."
+                          readonly
+                          class="form-control"
+                        >
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Frequency 
                 <div class="row">
                   <div class="col-sm-6 form-group">
                     <label>Frequency</label>
@@ -134,48 +148,57 @@
                       <option>เมื่อมีอาการ</option>
                     </select>
                   </div>
-                </div>-->
-                    <div id='checkbox'>
-                      <label>Frequency</label>
-                      <input type="checkbox" id="bfeat" value="bfeat" v-model="checkedNames">
-                      <label for="jack">ก่อนอาหาร</label>
-                      <input type="checkbox" id="afeat" value="afeat" v-model="checkedNames">
-                      <label for="john">หลังอาหาร</label>
-                      <br>
-                      <input type="checkbox" id="morning" value="morning" v-model="checkedNames">
-                      <label for="mike">เช้า</label>
-                      <input type="checkbox" id="morning" value="morning" v-model="checkedNames">
-                      <label for="mike">กลางวัน</label>
-                      <input type="checkbox" id="morning" value="morning" v-model="checkedNames">
-                      <label for="mike">เย็น</label>
-                      <input type="checkbox" id="morning" value="morning" v-model="checkedNames">
-                      <label for="mike">ก่อนนอน</label>
+                  </div>-->
+                  <div id="checkbox">
+                    <label>Frequency</label>
+                    <input type="checkbox" id="bfeat" value="bfeat" v-model="checkedNames">
+                    <label for="jack">ก่อนอาหาร</label>
+                    <input type="checkbox" id="afeat" value="afeat" v-model="checkedNames">
+                    <label for="john">หลังอาหาร</label>
+                    <input type="checkbox" id="morning" value="morning" v-model="checkedNames">
+                    <label for="mike">เช้า</label>
+                    <input type="checkbox" id="morning" value="morning" v-model="checkedNames">
+                    <label for="mike">กลางวัน</label>
+                    <input type="checkbox" id="morning" value="morning" v-model="checkedNames">
+                    <label for="mike">เย็น</label>
+                    <input type="checkbox" id="morning" value="morning" v-model="checkedNames">
+                    <label for="mike">ก่อนนอน</label>
+                  </div>
+                  <!-- descroption. -->
+                  <div class="row">
+                    <div class="col-sm-12 form-group">
+                      <label>Description</label>
+                      <input type="text" placeholder="Description Here.." class="form-control">
                     </div>
-                <!-- descroption. -->
-                <div class="row">
-                  <div class="col-sm-12 form-group">
-                    <label>Description</label>
-                    <input type="text" placeholder="Description Here.." class="form-control">
                   </div>
-                </div>
-                <!-- confirm button -->
-                <br/>
-                <div class="row">
-                  <div class="col-sm-5">
-                    <!-- click Add Drug -> show data in table -->
-                    <button type="button" class="btn btn-success" data-dismiss="modal" style="border-top-width: 0px;">Add Drug</button> 
-                    <button type="button" class="btn btn-danger" data-dismiss="modal" style="border-top-width: 0px;">Cancle</button>
+                  <!-- confirm button -->
+                  <br>
+                  <div class="row">
+                    <div class="col-sm-5">
+                      <!-- click Add Drug -> show data in table -->
+                      <button
+                        type="button"
+                        class="btn btn-success"
+                        data-dismiss="modal"
+                        style="border-top-width: 0px;"
+                      >Add Drug</button>
+                      <button
+                        type="button"
+                        class="btn btn-danger"
+                        data-dismiss="modal"
+                        style="border-top-width: 0px;"
+                      >Cancle</button>
+                    </div>
                   </div>
-                </div>
-              </form>
-            </div>
+                </form>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  <!-- end order modal -->
-  <!-- Modal -->
+    <!-- end order modal -->
+    <!-- Modal -->
     <div
       class="modal fade"
       id="basicExampleModal"
@@ -205,12 +228,162 @@
       </div>
     </div>
     <!-- end modal -->
+    <!--new modal -->
+    <!-- Edit Modal HTML -->
+    <div id="adddrugtolist" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <form>
+            <div class="modal-header">
+              <h4 class="modal-title">Add drug</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+              <div class="form-group">
+                <label>Drug Name</label>
+                <input type="text" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label>Dose</label>
+                <input type="text" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label>Quantity</label>
+                <input type="text" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label>duration</label>
+                <input type="text" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label>Date</label>
+                <input type="text" class="form-control" required>
+              </div>
+              <div id="checkbox">
+                <label>Frequency</label>
+                <input type="checkbox" id="bfeat" value="bfeat" v-model="checkedNames">
+                <label for="jack">ก่อนอาหาร</label>
+                <input type="checkbox" id="afeat" value="afeat" v-model="checkedNames">
+                <label for="john">หลังอาหาร</label>
+                <input type="checkbox" id="morning" value="morning" v-model="checkedNames">
+                <label for="mike">เช้า</label>
+                <input type="checkbox" id="morning" value="morning" v-model="checkedNames">
+                <label for="mike">กลางวัน</label>
+                <input type="checkbox" id="morning" value="morning" v-model="checkedNames">
+                <label for="mike">เย็น</label>
+                <input type="checkbox" id="morning" value="morning" v-model="checkedNames">
+                <label for="mike">ก่อนนอน</label>
+              </div>
+            </div>
+            <!-- descroption. -->
+            <div class="form-group">
+              <div class="col-sm-12 form-group">
+                <label>Description</label>
+                <textarea type="text" placeholder="Description Here.." class="form-control"></textarea>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+              <input type="submit" class="btn btn-success" value="Add">
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!--modal delete & edit -->
+    <!-- Edit Modal HTML -->
+    <div id="editdrugModal" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <form>
+            <div class="modal-header">
+              <h4 class="modal-title">Add Employee</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+              <div class="form-group">
+                <label>Drug Name</label>
+                <input type="text" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label>Dose</label>
+                <input type="text" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label>Quantity</label>
+                <input type="text" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label>duration</label>
+                <input type="text" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label>Date</label>
+                <input type="text" class="form-control" required>
+              </div>
+              <div id="checkbox">
+                <label>Frequency</label>
+                <input type="checkbox" id="bfeat" value="bfeat" v-model="checkedNames">
+                <label for="jack">ก่อนอาหาร</label>
+                <input type="checkbox" id="afeat" value="afeat" v-model="checkedNames">
+                <label for="john">หลังอาหาร</label>
+                <input type="checkbox" id="morning" value="morning" v-model="checkedNames">
+                <label for="mike">เช้า</label>
+                <input type="checkbox" id="morning" value="morning" v-model="checkedNames">
+                <label for="mike">กลางวัน</label>
+                <input type="checkbox" id="morning" value="morning" v-model="checkedNames">
+                <label for="mike">เย็น</label>
+                <input type="checkbox" id="morning" value="morning" v-model="checkedNames">
+                <label for="mike">ก่อนนอน</label>
+              </div>
+            </div>
+            <!-- descroption. -->
+            <div class="form-group">
+              <div class="col-sm-12 form-group">
+                <label>Description</label>
+                <textarea type="text" placeholder="Description Here.." class="form-control"></textarea>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+              <input type="submit" class="btn btn-success" value="Add">
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- Delete Modal HTML -->
+    <div id="deleteEmployeeModal" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <form>
+            <div class="modal-header">
+              <h4 class="modal-title">Drug History</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+              <!-- drug history page -->
+                <md-modal-content>
+                  <contentB/>
+                </md-modal-content>
+              <!--end drug history page -->
+            </div>
+            <div class="modal-footer">
+              <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+              <input type="submit" class="btn btn-danger" value="Delete">
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!--end modal delete & edit -->
   </div>
 </template>
 
 <script>
 import axios from "axios";
 import contentA from "./Content_Order_Drug";
+import contentB from "./Content_Drug_History";
 export default {
   name: "Drug_Interaction",
   components: {

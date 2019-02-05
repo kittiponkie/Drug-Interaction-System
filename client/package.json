@@ -27,7 +27,8 @@
     "vue-router": "^3.0.1",
     "vue-swal": "^1.0.0",
     "vuelidate": "^0.7.4",
-    "vuetable": "^1.5.12"
+    "vuetable": "^1.5.12",
+    "vuetify": "^1.4.5"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
