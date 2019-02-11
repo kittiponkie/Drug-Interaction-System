@@ -58,11 +58,47 @@
       </md-app-drawer>
       <md-app-content>
         <contentA />
+        
       </md-app-content>
+     
     </md-app>
+ <!-- modalforshowdata -->
+      <div class="modal fade" id="modalforshowdata">
+        <div class="modal-dialog" >
+          <div class="modal-content"  >
+          
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Detail</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body"><b>Order id:</b>
+            <p> *********ยังแก้อยู่จ้า จะใส่textbox</p> 
+            <p> <br><b>Doctor Name-surname: </b> </p>
+            <p> <br><b>Ward: </b>  </p>
+            <p> <br><b>Pharmacist id: </b></p>
+            <p> <br><b>Pharmacist Name-surname: </b>*ถ้าไม่มีการกดจ่ายยาจะไม่แสดง </p>
+            <p> <br><b>Duration:  </b></p>
+            <p> <br><b>Dispend Status:</b>  </p>
+            <p> <br><b>GP Name: </b></p>
 
+            <p> <br><b>RXcui:  </b></p>
+            <p> <br><b>Dosage:</b>  </p>
+            <p> <br><b>Frequency: </b></p>
+            <p> <br><b>Quantity:  </b></p>
+            <p> <br><b>Dispend (recieve madicine):</b>  </p>
+            <p> <br><b>Note: </b></p>
 
-  </div>
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end modalforshowdata -->
+      </div>
 </template>
 
 <script>
@@ -166,5 +202,6 @@
   .md-drawer md-app-drawer menu_color md-theme-default md-left md-permanent md-permanent-card {
     padding-top: 20px;
   }
+  
 
 </style>
