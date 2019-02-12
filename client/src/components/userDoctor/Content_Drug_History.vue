@@ -188,4 +188,5 @@ export default {
   md-permanent-card {
   padding-top: 20px;
 }
+#tallModal .modal-body p { margin-bottom: 900px }
 </style>

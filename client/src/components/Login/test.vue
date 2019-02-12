@@ -1,77 +1,28 @@
 <template>
-  <div class="col-xs-12">
-            <div class="col-md-12" >
-                <h3> Actions</h3>
-                <div id="field">
-                <div id="field0">
-<!-- Text input-->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="action_id">Action Id</label>  
-  <div class="col-md-5">
-  <input id="action_id" name="action_id" type="text" placeholder="" class="form-control input-md">
-    
-  </div>
-</div>
-<br><br>
-<!-- Text input-->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="action_name">Action Name</label>  
-  <div class="col-md-5">
-  <input id="action_name" name="action_name" type="text" placeholder="" class="form-control input-md">
-    
-  </div>
-</div>
-<br><br>
-       <!-- File Button 
-<div class="form-group">
-  <label class="col-md-4 control-label" for="action_json">Action JSON File</label>
-  <div class="col-md-4">
-              <input type="file" id="action_json" name="action_json" class="input-file" accept=".txt,.json">
-     <div id="action_jsondisplay"></div>
-  </div>
-</div>--> 
-
+<div>
+  <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Home</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Profile</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Contact</a>
+  </li>
+</ul>
+<div class="tab-content" id="pills-tabContent">
+  <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">...</div>
+  <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">...</div>
+  <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">...</div>
 </div>
 </div>
-<!-- Button -->
-<div class="form-group">
-  <div class="col-md-4">
-    <button id="add-more" name="add-more" class="btn btn-primary">Add More</button>
-  </div>
-</div>
-<br><br>
-              
-            </div>
-        </div>
-	
 </template>
 
 <script>
-$(document).ready(function () {
-    //@naresh action dynamic childs
-    var next = 0;
-    $("#add-more").click(function(e){
-        e.preventDefault();
-        var addto = "#field" + next;
-        var addRemove = "#field" + (next);
-        next = next + 1;
-        var newIn = ' <div id="field'+ next +'" name="field'+ next +'"><!-- Text input--><div class="form-group"> <label class="col-md-4 control-label" for="action_id">Action Id</label> <div class="col-md-5"> <input id="action_id" name="action_id" type="text" placeholder="" class="form-control input-md"> </div></div><br><br> <!-- Text input--><div class="form-group"> <label class="col-md-4 control-label" for="action_name">Action Name</label> <div class="col-md-5"> <input id="action_name" name="action_name" type="text" placeholder="" class="form-control input-md"> </div></div><br><br><!-- File Button --> <div class="form-group"> <label class="col-md-4 control-label" for="action_json">Action JSON File</label> <div class="col-md-4"> <input id="action_json" name="action_json" class="input-file" type="file"> </div></div></div>';
-        var newInput = $(newIn);
-        var removeBtn = '<button id="remove' + (next - 1) + '" class="btn btn-danger remove-me" >Remove</button></div></div><div id="field">';
-        var removeButton = $(removeBtn);
-        $(addto).after(newInput);
-        $(addRemove).after(removeButton);
-        $("#field" + next).attr('data-source',$(addto).attr('data-source'));
-        $("#count").val(next);  
-        
-            $('.remove-me').click(function(e){
-                e.preventDefault();
-                var fieldNum = this.id.charAt(this.id.length-1);
-                var fieldID = "#field" + fieldNum;
-                $(this).remove();
-                $(fieldID).remove();
-            });
-    });
 
-});
 </script>
+
+<style>
+
+</style>
