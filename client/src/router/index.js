@@ -13,9 +13,7 @@ Vue.use(VueMaterial)
 import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 Vue.use(BootstrapVue);
-//import 'bootstrap/dist/css/bootstrap.css'  //conflict with other tool
 
-//import 'v-slim-dialog/dist/v-slim-dialog.css'
 import SlimDialog from 'v-slim-dialog'
 Vue.use(SlimDialog)
 //VueLocalStorage

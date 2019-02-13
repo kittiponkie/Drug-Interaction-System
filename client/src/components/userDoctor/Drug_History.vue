@@ -6,6 +6,9 @@
           <md-icon>menu</md-icon>
         </md-button>
         <span class="md-title">Smart Drug Use</span>
+          
+          
+          
       </md-app-toolbar>
 
       <md-app-drawer md-permanent="card" :md-active.sync="menuVisible" class="menu_color">
@@ -141,57 +144,57 @@
                <form>
                 <br>
                    <div class="form-group row">
-                    <label  class="col-sm-3 col-form-label">GP Name :</label>
+                    <label  class="col-sm-3 col-form-label">Drug Name (GP) :</label>
                       <div class="col-sm-9">
-                        <input class="form-control" type="text" placeholder="Readonly Order id here…" readonly>
+                        <input class="form-control" type="text" placeholder="Readonly GP Name here…" readonly>
                     </div>
                   </div>
                    <div class="form-group row">
                     <label  class="col-sm-3 col-form-label">Dispend Status :</label>
                       <div class="col-sm-9">
-                        <input class="form-control" type="text" placeholder="Readonly Order id here…" readonly>
+                        <input class="form-control" type="text" placeholder="Readonly Dispend Status here…" readonly>
                     </div>
                   </div>
                    <div class="form-group row">
                     <label  class="col-sm-3 col-form-label">Duration :</label>
                       <div class="col-sm-9">
-                        <input class="form-control" type="text" placeholder="Readonly Order id here…" readonly>
+                        <input class="form-control" type="text" placeholder="Readonly Duration here…" readonly>
                     </div>
                   </div>
                   <div class="form-group row">
                     <label  class="col-sm-3 col-form-label">RXcui :</label>
                       <div class="col-sm-9">
-                        <input class="form-control" type="text" placeholder="Readonly Order id here…" readonly>
+                        <input class="form-control" type="text" placeholder="Readonly RXcui here…" readonly>
                     </div>
                   </div>
                    <div class="form-group row">
                     <label  class="col-sm-3 col-form-label">Dosage :</label>
                       <div class="col-sm-9">
-                        <input class="form-control" type="text" placeholder="Readonly Order id here…" readonly>
+                        <input class="form-control" type="text" placeholder="Readonly Dosage here…" readonly>
                     </div>
                   </div>
                    <div class="form-group row">
                     <label  class="col-sm-3 col-form-label">Frequency :</label>
                       <div class="col-sm-9">
-                        <input class="form-control" type="text" placeholder="Readonly Order id here…" readonly>
+                        <input class="form-control" type="text" placeholder="Readonly Frequency here…" readonly>
                     </div>
                      </div>
                     <div class="form-group row">
                     <label  class="col-sm-3 col-form-label">Quantity :</label>
                       <div class="col-sm-9">
-                        <input class="form-control" type="text" placeholder="Readonly Order id here…" readonly>
+                        <input class="form-control" type="text" placeholder="Readonly Quantity here…" readonly>
                       </div>
                     </div>
                     <div class="form-group row">
-                    <label  class="col-sm-3 col-form-label"> Dispend (recieve madicine) :</label>
+                    <label  class="col-sm-3 col-form-label">Recieve madicine(%) :</label>
                       <div class="col-sm-9">
-                        <input class="form-control" type="text" placeholder="Readonly Order id here…" readonly>
+                        <input class="form-control" type="text" placeholder="Readonly % Recieve madicine here…" readonly>
                       </div>
                     </div>
                      <div class="form-group row">
                     <label  class="col-sm-3 col-form-label"> Note :</label>
                       <div class="col-sm-9">
-                        <input class="form-control" type="text" placeholder="Readonly Order id here…" readonly>
+                        <textarea class="form-control" type="text" placeholder="Readonly Note here…" readonly></textarea>
                       </div>
                     </div>     
               </form>
@@ -207,13 +210,19 @@
                   <div class="form-group row">
                     <label  class="col-sm-3 col-form-label">Doctor id :</label>
                       <div class="col-sm-9">
-                        <input class="form-control" type="text" placeholder="Readonly Order id here…" readonly>
+                        <input class="form-control" type="text" placeholder="Readonly  here…" readonly>
                     </div>
                   </div>
                    <div class="form-group row">
-                    <label  class="col-sm-3 col-form-label">Doctor Name-surname :</label>
+                    <label  class="col-sm-3 col-form-label">Doctor Name :</label>
                       <div class="col-sm-9">
-                        <input class="form-control" type="text" placeholder="Readonly Order id here…" readonly>
+                        <input class="form-control" type="text" placeholder="Readonly  here…" readonly>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label  class="col-sm-3 col-form-label">Ward :</label>
+                      <div class="col-sm-9">
+                        <input class="form-control" type="text" placeholder="Readonly  here…" readonly>
                     </div>
                   </div>
               </form>
@@ -229,13 +238,13 @@
                   <div class="form-group row">
                     <label  class="col-sm-3 col-form-label">Pharmacist id :</label>
                       <div class="col-sm-9">
-                        <input class="form-control" type="text" placeholder="Readonly Order id here…" readonly>
+                        <input class="form-control" type="text" placeholder="Readonly  here…" readonly>
                     </div>
                   </div>
                    <div class="form-group row">
-                    <label class="col-sm-3 col-form-label">Pharmacist Name-surname :</label>
+                    <label class="col-sm-3 col-form-label">Pharmacist Name :</label>
                       <div class="col-sm-9">
-                        <input class="form-control" type="text" placeholder="Readonly Order id here…" readonly>
+                        <input class="form-control" type="text" placeholder="Readonly  here…" readonly>
                     </div>
                   </div>
               </form>

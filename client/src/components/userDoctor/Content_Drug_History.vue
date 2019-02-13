@@ -53,7 +53,8 @@ export default {
   name: "Drug_Interaction",
   data: () => ({
     return: {
-      animate: true
+      animate: true,
+      max: 100
     },
     search: null,
     searched: [],
@@ -71,7 +72,7 @@ export default {
         name: "Omeprazole",
         email: "Odette Demageard",
         gender: "Using",
-        progress: 30,
+        progress: 100,
         title: "-"
       },
       {

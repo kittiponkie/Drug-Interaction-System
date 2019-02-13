@@ -100,8 +100,9 @@
                   <!--dose/times-->
                   <div class="row">
                     <div class="col-sm-6 form-group">
-                      <label>Dose</label>
-                      <input type="text" placeholder="Enter dose Here.." class="form-control">
+                      <label>Dosage</label>
+                  <!--    <input type="text" placeholder="Enter dose Here.." class="form-control"> -->
+
                     </div>
                   </div>
                   <!-- Quantity -->
@@ -243,10 +244,17 @@
                 <label>Drug Name</label>
                 <input type="text" class="form-control" required>
               </div>
-              <div class="form-group">
-                <label>Dose</label>
-                <input type="text" class="form-control" required>
-              </div>
+                <div class="form-group" >
+                  <div class="col-sm-7 "  style="padding-left: 0px;">
+                  <label>Dosage</label>
+                  <input type="text" class="form-control" required>
+                  </div>
+
+                  <div class="col-sm-5 ">
+                  <label>Unit</label>
+                  <input  class="form-control" type="text" placeholder="Readonly  here…" readonly>
+                  </div>
+                </div>
               <div class="form-group">
                 <label>Quantity</label>
                 <input type="text" class="form-control" required>
@@ -297,7 +305,7 @@
         <div class="modal-content">
           <form>
             <div class="modal-header">
-              <h4 class="modal-title">Add Employee</h4>
+              <h4 class="modal-title">Add Drug</h4>
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             </div>
             <div class="modal-body">
@@ -306,7 +314,7 @@
                 <input type="text" class="form-control" required>
               </div>
               <div class="form-group">
-                <label>Dose</label>
+                <label>Dosage</label>
                 <input type="text" class="form-control" required>
               </div>
               <div class="form-group">
@@ -409,7 +417,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .md-app {
   height: calc(100vh);
   border: 1px solid rgba(#000, 0.12);
