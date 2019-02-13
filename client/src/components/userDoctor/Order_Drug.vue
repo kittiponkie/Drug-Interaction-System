@@ -199,36 +199,7 @@
       </div>
     </div>
     <!-- end order modal -->
-    <!-- Modal -->
-    <div
-      class="modal fade"
-      id="basicExampleModal"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Summary</h5>
-            <br>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <!--content summary -->
-          <div class="modal-body">
-            <p>list of drug</p>
-          </div>
-          <!-- confirm to dispend drug button -->
-          <div class="modal-footer">
-            <button type="button" class="btn btn-primary" data-dismiss="modal">Confirm</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- end modal -->
+    
     <!--new modal -->
     <!-- Edit Modal HTML -->
     <div id="adddrugtolist" class="modal fade">
@@ -240,6 +211,16 @@
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             </div>
             <div class="modal-body">
+               <div class="form-group">
+                <button
+                        type="button"
+                        class="btn btn-primary"
+                        data-toggle="modal"
+                        data-target="#onemodal"
+                        data-dismiss="modal"
+                        style="border-top-width: 0px;"
+                      >Show Drug History</button>
+              </div>
               <div class="form-group">
                 <label>Drug Name</label>
                 <input type="text" class="form-control" required>
@@ -298,6 +279,37 @@
         </div>
       </div>
     </div>
+    <!-- Modal -->
+    <div
+      class="modal"
+      id="onemodal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Drug History</h5>
+            <br>
+            <button type="button" class="close" data-toggle="modal" data-target="#adddrugtolist" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <!--content summary -->
+          <div class="modal-body">
+            <p>Drug History</p>
+          </div>
+          <!-- confirm to dispend drug button -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end modal -->
+
     <!--modal delete & edit -->
     <!-- Edit Modal HTML -->
     <div id="editdrugModal" class="modal fade">
@@ -308,7 +320,7 @@
               <h4 class="modal-title">Add Drug</h4>
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             </div>
-            <div class="modal-body">
+          <div class="modal-body">
               <div class="form-group">
                 <label>Drug Name</label>
                 <input type="text" class="form-control" required>
@@ -378,7 +390,6 @@
             </div>
             <div class="modal-footer">
               <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-              <input type="submit" class="btn btn-danger" value="Delete">
             </div>
           </form>
         </div>
