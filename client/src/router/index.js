@@ -19,6 +19,9 @@ Vue.use(BootstrapVue);
 import SlimDialog from 'v-slim-dialog'
 Vue.use(SlimDialog)
 
+import Vuetify from 'vuetify'
+Vue.use(Vuetify)
+
 import VueLocalStorage from 'vue-localstorage'
 Vue.use(VueLocalStorage)
 
@@ -64,10 +67,16 @@ import Drug_Interaction from '@/components/Drug_Interaction'
 import Drug_Information from '@/components/Drug_Information'
 
 
+import test from '@/components/Login/test'
 
 export default new VueRouter({
   mode: 'history',
   routes: [
+    {
+      path: '/test',
+      name: 'test',
+      component: test
+    },
     {
       path: '/admin',
       name: 'admin',

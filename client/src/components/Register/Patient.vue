@@ -77,13 +77,22 @@
                 <!-- Birthday & Age(autocalculation) -->
                 <div class="row">
                   <div class="col-sm-6 form-group">
-                    <label>Birthday</label>
-                    <div class='input-group date' id='datetimepicker1'>
-                      <input ref="birthday" type='text' class="form-control" placeholder="Enter Birthday Here.." />
-                      <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                      </span>
-                    </div>
+                    <label>Birthday</label>                    
+                      <md-datepicker ref="birthday" md-immediately>
+                        <label>Enter Birthday Here..</label>
+                      </md-datepicker>
+  <div>
+    <v-layout row wrap>
+      <v-flex xs12 sm3>
+        <v-checkbox v-model="landscape" hide-details label="Landscape"></v-checkbox>
+      </v-flex>
+      <v-flex xs12 sm3>
+        <v-checkbox v-model="reactive" hide-details label="Reactive"></v-checkbox>
+      </v-flex>
+    </v-layout>
+
+    <v-date-picker v-model="test" :landscape="landscape" :reactive="reactive"></v-date-picker>
+  </div>
                   </div>
                   <div class="col-sm-6 form-group">
                     <label>Age</label>
@@ -93,14 +102,12 @@
                 </div>
 
                 <!-- id card -->
-                <div class="form-group">
                   <div class="row">
                     <div class="col-sm-6 form-group">
                       <label>ID Card</label>
                       <input ref="idcard" type="text" placeholder="Enter Designation Here.." class="form-control">
                     </div>
                     <div class="col-sm-6 form-group">
-                      <div class="col-sm-6">
                         <label>Status</label>
                         <select ref="status" class="form-control">
                           <option selected="">Single </option>
@@ -108,7 +115,6 @@
                           <option>Divorced </option>
                           <option>Separate</option>
                         </select>
-                      </div>
                     </div>
                   </div>
                   <!-- Rac & Nationality & Religion-->
@@ -141,7 +147,6 @@
                       </select>
                     </div>
                   </div>
-                </div>
                 <div class="form-group">
                   <label>Drug allergy</label>
                   <input ref="drugAllergy" type="text" placeholder="Enter Drug allergy Here.." class="form-control">
@@ -193,7 +198,6 @@
 <script>
   import axios from 'axios'
   import registerService from '@/services/registerService'
-
   export default {
     name: 'PatientRegister',
     data: () => ({
@@ -230,7 +234,10 @@
         GPName: String,
         RXCUI: String
       },
-      test: null
+      test: null,
+      picker: new Date().toISOString().substr(0, 10),
+        landscape: false,
+        reactive: false
     }),
     methods: {
       cancel() {
@@ -241,6 +248,7 @@
           await this.DataPatient()
           await this.DataAccount()
           if (this.$refs.drugAllergy.value != '') await this.DataAllergic()
+          
         }
       },
       async DataPatient() {
