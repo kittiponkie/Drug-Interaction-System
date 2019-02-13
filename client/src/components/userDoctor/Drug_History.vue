@@ -6,9 +6,6 @@
           <md-icon>menu</md-icon>
         </md-button>
         <span class="md-title">Smart Drug Use</span>
-          
-          
-          
       </md-app-toolbar>
 
       <md-app-drawer md-permanent="card" :md-active.sync="menuVisible" class="menu_color">

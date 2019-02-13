@@ -1,5 +1,17 @@
 <template>
-  <div>
+ <div>
+   
+       <!--header-->
+        <md-card  style="padding-left: 0px;" >
+              <md-card-header>
+                <md-card-header-text>
+                  <h4 style="text-align:left;">Patient Name : 
+                <span style="float:right;margin-right: 150px;">Doctor Name :</span>
+                </h4>
+                </md-card-header-text>
+              </md-card-header>
+        </md-card>
+        <!--end header-->
     <md-table v-model="searched" md-sort="name" md-sort-order="asc" md-card>
       <md-table-toolbar>
         <div class="md-toolbar-section-start">
@@ -112,7 +124,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style >
 .md-app {
   height: calc(100vh);
   border: 1px solid rgba(#000, 0.12);

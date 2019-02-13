@@ -33,18 +33,33 @@
       </md-table-row>
     </md-table>-->
 
-
- <!--header ต้องมีpadding-right: 0px;ในclass="container"ทั้งสองอัน -->
 <div class="container" style="padding-right: 0px;">
+ <!--header ต้องมีpadding-right: 0px;ในclass="container"ทั้งสองอัน 
+<md-app-drawer md-permanent="card" style="width=1000px;" class="menu_color">
     <div class="container" style="padding-left: 0px;">
-       <div class="table-wrapper" style="margin-top: 5px;padding-right: 20px;">
+       <md-toolbar class="md-transparent" md-elevation="0" style="margin-top: 5px;padding-right: 20px;">
         <h4 style="text-align:left;">Patient Name : 
         <span style="float:right;margin-right: 150px;">Doctor Name :</span>
         </h4>
-          </div>
-       </div>
+          </md-toolbar>
+    </div>
+</md-app-drawer>-->
        <!--end header-->
-      <div class="table-wrapper">
+
+       <!--header-->
+        <md-card  style="padding-left: 0px;" >
+              <md-card-header>
+                <md-card-header-text>
+                  <h4 style="text-align:left;">Patient Name : 
+                <span style="float:right;margin-right: 150px;">Doctor Name :</span>
+                </h4>
+                </md-card-header-text>
+              </md-card-header>
+        </md-card>
+        <!--end header-->
+
+
+      <div class="table-wrapper" style="margin-left: 15px;">
         <div class="table-title" style="padding-top: 25px;">
           <div class="row">
             <div class="col-sm-6">
@@ -111,6 +126,7 @@
         </table>
       </div>
     </div>
+  
 </template>
 
 
