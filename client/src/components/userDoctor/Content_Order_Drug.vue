@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  
     <!-- Add Drug Button 
     <button
       type="button"
@@ -32,11 +32,23 @@
       </md-table-cell>
       </md-table-row>
     </md-table>-->
-    <div class="container">
+
+
+ <!--header ต้องมีpadding-right: 0px;ในclass="container"ทั้งสองอัน -->
+<div class="container" style="padding-right: 0px;">
+    <div class="container" style="padding-left: 0px;">
+       <div class="table-wrapper" style="margin-top: 5px;padding-right: 20px;">
+        <h4 style="text-align:left;">Patient Name : 
+        <span style="float:right;margin-right: 150px;">Doctor Name :</span>
+        </h4>
+          </div>
+       </div>
+       <!--end header-->
       <div class="table-wrapper">
         <div class="table-title" style="padding-top: 25px;">
           <div class="row">
             <div class="col-sm-6">
+              <br>
               <h2>Ordering Drug</h2>
             </div>
             <div class="col-sm-6">
@@ -99,7 +111,6 @@
         </table>
       </div>
     </div>
-  </div>
 </template>
 
 
