@@ -65,10 +65,11 @@
                   <label for="selectAll"></label>
                 </span>
               </th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Address</th>
-              <th>Phone</th>
+              <th>Order No.</th>
+              <th>Drug Name</th>
+              <th>Duration(days)</th>
+              <th>Doctor Name</th>
+              <th>Ward</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -80,10 +81,11 @@
                   <label for="checkbox1"></label>
                 </span>
               </td>
-              <td>Thomas Hardy</td>
-              <td>thomashardy@mail.com</td>
-              <td>89 Chiaroscuro Rd, Portland, USA</td>
-              <td>(171) 555-2222</td>
+              <td>N0001</td>
+              <td>Tramadol</td>
+              <td>14</td>
+              <td>kittipon kie</td>
+              <td>อายุรกรรม(MEDICINE)</td>
               <td>
                 <a href="#editdrugModal" class="edit" data-toggle="modal">
                   <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>

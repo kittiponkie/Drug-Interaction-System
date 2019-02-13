@@ -82,8 +82,6 @@
           </div>
           <div class="modal-body">
             <!-- <form>
-            
-            <p> *****ยังแก้อยู่จ้า จะใส่textbox</p> 
             <p> <br><b>Doctor Name-surname: </b> </p>
             <p> <br><b>Ward: </b>  </p>
             <p> <br><b>Pharmacist id: </b></p>
