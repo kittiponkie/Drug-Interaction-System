@@ -16,6 +16,7 @@
         </md-card-actions>
       </md-ripple>
     </md-card>
+ 
     <!-- end card1-->
     <br />
     <md-card md-with-hover>
@@ -50,6 +51,7 @@
           <button type="button" class="btn btn-success" data-toggle="modal" data-target="#confirmmodal"  style="border-top-width: 0px;">Accept</button>
           <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#canclemodal" style="border-top-width: 0px;">Reject</button>
      <!--     <button type="button" class="close" aria-label="Close" style="border-top-width: 0px,font:10px;"><span aria-hidden="true">&times;</span></button>-->
+        
         </md-table-cell>
       </md-table-row>
     </md-table>

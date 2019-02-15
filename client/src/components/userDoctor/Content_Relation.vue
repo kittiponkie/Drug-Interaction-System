@@ -1,8 +1,11 @@
 <template>
   <div>
-    <h3>Friend</h3>
+   <!-- <h2>Relation</h2> -->
+    <div class="col-lg-12" style="width:100%;height:100%">
+      <div class="panel panel-default">
     <!--card1-->
-    <div class="inline" v-for="i in 5" :key="i">
+    <h3 style="margin-left:20px;">Patient</h3>
+    <div class="inline" v-for="i in 5" :key="i" style="width=1500px;">
       <router-link to="/doctor">
         <md-card md-with-hover>
             <md-card-header>
@@ -12,7 +15,9 @@
         </md-card>
       </router-link>
     </div>
+     </div>
     <!-- end card1-->
+  </div>
   </div>
 </template>
 
