@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  
     <!-- Add Drug Button 
     <button
       type="button"
@@ -32,11 +32,38 @@
       </md-table-cell>
       </md-table-row>
     </md-table>-->
-    <div class="container">
-      <div class="table-wrapper">
+
+<div class="container" style="padding-right: 0px;">
+ <!--header ต้องมีpadding-right: 0px;ในclass="container"ทั้งสองอัน 
+<md-app-drawer md-permanent="card" style="width=1000px;" class="menu_color">
+    <div class="container" style="padding-left: 0px;">
+       <md-toolbar class="md-transparent" md-elevation="0" style="margin-top: 5px;padding-right: 20px;">
+        <h4 style="text-align:left;">Patient Name : 
+        <span style="float:right;margin-right: 150px;">Doctor Name :</span>
+        </h4>
+          </md-toolbar>
+    </div>
+</md-app-drawer>-->
+       <!--end header-->
+
+       <!--header-->
+        <md-card  style="padding-left: 0px;" >
+              <md-card-header>
+                <md-card-header-text>
+                  <h4 style="text-align:left;">Patient Name : 
+                <span style="float:right;margin-right: 150px;">Doctor Name :</span>
+                </h4>
+                </md-card-header-text>
+              </md-card-header>
+        </md-card>
+        <!--end header-->
+
+
+      <div class="table-wrapper" style="margin-left: 15px;">
         <div class="table-title" style="padding-top: 25px;">
           <div class="row">
             <div class="col-sm-6">
+              <br>
               <h2>Ordering Drug</h2>
             </div>
             <div class="col-sm-6">
@@ -65,10 +92,11 @@
                   <label for="selectAll"></label>
                 </span>
               </th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Address</th>
-              <th>Phone</th>
+              <th>Order No.</th>
+              <th>Drug Name</th>
+              <th>Duration(days)</th>
+              <th>Doctor Name</th>
+              <th>Ward</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -80,10 +108,11 @@
                   <label for="checkbox1"></label>
                 </span>
               </td>
-              <td>Thomas Hardy</td>
-              <td>thomashardy@mail.com</td>
-              <td>89 Chiaroscuro Rd, Portland, USA</td>
-              <td>(171) 555-2222</td>
+              <td>N0001</td>
+              <td>Tramadol</td>
+              <td>14</td>
+              <td>kittipon kie</td>
+              <td>อายุรกรรม(MEDICINE)</td>
               <td>
                 <a href="#editdrugModal" class="edit" data-toggle="modal">
                   <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
@@ -97,7 +126,7 @@
         </table>
       </div>
     </div>
-  </div>
+  
 </template>
 
 

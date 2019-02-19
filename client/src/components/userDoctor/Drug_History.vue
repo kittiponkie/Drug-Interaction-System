@@ -6,9 +6,6 @@
           <md-icon>menu</md-icon>
         </md-button>
         <span class="md-title">Smart Drug Use</span>
-          
-          
-          
       </md-app-toolbar>
 
       <md-app-drawer md-permanent="card" :md-active.sync="menuVisible" class="menu_color">
@@ -82,8 +79,6 @@
           </div>
           <div class="modal-body">
             <!-- <form>
-            
-            <p> *****ยังแก้อยู่จ้า จะใส่textbox</p> 
             <p> <br><b>Doctor Name-surname: </b> </p>
             <p> <br><b>Ward: </b>  </p>
             <p> <br><b>Pharmacist id: </b></p>

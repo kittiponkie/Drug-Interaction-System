@@ -1,18 +1,23 @@
 <template>
   <div>
-    <h3>Friend</h3>
-    <!--card1-->
-    <div class="inline" v-for="(i,index) in users" :key="index" @click="gotoDetail(index)">
-      <!--router-link to="/doctor"-->
-        <md-card md-with-hover>
-          <md-card-header>
-            <div class="md-title">{{users_name[index]}}</div>
-            <div class="md-subhead">ID : {{i.PatientID}} </div>
-          </md-card-header>
-        </md-card>
-      <!--/router-link-->
+    <!-- <h2>Relation</h2> -->
+    <div class="col-lg-12" style="width:100%;height:100%">
+      <div class="panel panel-default">
+        <!--card1-->
+        <h3 style="margin-left:20px;">Patient</h3>
+        <div class="inline" v-for="(i,index) in users" :key="index" @click="gotoDetail(index)">
+          <!--router-link to="/doctor"-->
+          <md-card md-with-hover>
+            <md-card-header>
+              <div class="md-title">{{users_name[index]}}</div>
+              <div class="md-subhead">ID : {{i.PatientID}} </div>
+            </md-card-header>
+          </md-card>
+          <!--/router-link-->
+        </div>
+        <!-- end card1-->
+      </div>
     </div>
-    <!-- end card1-->
   </div>
 </template>
 
@@ -27,16 +32,16 @@
       users_name: []
     }),
     methods: {
-      getPatientInfo(){
-        for(var i in this.users){
+      getPatientInfo() {
+        for (var i in this.users) {
           console.log(this.users[i].PatientID)
-          doctorServices.patientInfo(this.users[i].PatientID).then(Response =>{
+          doctorServices.patientInfo(this.users[i].PatientID).then(Response => {
             console.log(Response.data[0])
-            this.users_name.push(Response.data[0].Firstname+" "+Response.data[0].Lastname)
+            this.users_name.push(Response.data[0].Firstname + " " + Response.data[0].Lastname)
           })
         }
       },
-      gotoDetail(index){
+      gotoDetail(index) {
         console.log(this.users[index].PatientID)
         this.$localStorage.set('doctor_patient', this.users[index].PatientID)
         this.$router.push('/doctor')

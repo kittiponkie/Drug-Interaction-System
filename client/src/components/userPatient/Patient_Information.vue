@@ -31,7 +31,7 @@
 
           <md-list-item to="/patient_relation" class="unselected">
             <md-icon style="margin-right:10px">person_add</md-icon>
-            <span class="md-list-item-text selected_text">Friend</span>
+            <span class="md-list-item-text selected_text">Relation</span>
           </md-list-item>
 
           <md-list-item to="/patient_drug_information" class="unselected">
