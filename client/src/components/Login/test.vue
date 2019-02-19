@@ -1,28 +1,45 @@
 <template>
-<div>
-  <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-  <li class="nav-item">
-    <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Home</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Profile</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Contact</a>
-  </li>
-</ul>
-<div class="tab-content" id="pills-tabContent">
-  <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">...</div>
-  <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">...</div>
-  <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">...</div>
-</div>
-</div>
+  <div>
+    <b-alert variant="danger" dismissible v-model="showDismissibleAlert">
+      Dismissible Alert!
+    </b-alert>
+
+    <b-alert
+      :show="dismissCountDown"
+      dismissible
+      variant="danger"
+      @dismissed="dismissCountDown=0"
+      @dismiss-count-down="countDownChanged"
+    >
+      <p>This alert will dismiss after {{ dismissCountDown }} seconds...</p>
+      <b-progress variant="warning" :max="dismissSecs" :value="dismissCountDown" height="4px" />
+    </b-alert>
+
+    <b-button @click="showAlert" variant="danger" class="m-1">
+      Show alert with count-down timer
+    </b-button>
+    <b-button @click="showDismissibleAlert=true" variant="info" class="m-1">
+      Show dismissible alert ({{ showDismissibleAlert ? 'visible' : 'hidden' }})
+    </b-button>
+  </div>
 </template>
 
 <script>
-
+  export default {
+    data() {
+      return {
+        dismissSecs: 20,
+        dismissCountDown: 0,
+        showDismissibleAlert: false
+      }
+    },
+    methods: {
+      countDownChanged(dismissCountDown) {
+        this.dismissCountDown = dismissCountDown
+      },
+      showAlert() {
+        this.dismissCountDown = this.dismissSecs
+      }
+    }
+  }
 </script>
-
-<style>
-
-</style>

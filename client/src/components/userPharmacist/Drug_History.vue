@@ -5,7 +5,9 @@
         <md-button class="md-icon-button" @click="toggleMenu" v-if="!(Window_Width>600)">
           <md-icon>menu</md-icon>
         </md-button>
-        <span class="md-title">Smart Drug Use</span>
+        <span class="md-title" style="font-size:25px;">
+        <md-icon class="md-size-2x">healing</md-icon>  
+          Smart Drug Use</span>
       </md-app-toolbar>
 
       <md-app-drawer md-permanent="card" :md-active.sync="menuVisible" class="menu_color">
