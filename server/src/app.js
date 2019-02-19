@@ -91,6 +91,7 @@ app.get("/PatientInfo", (req, res, next) => {
     });
 });
 
+// post patient info
 app.post('/post/PatientInfo', (req, res) => {
   var db = req.db;
   var PatientID = req.body.PatientID
@@ -191,6 +192,7 @@ app.post('/post/PatientInfo', (req, res) => {
 
 })
 
+// update
 app.put("/update/PatientInfo/:Id", (req, res, next) => {
   console.log("POST Method")
   var id = req.params.Id
@@ -341,6 +343,7 @@ app.get("/DoctorInfo", (req, res, next) => {
     });
 });
 
+// post doc
 app.post('/post/DoctorInfo', (req, res) => {
   var db = req.db;
   var DoctorID = req.body.DoctorID
@@ -420,6 +423,7 @@ app.post('/post/DoctorInfo', (req, res) => {
     });
 })
 
+// update doc
 app.put("/update/DoctorInfo/:Id", (req, res, next) => {
   console.log("POST Method")
   var id = req.params.Id
@@ -553,6 +557,7 @@ app.get("/PharmacistInfo", (req, res, next) => {
     });
 });
 
+// post pharmacist
 app.post('/post/PharmacistInfo', (req, res) => {
   var db = req.db;
   var PharmacistID = req.body.PharmacistID
@@ -630,6 +635,7 @@ app.post('/post/PharmacistInfo', (req, res) => {
     });
 })
 
+// update pharmacist
 app.put("/update/PharmacistInfo/:Id", (req, res, next) => {
   console.log("POST Method")
   var id = req.params.Id
@@ -1148,5 +1154,334 @@ app.put("/ConfirmAccount/:ID", (req, res, next) => {
         })
       }
     }
+  })
+})
+
+// Drug History 
+// List Drug History By PatientID 
+app.get("/DrugHistory/:PatientID", (req, res) => {
+  console.log('GET method')
+  const PatientID = req.params.PatientID;
+  DrugHistory.find({ "PatientID": PatientID })
+    .exec()
+    .then(doc => {
+      console.log("PatientID :" + PatientID);
+      console.log("From database", doc);
+      if (doc) {
+        res.status(200).json(doc);
+      } else {
+        res
+          .status(404)
+          .json({ message: "No valid entry found for provided ID" });
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({ error: err });
+    });
+});
+
+// List Drug History By PatientID and filter By DoctorID
+app.get("/DrugHistory/Doctor/:PatientID/:DoctorID", (req, res) => {
+  console.log('GET method')
+  const PatientID = req.params.PatientID;
+  const DoctorID = req.params.DoctorID;
+  DrugHistory.find({ "PatientID": PatientID, "DoctorID": DoctorID })
+    .exec()
+    .then(doc => {
+      console.log("PatientID :" + PatientID);
+      console.log("From database", doc);
+      if (doc) {
+        res.status(200).json(doc);
+      } else {
+        res
+          .status(404)
+          .json({ message: "No valid entry found for provided ID" });
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({ error: err });
+    });
+});
+
+// List Drug History By PatientID and filter By PharmacistID
+app.get("/DrugHistory/Pharmacist/:PatientID/:PharmacistID", (req, res) => {
+  console.log('GET method')
+  const PatientID = req.params.PatientID;
+  const PharmacistID = req.params.PharmacistID;
+  DrugHistory.find({ "PatientID": PatientID, "PharmacistID": PharmacistID })
+    .exec()
+    .then(doc => {
+      console.log("PatientID :" + PatientID);
+      console.log("From database", doc);
+      if (doc) {
+        res.status(200).json(doc);
+      } else {
+        res
+          .status(404)
+          .json({ message: "No valid entry found for provided ID" });
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({ error: err });
+    });
+});
+
+/*
+app.get("/test/date", (req, res) => {
+  console.log('GET method')
+  DrugHistory.find({ "PatientID": "U00001" })
+    .exec()
+    .then(doc => {
+      //console.log("From database", doc);
+      var DateTime = new Date();
+      //var DateNow = DateTime.toLocaleDateString();
+      var DateNow = new Date();
+      DateTime.setDate(DateTime.getDate() + 60);
+      var oneday = 1000 * 60 * 60 * 24
+      console.log(DateNow.toLocaleDateString());
+      console.log(DateTime.toLocaleDateString());
+
+      var Date1_ms = DateTime.getTime()
+      var Date2_ms = DateNow.getTime()
+      var diff = Math.abs(Date1_ms - Date2_ms)
+      console.log(Math.round(diff / oneday))
+      if (doc) {
+        res.status(200).json(doc);
+      } else {
+        res
+          .status(404)
+          .json({ message: "No valid entry found for provided ID" });
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({ error: err });
+    });
+});
+*/
+
+// Get Last OrderID and Provide New OrderID
+app.get("/get/OrderID", (req, res) => {
+  console.log('GET method')
+  DrugHistory.findOne({}, null, { "sort": { "OrderID": -1 } })
+    .exec()
+    .then(doc => {
+      if (doc) {
+        console.log("LastID :", doc.OrderID);
+        newID = doc.OrderID.replace('O', '');
+        newID = (newID * 1) + 1
+        if (newID <= 9) newID = "O0000" + newID
+        else if (newID <= 99) newID = "O000" + newID
+        else if (newID <= 999) newID = "O00" + newID
+        else if (newID <= 9999) newID = "O0" + newID
+        else newID = "O" + newID
+        console.log("์NewID :", newID);
+      } else {
+        newID = "O00001"
+      }
+      console.log("newID" + newID )
+      res.send({
+        "NewOrderID" : newID 
+      })
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({ error: err });
+    });
+    
+});
+
+// ADD DrugHistory -> Drug Order Page 
+app.post('/post/DrugOrder', (req, res) => {
+  var db = req.db;
+  //var OrderID //  ** Non Genarate OrderID **
+  var OrderID = req.body.OrderID
+  var newID
+  var PatientID = req.body.PatientID
+  var DoctorID = req.body.DoctorID
+  var PharmacistID = req.body.PharmacistID
+  var OrderStartDate // Date when add this record
+  var DispendStartDate = "" // Date when update 'Dispend' 
+  var Duration = req.body.Duration
+  var UsingStatus = 0 // Calculate with DispendDate + Duration [0=Using]
+  var DispendStatus // Check by Dispend Status [0,1,2]
+  var DrugNo // Gen ID of 1 Order used to sort the record
+  var GPName = req.body.GPName
+  var RXCUI // find by axios API 
+  var Dosage = req.body.Dosage
+  var Frequency = req.body.Frequency
+  var Times = req.body.Times
+  var Quantity = req.body.Quantity // Gen
+  var Dispend = 0 // Never Dispend drug
+  var Description = req.body.Description
+
+  function isEmptyObject(obj) {
+    return !Object.keys(obj).length;
+  }
+
+  async function getData() {
+    await axios.get('https://rxnav.nlm.nih.gov/REST/rxcui?name=' + GPName).then(Response => {
+      console.log('Axios OK')
+      if (Response.data.idGroup.rxnormId == null) {
+        console.log('rxcui id is null')
+        res.send({
+          success: false,
+          message: 'RXCUI is NULL'
+        })
+      } else {
+        RXCUI = Response.data.idGroup.rxnormId
+        console.log('rxcui ok : ' + RXCUI)
+      }
+    });
+
+    console.log('rxcui : ' + RXCUI)
+
+    await DrugHistory.findOne({ "OrderID": OrderID }, null, { "sort": { "DrugNo": -1 } })
+      .exec()
+      .then(doc => {
+        console.log(doc);
+        if (doc) {
+          console.log("LastID :", doc.DrugNo);
+          newID = doc.DrugNo.replace(' ', '');
+          newID = (newID * 1) + 1
+          console.log("์NewDrugNoID :", newID);
+        } else {
+          newID = "1"
+        }
+      })
+    DrugNo = newID
+    var DateTime = new Date()
+    OrderStartDate = DateTime.toLocaleDateString()
+    DoctorRelation.find({ "PatientID": PatientID, "DoctorID": DoctorID })
+      .exec()
+      .then(doc => {
+        if (!isEmptyObject(doc)) {
+
+          var new_DrugHistory = new DrugHistory({
+            OrderID: OrderID,
+            PatientID: PatientID,
+            DoctorID: DoctorID,
+            PharmacistID: PharmacistID,
+            OrderStartDate: OrderStartDate,
+            DispendStartDate: DispendStartDate,
+            Duration: Duration,
+            UsingStatus: UsingStatus,
+            DispendStatus: DispendStatus,
+            DrugNo: DrugNo,
+            GPName: GPName,
+            RXCUI: RXCUI,
+            Dosage: Dosage,
+            Frequency: Frequency,
+            Times: Times,
+            Quantity: Quantity,
+            Dispend: Dispend,
+            Description: Description
+          })
+
+          new_DrugHistory.save(function (error) {
+            if (error) {
+              console.log(error)
+            }
+            res.status(200).send({
+              success: true,
+              message: 'Post saved successfully!'
+            })
+          })
+        }
+        else {
+          res.status(404).send({
+            success: false,
+            message: "Doesn't have relation between account"
+          })
+        }
+      })
+      .catch(err => {
+        console.log(err);
+        res.status(500).json({ error: err });
+      });
+  }
+
+  getData()
+})
+
+
+// Update DrugHistory -> Drug Dispensing Page **Pharmacist Feature**
+app.put("/update/DrugHistory/:OrderID/:DrugNo", (req, res, next) => {
+  console.log("POST Method")
+  var OrderID = req.params.OrderID
+  var DrugNo = req.params.DrugNo
+  DrugHistory.findOne({
+    "OrderID": OrderID,
+    "DrugNo": DrugNo
+  }, function (err, foundObject) {
+    if (err) {
+      console.log(err)
+      res.status(500).send()
+    } else {
+      if (!foundObject) {
+        res.status(404).send()
+      } else {
+        var Dispend = req.body.Dispend
+        if (Dispend) { foundObject.Dispend = Dispend }
+
+        if (foundObject.DispendStartDate == "") {
+          var DateTime = new Date()
+          var DispendStartDate = DateTime.toLocaleDateString()
+          foundObject.DispendStartDate = DispendStartDate
+        }
+
+        var total = (foundObject.Quantity * 1) - (Dispend * 1)      // Calculate Dispend Status 
+        if ((Dispend * 1) == 0) DispendStatus = 0     // Not dispend
+        else if (total >= 1) DispendStatus = 1   // In process
+        else if (total <= 0) DispendStatus = 2   // Already Done
+        foundObject.DispendStatus = DispendStatus
+        foundObject.UsingStatus = 1
+        foundObject.save(function (err, updateObject) {
+          if (err) {
+            console.log(err)
+            res.status(500).send();
+          } else {
+            res.send({
+              success: true,
+              message: 'Update successfully!'
+            })
+          }
+        })
+      }
+    }
+  })
+})
+
+// Delete DrugHistory By OrderID 
+app.delete('/remove/DrugHistory/:OrderID', (req, res) => {
+  var db = req.db;
+  var OrderID = req.params.OrderID
+
+  DrugHistory.findOneAndRemove({
+    "OrderID": OrderID
+  }, function (err, post) {
+    if (err)
+      res.send(err)
+    res.send({
+      success: true
+    })
+  })
+})
+
+// Delete DrugHistory By OrderID and DrugNo // delete each drug
+app.delete('/remove/DrugHistory/:OrderID/:DrugNo', (req, res) => {
+  var db = req.db;
+  var OrderID = req.params.OrderID
+  var DrugNo = req.params.DrugNo
+
+  DrugHistory.findOneAndRemove({ "OrderID": OrderID, "DrugNo": DrugNo }, function (err, post) {
+    if (err)
+      res.send(err)
+    res.send({
+      success: true
+    })
   })
 })
