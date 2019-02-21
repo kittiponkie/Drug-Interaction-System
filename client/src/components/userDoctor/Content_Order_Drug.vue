@@ -1,559 +1,501 @@
 <template>
-  
-    <!-- Add Drug Button 
-    <button
-      type="button"
-      class="btn btn-primary"
-      data-toggle="modal"
-      data-target="#ordermodal"
-      style="float:right; padding-right: 10px; margin-left:15px;"
-    >Add Drug To list</button>
-    <br>-->
-    <!-- table 
-  <md-table v-model="searched" style="padding-left: 0px;margin-left: 0px;" md-sort="name" md-sort-order="asc" md-card >
-      <md-table-toolbar >
-        <div class="md-toolbar-section-start">
-          <h1 class="md-title">List Of Drug</h1>
-        </div>
-      </md-table-toolbar>
-      <md-table-row slot="md-table-row" slot-scope="{ item }">
-        <md-table-cell md-label="Drug ID" md-sort-by="id" md-numeric>{{ item.id }}</md-table-cell>
-        <md-table-cell md-label="Drug Name" md-sort-by="name">{{ item.name }}</md-table-cell>
-        <md-table-cell md-label="duration" md-sort-by="email">{{ item.email }}</md-table-cell>
-        <md-table-cell md-label="Date" md-sort-by="gender">{{ item.gender }}</md-table-cell>
-       <md-table-cell>
-       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#basicExampleModal" style="float:right; padding-right: 10px;">See data</button>
-      </md-table-cell>
-      <md-table-cell>
-          <button type="button" class="btn" style="border-top-width: 0px;">See data</button>
-          <button type="button" class="close" aria-label="Close" data-dismiss="modal" data-toggle="modal" data-target="#myModalclose" style="border-top-width: 0px,font:10px;">
-            <span aria-hidden="true">&times;</span>
-          </button>
-      </md-table-cell>
-      </md-table-row>
-    </md-table>-->
+  <div>
+    <!--header-->
+    <md-card>
+      <md-card-header>
+        <md-card-header-text>
+          <h4 style="text-align:left;">Patient Name :
+            <span style="float:right;margin-right: 150px;">Doctor Name :</span>
+          </h4>
+        </md-card-header-text>
+      </md-card-header>
+    </md-card>
+    <!--end header-->
 
-<div class="container" style="padding-right: 0px;">
- <!--header ต้องมีpadding-right: 0px;ในclass="container"ทั้งสองอัน 
-<md-app-drawer md-permanent="card" style="width=1000px;" class="menu_color">
-    <div class="container" style="padding-left: 0px;">
-       <md-toolbar class="md-transparent" md-elevation="0" style="margin-top: 5px;padding-right: 20px;">
-        <h4 style="text-align:left;">Patient Name : 
-        <span style="float:right;margin-right: 150px;">Doctor Name :</span>
-        </h4>
-          </md-toolbar>
-    </div>
-</md-app-drawer>-->
-       <!--end header-->
+    <!--list drug order-->
+    <div style="margin-bottom:20px;">
+      <md-table v-model="searched" md-sort="GPName" md-sort-order="asc" md-card md-fixed-header>
 
-       <!--header-->
-        <md-card  style="padding-left: 0px;" >
-              <md-card-header>
-                <md-card-header-text>
-                  <h4 style="text-align:left;">Patient Name : 
-                <span style="float:right;margin-right: 150px;">Doctor Name :</span>
-                </h4>
-                </md-card-header-text>
-              </md-card-header>
-        </md-card>
-        <!--end header-->
-
-
-      <div class="table-wrapper" style="margin-left: 15px;">
-        <div class="table-title" style="padding-top: 25px;">
-          <div class="row">
-            <div class="col-sm-6">
-              <br>
-              <h2>Ordering Drug</h2>
-            </div>
-            <div class="col-sm-6">
-               <a href="#basicExampleModal" class="btn btn-success" data-toggle="modal">
-                <i class="material-icons">&#xE15C;</i>
-                <span>Confirm</span>
-              </a>
-              <a href="#adddrugtolist" class="btn btn-default" data-toggle="modal">
-                <i class="material-icons">&#xE147;</i>
-                <span>Add drug to list</span>
-              </a>
-              <a href="#deleteEmployeeModal" class="btn btn-default" data-toggle="modal">
-                <i class="material-icons">list</i>
-                <span>Drug History</span>
-              </a>
-             
-            </div>
+        <!--header of list-->
+        <md-table-toolbar>
+          <div class="md-toolbar-section-start">
+            <h1 class="md-title">Ordering Drug</h1>
           </div>
-        </div>
-        <table class="table table-striped table-hover">
-          <thead>
-            <tr>
-              <th>
-                <span class="custom-checkbox">
-                  <input type="checkbox" id="selectAll">
-                  <label for="selectAll"></label>
-                </span>
-              </th>
-              <th>Order No.</th>
-              <th>Drug Name</th>
-              <th>Duration(days)</th>
-              <th>Doctor Name</th>
-              <th>Ward</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
-                <span class="custom-checkbox">
-                  <input type="checkbox" id="checkbox1" name="options[]" value="1">
-                  <label for="checkbox1"></label>
-                </span>
-              </td>
-              <td>N0001</td>
-              <td>Tramadol</td>
-              <td>14</td>
-              <td>kittipon kie</td>
-              <td>อายุรกรรม(MEDICINE)</td>
-              <td>
-                <a href="#editdrugModal" class="edit" data-toggle="modal">
-                  <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
-                </a>
-                <a href="#deleteEmployeeModal" class="delete" data-toggle="modal">
-                  <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
-                </a>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+          <md-field md-clearable class="md-toolbar-section-end" style="margin-left:5px;margin-right:5px;">
+            <md-input placeholder="Search by Drug Name..." v-model="search" @input="searchOnTable" />
+          </md-field>
+
+          <!--add drug to list button-->
+          <div style="margin-left:5px;margin-right:5px;">
+            <md-dialog :md-active.sync="active">
+              <md-card class="md-layout-item">
+                <md-card-header>
+                  <div class="md-title">Ordering Drug</div>
+                </md-card-header>
+                <md-card-content style="padding-bottom:0px;">
+
+                  <form novalidate @submit.prevent="addDrugToList">
+                    <label>GPName</label>
+                    <md-field>
+                      <md-input v-model="newDrugs.GPName" placeholder="Enter Text"></md-input>
+                    </md-field>
+
+                    <div class="md-layout">
+                      <div class="md-layout-item" style="margin-right:5px">
+                        <label>Dosage</label>
+                        <md-field>
+                          <md-input v-model="newDrugs.Dosage.dose" type="number" placeholder="Enter Number"></md-input>
+                        </md-field>
+                      </div>
+                      <div class="md-layout-item" style="margin-left:5px">
+                        <label>Unit</label>
+                        <md-field>
+
+                          <md-select v-model="newDrugs.Dosage.unit" placeholder="Select Unit">
+                            <md-option value="ml">ML(มิลลิลิตร)</md-option>
+                            <md-option value="tab">Tab(เม็ด)</md-option>
+                            <md-option value="amp">Amp(หลอด)</md-option>
+                            <md-option value="cc">CC(ซีซี)</md-option>
+                            <md-option value="drop">Drop(หยด)</md-option>
+                            <md-option value="other">Other(อื่นๆ)</md-option>
+                          </md-select>
+                        </md-field>
+                      </div>
+                    </div>
+
+                    <label>Quantity(ปริมาณยาทั้งหมด)</label>
+                    <md-field>
+                      <md-input v-model="newDrugs.Quantity" type="number" placeholder="Enter Number"></md-input>
+                    </md-field>
+
+                    <label>Duration(ระยะเวลาที่บริโภคยา)</label>
+                    <div class="md-layout">
+                      <div class="md-layout-item" style="margin-right:5px">
+                        <md-field>
+                          <label>ปี</label>
+                          <md-input v-model="newDrugs.Duration.year" type="number"></md-input>
+                        </md-field>
+                      </div>
+                      <div class="md-layout-item" style="margin-right:5px">
+                        <md-field>
+                          <label>เดือน</label>
+                          <md-input v-model="newDrugs.Duration.month" type="number"></md-input>
+                        </md-field>
+                      </div>
+                      <div class="md-layout-item" style="margin-right:5px">
+                        <md-field>
+                          <label>วัน</label>
+                          <md-input v-model="newDrugs.Duration.day" type="number"></md-input>
+                        </md-field>
+                      </div>
+                    </div>
+                    <!--md-field>
+                      <label>Date</label>
+                      <md-input v-model="newDrugs.Dosage"></md-input>
+                    </md-field-->
+                    <label>Frequency</label>
+                    <div class="md-layout">
+                      <md-checkbox v-model="newDrugs.Frequency.mor" value="true">เช้า</md-checkbox>
+                      <md-checkbox v-model="newDrugs.Frequency.aft" value="true">กลางวัน</md-checkbox>
+                      <md-checkbox v-model="newDrugs.Frequency.eve" value="true">เย็น</md-checkbox>
+                      <md-checkbox v-model="newDrugs.Frequency.bed" value="true">ก่อนนอน</md-checkbox>
+                      <md-checkbox v-model="newDrugs.Frequency.symptoms" value="true">ทานตามอาการ</md-checkbox>
+                    </div>
+                    <div class="md-layout">
+                      <md-checkbox v-model="newDrugs.Frequency.before" value="true">ก่อนอาหาร</md-checkbox>
+                      <md-checkbox v-model="newDrugs.Frequency.after" value="true">หลังอาหาร</md-checkbox>
+                    </div>
+
+                    <label>Description</label>
+                    <md-field>
+
+                      <md-textarea v-model="newDrugs.Description" placeholder="Enter Text"></md-textarea>
+                    </md-field>
+
+                    <md-card-actions style="padding:0px;padding-bottom:8px;">
+                      <!--md-button type="submit" class="md-primary" :disabled="sending">Create user</md-button-->
+                      <md-button class="md-primary" @click="active = false">Close</md-button>
+                      <md-button type="submit" class="md-primary" @click="active = false">Save</md-button>
+                    </md-card-actions>
+                  </form>
+                </md-card-content>
+              </md-card>
+
+
+
+            </md-dialog>
+            <md-button class="md-primary md-raised" @click="addDrugToListBtn">
+              <!--i class="material-icons">&#xE147;</i-->
+              Add drug to list
+            </md-button>
+          </div>
+          <!--confirm button-->
+          <div style="margin-left:5px;margin-right:5px;">
+            <md-dialog :md-active.sync="showDialog">
+              <md-dialog-title>Preferences</md-dialog-title>
+              <md-tabs md-dynamic-height>
+                <md-tab md-label="General">
+                  <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam mollitia dolorum dolores quae
+                    commodi impedit possimus qui, atque at voluptates cupiditate. Neque quae culpa suscipit praesentium
+                    inventore ducimus ipsa aut.</p>
+                </md-tab>
+
+                <md-tab md-label="Activity">
+                  <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam mollitia dolorum dolores quae
+                    commodi impedit possimus qui, atque at voluptates cupiditate. Neque quae culpa suscipit praesentium
+                    inventore ducimus ipsa aut.</p>
+                </md-tab>
+
+                <md-tab md-label="Account">
+                  <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam mollitia dolorum dolores quae
+                    commodi impedit possimus qui, atque at voluptates cupiditate. Neque quae culpa suscipit praesentium
+                    inventore ducimus ipsa aut.</p>
+                </md-tab>
+              </md-tabs>
+              <md-dialog-actions>
+                <md-button class="md-primary" @click="showDialog = false">Close</md-button>
+                <md-button class="md-primary" @click="showDialog = false">Save</md-button>
+              </md-dialog-actions>
+            </md-dialog>
+            <!--md-button class="md-accent md-raised" @click="showDialog = true">Confirm</md-button-->
+            <md-button class="md-primary md-raised" @click="showDialog = true">Confirm</md-button>
+          </div>
+          <!--show drug history button-->
+          <div style="margin-left:5px;margin-right:5px;">
+            <md-dialog-alert :md-active.sync="first" md-content="Your post has been deleted!" md-confirm-text="Cool!" />
+            <md-button class="md-primary md-raised" @click="first = true">Drug History</md-button>
+          </div>
+        </md-table-toolbar>
+
+        <!--show when search not found-->
+        <md-table-empty-state md-label="No drugs found" :md-description="`No Drug found for this '${search}' query. Try a different search term or create a new drug.`">
+          <md-button class="md-primary md-raised" @click="newDrug">Add New Drug</md-button>
+        </md-table-empty-state>
+
+        <!--list-->
+        <md-table-row slot="md-table-row" slot-scope="{ item }">
+          <md-table-cell md-label="Order No." md-sort-by="DrugNo" md-numeric>{{ item.DrugNo }}</md-table-cell>
+          <md-table-cell md-label="Drug Name" md-sort-by="GPName" md-numeric>{{ item.GPName }}</md-table-cell>
+          <md-table-cell md-label="Duration(days)" md-sort-by="Duration" md-numeric>{{ item.Duration.year }} ปี {{
+            item.Duration.month }} เดือน {{ item.Duration.day }} วัน</md-table-cell>
+          <md-table-cell md-label="Doctor Name" md-sort-by="doctorName" md-numeric>{{ item.doctorName }}</md-table-cell>
+          <md-table-cell md-label="Ward" md-sort-by="ward" md-numeric>{{ item.ward }}</md-table-cell>
+          <md-table-cell md-label="Actions" md-numeric>
+            <md-button class="md-icon-button" @click="editDrug(item)">
+              <md-icon style="color:#ffc107;">&#xE254;</md-icon>
+            </md-button>
+            <md-button class="md-icon-button" @click="deleteOnTable(item)">
+              <md-icon style="color:#f44336;">&#xE872;</md-icon>
+            </md-button>
+          </md-table-cell>
+        </md-table-row>
+      </md-table>
     </div>
-  
+  </div>
 </template>
 
-
-
 <script>
-/* data mockup */
-import axios from "axios";
-export default {
-  name: "Drug_Interaction",
-  data: () => ({
-    search: null,
-    searched: [],
-    users: [
-      {
-        id: "D001",
-        name: "Acetaminophen",
-        email: "Shawna Dubbins",
-        gender: "Using",
-        title: "-"
-      },
-      {
-        id: "D002",
-        name: "Omeprazole",
-        email: "Odette Demageard",
-        gender: "Using",
-        title: "-"
-      },
-      {
-        id: "D003",
-        name: "Tramadol",
-        email: "Vera Taleworth",
-        gender: "Using",
-        title: "Community Outreach Specialist"
-      },
-      {
-        id: "D004",
-        name: "Tramadol",
-        email: "Lonnie Izkovitz",
-        gender: "Stopped using",
-        title: "Operator"
-      },
-      {
-        id: "D005",
-        name: "Acetaminophen",
-        email: "Thatcher Stave",
-        gender: "Stopped using",
-        title: "-"
-      }
-    ]
-  }),
-  methods: {
-    searchOnTable() {
-      this.searched = searchByName(this.users, this.search);
-    }
-  },
-  created() {
-    this.searched = this.users;
+  const toLower = text => {
+    return text.toString().toLowerCase()
   }
-};
-$(document).ready(function() {
-  // Activate tooltip
-  $('[data-toggle="tooltip"]').tooltip();
+  const searchByName = (items, term) => {
+    if (term) {
+      return items.filter(item => toLower(item.GPName).includes(toLower(term)))
+    }
+    return items
+  }
 
-  // Select/Deselect checkboxes
-  var checkbox = $('table tbody input[type="checkbox"]');
-  $("#selectAll").click(function() {
-    if (this.checked) {
-      checkbox.each(function() {
-        this.checked = true;
-      });
-    } else {
-      checkbox.each(function() {
-        this.checked = false;
-      });
+  import axios from "axios";
+  export default {
+    name: "Drug_Interaction",
+    data: () => ({
+      //search in table
+      search: null,
+      searched: [],
+      drugs: [],
+      /*[{
+          //in db        
+          OrderID: null,
+          PatientID: null,
+          DoctorID: null,
+          PharmacistID: "not dispense",
+          OrderStartDate: null,
+          DispendStartDate: "not dispense",
+          DrugNo: "1",
+          Duration: {
+            year: "0",
+            month: "0",
+            day: "100"
+          },
+          UsingStatus: null,
+          DispendStatus: null,
+          GPName: "Tramadol",
+          RXCUI: null,
+          Dosage: {
+            dose: null,
+            unit: null
+          },
+          Frequency: {
+            mor: "false",
+            aft: "false",
+            eve: "false",
+            bed: "false",
+            before: "false",
+            after: "false",
+            symptoms: "false"
+          },
+          Times: null,
+          Quantity: null,
+          Dispend: "not dispense",
+          Description: null,
+          // not in db
+          doctorName: "George",
+          ward: "อายุรกรรม(MEDICINE)"
+        },
+        {
+          //in db        
+          OrderID: null,
+          PatientID: null,
+          DoctorID: null,
+          PharmacistID: "not dispense",
+          OrderStartDate: null,
+          DispendStartDate: "not dispense",
+          DrugNo: "2",
+          Duration: {
+            year: "1",
+            month: "2",
+            day: "100"
+          },
+          UsingStatus: null,
+          DispendStatus: null,
+          GPName: "Paracetamol",
+          RXCUI: null,
+          Dosage: {
+            dose: null,
+            unit: null
+          },
+          Frequency: {
+            mor: "false",
+            aft: "false",
+            eve: "false",
+            bed: "false",
+            before: "false",
+            after: "false",
+            symptoms: "false"
+          },
+          Times: null,
+          Quantity: null,
+          Dispend: "not dispense",
+          Description: null,
+          // not in db
+          doctorName: "Alice",
+          ward: "อายุ(MEDICINE)"
+        }
+      ],*/
+      //edit in table
+      checkEdit: false,
+      itemEdit: null,
+      //add drug to list 
+      active: false,
+      newDrugs: {
+        //in db        
+        OrderID: null,
+        PatientID: null,
+        DoctorID: null,
+        PharmacistID: "not dispense",
+        OrderStartDate: null,
+        DispendStartDate: "not dispense",
+        DrugNo: null,
+        Duration: {
+          year: "0",
+          month: "0",
+          day: "0"
+        },
+        UsingStatus: null,
+        DispendStatus: null,
+        GPName: null,
+        RXCUI: null,
+        Dosage: {
+          dose: null,
+          unit: null
+        },
+        Frequency: {
+          mor: "false",
+          aft: "false",
+          eve: "false",
+          bed: "false",
+          before: "false",
+          after: "false",
+          symptoms: "false"
+        },
+        Times: null,
+        Quantity: null,
+        Dispend: "not dispense",
+        Description: null,
+        // not in db
+        doctorName: "not found",
+        ward: "not found"
+      },
+      //confirm
+      showDialog: false,
+      //drug history
+      first: false,
+    }),
+    methods: {
+      //add drug to list
+      addDrugToListBtn() {
+        this.active = true
+      },
+      addDrugToList() {
+        var x = {
+          OrderID: this.newDrugs.OrderID,
+          PatientID: this.newDrugs.PatientID,
+          DoctorID: this.newDrugs.DoctorID,
+          PharmacistID: this.newDrugs.PharmacistID,
+          OrderStartDate: this.newDrugs.OrderStartDate,
+          DispendStartDate: this.newDrugs.DispendStartDate,
+          DrugNo: this.newDrugs.DrugNo,
+          Duration: {
+            year: this.newDrugs.Duration.year,
+            month: this.newDrugs.Duration.month,
+            day: this.newDrugs.Duration.day
+          },
+          UsingStatus: this.newDrugs.UsingStatus,
+          DispendStatus: this.newDrugs.DispendStatus,
+          GPName: this.newDrugs.GPName,
+          RXCUI: this.newDrugs.RXCUI,
+          Dosage: {
+            dose: this.newDrugs.Dosage.dose,
+            unit: this.newDrugs.Dosage.unit
+          },
+          Frequency: {
+            mor: this.newDrugs.Frequency.mor,
+            aft: this.newDrugs.Frequency.aft,
+            eve: this.newDrugs.Frequency.eve,
+            bed: this.newDrugs.Frequency.bed,
+            before: this.newDrugs.Frequency.before,
+            after: this.newDrugs.Frequency.after,
+            symptoms: this.newDrugs.Frequency.symptoms
+          },
+          Times: this.newDrugs.Times,
+          Quantity: this.newDrugs.Quantity,
+          Dispend: this.newDrugs.Dispend,
+          Description: this.newDrugs.Description,
+          doctorName: this.newDrugs.doctorName,
+          ward: this.newDrugs.ward
+        }
+        if (this.checkEdit) {
+          console.log()
+          this.drugs[this.itemEdit.DrugNo - 1] = x
+          this.checkEdit = false
+        } else {
+          console.log("add drug success")
+          x.DrugNo = (this.drugs.length + 1).toString()
+          console.log(this.newDrugs)
+          this.drugs.push(x)
+        }
+        //OrderID: null,
+        //PatientID: null,
+        //DoctorID: null,
+        //PharmacistID: "not dispense",
+        //OrderStartDate: null,
+        //DispendStartDate: "not dispense",
+        this.newDrugs.DrugNo = null
+        this.newDrugs.Duration.year = "0"
+        this.newDrugs.Duration.month = "0"
+        this.newDrugs.Duration.day = "0"
+        //UsingStatus: null,
+        //DispendStatus: null,
+        this.newDrugs.GPName = null
+        this.newDrugs.RXCUI = null
+        this.newDrugs.Dosage.dose = null
+        this.newDrugs.Dosage.unit = null
+        this.newDrugs.Frequency.mor = "false"
+        this.newDrugs.Frequency.aft = "false"
+        this.newDrugs.Frequency.eve = "false"
+        this.newDrugs.Frequency.bed = "false"
+        this.newDrugs.Frequency.before = "false"
+        this.newDrugs.Frequency.after = "false"
+        this.newDrugs.Frequency.symptoms = "false"
+        //Times: null,
+        this.newDrugs.Quantity = null
+        //Dispend: "not dispense",
+        this.newDrugs.Description = null
+        //doctorName: "not found",
+        //ward: "not found"
+      },
+      //table
+      newDrug() {
+        this.active = true
+      },
+      searchOnTable() {
+        this.searched = searchByName(this.drugs, this.search)
+      },
+      deleteOnTable(item) {
+        console.log(item.DrugNo)
+        if (item.DrugNo < this.drugs.length) {
+          console.log("less than")
+          for (var i = item.DrugNo; i < this.drugs.length; i++) {
+            console.log(i)
+            this.drugs[i].DrugNo = i
+          }
+          console.log(this.drugs)
+        }
+        this.drugs.splice(item.DrugNo - 1, 1)
+      },
+      //table edit
+      editDrug(item) {
+        var x = {
+          OrderID: item.OrderID,
+          PatientID: item.PatientID,
+          DoctorID: item.DoctorID,
+          PharmacistID: item.PharmacistID,
+          OrderStartDate: item.OrderStartDate,
+          DispendStartDate: item.DispendStartDate,
+          DrugNo: item.DrugNo,
+          Duration: {
+            year: item.Duration.year,
+            month: item.Duration.month,
+            day: item.Duration.day
+          },
+          UsingStatus: item.UsingStatus,
+          DispendStatus: item.DispendStatus,
+          GPName: item.GPName,
+          RXCUI: item.RXCUI,
+          Dosage: {
+            dose: item.Dosage.dose,
+            unit: item.Dosage.unit
+          },
+          Frequency: {
+            mor: item.Frequency.mor,
+            aft: item.Frequency.aft,
+            eve: item.Frequency.eve,
+            bed: item.Frequency.bed,
+            before: item.Frequency.before,
+            after: item.Frequency.after,
+            symptoms: item.Frequency.symptoms
+          },
+          Times: item.Times,
+          Quantity: item.Quantity,
+          Dispend: item.Dispend,
+          Description: item.Description,
+          doctorName: item.doctorName,
+          ward: item.ward
+        }
+        this.newDrugs = x
+        this.active = true
+        this.checkEdit = true
+        this.itemEdit = item
+      }
+    },
+    //table add drug
+    created() {
+      this.searched = this.drugs
     }
-  });
-  checkbox.click(function() {
-    if (!this.checked) {
-      $("#selectAll").prop("checked", false);
-    }
-  });
-});
+  }
+
 </script>
 
 <style lang="css" scoped>
 
-
-.md-app {
-  height: calc(100vh);
-  border: 1px solid rgba(#000, 0.12);
-}
-
-.md-drawer {
-  width: 230px;
-  max-width: calc(100vw - 125px);
-}
-
-.span_center {
-  text-align: center;
-  width: 100%;
-  font-size: 14px;
-}
-
-.text_all {
-  font-size: 14px;
-}
-
-.md-field {
-  max-width: calc(100% - 110px);
-  overflow: auto;
-}
-
-.textSearch {
-  float: left;
-}
-
-.buttonSearch {
-  margin-top: 16px;
-}
-
-.md-input {
-  max-width: calc(100%);
-}
-
-.menu_color {
-  background-color: #f1f1f1;
-}
-
-.delete_margin {
-  width: 100%;
-  background-color: #f1f1f1;
-}
-
-.selected {
-  background-color: #5dbfa8;
-  margin: 2px;
-}
-
-.unselected {
-  background-color: #f1f1f1;
-  margin: 2px;
-}
-
-.selected_text {
-  color: black;
-}
-
-.unselected_text {
-  color: black;
-}
-
-.md-content md-app-content md-flex text_all md-theme-default {
-  padding-top: 23px;
-}
-
-input {
-  border: 1px solid transparent;
-  background-color: #f1f1f1;
-  padding: 10px;
-  font-size: 16px;
-}
-
-input[type="text"] {
-  background-color: #f1f1f1;
-  width: 100%;
-}
-
-input[type="submit"] {
-  background-color: DodgerBlue;
-  color: #fff;
-}
-
-.autocomplete-items {
-  position: absolute;
-  border: 1px solid #d4d4d4;
-  border-bottom: none;
-  border-top: none;
-  z-index: 99;
-  /*position the autocomplete items to be the same width as the container:*/
-  top: 100%;
-  left: 0;
-  right: 0;
-}
-
-.autocomplete-items div {
-  padding: 10px;
-  cursor: pointer;
-  background-color: #fff;
-  border-bottom: 1px solid #d4d4d4;
-}
-
-.autocomplete-items div:hover {
-  /*when hovering an item:*/
-  background-color: #e9e9e9;
-}
-
-.autocomplete-active {
-  /*when navigating through the items using the arrow keys:*/
-  background-color: DodgerBlue !important;
-  color: #ffffff;
-}
-
-/*popup*/
-</style>
-<style type="text/css">
-body {
-  color: #566787;
-  background: white;
-  font-family: "Varela Round", sans-serif;
-  font-size: 13px;
-  padding-right: 0px;
-}
-.table-wrapper {
-  background: #f5f5f5;
-  padding: 20px 25px;
-  margin: 30px 0;
-  border-radius: 3px;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
-}
-.table-title {
-  padding-bottom: 15px;
-  background: #f1f1f1;
-  color: black;
-  padding: 16px 30px;
-  margin: -20px -25px 10px;
-  border-radius: 3px 3px 0 0;
-}
-.table-title h2 {
-  margin: 5px 0 0;
-  font-size: 24px;
-}
-.table-title .btn-group {
-  float: right;
-}
-.table-title .btn {
-  color: #fff;
-  float: right;
-  font-size: 13px;
-  border: none;
-  min-width: 50px;
-  border-radius: 2px;
-  border: none;
-  outline: none !important;
-  margin-left: 10px;
-}
-.table-title .btn i {
-  float: left;
-  font-size: 21px;
-  margin-right: 5px;
-}
-.table-title .btn span {
-  float: left;
-  margin-top: 2px;
-}
-table.table tr th,
-table.table tr td {
-  border-color: #e9e9e9;
-  padding: 12px 15px;
-  vertical-align: middle;
-}
-table.table tr th:first-child {
-  width: 60px;
-}
-table.table tr th:last-child {
-  width: 100px;
-}
-table.table-striped tbody tr:nth-of-type(odd) {
-  background-color: #fcfcfc;
-}
-table.table-striped.table-hover tbody tr:hover {
-  background: #f5f5f5;
-}
-table.table th i {
-  font-size: 13px;
-  margin: 0 5px;
-  cursor: pointer;
-}
-table.table td:last-child i {
-  opacity: 0.9;
-  font-size: 22px;
-  margin: 0 5px;
-}
-table.table td a {
-  font-weight: bold;
-  color: #566787;
-  display: inline-block;
-  text-decoration: none;
-  outline: none !important;
-}
-table.table td a:hover {
-  color: #2196f3;
-}
-table.table td a.edit {
-  color: #ffc107;
-}
-table.table td a.delete {
-  color: #f44336;
-}
-table.table td i {
-  font-size: 19px;
-}
-table.table .avatar {
-  border-radius: 50%;
-  vertical-align: middle;
-  margin-right: 10px;
-}
-.pagination {
-  float: right;
-  margin: 0 0 5px;
-}
-.pagination li a {
-  border: none;
-  font-size: 13px;
-  min-width: 30px;
-  min-height: 30px;
-  color: #999;
-  margin: 0 2px;
-  line-height: 30px;
-  border-radius: 2px !important;
-  text-align: center;
-  padding: 0 6px;
-}
-.pagination li a:hover {
-  color: #666;
-}
-.pagination li.active a,
-.pagination li.active a.page-link {
-  background: #03a9f4;
-}
-.pagination li.active a:hover {
-  background: #0397d6;
-}
-.pagination li.disabled i {
-  color: #ccc;
-}
-.pagination li i {
-  font-size: 16px;
-  padding-top: 6px;
-}
-.hint-text {
-  float: left;
-  margin-top: 10px;
-  font-size: 13px;
-}
-/* Custom checkbox */
-.custom-checkbox {
-  position: relative;
-}
-.custom-checkbox input[type="checkbox"] {
-  opacity: 0;
-  position: absolute;
-  margin: 5px 0 0 3px;
-  z-index: 9;
-}
-.custom-checkbox label:before {
-  width: 18px;
-  height: 18px;
-}
-.custom-checkbox label:before {
-  content: "";
-  margin-right: 10px;
-  display: inline-block;
-  vertical-align: text-top;
-  background: white;
-  border: 1px solid #bbb;
-  border-radius: 2px;
-  box-sizing: border-box;
-  z-index: 2;
-}
-.custom-checkbox input[type="checkbox"]:checked + label:after {
-  content: "";
-  position: absolute;
-  left: 6px;
-  top: 3px;
-  width: 6px;
-  height: 11px;
-  border: solid #000;
-  border-width: 0 3px 3px 0;
-  transform: inherit;
-  z-index: 3;
-  transform: rotateZ(45deg);
-}
-.custom-checkbox input[type="checkbox"]:checked + label:before {
-  border-color: #03a9f4;
-  background: #03a9f4;
-}
-.custom-checkbox input[type="checkbox"]:checked + label:after {
-  border-color: #fff;
-}
-.custom-checkbox input[type="checkbox"]:disabled + label:before {
-  color: #b8b8b8;
-  cursor: auto;
-  box-shadow: none;
-  background: #ddd;
-}
-/* Modal styles */
-.modal .modal-dialog {
-  max-width: 600px;
-}
-.modal .modal-header,
-.modal .modal-body,
-.modal .modal-footer {
-  padding: 20px 30px;
-}
-.modal .modal-content {
-  border-radius: 3px;
-}
-.modal .modal-footer {
-  background: #ecf0f1;
-  border-radius: 0 0 3px 3px;
-}
-.modal .modal-title {
-  display: inline-block;
-}
-.modal .form-control {
-  border-radius: 2px;
-  box-shadow: none;
-  border-color: #dddddd;
-}
-.modal textarea.form-control {
-  resize: vertical;
-}
-.modal .btn {
-  border-radius: 2px;
-  min-width: 100px;
-}
-.modal form label {
-  font-weight: normal;
-}
 </style>

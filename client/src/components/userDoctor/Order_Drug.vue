@@ -12,11 +12,7 @@
         <md-toolbar class="md-transparent" md-elevation="0">
           <div class="md-toolbar-section-end">
             <span class="span_center">Menu</span>
-            <md-button
-              class="md-icon-button md-dense"
-              @click="toggleMenu"
-              v-if="!(Window_Width>600)"
-            >
+            <md-button class="md-icon-button md-dense" @click="toggleMenu" v-if="!(Window_Width>600)">
               <md-icon>keyboard_arrow_left</md-icon>
             </md-button>
           </div>
@@ -58,451 +54,113 @@
           </md-list-item>
         </md-list>
       </md-app-drawer>
-      <md-app-content style="width: 0px;">
-        <contentA/>
+      <md-app-content>
+        <contentA />
       </md-app-content>
     </md-app>
-    <!-- order modal -->
-    <div
-      class="modal fade"
-      id="ordermodal"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div
-            class="col-lg-12"
-            style="width: 100%;padding-left: 0px;padding-right: 0px;padding-bottom: 0px;"
-          >
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h3>Ordering Drug</h3>
-                <br>
-                <!-- Ordering Drug data -->
-                <form>
-                  <!--Drug Name-->
-                  <div class="row">
-                    <div class="col-sm-6 form-group">
-                      <label>Drug Name</label>
-                      <input type="text" placeholder="Enter Drug Name Here.." class="form-control">
-                    </div>
-                  </div>
-                  <!--Drug ID  คอมเม้นท์ไว้ก่อน ไม่แน่ใจเรื่องนำมาโชว์
-                <div class="row">
-                  <div class="col-sm-6 form-group">
-                    <label>Drug ID</label>
-                    <input type="text" placeholder="drug id show Here.." readonly class="form-control">
-                  </div>
-                  </div>-->
-                  <!--dose/times-->
-                  <div class="row">
-                    <div class="col-sm-6 form-group">
-                      <label>Dosage</label>
-                  <!--    <input type="text" placeholder="Enter dose Here.." class="form-control"> -->
-
-                    </div>
-                  </div>
-                  <!-- Quantity -->
-                  <div class="row">
-                    <div class="col-sm-6 form-group">
-                      <label>Quantity</label>
-                      <input type="text" placeholder="Quantity Here.." class="form-control">
-                    </div>
-                  </div>
-                  <!-- Date duration -->
-                  <div class="row">
-                    <div class="col-sm-6 form-group">
-                      <label>duration</label>
-                      <input type="text" placeholder="duration Here.." class="form-control">
-                    </div>
-                    <div class="row">
-                      <div class="col-sm-12 form-group">
-                        <label>Date</label>
-                        <input
-                          type="text"
-                          placeholder="Date show Here.."
-                          readonly
-                          class="form-control"
-                        >
-                      </div>
-                    </div>
-                  </div>
-                  <!-- Frequency 
-                <div class="row">
-                  <div class="col-sm-6 form-group">
-                    <label>Frequency</label>
-                    <input type="text" placeholder="Frequency Here..(times/day)" class="form-control">
-                  </div>
-                  <div class="col-sm-6">
-                    <label>Times</label>
-                    <select id="inputState" class="form-control">
-                      <option selected="">ก่อนอาหาร-ตอนเช้า</option>
-                      <option>ก่อนอาหาร-ตอนกลางวัน</option>
-                      <option>ก่อนอาหาร-ตอนเย็น</option>
-                      <option>หลังอาหาร-ตอนเช้า</option>
-                      <option>หลังอาหาร-ตอนกลางวัน</option>
-                      <option>หลังอาหาร-ตอนเย็น</option>
-                      <option>หลังอาหาร-ตอนเย็น</option>
-                      <option>เมื่อมีอาการ</option>
-                    </select>
-                  </div>
-                  </div>-->
-                  <div id="checkbox">
-                    <label>Frequency</label>
-                    <input type="checkbox" id="bfeat" value="bfeat" v-model="checkedNames">
-                    <label for="jack">ก่อนอาหาร</label>
-                    <input type="checkbox" id="afeat" value="afeat" v-model="checkedNames">
-                    <label for="john">หลังอาหาร</label>
-                    <input type="checkbox" id="morning" value="morning" v-model="checkedNames">
-                    <label for="mike">เช้า</label>
-                    <input type="checkbox" id="morning" value="morning" v-model="checkedNames">
-                    <label for="mike">กลางวัน</label>
-                    <input type="checkbox" id="morning" value="morning" v-model="checkedNames">
-                    <label for="mike">เย็น</label>
-                    <input type="checkbox" id="morning" value="morning" v-model="checkedNames">
-                    <label for="mike">ก่อนนอน</label>
-                  </div>
-                  <!-- descroption. -->
-                  <div class="row">
-                    <div class="col-sm-12 form-group">
-                      <label>Description</label>
-                      <input type="text" placeholder="Description Here.." class="form-control">
-                    </div>
-                  </div>
-                  <!-- confirm button -->
-                  <br>
-                  <div class="row">
-                    <div class="col-sm-5">
-                      <!-- click Add Drug -> show data in table -->
-                      <button
-                        type="button"
-                        class="btn btn-success"
-                        data-dismiss="modal"
-                        style="border-top-width: 0px;"
-                      >Add Drug</button>
-                      <button
-                        type="button"
-                        class="btn btn-danger"
-                        data-dismiss="modal"
-                        style="border-top-width: 0px;"
-                      >Cancle</button>
-                    </div>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- end order modal -->
-    
-    <!--new modal -->
-    <!-- Edit Modal HTML -->
-    <div id="adddrugtolist" class="modal fade">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <form>
-            <div class="modal-header">
-              <h4 class="modal-title">Add drug</h4>
-              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            </div>
-            <div class="modal-body">
-               <div class="form-group">
-                <button
-                        type="button"
-                        class="btn btn-primary"
-                        data-toggle="modal"
-                        data-target="#onemodal"
-                        data-dismiss="modal"
-                        style="border-top-width: 0px;"
-                      >Show Drug History</button>
-              </div>
-              <div class="form-group">
-                <label>Drug Name</label>
-                <input type="text" class="form-control" required>
-              </div>
-                <div class="form-group" >
-                  <div class="col-sm-7 "  style="padding-left: 0px;">
-                  <label>Dosage</label>
-                  <input type="text" class="form-control" required>
-                  </div>
-
-                  <div class="col-sm-5 ">
-                  <label>Unit</label>
-                  <input  class="form-control" type="text" placeholder="Readonly  here…" readonly>
-                  </div>
-                </div>
-              <div class="form-group">
-                <label>Quantity</label>
-                <input type="text" class="form-control" required>
-              </div>
-              <div class="form-group">
-                <label>duration</label>
-                <input type="text" class="form-control" required>
-              </div>
-              <div class="form-group">
-                <label>Date</label>
-                <input type="text" class="form-control" required>
-              </div>
-              <div id="checkbox">
-                <label>Frequency</label>
-                <input type="checkbox" id="bfeat" value="bfeat" v-model="checkedNames">
-                <label for="jack">ก่อนอาหาร</label>
-                <input type="checkbox" id="afeat" value="afeat" v-model="checkedNames">
-                <label for="john">หลังอาหาร</label>
-                <input type="checkbox" id="morning" value="morning" v-model="checkedNames">
-                <label for="mike">เช้า</label>
-                <input type="checkbox" id="morning" value="morning" v-model="checkedNames">
-                <label for="mike">กลางวัน</label>
-                <input type="checkbox" id="morning" value="morning" v-model="checkedNames">
-                <label for="mike">เย็น</label>
-                <input type="checkbox" id="morning" value="morning" v-model="checkedNames">
-                <label for="mike">ก่อนนอน</label>
-              </div>
-            </div>
-            <!-- descroption. -->
-            <div class="form-group">
-              <div class="col-sm-12 form-group">
-                <label>Description</label>
-                <textarea type="text" placeholder="Description Here.." class="form-control"></textarea>
-              </div>
-            </div>
-            <div class="modal-footer">
-              <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-              <input type="submit" class="btn btn-success" value="Add">
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-    <!-- Modal -->
-    <div
-      class="modal"
-      id="onemodal"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Drug History</h5>
-            <br>
-            <button type="button" class="close" data-toggle="modal" data-target="#adddrugtolist" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <!--content summary -->
-          <div class="modal-body">
-            <p>Drug History</p>
-          </div>
-          <!-- confirm to dispend drug button -->
-          <div class="modal-footer">
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- end modal -->
-
-    <!--modal delete & edit -->
-    <!-- Edit Modal HTML -->
-    <div id="editdrugModal" class="modal fade">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <form>
-            <div class="modal-header">
-              <h4 class="modal-title">Add Drug</h4>
-              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            </div>
-          <div class="modal-body">
-              <div class="form-group">
-                <label>Drug Name</label>
-                <input type="text" class="form-control" required>
-              </div>
-              <div class="form-group">
-                <label>Dosage</label>
-                <input type="text" class="form-control" required>
-              </div>
-              <div class="form-group">
-                <label>Quantity</label>
-                <input type="text" class="form-control" required>
-              </div>
-              <div class="form-group">
-                <label>duration</label>
-                <input type="text" class="form-control" required>
-              </div>
-              <div class="form-group">
-                <label>Date</label>
-                <input type="text" class="form-control" required>
-              </div>
-              <div id="checkbox">
-                <label>Frequency</label>
-                <input type="checkbox" id="bfeat" value="bfeat" v-model="checkedNames">
-                <label for="jack">ก่อนอาหาร</label>
-                <input type="checkbox" id="afeat" value="afeat" v-model="checkedNames">
-                <label for="john">หลังอาหาร</label>
-                <input type="checkbox" id="morning" value="morning" v-model="checkedNames">
-                <label for="mike">เช้า</label>
-                <input type="checkbox" id="morning" value="morning" v-model="checkedNames">
-                <label for="mike">กลางวัน</label>
-                <input type="checkbox" id="morning" value="morning" v-model="checkedNames">
-                <label for="mike">เย็น</label>
-                <input type="checkbox" id="morning" value="morning" v-model="checkedNames">
-                <label for="mike">ก่อนนอน</label>
-              </div>
-            </div>
-            <!-- descroption. -->
-            <div class="form-group">
-              <div class="col-sm-12 form-group">
-                <label>Description</label>
-                <textarea type="text" placeholder="Description Here.." class="form-control"></textarea>
-              </div>
-            </div>
-            <div class="modal-footer">
-              <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-              <input type="submit" class="btn btn-success" value="Add">
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-    <!-- Delete Modal HTML -->
-    <div id="deleteEmployeeModal" class="modal fade">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <form>
-            <div class="modal-header">
-              <h4 class="modal-title">Drug History</h4>
-              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            </div>
-            <div class="modal-body">
-              <!-- drug history page -->
-                <md-modal-content>
-                  <contentB/>
-                </md-modal-content>
-              <!--end drug history page -->
-            </div>
-            <div class="modal-footer">
-              <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-    <!--end modal delete & edit -->
   </div>
 </template>
 
 <script>
-import axios from "axios";
-import contentA from "./Content_Order_Drug";
-import contentB from "./Content_Drug_History";
-export default {
-  name: "Drug_Interaction",
-  components: {
-    contentA
-  },
-  data: () => ({
-    menuVisible: false, //toggle visible menu when responsive
-    Window_Width: 0 //width of window
-  }),
-  methods: {
-    //toggle visible menu
-    toggleMenu() {
-      this.menuVisible = !this.menuVisible;
+  import axios from "axios";
+  import contentA from "./Content_Order_Drug";
+  import contentB from "./Content_Drug_History";
+  export default {
+    name: "Drug_Interaction",
+    components: {
+      contentA
     },
-    logout() {
-      this.$router.push("/login");
+    data: () => ({
+      menuVisible: false, //toggle visible menu when responsive
+      Window_Width: 0 //width of window
+    }),
+    methods: {
+      //toggle visible menu
+      toggleMenu() {
+        this.menuVisible = !this.menuVisible;
+      },
+      logout() {
+        this.$router.push("/login");
+      }
+    },
+    async mounted() {
+      this.Window_Width = window.innerWidth;
+      this.test = this.$route.params.id;
     }
-  },
-  async mounted() {
-    this.Window_Width = window.innerWidth;
-    this.test = this.$route.params.id;
-  }
-};
+  };
+
 </script>
 
 <style scoped>
-.md-app {
-  height: calc(100vh);
-  border: 1px solid rgba(#000, 0.12);
-}
+  .md-app {
+    height: calc(100vh);
+    border: 1px solid rgba(#000, 0.12);
+  }
 
-.md-drawer {
-  width: 230px;
-  max-width: calc(100vw - 125px);
-}
+  .md-drawer {
+    width: 230px;
+    max-width: calc(100vw - 125px);
+  }
 
-.span_center {
-  text-align: center;
-  width: 100%;
-  font-size: 14px;
-}
+  .span_center {
+    text-align: center;
+    width: 100%;
+    font-size: 14px;
+  }
 
-.text_all {
-  font-size: 14px;
-}
+  .text_all {
+    font-size: 14px;
+  }
 
-.md-field {
-  max-width: 300px;
-}
+  .md-field {
+    max-width: 300px;
+  }
 
-.textSearch {
-  float: left;
-}
+  .textSearch {
+    float: left;
+  }
 
-.buttonSearch {
-  margin-top: 16px;
-}
+  .buttonSearch {
+    margin-top: 16px;
+  }
 
-.md-input {
-  max-width: calc(100%);
-}
+  .md-input {
+    max-width: calc(100%);
+  }
 
-.menu_color {
-  background-color: #f1f1f1;
-}
+  .menu_color {
+    background-color: #f1f1f1;
+  }
 
-.delete_margin {
-  width: 100%;
-  background-color: #f1f1f1;
-}
+  .delete_margin {
+    width: 100%;
+    background-color: #f1f1f1;
+  }
 
-.selected {
-  background-color: #5dbfa8;
-  margin: 2px;
-}
+  .selected {
+    background-color: #5dbfa8;
+    margin: 2px;
+  }
 
-.unselected {
-  background-color: #f1f1f1;
-  margin: 2px;
-}
+  .unselected {
+    background-color: #f1f1f1;
+    margin: 2px;
+  }
 
-.selected_text {
-  color: black;
-}
+  .selected_text {
+    color: black;
+  }
 
-.unselected_text {
-  color: black;
-}
+  .unselected_text {
+    color: black;
+  }
 
-.md-content md-app-content md-flex md-theme-default {
-  padding-top: 23px;
-}
+  .md-content md-app-content md-flex md-theme-default {
+    padding-top: 23px;
+  }
 
-.md-drawer
-  md-app-drawer
-  menu_color
-  md-theme-default
-  md-left
-  md-permanent
-  md-permanent-card {
-  padding-top: 20px;
-}
+  .md-drawer md-app-drawer menu_color md-theme-default md-left md-permanent md-permanent-card {
+    padding-top: 20px;
+  }
+
 </style>
