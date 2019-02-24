@@ -9,5 +9,13 @@ export default {
   },
   patientInfo(params){
     return Api().get("/PatientInfo/"+params )
+  },
+  //drug order
+  getOrderId(PatientID,DoctorID){
+    return Api().get("/DrugHistory/Doctor/"+PatientID+"/"+DoctorID)
+  },
+  postOrder(params){
+    return Api().post('/post/DrugOrder',params)
   }  
+
 }

@@ -36,6 +36,7 @@ var AllergicDrug = require("../models/AllergicDrug")
 var Account = require("../models/Account")
 var AccountRelation = require("../models/AccountRelation")
 var DoctorRelation = require("../models/DoctorRelation")
+var DrugHistory = require("../models/DrugHistory")
 // PatientInfo
 // Fetch single post
 app.get("/PatientInfo/:Id", (req, res) => {
@@ -1183,9 +1184,10 @@ app.get("/DrugHistory/:PatientID", (req, res) => {
 
 // List Drug History By PatientID and filter By DoctorID
 app.get("/DrugHistory/Doctor/:PatientID/:DoctorID", (req, res) => {
-  console.log('GET method')
+  console.log('GET patient doc')
   const PatientID = req.params.PatientID;
   const DoctorID = req.params.DoctorID;
+  console.log(PatientID + DoctorID)
   DrugHistory.find({ "PatientID": PatientID, "DoctorID": DoctorID })
     .exec()
     .then(doc => {
@@ -1200,7 +1202,7 @@ app.get("/DrugHistory/Doctor/:PatientID/:DoctorID", (req, res) => {
       }
     })
     .catch(err => {
-      console.log(err);
+      //console.log(err);
       res.status(500).json({ error: err });
     });
 });
@@ -1265,7 +1267,7 @@ app.get("/test/date", (req, res) => {
 
 // Get Last OrderID and Provide New OrderID
 app.get("/get/OrderID", (req, res) => {
-  console.log('GET method')
+  console.log('GET orderID')
   DrugHistory.findOne({}, null, { "sort": { "OrderID": -1 } })
     .exec()
     .then(doc => {
@@ -1303,19 +1305,19 @@ app.post('/post/DrugOrder', (req, res) => {
   var PatientID = req.body.PatientID
   var DoctorID = req.body.DoctorID
   var PharmacistID = req.body.PharmacistID
-  var OrderStartDate // Date when add this record
-  var DispendStartDate = "" // Date when update 'Dispend' 
+  var OrderStartDate = req.body.OrderStartDate// Date when add this record
+  var DispendStartDate = req.body.DispendStartDate // Date when update 'Dispend' 
   var Duration = req.body.Duration
-  var UsingStatus = 0 // Calculate with DispendDate + Duration [0=Using]
-  var DispendStatus // Check by Dispend Status [0,1,2]
-  var DrugNo // Gen ID of 1 Order used to sort the record
+  var UsingStatus = req.body.UsingStatus // Calculate with DispendDate + Duration [0=Using]
+  var DispendStatus = req.body.DispendStatus // Check by Dispend Status [0,1,2]
+  var DrugNo = req.body.DrugNo // Gen ID of 1 Order used to sort the record
   var GPName = req.body.GPName
-  var RXCUI // find by axios API 
+  var RXCUI = req.body.RXCUI// find by axios API 
   var Dosage = req.body.Dosage
   var Frequency = req.body.Frequency
   var Times = req.body.Times
   var Quantity = req.body.Quantity // Gen
-  var Dispend = 0 // Never Dispend drug
+  var Dispend = req.body.Dispend // Never Dispend drug
   var Description = req.body.Description
 
   function isEmptyObject(obj) {
@@ -1323,7 +1325,7 @@ app.post('/post/DrugOrder', (req, res) => {
   }
 
   async function getData() {
-    await axios.get('https://rxnav.nlm.nih.gov/REST/rxcui?name=' + GPName).then(Response => {
+    /*await axios.get('https://rxnav.nlm.nih.gov/REST/rxcui?name=' + GPName).then(Response => {
       console.log('Axios OK')
       if (Response.data.idGroup.rxnormId == null) {
         console.log('rxcui id is null')
@@ -1335,11 +1337,11 @@ app.post('/post/DrugOrder', (req, res) => {
         RXCUI = Response.data.idGroup.rxnormId
         console.log('rxcui ok : ' + RXCUI)
       }
-    });
+    });*/
 
-    console.log('rxcui : ' + RXCUI)
+    //console.log('rxcui : ' + RXCUI)
 
-    await DrugHistory.findOne({ "OrderID": OrderID }, null, { "sort": { "DrugNo": -1 } })
+    /*await DrugHistory.findOne({ "OrderID": OrderID }, null, { "sort": { "DrugNo": -1 } })
       .exec()
       .then(doc => {
         console.log(doc);
@@ -1351,15 +1353,14 @@ app.post('/post/DrugOrder', (req, res) => {
         } else {
           newID = "1"
         }
-      })
-    DrugNo = newID
+      })*/
+    //DrugNo = newID
     var DateTime = new Date()
     OrderStartDate = DateTime.toLocaleDateString()
     DoctorRelation.find({ "PatientID": PatientID, "DoctorID": DoctorID })
       .exec()
       .then(doc => {
         if (!isEmptyObject(doc)) {
-
           var new_DrugHistory = new DrugHistory({
             OrderID: OrderID,
             PatientID: PatientID,

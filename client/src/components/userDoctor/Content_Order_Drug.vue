@@ -135,15 +135,14 @@
             <md-dialog :md-active.sync="showDialog" style="overflow:auto">
               <md-dialog-title>List of Ordering Drugs</md-dialog-title>
               <md-table v-model="drugs" md-sort="DrugNO" md-sort-order="asc" md-card>
-
-      <md-table-row slot="md-table-row" slot-scope="{ item }">
-        <md-table-cell md-label="Drug No.">{{ item.DrugNo }}</md-table-cell>
-        <md-table-cell md-label="Drug Name" >{{ item.GPName }}</md-table-cell>
-      </md-table-row>
-    </md-table>
+                <md-table-row slot="md-table-row" slot-scope="{ item }">
+                  <md-table-cell md-label="Drug No.">{{ item.DrugNo }}</md-table-cell>
+                  <md-table-cell md-label="Drug Name">{{ item.GPName }}</md-table-cell>
+                </md-table-row>
+              </md-table>
               <md-dialog-actions>
                 <md-button class="md-primary" @click="showDialog = false">Close</md-button>
-                <md-button class="md-primary" @click="showDialog = false">Save</md-button>
+                <md-button class="md-primary" @click="confirmOrder">Save</md-button>
               </md-dialog-actions>
             </md-dialog>
             <!--md-button class="md-accent md-raised" @click="showDialog = true">Confirm</md-button-->
@@ -206,85 +205,6 @@
       search: null,
       searched: [],
       drugs: [],
-      /*[{
-          //in db        
-          OrderID: null,
-          PatientID: null,
-          DoctorID: null,
-          PharmacistID: "not dispense",
-          OrderStartDate: null,
-          DispendStartDate: "not dispense",
-          DrugNo: "1",
-          Duration: {
-            year: "0",
-            month: "0",
-            day: "100"
-          },
-          UsingStatus: null,
-          DispendStatus: null,
-          GPName: "Tramadol",
-          RXCUI: null,
-          Dosage: {
-            dose: null,
-            unit: null
-          },
-          Frequency: {
-            mor: "false",
-            aft: "false",
-            eve: "false",
-            bed: "false",
-            before: "false",
-            after: "false",
-            symptoms: "false"
-          },
-          Times: null,
-          Quantity: null,
-          Dispend: "not dispense",
-          Description: null,
-          // not in db
-          doctorName: "George",
-          ward: "อายุรกรรม(MEDICINE)"
-        },
-        {
-          //in db        
-          OrderID: null,
-          PatientID: null,
-          DoctorID: null,
-          PharmacistID: "not dispense",
-          OrderStartDate: null,
-          DispendStartDate: "not dispense",
-          DrugNo: "2",
-          Duration: {
-            year: "1",
-            month: "2",
-            day: "100"
-          },
-          UsingStatus: null,
-          DispendStatus: null,
-          GPName: "Paracetamol",
-          RXCUI: null,
-          Dosage: {
-            dose: null,
-            unit: null
-          },
-          Frequency: {
-            mor: "false",
-            aft: "false",
-            eve: "false",
-            bed: "false",
-            before: "false",
-            after: "false",
-            symptoms: "false"
-          },
-          Times: null,
-          Quantity: null,
-          Dispend: "not dispense",
-          Description: null,
-          // not in db
-          doctorName: "Alice",
-          ward: "อายุ(MEDICINE)"
-        }
-      ],*/
       //edit in table
       checkEdit: false,
       itemEdit: null,
@@ -304,8 +224,8 @@
           month: "0",
           day: "0"
         },
-        UsingStatus: null,
-        DispendStatus: null,
+        UsingStatus: "not dispense",
+        DispendStatus: "0",
         GPName: null,
         RXCUI: null,
         Dosage: {
@@ -323,8 +243,8 @@
         },
         Times: "0",
         Quantity: "0",
-        Dispend: "not dispense",
-        Description: null,
+        Dispend: "0",
+        Description: "",
         // not in db
         doctorName: "not found",
         ward: "not found"
@@ -364,7 +284,7 @@
         //Times: null,
         this.newDrugs.Quantity = "0"
         //Dispend: "not dispense",
-        this.newDrugs.Description = null
+        this.newDrugs.Description = ""
         //doctorName: "not found",
         //ward: "not found"
       },
@@ -385,7 +305,7 @@
         console.log(this.newDrugs.Duration)
         var year = parseInt(this.newDrugs.Duration.year) * 12 * 30
         var month = parseInt(this.newDrugs.Duration.month) * 30
-        var day = parseInt(this.newDrugs.Duration.day)
+        var day = parseInt(this.newDrugs.Duration.day)   
         if (this.newDrugs.Duration.year == "") year = 0
         if (this.newDrugs.Duration.month == "") month = 0
         if (this.newDrugs.Duration.day == "") day = 0
@@ -400,6 +320,8 @@
         if (this.newDrugs.Duration.year == "") this.newDrugs.Duration.year = 0
         if (this.newDrugs.Duration.month == "") this.newDrugs.Duration.month = 0
         if (this.newDrugs.Duration.day == "") this.newDrugs.Duration.day = 0
+        if(this.newDrugs.Dosage.dose == "") this.newDrugs.Dosage.dose = "0"
+        else this.newDrugs.Dosage.dose = parseInt(this.newDrugs.Dosage.dose).toString()
         var x = {
           OrderID: this.newDrugs.OrderID, //
           PatientID: this.patient.PatientID,
@@ -437,7 +359,19 @@
           doctorName: this.doctor.Firstname + " " + this.doctor.Lastname,
           ward: this.doctor.Department
         }
-
+        axios.get('https://rxnav.nlm.nih.gov/REST/rxcui?name=' + x.GPName).then(Response => {
+          console.log('Axios OK')
+          if (Response.data.idGroup.rxnormId == null) {
+            console.log('rxcui id is null')    
+            x.RXCUI = "not found"   
+            console.log(this.drugs)     
+          } else {
+            var RXCUI = Response.data.idGroup.rxnormId
+            console.log('rxcui ok : ' + RXCUI)
+            x.RXCUI = RXCUI.toString()
+            console.log(this.drugs)
+          }
+        });
 
         if (this.checkEdit) {
           console.log()
@@ -509,22 +443,54 @@
         this.active = true
         this.checkEdit = true
         this.itemEdit = item
+      },
+      //confirm
+      confirmOrder(){
+        this.showDialog = false
+        for(var i in this.drugs){
+          console.log(i)
+          doctorServices.postOrder(this.drugs[i]).then(Response =>{
+            console.log("ok1"+this.drugs[i].DrugNo)
+          })
+        }
+        window.location.reload();
       }
     },
     //table add drug
     created() {
       this.searched = this.drugs
     },
-    mounted() {
-      console.log(this.$localStorage.get('doctor_patient'))
-      doctorServices.patientInfo(this.$localStorage.get('doctor_patient')).then(Response => {
+    async mounted() {
+      //console.log(this.$localStorage.get('doctor_patient'))
+      await doctorServices.patientInfo(this.$localStorage.get('doctor_patient')).then(Response => {
         console.log(Response.data[0])
         this.patient = Response.data[0]
       })
-      console.log(this.$localStorage.get('userID'))
-      doctorServices.doctorInfo(this.$localStorage.get('userID')).then(Response => {
+      //console.log(this.$localStorage.get('userID'))
+      await doctorServices.doctorInfo(this.$localStorage.get('userID')).then(Response => {
         console.log(Response.data[0])
         this.doctor = Response.data[0]
+      })
+
+      await doctorServices.getOrderId(this.patient.PatientID, this.doctor.DoctorID).then(Response => {
+        console.log(Response.data)
+        if (Response.data == "") {
+          console.log("nullll")
+          this.newDrugs.OrderID = "O00001"
+        } else {
+          console.log(Response.data[Response.data.length - 1].OrderID)
+          var orderId = Response.data[Response.data.length - 1].OrderID
+          var x = orderId.split('O')
+          orderId = parseInt(x[1]) + 1
+          orderId = orderId.toString()
+          if (orderId.length == 1) orderId = "O0000" + orderId
+          else if (orderId.length == 2) orderId = "O000" + orderId
+          else if (orderId.length == 3) orderId = "O00" + orderId
+          else if (orderId.length == 4) orderId = "O0" + orderId
+          else orderId = "O" + orderId
+          console.log(orderId)
+          this.newDrugs.OrderID = orderId
+        }
       })
     }
   }
