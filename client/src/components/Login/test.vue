@@ -35,59 +35,120 @@
           <md-button @click="showDetail(item)" class="md-icon-button md-dense">
             <md-icon>assignment</md-icon>
           </md-button>
-
-
         </md-table-cell>
       </md-table-row>
     </md-table>
+
+    <!---->
     <md-dialog :md-active.sync="showDialog">
-      <md-dialog-title>Preferences</md-dialog-title>
-
-      <md-tabs md-dynamic-height>
-        <md-tab md-label="General">
-          <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam mollitia dolorum dolores quae
-            commodi impedit possimus qui, atque at voluptates cupiditate. Neque quae culpa suscipit praesentium
-            inventore ducimus ipsa aut.</p>
-          <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam mollitia dolorum dolores quae
-            commodi impedit possimus qui, atque at voluptates cupiditate. Neque quae culpa suscipit praesentium
-            inventore ducimus ipsa aut.</p>
-          <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam mollitia dolorum dolores quae
-            commodi impedit possimus qui, atque at voluptates cupiditate. Neque quae culpa suscipit praesentium
-            inventore ducimus ipsa aut.</p>
-        </md-tab>
-
-        <md-tab md-label="Activity">
-          <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam mollitia dolorum dolores quae
-            commodi impedit possimus qui, atque at voluptates cupiditate. Neque quae culpa suscipit praesentium
-            inventore ducimus ipsa aut.</p>
-          <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam mollitia dolorum dolores quae
-            commodi impedit possimus qui, atque at voluptates cupiditate. Neque quae culpa suscipit praesentium
-            inventore ducimus ipsa aut.</p>
-          <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam mollitia dolorum dolores quae
-            commodi impedit possimus qui, atque at voluptates cupiditate. Neque quae culpa suscipit praesentium
-            inventore ducimus ipsa aut.</p>
-          <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam mollitia dolorum dolores quae
-            commodi impedit possimus qui, atque at voluptates cupiditate. Neque quae culpa suscipit praesentium
-            inventore ducimus ipsa aut.</p>
-          <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam mollitia dolorum dolores quae
-            commodi impedit possimus qui, atque at voluptates cupiditate. Neque quae culpa suscipit praesentium
-            inventore ducimus ipsa aut.</p>
-        </md-tab>
-
-        <md-tab md-label="Account">
-          <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam mollitia dolorum dolores quae
-            commodi impedit possimus qui, atque at voluptates cupiditate. Neque quae culpa suscipit praesentium
-            inventore ducimus ipsa aut.</p>
-          <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam mollitia dolorum dolores quae
-            commodi impedit possimus qui, atque at voluptates cupiditate. Neque quae culpa suscipit praesentium
-            inventore ducimus ipsa aut.</p>
-        </md-tab>
-      </md-tabs>
-
-      <md-dialog-actions>
-        <md-button class="md-primary" @click="showDialog = false">Close</md-button>
-        <md-button class="md-primary" @click="showDialog = false">Save</md-button>
-      </md-dialog-actions>
+      <md-card class="md-layout-item">
+        <md-card-header>
+          <div class="md-title">Detail</div>
+        </md-card-header>
+        <md-card-content style="padding-bottom:0px;" class="md-scrollbar">
+          <md-tabs md-dynamic-height>
+            <md-tab md-label="General">
+              <form>
+                <div class="md-layout textInDialog">
+                  <div class="md-layout-item"><label style="min-width:200px;">Order ID :</label></div>
+                  <div class="md-layout-item"> <input class="form-control" type="text" placeholder="Readonly GP Name here…"
+                      style="min-width:280px;" readonly></div>
+                </div>
+                <div class="md-layout textInDialog">
+                  <div class="md-layout-item"><label style="min-width:200px;">Drug Name (GP) :</label></div>
+                  <div class="md-layout-item"> <input class="form-control" type="text" placeholder="Readonly GP Name here…"
+                      style="min-width:280px;" readonly></div>
+                </div>
+                <div class="md-layout textInDialog">
+                  <div class="md-layout-item"><label style="min-width:200px;">RXcui :</label></div>
+                  <div class="md-layout-item"> <input class="form-control" type="text" placeholder="Readonly GP Name here…"
+                      style="min-width:280px;" readonly></div>
+                </div>
+                <div class="md-layout textInDialog">
+                  <div class="md-layout-item"><label style="min-width:200px;">Dispend Status :</label></div>
+                  <div class="md-layout-item"> <input class="form-control" type="text" placeholder="Readonly Dispend Status here…"
+                      style="min-width:280px;" readonly></div>
+                </div>
+                <div class="md-layout textInDialog">
+                  <div class="md-layout-item"><label style="min-width:200px;">Dosage :</label></div>
+                  <div class="md-layout-item"> <input class="form-control" type="text" placeholder="Readonly GP Name here…"
+                      style="min-width:280px;" readonly></div>
+                </div>
+                <div class="md-layout textInDialog">
+                  <div class="md-layout-item"><label style="min-width:200px;">Frequency :</label></div>
+                  <div class="md-layout-item"> <input class="form-control" type="text" placeholder="Readonly GP Name here…"
+                      style="min-width:280px;" readonly></div>
+                </div>
+                <div class="md-layout textInDialog">
+                  <div class="md-layout-item"><label style="min-width:200px;">Duration :</label></div>
+                  <div class="md-layout-item"> <input class="form-control" type="text" placeholder="Readonly GP Name here…"
+                      style="min-width:280px;" readonly></div>
+                </div>
+                <div class="md-layout textInDialog">
+                  <div class="md-layout-item"><label style="min-width:200px;">Quantity :</label></div>
+                  <div class="md-layout-item"> <input class="form-control" type="text" placeholder="Readonly GP Name here…"
+                      style="min-width:280px;" readonly></div>
+                </div>
+                <div class="md-layout textInDialog">
+                  <div class="md-layout-item"><label style="min-width:200px;">Recieve madicine(%) :</label></div>
+                  <div class="md-layout-item"> <input class="form-control" type="text" placeholder="Readonly GP Name here…"
+                      style="min-width:280px;" readonly></div>
+                </div>
+                <div class="md-layout textInDialog">
+                  <div class="md-layout-item"><label style="min-width:200px;">Note :</label></div>
+                  <div class="md-layout-item"> <textarea class="form-control" type="text" placeholder="Readonly GP Name here…"
+                      style="min-width:280px;" readonly>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</textarea></div>
+                </div>
+                <md-card-actions style="padding:0px;padding-bottom:8px;padding-top:8px;">
+                  <!--md-button type="submit" class="md-primary" :disabled="sending">Create user</md-button-->
+                  <md-button class="md-primary" @click="showDialog = false">Close</md-button>
+                </md-card-actions>
+              </form>
+            </md-tab>
+            <md-tab md-label="Doctor">
+              <form>
+                <div class="md-layout textInDialog">
+                  <div class="md-layout-item"><label style="min-width:200px;">Doctor id :</label></div>
+                  <div class="md-layout-item"> <input class="form-control" type="text" placeholder="Readonly GP Name here…"
+                      style="min-width:280px;" readonly></div>
+                </div>
+                <div class="md-layout textInDialog">
+                  <div class="md-layout-item"><label style="min-width:200px;">Doctor Name :</label></div>
+                  <div class="md-layout-item"> <input class="form-control" type="text" placeholder="Readonly GP Name here…"
+                      style="min-width:280px;" readonly></div>
+                </div>
+                <div class="md-layout textInDialog">
+                  <div class="md-layout-item"><label style="min-width:200px;">Ward :</label></div>
+                  <div class="md-layout-item"> <input class="form-control" type="text" placeholder="Readonly GP Name here…"
+                      style="min-width:280px;" readonly></div>
+                </div>
+                <md-card-actions style="padding:0px;padding-bottom:8px;padding-top:8px;">
+                  <!--md-button type="submit" class="md-primary" :disabled="sending">Create user</md-button-->
+                  <md-button class="md-primary" @click="showDialog = false">Close</md-button>
+                </md-card-actions>
+              </form>
+            </md-tab>
+            <md-tab md-label="Pharmacist">
+              <form>
+                <div class="md-layout textInDialog">
+                  <div class="md-layout-item"><label style="min-width:200px;">Pharmacist id :</label></div>
+                  <div class="md-layout-item"> <input class="form-control" type="text" placeholder="Readonly GP Name here…"
+                      style="min-width:280px;" readonly></div>
+                </div>
+                <div class="md-layout textInDialog">
+                  <div class="md-layout-item"><label style="min-width:200px;">Pharmacist Name :</label></div>
+                  <div class="md-layout-item"> <input class="form-control" type="text" placeholder="Readonly GP Name here…"
+                      style="min-width:280px;" readonly></div>
+                </div>
+                <md-card-actions style="padding:0px;padding-bottom:8px;padding-top:8px;">
+                  <!--md-button type="submit" class="md-primary" :disabled="sending">Create user</md-button-->
+                  <md-button class="md-primary" @click="showDialog = false">Close</md-button>
+                </md-card-actions>
+              </form>
+            </md-tab>
+          </md-tabs>
+        </md-card-content>
+      </md-card>
     </md-dialog>
   </div>
 </template>
@@ -158,21 +219,26 @@
       }
     },
     created() {
-      
+
     },
-    async mounted(){
-      await doctorServices.getOrderId(this.$localStorage.get('doctor_patient'),this.$localStorage.get('userID')).then(Response => {
-        console.log(Response.data[0])
-        this.users = Response.data
-        this.searched = this.users;
-        //this.doctor = Response.data[0]
-      })
+    async mounted() {
+      await doctorServices.getOrderId(this.$localStorage.get('doctor_patient'), this.$localStorage.get('userID')).then(
+        Response => {
+          console.log(Response.data[0])
+          this.users = Response.data
+          this.searched = this.users;
+          //this.doctor = Response.data[0]
+        })
     }
   };
 
 </script>
 
 <style>
+  .textInDialog {
+    margin-bottom: 8px;
+  }
+
   .md-app {
     height: calc(100vh);
   }
