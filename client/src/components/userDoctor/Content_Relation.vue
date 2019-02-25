@@ -32,10 +32,10 @@
       users_name: []
     }),
     methods: {
-      getPatientInfo() {
+      async getPatientInfo() {
         for (var i in this.users) {
           console.log(this.users[i].PatientID)
-          doctorServices.patientInfo(this.users[i].PatientID).then(Response => {
+          await doctorServices.patientInfo(this.users[i].PatientID).then(Response => {
             console.log(Response.data[0])
             this.users_name.push(Response.data[0].Firstname + " " + Response.data[0].Lastname)
           })
