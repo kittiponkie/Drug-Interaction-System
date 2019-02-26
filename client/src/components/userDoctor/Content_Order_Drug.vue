@@ -212,22 +212,22 @@
       active: false,
       newDrugs: {
         //in db        
-        OrderID: null,
-        PatientID: null,
-        DoctorID: null,
-        PharmacistID: "not dispense",
-        OrderStartDate: null,
-        DispendStartDate: "not dispense",
-        DrugNo: null,
+        OrderID: "-",
+        PatientID: "-",
+        DoctorID: "-",
+        PharmacistID: "-",
+        OrderStartDate: "-",
+        DispendStartDate: "-",
+        DrugNo: "-",
         Duration: {
           year: "0",
           month: "0",
           day: "0"
         },
-        UsingStatus: "not dispense",
+        UsingStatus: "Waiting Dispense",
         DispendStatus: "0",
-        GPName: null,
-        RXCUI: null,
+        GPName: "-",
+        RXCUI: "-",
         Dosage: {
           dose: "0",
           unit: "Unit"
@@ -242,12 +242,12 @@
           symptoms: "false"
         },
         Times: "0",
-        Quantity: "0",
+        Quantity: "0 Unit",
         Dispend: "0",
-        Description: "",
+        Description: "-",
         // not in db
-        doctorName: "not found",
-        ward: "not found"
+        doctorName: "-",
+        ward: "-"
       },
       //confirm
       showDialog: false,
@@ -264,14 +264,14 @@
         //PharmacistID: "not dispense",
         //OrderStartDate: null,
         //DispendStartDate: "not dispense",
-        this.newDrugs.DrugNo = null
+        this.newDrugs.DrugNo = "-"
         this.newDrugs.Duration.year = "0"
         this.newDrugs.Duration.month = "0"
         this.newDrugs.Duration.day = "0"
         //UsingStatus: null,
         //DispendStatus: null,
-        this.newDrugs.GPName = null
-        this.newDrugs.RXCUI = null
+        this.newDrugs.GPName = "-"
+        this.newDrugs.RXCUI = "-"
         this.newDrugs.Dosage.dose = "0"
         this.newDrugs.Dosage.unit = "Unit"
         this.newDrugs.Frequency.mor = "false"
@@ -282,9 +282,9 @@
         this.newDrugs.Frequency.after = "false"
         this.newDrugs.Frequency.symptoms = "false"
         //Times: null,
-        this.newDrugs.Quantity = "0"
+        this.newDrugs.Quantity = "0 Unit"
         //Dispend: "not dispense",
-        this.newDrugs.Description = ""
+        this.newDrugs.Description = "-"
         //doctorName: "not found",
         //ward: "not found"
       },
@@ -302,24 +302,47 @@
           }
         }
         //console.log(Object.keys(this.newDrugs.Frequency).length)  
-        console.log(this.newDrugs.Duration)
+        //console.log(this.newDrugs.Duration)
         var year = parseInt(this.newDrugs.Duration.year) * 12 * 30
         var month = parseInt(this.newDrugs.Duration.month) * 30
         var day = parseInt(this.newDrugs.Duration.day)   
         if (this.newDrugs.Duration.year == "") year = 0
         if (this.newDrugs.Duration.month == "") month = 0
-        if (this.newDrugs.Duration.day == "") day = 0
+        if (this.newDrugs.Duration.day == "") day = 0   
+
         var duration = (year + month + day)
+
         this.newDrugs.Quantity = parseInt(this.newDrugs.Dosage.dose) * this.newDrugs.Times * duration
         this.newDrugs.Quantity = this.newDrugs.Quantity.toString() + " " + this.newDrugs.Dosage.unit
-        console.log(this.newDrugs.Quantity)
+        //console.log(this.newDrugs.Quantity)
         this.newDrugs.Times = this.newDrugs.Times.toString()
         //console.log("Times = ", this.newDrugs.Times)
       },
       addDrugToList() {
-        if (this.newDrugs.Duration.year == "") this.newDrugs.Duration.year = 0
-        if (this.newDrugs.Duration.month == "") this.newDrugs.Duration.month = 0
-        if (this.newDrugs.Duration.day == "") this.newDrugs.Duration.day = 0
+        var year = parseInt(this.newDrugs.Duration.year) * 12 * 30
+        var month = parseInt(this.newDrugs.Duration.month) * 30
+        var day = parseInt(this.newDrugs.Duration.day)   
+        if (this.newDrugs.Duration.year == "") year = 0
+        if (this.newDrugs.Duration.month == "") month = 0
+        if (this.newDrugs.Duration.day == "") day = 0   
+        
+        var duration = (year + month + day)
+        if(duration >= 360){
+          this.newDrugs.Duration.year = (duration/360).toString()
+          duration = duration%360
+        } else {
+          this.newDrugs.Duration.year = "0"
+        }
+        if(duration >= 30){
+          this.newDrugs.Duration.month = (duration/30).toString()
+          duration = duration%30
+        } else {
+          this.newDrugs.Duration.month = "0"
+        }
+        
+        if(duration > 0) this.newDrugs.Duration.day = duration.toString()
+        else this.newDrugs.Duration.day = "0"
+
         if(this.newDrugs.Dosage.dose == "") this.newDrugs.Dosage.dose = "0"
         else this.newDrugs.Dosage.dose = parseInt(this.newDrugs.Dosage.dose).toString()
         var x = {

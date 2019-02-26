@@ -42,106 +42,144 @@
     <!---->
     <md-dialog :md-active.sync="showDialog">
       <md-card class="md-layout-item">
-        <md-card-header>
+        <md-card-header style="padding :20px;">
           <div class="md-title">Detail</div>
         </md-card-header>
         <md-card-content style="padding-bottom:0px;" class="md-scrollbar">
-          <md-tabs md-dynamic-height>
+
+
+          <md-speed-dial md-effect="scale" class="md-top-right" md-direction="bottom">
+
+
+            <md-speed-dial-target class="md-primary">
+              <md-icon class="md-morph-initial">folder</md-icon>
+              <md-icon class="md-morph-final">folder_open</md-icon>
+            </md-speed-dial-target>
+
+            <md-speed-dial-content>
+              <md-button class="md-icon-button" @click="dialogShift = 'General'">
+                <md-avatar>
+                  <md-icon>description</md-icon>
+                  <md-tooltip md-direction="left">General</md-tooltip>
+                </md-avatar>
+              </md-button>
+
+              <md-button class="md-icon-button" @click="dialogShift = 'Doctor'">
+                <md-avatar>
+                  <md-icon>person</md-icon>
+                  <md-tooltip md-direction="left">Doctor</md-tooltip>
+                </md-avatar>
+              </md-button>
+
+              <md-button class="md-icon-button" @click="dialogShift = 'Pharmacist'">
+                <md-avatar>
+                  <md-icon>person</md-icon>
+                  <md-tooltip md-direction="left">Pharmacist</md-tooltip>
+                </md-avatar>
+              </md-button>
+            </md-speed-dial-content>
+          </md-speed-dial>
+
+
+          <md-tabs md-dynamic-height v-if="dialogShift == 'General'">
             <md-tab md-label="General">
               <form>
                 <div class="md-layout textInDialog">
-                  <div class="md-layout-item"><label style="min-width:200px;">Order ID :</label></div>
-                  <div class="md-layout-item"> <input class="form-control" type="text" placeholder="Readonly GP Name here…"
-                      style="min-width:280px;" readonly></div>
+                  <div class="md-layout-item"><label style="min-width:180px;">Order ID :</label></div>
+                  <div class="md-layout-item"> <input class="form-control" type="text" placeholder="-" style="min-width:260px;"
+                      readonly :value="itemDialog.OrderID"></div>
                 </div>
                 <div class="md-layout textInDialog">
-                  <div class="md-layout-item"><label style="min-width:200px;">Drug Name (GP) :</label></div>
-                  <div class="md-layout-item"> <input class="form-control" type="text" placeholder="Readonly GP Name here…"
-                      style="min-width:280px;" readonly></div>
+                  <div class="md-layout-item"><label style="min-width:180px;">Drug Name (GP) :</label></div>
+                  <div class="md-layout-item"> <input class="form-control" type="text" placeholder="-" style="min-width:260px;"
+                      readonly :value="itemDialog.GPName"></div>
                 </div>
                 <div class="md-layout textInDialog">
-                  <div class="md-layout-item"><label style="min-width:200px;">RXcui :</label></div>
-                  <div class="md-layout-item"> <input class="form-control" type="text" placeholder="Readonly GP Name here…"
-                      style="min-width:280px;" readonly></div>
+                  <div class="md-layout-item"><label style="min-width:180px;">RXcui :</label></div>
+                  <div class="md-layout-item"> <input class="form-control" type="text" placeholder="-" style="min-width:260px;"
+                      readonly :value="itemDialog.RXCUI"></div>
                 </div>
                 <div class="md-layout textInDialog">
-                  <div class="md-layout-item"><label style="min-width:200px;">Dispend Status :</label></div>
-                  <div class="md-layout-item"> <input class="form-control" type="text" placeholder="Readonly Dispend Status here…"
-                      style="min-width:280px;" readonly></div>
+                  <div class="md-layout-item"><label style="min-width:180px;">Dispend Status :</label></div>
+                  <div class="md-layout-item"> <input class="form-control" type="text" placeholder="-" style="min-width:260px;"
+                      readonly :value="itemDialog.DispendStatus"></div>
                 </div>
                 <div class="md-layout textInDialog">
-                  <div class="md-layout-item"><label style="min-width:200px;">Dosage :</label></div>
-                  <div class="md-layout-item"> <input class="form-control" type="text" placeholder="Readonly GP Name here…"
-                      style="min-width:280px;" readonly></div>
+                  <div class="md-layout-item"><label style="min-width:180px;">Dosage :</label></div>
+                  <div class="md-layout-item"> <input class="form-control" type="text" placeholder="-" style="min-width:260px;"
+                      readonly :value="itemDialog.Dosage"></div>
                 </div>
                 <div class="md-layout textInDialog">
-                  <div class="md-layout-item"><label style="min-width:200px;">Frequency :</label></div>
-                  <div class="md-layout-item"> <input class="form-control" type="text" placeholder="Readonly GP Name here…"
-                      style="min-width:280px;" readonly></div>
+                  <div class="md-layout-item"><label style="min-width:180px;">Frequency :</label></div>
+                  <div class="md-layout-item"> <input class="form-control" type="text" placeholder="-" style="min-width:260px;"
+                      readonly :value="itemDialog.Frequency"></div>
                 </div>
                 <div class="md-layout textInDialog">
-                  <div class="md-layout-item"><label style="min-width:200px;">Duration :</label></div>
-                  <div class="md-layout-item"> <input class="form-control" type="text" placeholder="Readonly GP Name here…"
-                      style="min-width:280px;" readonly></div>
+                  <div class="md-layout-item"><label style="min-width:180px;">Duration :</label></div>
+                  <div class="md-layout-item"> <input class="form-control" type="text" placeholder="-" style="min-width:260px;"
+                      readonly :value="itemDialog.Duration"></div>
                 </div>
                 <div class="md-layout textInDialog">
-                  <div class="md-layout-item"><label style="min-width:200px;">Quantity :</label></div>
-                  <div class="md-layout-item"> <input class="form-control" type="text" placeholder="Readonly GP Name here…"
-                      style="min-width:280px;" readonly></div>
+                  <div class="md-layout-item"><label style="min-width:180px;">Quantity :</label></div>
+                  <div class="md-layout-item"> <input class="form-control" type="text" placeholder="-" style="min-width:260px;"
+                      readonly :value="itemDialog.Quantity"></div>
                 </div>
                 <div class="md-layout textInDialog">
-                  <div class="md-layout-item"><label style="min-width:200px;">Recieve madicine(%) :</label></div>
-                  <div class="md-layout-item"> <input class="form-control" type="text" placeholder="Readonly GP Name here…"
-                      style="min-width:280px;" readonly></div>
+                  <div class="md-layout-item"><label style="min-width:180px;">Recieve madicine(%) :</label></div>
+                  <div class="md-layout-item"> <input class="form-control" type="text" placeholder="-" style="min-width:260px;"
+                      readonly :value="itemDialog.Dispend"></div>
                 </div>
                 <div class="md-layout textInDialog">
-                  <div class="md-layout-item"><label style="min-width:200px;">Note :</label></div>
-                  <div class="md-layout-item"> <textarea class="form-control" type="text" placeholder="Readonly GP Name here…"
-                      style="min-width:280px;" readonly>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</textarea></div>
+                  <div class="md-layout-item"><label style="min-width:180px;">Note :</label></div>
+                  <div class="md-layout-item"> <textarea class="form-control" type="text" placeholder="-" style="min-width:260px;"
+                      readonly v-model="itemDialog.Description"></textarea></div>
                 </div>
                 <md-card-actions style="padding:0px;padding-bottom:8px;padding-top:8px;">
-                  <!--md-button type="submit" class="md-primary" :disabled="sending">Create user</md-button-->
                   <md-button class="md-primary" @click="showDialog = false">Close</md-button>
                 </md-card-actions>
               </form>
             </md-tab>
+          </md-tabs>
+          <md-tabs md-dynamic-height v-if="dialogShift == 'Doctor'">
             <md-tab md-label="Doctor">
               <form>
                 <div class="md-layout textInDialog">
-                  <div class="md-layout-item"><label style="min-width:200px;">Doctor id :</label></div>
-                  <div class="md-layout-item"> <input class="form-control" type="text" placeholder="Readonly GP Name here…"
-                      style="min-width:280px;" readonly></div>
+                  <div class="md-layout-item"><label style="min-width:180px;">Doctor id :</label></div>
+                  <div class="md-layout-item"> <input class="form-control" type="text" placeholder="-" style="min-width:260px;"
+                      readonly :value="itemDialog.DoctorID"></div>
                 </div>
                 <div class="md-layout textInDialog">
-                  <div class="md-layout-item"><label style="min-width:200px;">Doctor Name :</label></div>
-                  <div class="md-layout-item"> <input class="form-control" type="text" placeholder="Readonly GP Name here…"
-                      style="min-width:280px;" readonly></div>
+                  <div class="md-layout-item"><label style="min-width:180px;">Doctor Name :</label></div>
+                  <div class="md-layout-item"> <input class="form-control" type="text" placeholder="-" style="min-width:260px;"
+                      readonly :value="itemDialog.OrderID"></div>
                 </div>
                 <div class="md-layout textInDialog">
-                  <div class="md-layout-item"><label style="min-width:200px;">Ward :</label></div>
-                  <div class="md-layout-item"> <input class="form-control" type="text" placeholder="Readonly GP Name here…"
-                      style="min-width:280px;" readonly></div>
+                  <div class="md-layout-item"><label style="min-width:180px;">Ward :</label></div>
+                  <div class="md-layout-item"> <input class="form-control" type="text" placeholder="-" style="min-width:260px;"
+                      readonly :value="itemDialog.OrderID"></div>
                 </div>
                 <md-card-actions style="padding:0px;padding-bottom:8px;padding-top:8px;">
-                  <!--md-button type="submit" class="md-primary" :disabled="sending">Create user</md-button-->
                   <md-button class="md-primary" @click="showDialog = false">Close</md-button>
                 </md-card-actions>
               </form>
             </md-tab>
+          </md-tabs>
+          <md-tabs md-dynamic-height v-if="dialogShift == 'Pharmacist'">
             <md-tab md-label="Pharmacist">
               <form>
                 <div class="md-layout textInDialog">
-                  <div class="md-layout-item"><label style="min-width:200px;">Pharmacist id :</label></div>
-                  <div class="md-layout-item"> <input class="form-control" type="text" placeholder="Readonly GP Name here…"
-                      style="min-width:280px;" readonly></div>
+                  <div class="md-layout-item"><label style="min-width:180px;">Pharmacist id :</label></div>
+                  <div class="md-layout-item"> <input class="form-control" type="text" placeholder="-" style="min-width:260px;"
+                      readonly :value="itemDialog.PharmacistID"></div>
                 </div>
                 <div class="md-layout textInDialog">
-                  <div class="md-layout-item"><label style="min-width:200px;">Pharmacist Name :</label></div>
-                  <div class="md-layout-item"> <input class="form-control" type="text" placeholder="Readonly GP Name here…"
-                      style="min-width:280px;" readonly></div>
+                  <div class="md-layout-item"><label style="min-width:180px;">Pharmacist Name :</label></div>
+                  <div class="md-layout-item"> <input class="form-control" type="text" placeholder="-" style="min-width:260px;"
+                      readonly :value="itemDialog.OrderID"></div>
                 </div>
+                <br>
+                <br>
                 <md-card-actions style="padding:0px;padding-bottom:8px;padding-top:8px;">
-                  <!--md-button type="submit" class="md-primary" :disabled="sending">Create user</md-button-->
                   <md-button class="md-primary" @click="showDialog = false">Close</md-button>
                 </md-card-actions>
               </form>
@@ -168,51 +206,27 @@
   export default {
     name: "Drug_Interaction",
     data: () => ({
-      showDialog: false,
       search: null,
       searched: [],
-      users: []
+      users: [],
       /*[{
           OrderID: 1,
           GPName: "Acetaminophen",
           DoctorID: "Shawna Dubbins",
           UsingStatus: "Using",
           Dispend: 20
-        },
-        {
-          OrderID: 2,
-          GPName: "Omeprazole",
-          DoctorID: "Odette Demageard",
-          UsingStatus: "Using",
-          Dispend: 100
-        },
-        {
-          OrderID: 3,
-          GPName: "Tramadol",
-          DoctorID: "Vera Taleworth",
-          UsingStatus: "Waiting Dispend",
-          Dispend: 40
-        },
-        {
-          OrderID: 4,
-          GPName: "Tramadol",
-          DoctorID: "Lonnie Izkovitz",
-          UsingStatus: "Stopped using",
-          Dispend: 50
-        },
-        {
-          OrderID: 5,
-          GPName: "Acetaminophen",
-          DoctorID: "Thatcher Stave",
-          UsingStatus: "Stopped using",
-          Dispend: 60
         }
       ]*/
+      //dialog
+      showDialog: false,
+      itemDialog: [],
+      dialogShift: "General"
     }),
     methods: {
       showDetail(item) {
         this.showDialog = true
         console.log("show item = ", item)
+        this.itemDialog = item
       },
       searchOnTable() {
         this.searched = searchByName(this.users, this.search);
