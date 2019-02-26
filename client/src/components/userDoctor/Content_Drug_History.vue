@@ -96,9 +96,9 @@
                       readonly :value="itemDialog.RXCUI"></div>
                 </div>
                 <div class="md-layout textInDialog">
-                  <div class="md-layout-item"><label style="min-width:180px;">Dispend Status :</label></div>
+                  <div class="md-layout-item"><label style="min-width:180px;">Status :</label></div>
                   <div class="md-layout-item"> <input class="form-control" type="text" placeholder="-" style="min-width:260px;"
-                      readonly :value="itemDialog.DispendStatus"></div>
+                      readonly :value="itemDialog.UsingStatus"></div>
                 </div>
                 <div class="md-layout textInDialog">
                   <div class="md-layout-item"><label style="min-width:180px;">Dosage :</label></div>
@@ -253,6 +253,8 @@
         if(item.Duration.day != "0") this.itemDialog.Duration += item.Duration.day + " day"
         if(item.Duration.year == "0" && item.Duration.month == "0" && item.Duration.day == "0") this.itemDialog.Duration = "0"
       
+        //do dispense
+        if(item.DispendStatus == "0") this.itemDialog.DispendStatus = "Not Dispense"
       },
       searchOnTable() {
         this.searched = searchByName(this.users, this.search);
