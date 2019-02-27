@@ -1189,7 +1189,6 @@ app.get("/get/OrderID", (req, res) => {
 // ADD DrugHistory -> Drug Order Page 
 app.post('/post/DrugOrder', (req, res) => {
   var db = req.db;
-  //var OrderID //  ** Non Genarate OrderID **
   var OrderID = req.body.OrderID
   var newID
   var PatientID = req.body.PatientID
