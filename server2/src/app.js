@@ -38,15 +38,11 @@ app.get('/info/:GenName', (req, res) => {
       return
     }
 
-    if (isEmptyObject(rows[0])) {
-      CheckGenName = 0
-    }
-    else CheckGenName = 1
 
     if (CheckGenName == 0) {
       var sql2 = "SELECT * FROM gp WHERE GPID IN ( SELECT GPID FROM gptotp WHERE TPID IN ( SELECT TPID FROM tp WHERE FSN LIKE ?));SELECT * FROM gpu WHERE GPUID IN (SELECT GPUID FROM gptogpu WHERE GPID IN (SELECT GPID FROM gp WHERE GPID IN ( SELECT GPID FROM gptotp WHERE TPID IN ( SELECT TPID FROM `tp` WHERE FSN LIKE ?))));";
       var sql3 = "SELECT * FROM tp WHERE FSN LIKE ?;SELECT * FROM tpu WHERE TPUID IN ( SELECT TPUID FROM tptotpu WHERE TPID IN (SELECT TPID FROM tp WHERE FSN LIKE ?));";
-      connection.query(sql2+sql3, [GenName, GenName, GenName, GenName], (err, rows, fields) => {
+      connection.query(sql2 + sql3, [GenName, GenName, GenName, GenName], (err, rows, fields) => {
         if (err) {
           console.log('Failed to query for users : ' + err)
           res.sendStatus(500)
@@ -133,4 +129,32 @@ app.get('/info/:GenName', (req, res) => {
       res.json(result)
     }
   })
+})
+
+
+app.get('/CompleteInfo/GPID', (req, res) => {
+
+  var sql = "SELECT GPID , FSN FROM gp WHERE 1 ;";
+
+  connection.query(sql, (err, rows, fields) => {
+    if (err) {
+      console.log('Failed to query for users : ' + err)
+      res.sendStatus(500)
+      return
+    }
+
+    const info1 = rows.map((row) => {
+      return {
+        GPID: row.GPID,
+        FSN_GPID: row.FSN
+      }
+    })
+
+    var result = {
+      GP: info1
+    };
+    
+    res.json(result);
+  })
+
 })
