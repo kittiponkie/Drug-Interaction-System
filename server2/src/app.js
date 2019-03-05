@@ -153,8 +153,34 @@ app.get('/CompleteInfo/GPID', (req, res) => {
     var result = {
       GP: info1
     };
-    
+
     res.json(result);
   })
+})
 
+
+app.get('/CompleteInfo/VTM', (req, res) => {
+
+  var sql = "SELECT VTMID , FSN FROM vtm WHERE 1 ;";
+
+  connection.query(sql, (err, rows, fields) => {
+    if (err) {
+      console.log('Failed to query for users : ' + err)
+      res.sendStatus(500)
+      return
+    }
+
+    const info1 = rows.map((row) => {
+      return {
+        VTMID: row.VTMID,
+        FSN_VTMID: row.FSN
+      }
+    })
+
+    var result = {
+      VTM: info1
+    };
+
+    res.json(result);
+  })
 })
