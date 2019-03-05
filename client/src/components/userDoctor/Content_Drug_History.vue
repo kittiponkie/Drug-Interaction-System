@@ -5,13 +5,13 @@
       <md-card-header>
         <md-card-header-text>
           <h4 style="text-align:left;">Patient Name : {{patient.Firstname}} {{patient.Lastname}}
-            <span style="float:right;margin-right: 150px;">Doctor Name : {{doctor.Lastname}} {{doctor.Lastname}}</span>
+            <span style="float:right;margin-right: 150px;">Doctor Name : {{doctor.Firstname}} {{doctor.Lastname}}</span>
           </h4>
         </md-card-header-text>
       </md-card-header>
     </md-card>
     <!--end header-->
-    <md-table v-model="searched" md-sort="GPName" md-sort-order="asc" md-card>
+    <md-table v-model="searched" md-sort="UsingStatus" md-sort-order="asc" md-card>
       <md-table-toolbar>
         <div class="md-toolbar-section-start">
           <h1 class="md-title">Users Name</h1>
@@ -275,7 +275,7 @@
         this.doctor = Response.data[0]
       })
 
-      await doctorServices.getOrderId(this.$localStorage.get('doctor_patient'), this.$localStorage.get('userID')).then(
+      await doctorServices.getOrderId(this.$localStorage.get('doctor_patient')).then(
         Response => {
           console.log(Response.data[0])
           this.users = Response.data

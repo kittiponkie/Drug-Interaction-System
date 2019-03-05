@@ -90,22 +90,79 @@
                     </md-field-->
                     <label>Frequency</label>
                     <div class="md-layout">
-                      <md-checkbox v-model="newDrugs.Frequency.mor" value="true" @change="calculateQuantity">เช้า</md-checkbox>
-                      <md-checkbox v-model="newDrugs.Frequency.aft" value="true" @change="calculateQuantity">กลางวัน</md-checkbox>
-                      <md-checkbox v-model="newDrugs.Frequency.eve" value="true" @change="calculateQuantity">เย็น</md-checkbox>
-                      <md-checkbox v-model="newDrugs.Frequency.bed" value="true" @change="calculateQuantity">ก่อนนอน</md-checkbox>
-                      <md-checkbox v-model="newDrugs.Frequency.symptoms" value="true" @change="calculateQuantity">ทานตามอาการ</md-checkbox>
+                      <md-checkbox v-if="newDrugs.Frequency.symptoms == 'true'" v-model="newDrugs.Frequency.mor" value="true"
+                        @change="calculateQuantity" disabled>เช้า</md-checkbox>
+                      <md-checkbox v-else v-model="newDrugs.Frequency.mor" value="true" @change="calculateQuantity">เช้า</md-checkbox>
+                      <md-checkbox v-if="newDrugs.Frequency.symptoms == 'true'" v-model="newDrugs.Frequency.aft" value="true"
+                        @change="calculateQuantity" disabled>กลางวัน</md-checkbox>
+                      <md-checkbox v-else v-model="newDrugs.Frequency.aft" value="true" @change="calculateQuantity">กลางวัน</md-checkbox>
+                      <md-checkbox v-if="newDrugs.Frequency.symptoms == 'true'" v-model="newDrugs.Frequency.eve" value="true"
+                        @change="calculateQuantity" disabled>เย็น</md-checkbox>
+                      <md-checkbox v-else v-model="newDrugs.Frequency.eve" value="true" @change="calculateQuantity">เย็น</md-checkbox>
+                      <md-checkbox v-if="newDrugs.Frequency.symptoms == 'true'" v-model="newDrugs.Frequency.bed" value="true"
+                        @change="calculateQuantity" disabled>ก่อนนอน</md-checkbox>
+                      <md-checkbox v-else v-model="newDrugs.Frequency.bed" value="true" @change="calculateQuantity">ก่อนนอน</md-checkbox>
+                      <md-checkbox v-if="newDrugs.Frequency.mor == 'true' || newDrugs.Frequency.aft == 'true' || newDrugs.Frequency.eve == 'true' || newDrugs.Frequency.bed == 'true'"
+                        v-model="newDrugs.Frequency.symptoms" value="true" @change="calculateQuantity" disabled>ทานตามอาการ</md-checkbox>
+                      <md-checkbox v-else v-model="newDrugs.Frequency.symptoms" value="true" @change="calculateQuantity">ทานตามอาการ</md-checkbox>
                     </div>
                     <div class="md-layout">
-                      <md-checkbox v-model="newDrugs.Frequency.before" value="true" @change="calculateQuantity">ก่อนอาหาร</md-checkbox>
-                      <md-checkbox v-model="newDrugs.Frequency.after" value="true" @change="calculateQuantity">หลังอาหาร</md-checkbox>
+                      <md-checkbox v-if="newDrugs.Frequency.after == 'true'" v-model="newDrugs.Frequency.before" value="true"
+                        @change="calculateQuantity" disabled>ก่อนอาหาร</md-checkbox>
+                      <md-checkbox v-else v-model="newDrugs.Frequency.before" value="true" @change="calculateQuantity">ก่อนอาหาร</md-checkbox>
+                      <md-checkbox v-if="newDrugs.Frequency.before == 'true'" v-model="newDrugs.Frequency.after" value="true"
+                        @change="calculateQuantity" disabled>หลังอาหาร</md-checkbox>
+                      <md-checkbox v-else v-model="newDrugs.Frequency.after" value="true" @change="calculateQuantity">หลังอาหาร</md-checkbox>
                     </div>
 
-                    <label>Quantity(ปริมาณยาทั้งหมด)</label>
-                    <md-field>
+                    <label>Quantity(ปริมาณยาทั้งหมด)</label>                    
+                    <div class="md-layout" v-if="newDrugs.Frequency.symptoms != 'true'">
+                      <div class="md-layout-item" style="margin-right:5px">
+
+                        <md-field>
                       <label>Calculate Automatic</label>
                       <md-input readonly v-model="newDrugs.Quantity" placeholder="Calculate Automatic"></md-input>
                     </md-field>
+                      </div>
+
+                      <div class="md-layout-item" style="margin-left:5px">
+                        <md-field>
+                          <label>Unit</label>
+                          <md-select v-model="newDrugs.Dosage.unit" placeholder="Select Unit" @input="calculateQuantity">
+                            <md-option value="amp">Amp(หลอด)</md-option>
+                            <md-option value="cc">CC(ซีซี)</md-option>
+                            <md-option value="drop">Drop(หยด)</md-option>
+                            <md-option value="ml">ML(มิลลิลิตร)</md-option>
+                            <md-option value="tab">Tab(เม็ด)</md-option>
+                            <md-option value="other">Other(อื่นๆ)</md-option>
+                          </md-select>
+                        </md-field>
+                      </div>
+                    </div>
+
+                    <div class="md-layout" v-else>
+                      <div class="md-layout-item" style="margin-right:5px">
+
+                        <md-field md-clearable>
+                          <label>Calculate Automatic</label>
+                          <md-input v-model="newDrugs.Quantity" type="number" placeholder="Enter Number" @input="calculateQuantity"></md-input>
+                        </md-field>
+                      </div>
+
+                      <div class="md-layout-item" style="margin-left:5px">
+                        <md-field>
+                          <label>Unit</label>
+                          <md-select v-model="newDrugs.Dosage.unit" placeholder="Select Unit" @input="calculateQuantity">
+                            <md-option value="amp">Amp(หลอด)</md-option>
+                            <md-option value="cc">CC(ซีซี)</md-option>
+                            <md-option value="drop">Drop(หยด)</md-option>
+                            <md-option value="ml">ML(มิลลิลิตร)</md-option>
+                            <md-option value="tab">Tab(เม็ด)</md-option>
+                            <md-option value="other">Other(อื่นๆ)</md-option>
+                          </md-select>
+                        </md-field>
+                      </div>
+                    </div>
 
                     <label>Description</label>
                     <md-field md-clearable>
@@ -242,7 +299,7 @@
           symptoms: "false"
         },
         Times: "0",
-        Quantity: "0 Unit",
+        Quantity: "0",
         Dispend: "0",
         Description: "-",
         // not in db
@@ -282,7 +339,7 @@
         this.newDrugs.Frequency.after = "false"
         this.newDrugs.Frequency.symptoms = "false"
         //Times: null,
-        this.newDrugs.Quantity = "0 Unit"
+        this.newDrugs.Quantity = "0"
         //Dispend: "not dispense",
         this.newDrugs.Description = "-"
         //doctorName: "not found",
@@ -290,13 +347,14 @@
       },
       calculateQuantity() {
         console.log("ok")
+        if(this.newDrugs.Frequency.symptoms != "true"){
         this.newDrugs.Times = 0;
         var key = 0;
         for (key in this.newDrugs.Frequency) {
           if (this.newDrugs.Frequency.hasOwnProperty(key)) {
             //console.log(key)
             //console.log(this.newDrugs.Frequency[key])
-            if (this.newDrugs.Frequency[key] == "true") {
+            if (this.newDrugs.Frequency[key] == "true" && key != "before" && key != "after") {
               this.newDrugs.Times++
             }
           }
@@ -305,46 +363,50 @@
         //console.log(this.newDrugs.Duration)
         var year = parseInt(this.newDrugs.Duration.year) * 12 * 30
         var month = parseInt(this.newDrugs.Duration.month) * 30
-        var day = parseInt(this.newDrugs.Duration.day)   
+        var day = parseInt(this.newDrugs.Duration.day)
         if (this.newDrugs.Duration.year == "") year = 0
         if (this.newDrugs.Duration.month == "") month = 0
-        if (this.newDrugs.Duration.day == "") day = 0   
+        if (this.newDrugs.Duration.day == "") day = 0
 
         var duration = (year + month + day)
 
         this.newDrugs.Quantity = parseInt(this.newDrugs.Dosage.dose) * this.newDrugs.Times * duration
-        this.newDrugs.Quantity = this.newDrugs.Quantity.toString() + " " + this.newDrugs.Dosage.unit
+        this.newDrugs.Quantity = this.newDrugs.Quantity.toString()
         //console.log(this.newDrugs.Quantity)
         this.newDrugs.Times = this.newDrugs.Times.toString()
         //console.log("Times = ", this.newDrugs.Times)
+        }
       },
       addDrugToList() {
         var year = parseInt(this.newDrugs.Duration.year) * 12 * 30
         var month = parseInt(this.newDrugs.Duration.month) * 30
-        var day = parseInt(this.newDrugs.Duration.day)   
+        var day = parseInt(this.newDrugs.Duration.day)
         if (this.newDrugs.Duration.year == "") year = 0
         if (this.newDrugs.Duration.month == "") month = 0
-        if (this.newDrugs.Duration.day == "") day = 0   
-        
+        if (this.newDrugs.Duration.day == "") day = 0
+
         var duration = (year + month + day)
-        if(duration >= 360){
-          this.newDrugs.Duration.year = (duration/360).toString()
-          duration = duration%360
+        if (duration >= 360) {
+          this.newDrugs.Duration.year = (duration / 360).toString()
+          duration = duration % 360
         } else {
           this.newDrugs.Duration.year = "0"
         }
-        if(duration >= 30){
-          this.newDrugs.Duration.month = (duration/30).toString()
-          duration = duration%30
+        if (duration >= 30) {
+          this.newDrugs.Duration.month = (duration / 30).toString()
+          duration = duration % 30
         } else {
           this.newDrugs.Duration.month = "0"
         }
-        
-        if(duration > 0) this.newDrugs.Duration.day = duration.toString()
+
+        if (duration > 0) this.newDrugs.Duration.day = duration.toString()
         else this.newDrugs.Duration.day = "0"
 
-        if(this.newDrugs.Dosage.dose == "") this.newDrugs.Dosage.dose = "0"
+        if (this.newDrugs.Dosage.dose == "") this.newDrugs.Dosage.dose = "0"
         else this.newDrugs.Dosage.dose = parseInt(this.newDrugs.Dosage.dose).toString()
+
+        if (this.newDrugs.Quantity == "") this.newDrugs.Quantity = "0"
+        else this.newDrugs.Quantity = parseInt(this.newDrugs.Quantity).toString()
         var x = {
           OrderID: this.newDrugs.OrderID, //
           PatientID: this.patient.PatientID,
@@ -385,9 +447,9 @@
         axios.get('https://rxnav.nlm.nih.gov/REST/rxcui?name=' + x.GPName).then(Response => {
           console.log('Axios OK')
           if (Response.data.idGroup.rxnormId == null) {
-            console.log('rxcui id is null')    
-            x.RXCUI = "not found"   
-            console.log(this.drugs)     
+            console.log('rxcui id is null')
+            x.RXCUI = "not found"
+            console.log(this.drugs)
           } else {
             var RXCUI = Response.data.idGroup.rxnormId
             console.log('rxcui ok : ' + RXCUI)
@@ -468,12 +530,12 @@
         this.itemEdit = item
       },
       //confirm
-      confirmOrder(){
+      confirmOrder() {
         this.showDialog = false
-        for(var i in this.drugs){
+        for (var i in this.drugs) {
           console.log(i)
-          doctorServices.postOrder(this.drugs[i]).then(Response =>{
-            console.log("ok1"+this.drugs[i].DrugNo)
+          doctorServices.postOrder(this.drugs[i]).then(Response => {
+            console.log("ok1" + this.drugs[i].DrugNo)
           })
         }
         window.location.reload();

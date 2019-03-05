@@ -36,6 +36,7 @@ var AllergicDrug = require("../models/AllergicDrug")
 var Account = require("../models/Account")
 var AccountRelation = require("../models/AccountRelation")
 var DoctorRelation = require("../models/DoctorRelation")
+var PharmacistRelation = require("../models/PharmacistRelation")
 var DrugHistory = require("../models/DrugHistory")
 // PatientInfo
 // Fetch single post
@@ -507,10 +508,10 @@ app.delete('/remove/DoctorInfo/:id', (req, res) => {
 // PharmacistInfo
 // Fetch single post
 app.get("/PharmacistInfo/:Id", (req, res) => {
-  console.log('GET method')
+  console.log('GET methodkk',req.params)
   const id = req.params.Id;
   PharmacistInfo.find({
-      "_id": id
+      "PharmacistID": id
     })
     .exec()
     .then(doc => {
@@ -801,6 +802,35 @@ app.get("/AccountRelation/Patient/:PatientID", (req, res) => {
     .exec()
     .then(doc => {
       console.log("PatientID :" + PatientID);
+      console.log("From database", doc);
+      if (doc) {
+        res.status(200).json(doc);
+      } else {
+        res
+          .status(404)
+          .json({
+            message: "No valid entry found for provided ID"
+          });
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({
+        error: err
+      });
+    });
+});
+
+// Get friend list of Patient By PharmacistID
+app.get("/PharmacistRelation/Pharmacist/:PharmacistID", (req, res) => {
+  console.log('GET method')
+  const PharmacistID = req.params.PharmacistID;
+  PharmacistRelation.find({
+      "PharmacistID": PharmacistID
+    })
+    .exec()
+    .then(doc => {
+      console.log("PharmacistID :" + PharmacistID);
       console.log("From database", doc);
       if (doc) {
         res.status(200).json(doc);
@@ -1425,21 +1455,24 @@ app.put("/update/DrugHistory/:OrderID/:DrugNo", (req, res, next) => {
       if (!foundObject) {
         res.status(404).send()
       } else {
-        var Dispend = req.body.Dispend
-        if (Dispend) { foundObject.Dispend = Dispend }
+        //var Dispend = req.body.Dispend
+        /*if (Dispend) { foundObject.Dispend = Dispend }
 
         if (foundObject.DispendStartDate == "") {
           var DateTime = new Date()
           var DispendStartDate = DateTime.toLocaleDateString()
           foundObject.DispendStartDate = DispendStartDate
-        }
+        }*/
 
-        var total = (foundObject.Quantity * 1) - (Dispend * 1)      // Calculate Dispend Status 
+        /*var total = (foundObject.Quantity * 1) - (Dispend * 1)      // Calculate Dispend Status 
         if ((Dispend * 1) == 0) DispendStatus = 0     // Not dispend
         else if (total >= 1) DispendStatus = 1   // In process
-        else if (total <= 0) DispendStatus = 2   // Already Done
-        foundObject.DispendStatus = DispendStatus
-        foundObject.UsingStatus = 1
+        else if (total <= 0) DispendStatus = 2   // Already Done*/
+        //foundObject.DispendStatus = DispendStatus
+        
+        foundObject.Dispend = req.body.Dispend
+        foundObject.UsingStatus = "Using"
+        console.log(foundObject)
         foundObject.save(function (err, updateObject) {
           if (err) {
             console.log(err)

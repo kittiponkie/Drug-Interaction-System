@@ -1,322 +1,210 @@
 <template>
   <div>
-    <!--header-->
-    <md-card style="padding-left: 0px;">
-      <md-card-header>
-        <md-card-header-text>
-          <h4 style="text-align:left;">Patient Name :
-            <span style="float:right;margin-right: 150px;">Doctor Name :</span>
-          </h4>
-        </md-card-header-text>
-      </md-card-header>
-    </md-card>
-    <!--end header-->
-    <md-table v-model="searched" md-sort="GPName" md-sort-order="asc" md-card>
+    <md-table v-model="searched" md-sort="name" md-sort-order="asc" md-card md-fixed-header>
       <md-table-toolbar>
         <div class="md-toolbar-section-start">
-          <h1 class="md-title">Users Name</h1>
+          <h1 class="md-title">Users</h1>
         </div>
+
         <md-field md-clearable class="md-toolbar-section-end">
-          <md-input placeholder="Search by drug name..." v-model="search" @input="searchOnTable" />
+          <md-input placeholder="Search by name..." v-model="search" @input="searchOnTable" />
         </md-field>
       </md-table-toolbar>
 
-      <md-table-empty-state md-label="No users found" :md-description="`No drug name found for this '${search}' query. Try a different search term.`"></md-table-empty-state>
+      <md-table-empty-state
+        md-label="No users found"
+        :md-description="`No user found for this '${search}' query. Try a different search term or create a new user.`">
+        <md-button class="md-primary md-raised" @click="newUser">Create New User</md-button>
+      </md-table-empty-state>
 
       <md-table-row slot="md-table-row" slot-scope="{ item }">
-        <md-table-cell md-label="ID" md-sort-by="id" md-numeric>{{ item.OrderID }}</md-table-cell>
-        <md-table-cell md-label="Drug Name" md-sort-by="GPName">{{ item.GPName }}</md-table-cell>
-        <md-table-cell md-label="Doctor's Name" md-sort-by="DoctorID">{{ item.DoctorID }}</md-table-cell>
-        <md-table-cell md-label="Status" md-sort-by="UsingStatus">{{ item.UsingStatus }}</md-table-cell>
-        <md-table-cell md-label="Receive Medicine">
-          <b-progress :value="parseInt(item.Dispend)" striped show-value class="mb-3"></b-progress>
-        </md-table-cell>
-        <md-table-cell md-label="Detail">
-          <md-button @click="showDetail(item)" class="md-icon-button md-dense">
-            <md-icon>assignment</md-icon>
-          </md-button>
-        </md-table-cell>
+        <md-table-cell md-label="ID" md-sort-by="id" md-numeric>{{ item.id }}</md-table-cell>
+        <md-table-cell md-label="Name" md-sort-by="name">{{ item.name }}</md-table-cell>
+        <md-table-cell md-label="Email" md-sort-by="email">{{ item.email }}</md-table-cell>
+        <md-table-cell md-label="Gender" md-sort-by="gender">{{ item.gender }}</md-table-cell>
+        <md-table-cell md-label="Job Title" md-sort-by="title">{{ item.title }}</md-table-cell>
       </md-table-row>
     </md-table>
-
-    <!---->
-    <md-dialog :md-active.sync="showDialog">
-      <md-card class="md-layout-item">
-        <md-card-header style="padding :20px;">
-          <div class="md-title">Detail</div>
-        </md-card-header>
-        <md-card-content style="padding-bottom:0px;" class="md-scrollbar">
-
-
-          <md-speed-dial md-effect="scale" class="md-top-right" md-direction="bottom">
-
-
-            <md-speed-dial-target class="md-primary">
-              <md-icon class="md-morph-initial">folder</md-icon>
-              <md-icon class="md-morph-final">folder_open</md-icon>
-            </md-speed-dial-target>
-
-            <md-speed-dial-content>
-              <md-button class="md-icon-button" @click="dialogShift = 'General'">
-                <md-avatar>
-                  <md-icon>description</md-icon>
-                  <md-tooltip md-direction="left">General</md-tooltip>
-                </md-avatar>
-              </md-button>
-
-              <md-button class="md-icon-button" @click="dialogShift = 'Doctor'">
-                <md-avatar>
-                  <md-icon>person</md-icon>
-                  <md-tooltip md-direction="left">Doctor</md-tooltip>
-                </md-avatar>
-              </md-button>
-
-              <md-button class="md-icon-button" @click="dialogShift = 'Pharmacist'">
-                <md-avatar>
-                  <md-icon>person</md-icon>
-                  <md-tooltip md-direction="left">Pharmacist</md-tooltip>
-                </md-avatar>
-              </md-button>
-            </md-speed-dial-content>
-          </md-speed-dial>
-
-
-          <md-tabs md-dynamic-height v-if="dialogShift == 'General'">
-            <md-tab md-label="General">
-              <form>
-                <div class="md-layout textInDialog">
-                  <div class="md-layout-item"><label style="min-width:180px;">Order ID :</label></div>
-                  <div class="md-layout-item"> <input class="form-control" type="text" placeholder="-" style="min-width:260px;"
-                      readonly :value="itemDialog.OrderID"></div>
-                </div>
-                <div class="md-layout textInDialog">
-                  <div class="md-layout-item"><label style="min-width:180px;">Drug Name (GP) :</label></div>
-                  <div class="md-layout-item"> <input class="form-control" type="text" placeholder="-" style="min-width:260px;"
-                      readonly :value="itemDialog.GPName"></div>
-                </div>
-                <div class="md-layout textInDialog">
-                  <div class="md-layout-item"><label style="min-width:180px;">RXcui :</label></div>
-                  <div class="md-layout-item"> <input class="form-control" type="text" placeholder="-" style="min-width:260px;"
-                      readonly :value="itemDialog.RXCUI"></div>
-                </div>
-                <div class="md-layout textInDialog">
-                  <div class="md-layout-item"><label style="min-width:180px;">Dispend Status :</label></div>
-                  <div class="md-layout-item"> <input class="form-control" type="text" placeholder="-" style="min-width:260px;"
-                      readonly :value="itemDialog.DispendStatus"></div>
-                </div>
-                <div class="md-layout textInDialog">
-                  <div class="md-layout-item"><label style="min-width:180px;">Dosage :</label></div>
-                  <div class="md-layout-item"> <input class="form-control" type="text" placeholder="-" style="min-width:260px;"
-                      readonly :value="itemDialog.Dosage"></div>
-                </div>
-                <div class="md-layout textInDialog">
-                  <div class="md-layout-item"><label style="min-width:180px;">Frequency :</label></div>
-                  <div class="md-layout-item"> <input class="form-control" type="text" placeholder="-" style="min-width:260px;"
-                      readonly :value="itemDialog.Frequency"></div>
-                </div>
-                <div class="md-layout textInDialog">
-                  <div class="md-layout-item"><label style="min-width:180px;">Duration :</label></div>
-                  <div class="md-layout-item"> <input class="form-control" type="text" placeholder="-" style="min-width:260px;"
-                      readonly :value="itemDialog.Duration"></div>
-                </div>
-                <div class="md-layout textInDialog">
-                  <div class="md-layout-item"><label style="min-width:180px;">Quantity :</label></div>
-                  <div class="md-layout-item"> <input class="form-control" type="text" placeholder="-" style="min-width:260px;"
-                      readonly :value="itemDialog.Quantity"></div>
-                </div>
-                <div class="md-layout textInDialog">
-                  <div class="md-layout-item"><label style="min-width:180px;">Recieve madicine(%) :</label></div>
-                  <div class="md-layout-item"> <input class="form-control" type="text" placeholder="-" style="min-width:260px;"
-                      readonly :value="itemDialog.Dispend"></div>
-                </div>
-                <div class="md-layout textInDialog">
-                  <div class="md-layout-item"><label style="min-width:180px;">Note :</label></div>
-                  <div class="md-layout-item"> <textarea class="form-control" type="text" placeholder="-" style="min-width:260px;"
-                      readonly v-model="itemDialog.Description"></textarea></div>
-                </div>
-                <md-card-actions style="padding:0px;padding-bottom:8px;padding-top:8px;">
-                  <md-button class="md-primary" @click="showDialog = false">Close</md-button>
-                </md-card-actions>
-              </form>
-            </md-tab>
-          </md-tabs>
-          <md-tabs md-dynamic-height v-if="dialogShift == 'Doctor'">
-            <md-tab md-label="Doctor">
-              <form>
-                <div class="md-layout textInDialog">
-                  <div class="md-layout-item"><label style="min-width:180px;">Doctor id :</label></div>
-                  <div class="md-layout-item"> <input class="form-control" type="text" placeholder="-" style="min-width:260px;"
-                      readonly :value="itemDialog.DoctorID"></div>
-                </div>
-                <div class="md-layout textInDialog">
-                  <div class="md-layout-item"><label style="min-width:180px;">Doctor Name :</label></div>
-                  <div class="md-layout-item"> <input class="form-control" type="text" placeholder="-" style="min-width:260px;"
-                      readonly :value="itemDialog.OrderID"></div>
-                </div>
-                <div class="md-layout textInDialog">
-                  <div class="md-layout-item"><label style="min-width:180px;">Ward :</label></div>
-                  <div class="md-layout-item"> <input class="form-control" type="text" placeholder="-" style="min-width:260px;"
-                      readonly :value="itemDialog.OrderID"></div>
-                </div>
-                <md-card-actions style="padding:0px;padding-bottom:8px;padding-top:8px;">
-                  <md-button class="md-primary" @click="showDialog = false">Close</md-button>
-                </md-card-actions>
-              </form>
-            </md-tab>
-          </md-tabs>
-          <md-tabs md-dynamic-height v-if="dialogShift == 'Pharmacist'">
-            <md-tab md-label="Pharmacist">
-              <form>
-                <div class="md-layout textInDialog">
-                  <div class="md-layout-item"><label style="min-width:180px;">Pharmacist id :</label></div>
-                  <div class="md-layout-item"> <input class="form-control" type="text" placeholder="-" style="min-width:260px;"
-                      readonly :value="itemDialog.PharmacistID"></div>
-                </div>
-                <div class="md-layout textInDialog">
-                  <div class="md-layout-item"><label style="min-width:180px;">Pharmacist Name :</label></div>
-                  <div class="md-layout-item"> <input class="form-control" type="text" placeholder="-" style="min-width:260px;"
-                      readonly :value="itemDialog.OrderID"></div>
-                </div>
-                <br>
-                <br>
-                <md-card-actions style="padding:0px;padding-bottom:8px;padding-top:8px;">
-                  <md-button class="md-primary" @click="showDialog = false">Close</md-button>
-                </md-card-actions>
-              </form>
-            </md-tab>
-          </md-tabs>
-        </md-card-content>
-      </md-card>
-    </md-dialog>
   </div>
 </template>
 
 <script>
   const toLower = text => {
-    return text.toString().toLowerCase();
-  };
+    return text.toString().toLowerCase()
+  }
+
   const searchByName = (items, term) => {
     if (term) {
-      return items.filter(item => toLower(item.GPName).includes(toLower(term)));
+      return items.filter(item => toLower(item.name).includes(toLower(term)))
     }
-    return items;
-  };
-  import doctorServices from '@/services/doctor'
-  import axios from "axios";
+
+    return items
+  }
+
   export default {
-    name: "Drug_Interaction",
+    name: 'TableSearch',
     data: () => ({
       search: null,
       searched: [],
-      users: [],
-      /*[{
-          OrderID: 1,
-          GPName: "Acetaminophen",
-          DoctorID: "Shawna Dubbins",
-          UsingStatus: "Using",
-          Dispend: 20
+      users: [
+        {
+          id: 1,
+          name: "Shawna Dubbin",
+          email: "sdubbin0@geocities.com",
+          gender: "Male",
+          title: "Assistant Media Planner"
+        },
+        {
+          id: 2,
+          name: "Odette Demageard",
+          email: "odemageard1@spotify.com",
+          gender: "Female",
+          title: "Account Coordinator"
+        },
+        {
+          id: 3,
+          name: "Vera Taleworth",
+          email: "vtaleworth2@google.ca",
+          gender: "Male",
+          title: "Community Outreach Specialist"
+        },
+        {
+          id: 4,
+          name: "Lonnie Izkovitz",
+          email: "lizkovitz3@youtu.be",
+          gender: "Female",
+          title: "Operator"
+        },
+        {
+          id: 5,
+          name: "Thatcher Stave",
+          email: "tstave4@reference.com",
+          gender: "Male",
+          title: "Software Test Engineer III"
+        },
+        {
+          id: 6,
+          name: "Karim Chipping",
+          email: "kchipping5@scribd.com",
+          gender: "Female",
+          title: "Safety Technician II"
+        },
+        {
+          id: 7,
+          name: "Helge Holyard",
+          email: "hholyard6@howstuffworks.com",
+          gender: "Female",
+          title: "Internal Auditor"
+        },
+        {
+          id: 8,
+          name: "Rod Titterton",
+          email: "rtitterton7@nydailynews.com",
+          gender: "Male",
+          title: "Technical Writer"
+        },
+        {
+          id: 9,
+          name: "Gawen Applewhite",
+          email: "gapplewhite8@reverbnation.com",
+          gender: "Female",
+          title: "GIS Technical Architect"
+        },
+        {
+          id: 10,
+          name: "Nero Mulgrew",
+          email: "nmulgrew9@plala.or.jp",
+          gender: "Female",
+          title: "Staff Scientist"
+        },
+        {
+          id: 11,
+          name: "Cybill Rimington",
+          email: "crimingtona@usnews.com",
+          gender: "Female",
+          title: "Assistant Professor"
+        },
+        {
+          id: 12,
+          name: "Maureene Eggleson",
+          email: "megglesonb@elpais.com",
+          gender: "Male",
+          title: "Recruiting Manager"
+        },
+        {
+          id: 13,
+          name: "Cortney Caulket",
+          email: "ccaulketc@cbsnews.com",
+          gender: "Male",
+          title: "Safety Technician IV"
+        },
+        {
+          id: 14,
+          name: "Selig Swynfen",
+          email: "sswynfend@cpanel.net",
+          gender: "Female",
+          title: "Environmental Specialist"
+        },
+        {
+          id: 15,
+          name: "Ingar Raggles",
+          email: "iragglese@cbc.ca",
+          gender: "Female",
+          title: "VP Sales"
+        },
+        {
+          id: 16,
+          name: "Karmen Mines",
+          email: "kminesf@topsy.com",
+          gender: "Male",
+          title: "Administrative Officer"
+        },
+        {
+          id: 17,
+          name: "Salome Judron",
+          email: "sjudrong@jigsy.com",
+          gender: "Male",
+          title: "Staff Scientist"
+        },
+        {
+          id: 18,
+          name: "Clarinda Marieton",
+          email: "cmarietonh@theatlantic.com",
+          gender: "Male",
+          title: "Paralegal"
+        },
+        {
+          id: 19,
+          name: "Paxon Lotterington",
+          email: "plotteringtoni@netvibes.com",
+          gender: "Female",
+          title: "Marketing Assistant"
+        },
+        {
+          id: 20,
+          name: "Maura Thoms",
+          email: "mthomsj@webeden.co.uk",
+          gender: "Male",
+          title: "Actuary"
         }
-      ]*/
-      //dialog
-      showDialog: false,
-      itemDialog: [],
-      dialogShift: "General"
+      ]
     }),
     methods: {
-      showDetail(item) {
-        this.showDialog = true
-        console.log("show item = ", item)
-        this.itemDialog = item
+      newUser () {
+        window.alert('Noop')
       },
-      searchOnTable() {
-        this.searched = searchByName(this.users, this.search);
+      searchOnTable () {
+        this.searched = searchByName(this.users, this.search)
       }
     },
-    created() {
-
-    },
-    async mounted() {
-      await doctorServices.getOrderId(this.$localStorage.get('doctor_patient'), this.$localStorage.get('userID')).then(
-        Response => {
-          console.log(Response.data[0])
-          this.users = Response.data
-          this.searched = this.users;
-          //this.doctor = Response.data[0]
-        })
+    created () {
+      this.searched = this.users
     }
-  };
-
+  }
 </script>
 
-<style>
-  .textInDialog {
-    margin-bottom: 8px;
-  }
-
-  .md-app {
-    height: calc(100vh);
-  }
-
-  .md-drawer {
-    width: 230px;
-    max-width: calc(100vw - 125px);
-  }
-
-  .span_center {
-    text-align: center;
-    width: 100%;
-    font-size: 14px;
-  }
-
-  .text_all {
-    font-size: 14px;
-  }
-
+<style lang="scss" scoped>
   .md-field {
     max-width: 300px;
   }
-
-  .textSearch {
-    float: left;
-  }
-
-  .buttonSearch {
-    margin-top: 16px;
-  }
-
-  .md-input {
-    max-width: calc(100%);
-  }
-
-  .menu_color {
-    background-color: #f1f1f1;
-  }
-
-  .delete_margin {
-    width: 100%;
-    background-color: #f1f1f1;
-  }
-
-  .selected {
-    background-color: #5dbfa8;
-    margin: 2px;
-  }
-
-  .unselected {
-    background-color: #f1f1f1;
-    margin: 2px;
-  }
-
-  .md-content md-app-content md-flex md-theme-default {
-    padding-top: 23px;
-  }
-
-  .md-drawer md-app-drawer menu_color md-theme-default md-left md-permanent md-permanent-card {
-    padding-top: 20px;
-  }
-
-  #tallModal .modal-body p {
-    margin-bottom: 900px
-  }
-
 </style>
