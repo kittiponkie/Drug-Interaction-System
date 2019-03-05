@@ -184,3 +184,36 @@ app.get('/CompleteInfo/VTM', (req, res) => {
     res.json(result);
   })
 })
+
+// Check allergic drug - return list of GPID Drug 
+app.get('/Allergic/:VTMName', (req, res) => {
+  console.log('Fetching VTM :' + req.params.VTMName)
+  const VTMName = "%" + req.params.VTMName + "%"
+  // var CheckGenName
+  console.log(VTMName)
+  var sql = "SELECT * FROM gp WHERE GPID IN (SELECT GPID FROM vtmtogp WHERE VTMID IN (SELECT VTMID FROM `vtm` WHERE FSN LIKE ? ))";
+
+  connection.query(sql, [VTMName], (err, rows, fields) => {
+    if (err) {
+      console.log('Failed to query for users : ' + err)
+      res.sendStatus(500)
+      return
+    }
+
+
+    const info1 = rows.map((row) => {
+      return {
+        GPID: row.GPID
+       // FSN_GPID: row.FSN
+      }
+    })
+
+    var result = {
+      GP: info1
+    };
+
+    res.json(result)
+
+  })
+  
+})
