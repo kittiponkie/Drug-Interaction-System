@@ -5,7 +5,7 @@
       <md-card-header>
         <md-card-header-text>
           <h4 style="text-align:left;">Patient Name : {{patient.Firstname}} {{patient.Lastname}}
-            <span style="float:right;margin-right: 150px;">Doctor Name : {{doctor.Lastname}} {{doctor.Lastname}}</span>
+            <span style="float:right;margin-right: 150px;">Doctor Name : {{doctor.Firstname}} {{doctor.Lastname}}</span>
           </h4>
         </md-card-header-text>
       </md-card-header>
@@ -164,7 +164,7 @@
                       </div>
                     </div>
 
-                    <label>Description</label>
+                    <label>Note</label>
                     <md-field md-clearable>
 
                       <md-textarea v-model="newDrugs.Description" placeholder="Enter Text"></md-textarea>

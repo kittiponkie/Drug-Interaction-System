@@ -14,7 +14,7 @@
     <md-table v-model="searched" md-sort="UsingStatus" md-sort-order="asc" md-card>
       <md-table-toolbar>
         <div class="md-toolbar-section-start">
-          <h1 class="md-title">Users Name</h1>
+          <h1 class="md-title">Drug History</h1>
         </div>
         <md-field md-clearable class="md-toolbar-section-end">
           <md-input placeholder="Search by drug name..." v-model="search" @input="searchOnTable" />
@@ -24,7 +24,7 @@
       <md-table-empty-state md-label="No users found" :md-description="`No drug name found for this '${search}' query. Try a different search term.`"></md-table-empty-state>
 
       <md-table-row slot="md-table-row" slot-scope="{ item }">
-        <md-table-cell md-label="ID" md-sort-by="OrderID" md-numeric>{{ item.OrderID }}</md-table-cell>
+        <md-table-cell md-label="OrderID" md-sort-by="OrderID" md-numeric>{{ item.OrderID }}</md-table-cell>
         <md-table-cell md-label="Drug Name" md-sort-by="GPName">{{ item.GPName }}</md-table-cell>
         <md-table-cell md-label="Doctor's Name" md-sort-by="DoctorID">{{ item.DoctorID }}</md-table-cell>
         <md-table-cell md-label="Status" md-sort-by="UsingStatus">{{ item.UsingStatus }}</md-table-cell>

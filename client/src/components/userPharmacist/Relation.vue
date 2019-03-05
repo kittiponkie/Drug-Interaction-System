@@ -26,7 +26,7 @@
 
           <md-list-item to="/pharmacist_relation" class="selected">
             <md-icon style="margin-right:10px">person_add</md-icon>
-            <span class="md-list-item-text selected_text">Friend</span>
+            <span class="md-list-item-text selected_text">Patient</span>
           </md-list-item>      
 
           <md-list-item to="/pharmacist_drug_information" class="unselected">
