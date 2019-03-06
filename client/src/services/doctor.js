@@ -11,8 +11,8 @@ export default {
     return Api().get("/PatientInfo/"+params )
   },
   //drug order
-  getOrderId(PatientID,DoctorID){
-    return Api().get("/DrugHistory/Doctor/"+PatientID+"/"+DoctorID)
+  getOrderId(PatientID){
+    return Api().get("/DrugHistory/"+PatientID)
   },
   postOrder(params){
     return Api().post('/post/DrugOrder',params)

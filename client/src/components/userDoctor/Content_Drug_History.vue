@@ -5,16 +5,16 @@
       <md-card-header>
         <md-card-header-text>
           <h4 style="text-align:left;">Patient Name : {{patient.Firstname}} {{patient.Lastname}}
-            <span style="float:right;margin-right: 150px;">Doctor Name : {{doctor.Lastname}} {{doctor.Lastname}}</span>
+            <span style="float:right;margin-right: 150px;">Doctor Name : {{doctor.Firstname}} {{doctor.Lastname}}</span>
           </h4>
         </md-card-header-text>
       </md-card-header>
     </md-card>
     <!--end header-->
-    <md-table v-model="searched" md-sort="GPName" md-sort-order="asc" md-card>
+    <md-table v-model="searched" md-sort="UsingStatus" md-sort-order="asc" md-card>
       <md-table-toolbar>
         <div class="md-toolbar-section-start">
-          <h1 class="md-title">Users Name</h1>
+          <h1 class="md-title">Drug History</h1>
         </div>
         <md-field md-clearable class="md-toolbar-section-end">
           <md-input placeholder="Search by drug name..." v-model="search" @input="searchOnTable" />
@@ -24,7 +24,7 @@
       <md-table-empty-state md-label="No users found" :md-description="`No drug name found for this '${search}' query. Try a different search term.`"></md-table-empty-state>
 
       <md-table-row slot="md-table-row" slot-scope="{ item }">
-        <md-table-cell md-label="ID" md-sort-by="OrderID" md-numeric>{{ item.OrderID }}</md-table-cell>
+        <md-table-cell md-label="OrderID" md-sort-by="OrderID" md-numeric>{{ item.OrderID }}</md-table-cell>
         <md-table-cell md-label="Drug Name" md-sort-by="GPName">{{ item.GPName }}</md-table-cell>
         <md-table-cell md-label="Doctor's Name" md-sort-by="DoctorID">{{ item.DoctorID }}</md-table-cell>
         <md-table-cell md-label="Status" md-sort-by="UsingStatus">{{ item.UsingStatus }}</md-table-cell>
@@ -275,7 +275,7 @@
         this.doctor = Response.data[0]
       })
 
-      await doctorServices.getOrderId(this.$localStorage.get('doctor_patient'), this.$localStorage.get('userID')).then(
+      await doctorServices.getOrderId(this.$localStorage.get('doctor_patient')).then(
         Response => {
           console.log(Response.data[0])
           this.users = Response.data

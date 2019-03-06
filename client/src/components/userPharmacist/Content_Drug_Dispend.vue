@@ -1,356 +1,484 @@
 <template>
-
-  <div class="page-container">
+  <div>
     <!--header-->
-        <md-card  style="padding-left: 0px;" >
-              <md-card-header>
-                <md-card-header-text>
-                  <h4 style="text-align:left;">Patient Name : 
-                <span style="float:right;margin-right: 150px;">Doctor Name :</span>
-                </h4>
-                </md-card-header-text>
-              </md-card-header>
-        </md-card>
-        <!--end header-->
-    <md-table v-model="searched" md-sort="name" md-sort-order="asc" md-card>
+    <md-card style="padding-left: 0px;">
+      <md-card-header>
+        <md-card-header-text>
+          <h4 style="text-align:left;">Patient Name : {{patient.Firstname}} {{patient.Lastname}}
+            <span style="float:right;margin-right: 150px;">Pharmacist Name : {{doctor.Firstname}} {{doctor.Lastname}}</span>
+          </h4>
+        </md-card-header-text>
+      </md-card-header>
+    </md-card>
+
+    <!--Table-->
+    <md-table v-model="searched" md-sort="GPName" md-sort-order="asc" md-card>
       <md-table-toolbar>
-        <div class="md-toolbar-section-start"></div>
+        <div class="md-toolbar-section-start">
+          <h1 class="md-title">Users Name</h1>
+        </div>
+        <md-field md-clearable class="md-toolbar-section-end">
+          <md-input placeholder="Search by drug name..." v-model="search" @input="searchOnTable" />
+        </md-field>
       </md-table-toolbar>
-      <md-table-empty-state
-        md-label="No users found"
-        :md-description="`No drug name found for this '${search}' query. Try a different search term.`"
-      ></md-table-empty-state>
+
+      <md-table-empty-state md-label="No users found" :md-description="`No drug name found for this '${search}' query. Try a different search term.`"></md-table-empty-state>
 
       <md-table-row slot="md-table-row" slot-scope="{ item }">
-        <md-table-cell md-label="Patient ID" md-sort-by="id" md-numeric>{{ item.id }}</md-table-cell>
-        <md-table-cell md-label="Order ID" md-sort-by="Oid" md-numeric>{{ item.Oid }}</md-table-cell>
-        <md-table-cell md-label="Patient Name" md-sort-by="name">{{ item.name }}</md-table-cell>
-        <md-table-cell md-label="Doctor Name" md-sort-by="email">{{ item.email }}</md-table-cell>
-        <md-table-cell md-label="Date" md-sort-by="Date">{{ item.Date }}</md-table-cell>
-
-        <md-table-cell md-label="Status">
-          <!--<button type="button" class="btn" style="border-top-width: 0px;">See data</button>-->
-          <!-- Button trigger modal -->
-          <!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target=swal>See data</button> -->
-          <button
-            type="button"
-            class="btn btn-primary"
-            data-toggle="modal"
-            data-target="#basicExampleModal"
-          >see data</button>
+        <md-table-cell md-label="Order ID" md-sort-by="OrderID" md-numeric>{{ item.OrderID }}</md-table-cell>
+        <md-table-cell md-label="Drug Name" md-sort-by="GPName">{{ item.GPName }}</md-table-cell>
+        <md-table-cell md-label="Doctor's Name" md-sort-by="DoctorID">{{ item.DoctorID }}</md-table-cell>
+        <md-table-cell md-label="Status" md-sort-by="UsingStatus">{{ item.UsingStatus }}</md-table-cell>
+        <md-table-cell md-label="Receive Medicine" md-sort-by="Dispend2">
+          <b-progress :value="parseFloat(item.Dispend2)" striped show-value class="mb-3"></b-progress>
         </md-table-cell>
-        <md-table-cell>
-          <button
-            id="b1"
-            type="button"
-            class="close"
-            aria-label="Close"
-            data-dismiss="modal"
-            data-toggle="modal"
-            data-target="#myModalclose"
-            style="border-top-width: 0px,font:10px;"
-          >
-            <span aria-hidden="true">&times;</span>
-          </button>
+        <md-table-cell md-label="Detail">
+          <md-button @click="showDetail(item)" class="md-icon-button md-dense">
+            <md-icon>assignment</md-icon>
+          </md-button>
+        </md-table-cell>
+        <md-table-cell md-label="Dispense">
+          <md-button v-if="item.Dispend2 != '100.00'" @click="dispensing(item)" class="md-icon-button md-dense">
+            <md-icon>ballot</md-icon>
+          </md-button>
+          <md-button v-else disabled class="md-icon-button md-dense">
+            <md-icon>ballot</md-icon>
+          </md-button>
         </md-table-cell>
       </md-table-row>
     </md-table>
-    <br>
-    <!-- end line -->
+
+    <!--Detail Dialog-->
+    <md-dialog :md-active.sync="showDialog">
+      <md-card class="md-layout-item">
+        <md-card-header style="padding :20px;">
+          <div class="md-title">Detail</div>
+        </md-card-header>
+        <md-card-content style="padding-bottom:0px;" class="md-scrollbar">
+
+          <md-speed-dial md-effect="scale" class="md-top-right" md-direction="bottom">
+            <md-speed-dial-target class="md-primary">
+              <md-icon class="md-morph-initial">folder</md-icon>
+              <md-icon class="md-morph-final">folder_open</md-icon>
+            </md-speed-dial-target>
+
+            <md-speed-dial-content>
+              <md-button class="md-icon-button" @click="dialogShift = 'General'">
+                <md-avatar>
+                  <md-icon>description</md-icon>
+                  <md-tooltip md-direction="left">General</md-tooltip>
+                </md-avatar>
+              </md-button>
+
+              <md-button class="md-icon-button" @click="dialogShift = 'Doctor'">
+                <md-avatar>
+                  <md-icon>person</md-icon>
+                  <md-tooltip md-direction="left">Doctor</md-tooltip>
+                </md-avatar>
+              </md-button>
+
+              <md-button class="md-icon-button" @click="dialogShift = 'Pharmacist'">
+                <md-avatar>
+                  <md-icon>person</md-icon>
+                  <md-tooltip md-direction="left">Pharmacist</md-tooltip>
+                </md-avatar>
+              </md-button>
+            </md-speed-dial-content>
+          </md-speed-dial>
+
+          <md-tabs md-dynamic-height v-if="dialogShift == 'General'">
+            <md-tab md-label="General">
+              <form>
+                <div class="md-layout textInDialog">
+                  <div class="md-layout-item"><label style="min-width:180px;">Order ID :</label></div>
+                  <div class="md-layout-item"> <input class="form-control" type="text" placeholder="-" style="min-width:260px;"
+                      readonly :value="itemDialog.OrderID"></div>
+                </div>
+                <div class="md-layout textInDialog">
+                  <div class="md-layout-item"><label style="min-width:180px;">Drug Name (GP) :</label></div>
+                  <div class="md-layout-item"> <input class="form-control" type="text" placeholder="-" style="min-width:260px;"
+                      readonly :value="itemDialog.GPName"></div>
+                </div>
+                <div class="md-layout textInDialog">
+                  <div class="md-layout-item"><label style="min-width:180px;">RXcui :</label></div>
+                  <div class="md-layout-item"> <input class="form-control" type="text" placeholder="-" style="min-width:260px;"
+                      readonly :value="itemDialog.RXCUI"></div>
+                </div>
+                <div class="md-layout textInDialog">
+                  <div class="md-layout-item"><label style="min-width:180px;">Status :</label></div>
+                  <div class="md-layout-item"> <input class="form-control" type="text" placeholder="-" style="min-width:260px;"
+                      readonly :value="itemDialog.UsingStatus"></div>
+                </div>
+                <div class="md-layout textInDialog">
+                  <div class="md-layout-item"><label style="min-width:180px;">Dosage :</label></div>
+                  <div class="md-layout-item"> <input class="form-control" type="text" placeholder="-" style="min-width:260px;"
+                      readonly :value="itemDialog.Dosage"></div>
+                </div>
+
+                <div class="md-layout textInDialog" v-for="(i,index) in itemDialog.Frequency" v-bind:key="index">
+                  <div class="md-layout-item"><label style="min-width:180px;" v-if="index == 0">Frequency : </label><label
+                      style="min-width:180px;" v-else></label></div>
+                  <div class="md-layout-item"> <input class="form-control" type="text" placeholder="-" style="min-width:260px;"
+                      readonly :value="i"></div>
+                </div>
+
+                <div class="md-layout textInDialog">
+                  <div class="md-layout-item"><label style="min-width:180px;">Duration :</label></div>
+                  <div class="md-layout-item"> <input class="form-control" type="text" placeholder="-" style="min-width:260px;"
+                      readonly :value="itemDialog.Duration"></div>
+                </div>
+                <div class="md-layout textInDialog">
+                  <div class="md-layout-item"><label style="min-width:180px;">Quantity :</label></div>
+                  <div class="md-layout-item"> <input class="form-control" type="text" placeholder="-" style="min-width:260px;"
+                      readonly :value="itemDialog.Quantity"></div>
+                </div>
+                <div class="md-layout textInDialog">
+                  <div class="md-layout-item"><label style="min-width:180px;">Recieve medicine(%) :</label></div>
+                  <div class="md-layout-item"> <input class="form-control" type="text" placeholder="-" style="min-width:260px;"
+                      readonly :value="itemDialog.Dispend2"></div>
+                </div>
+                <div class="md-layout textInDialog">
+                  <div class="md-layout-item"><label style="min-width:180px;">Note :</label></div>
+                  <div class="md-layout-item"> <textarea class="form-control" type="text" placeholder="-" style="min-width:260px;"
+                      readonly v-model="itemDialog.Description"></textarea></div>
+                </div>
+                <md-card-actions style="padding:0px;padding-bottom:8px;padding-top:8px;">
+                  <md-button class="md-primary" @click="showDialog = false">Close</md-button>
+                </md-card-actions>
+              </form>
+            </md-tab>
+          </md-tabs>
+          <md-tabs md-dynamic-height v-if="dialogShift == 'Doctor'">
+            <md-tab md-label="Doctor">
+              <form>
+                <div class="md-layout textInDialog">
+                  <div class="md-layout-item"><label style="min-width:180px;">Doctor id :</label></div>
+                  <div class="md-layout-item"> <input class="form-control" type="text" placeholder="-" style="min-width:260px;"
+                      readonly :value="itemDialog.DoctorID"></div>
+                </div>
+                <div class="md-layout textInDialog">
+                  <div class="md-layout-item"><label style="min-width:180px;">Doctor Name :</label></div>
+                  <div class="md-layout-item"> <input class="form-control" type="text" placeholder="-" style="min-width:260px;"
+                      readonly :value="itemDialog.OrderID"></div>
+                </div>
+                <div class="md-layout textInDialog">
+                  <div class="md-layout-item"><label style="min-width:180px;">Ward :</label></div>
+                  <div class="md-layout-item"> <input class="form-control" type="text" placeholder="-" style="min-width:260px;"
+                      readonly :value="itemDialog.OrderID"></div>
+                </div>
+                <md-card-actions style="padding:0px;padding-bottom:8px;padding-top:8px;">
+                  <md-button class="md-primary" @click="showDialog = false">Close</md-button>
+                </md-card-actions>
+              </form>
+            </md-tab>
+          </md-tabs>
+          <md-tabs md-dynamic-height v-if="dialogShift == 'Pharmacist'">
+            <md-tab md-label="Pharmacist">
+              <form>
+                <div class="md-layout textInDialog">
+                  <div class="md-layout-item"><label style="min-width:180px;">Pharmacist id :</label></div>
+                  <div class="md-layout-item"> <input class="form-control" type="text" placeholder="-" style="min-width:260px;"
+                      readonly :value="itemDialog.PharmacistID"></div>
+                </div>
+                <div class="md-layout textInDialog">
+                  <div class="md-layout-item"><label style="min-width:180px;">Pharmacist Name :</label></div>
+                  <div class="md-layout-item"> <input class="form-control" type="text" placeholder="-" style="min-width:260px;"
+                      readonly :value="itemDialog.OrderID"></div>
+                </div>
+                <br>
+                <br>
+                <md-card-actions style="padding:0px;padding-bottom:8px;padding-top:8px;">
+                  <md-button class="md-primary" @click="showDialog = false">Close</md-button>
+                </md-card-actions>
+              </form>
+            </md-tab>
+          </md-tabs>
+        </md-card-content>
+      </md-card>
+    </md-dialog>
+
+    <!--Dispense Dialog-->
+    <md-dialog :md-active.sync="showDispenDialog">
+      <md-card class="md-layout-item">
+        <md-card-header style="padding :20px;">
+          <div class="md-title">Dispense</div>
+        </md-card-header>
+        <md-card-content style="padding-bottom:0px;" class="md-scrollbar">
+
+          <form>
+            <div class="md-layout textInDialog">
+              <div class="md-layout-item"><label style="min-width:180px;">Drug Name (GP) :</label></div>
+              <div class="md-layout-item"> <input class="form-control" type="text" placeholder="-" style="min-width:260px;"
+                  readonly :value="itemDispenseDialog.GPName"></div>
+            </div>
+            <div class="md-layout textInDialog">
+              <div class="md-layout-item"><label style="min-width:180px;">Quantity({{itemDispenseDialog.Dosage.unit}})
+                  :</label></div>
+              <div class="md-layout-item"> <input class="form-control" type="text" placeholder="-" style="min-width:260px;"
+                  readonly :value="itemDispenseDialog.Quantity"></div>
+            </div>
+            <div class="md-layout textInDialog">
+              <div class="md-layout-item"><label style="min-width:180px;">Recieve
+                  Medicine({{itemDispenseDialog.Dosage.unit}}) :</label></div>
+              <div class="md-layout-item"> <input class="form-control" type="text" placeholder="-" style="min-width:260px;"
+                  readonly :value="itemDispenseDialog.Dispend"></div>
+            </div>
+            <div class="md-layout textInDialog">
+              <div class="md-layout-item"><label style="min-width:180px;">Remaining
+                  Medicine({{itemDispenseDialog.Dosage.unit}}) :</label></div>
+              <div class="md-layout-item"> <input class="form-control" type="text" placeholder="-" style="min-width:260px;"
+                  readonly :value="itemDispenseDialog.Remaining"></div>
+            </div>
+            <div class="md-layout textInDialog">
+              <div class="md-layout-item"><label style="min-width:180px;">Dispensing({{itemDispenseDialog.Dosage.unit}}) :</label></div>
+              <div class="md-layout-item"> <input class="form-control" type="text" placeholder="Enter Number" style="min-width:260px;"
+                  v-model="itemDispenseDialog.Dispensing"></div>
+            </div>
+            <md-card-actions style="padding:0px;padding-bottom:8px;padding-top:8px;">
+              <md-button class="md-primary" @click="saveDispensing()">Save</md-button>
+              <md-button class="md-primary" @click="showDispenDialog = false">Close</md-button>              
+            </md-card-actions>
+          </form>
+        </md-card-content>
+      </md-card>
+    </md-dialog>
+
+     <md-dialog :md-active.sync="showErrorDialog">
+      <md-card class="md-layout-item">
+        <md-card-header style="padding :20px;">
+          <div class="md-title">Message</div>
+        </md-card-header>
+        <md-card-content style="padding-bottom:0px;" class="md-scrollbar">
+          {{messageError}}
+          <md-card-actions style="padding:0px;padding-bottom:8px;padding-top:8px;">
+              <md-button class="md-primary" @click="reloadPage()">Close</md-button>              
+            </md-card-actions>
+        </md-card-content>
+      </md-card>
+     </md-dialog>
+     
   </div>
 </template>
 
 <script>
-const toLower = text => {
-  return text.toString().toLowerCase();
-};
-const searchByName = (items, term) => {
-  if (term) {
-    return items.filter(item => toLower(item.name).includes(toLower(term)));
-  }
-  return items;
-};
-import axios from "axios";
-export default {
-  name: "Drug_Interaction",
-  data: () => ({
-    menuVisible: false, //toggle visible menu when responsive
-    Window_Width: 0, //width of window
-    drugName: null, //drug name that submit already
-    drugList: null, //list of drug that interaction with drugName
-    found: false, //true when found data , false when don't have data from API
-    rxcuiID: null, //ID of drug from API
-    checkSearch: false, //true when you search something
-    loading: false, //true when you have to wait for call API
-    search: null,
-    searched: [],
-    users: [
-      {
-        id: 1,
-        name: "khaofang pebble",
-        Oid: "O00001",
-        email: "khaofangpebble@gmail.com",
-        Date: "10/09/2561"
-      },
-      {
-        id: 2,
-        name: "Win Kung",
-        Oid: "O00002",
-        email: "Win@gmail.com",
-        Date: "9/09/2561"
-      },
-      {
-        id: 3,
-        name: "Mikey",
-        Oid: "O00003",
-        email: "Mikey@hotmail.com",
-        Date: "8/09/2561"
-      },
-      {
-        id: 4,
-        name: "Pooh ",
-        Oid: "O00004",
-        email: "Pooh@hotmail.com",
-        Date: "8/09/2561"
-      },
-      {
-        id: 5,
-        name: "Disney",
-        Oid: "O00005",
-        email: "Disney@hotmail.com",
-        Date: "5/09/2561"
-      }
-    ]
-  }),
-  methods: {
-    //toggle visible menu
-    toggleMenu() {
-      this.menuVisible = !this.menuVisible;
-    },
-
-    //get data from API
-    async getData() {
-      this.loading = true;
-      this.rxcui = null;
-      var checkfound = false;
-      await axios
-        .get(`https://rxnav.nlm.nih.gov/REST/rxcui?name=${this.drugName}`)
-        .then(Response => {
-          if (Response.data.idGroup.rxnormId == null) {
-            console.log("rxcui id is null");
-            this.found = false;
-            this.checkSearch = true;
-            this.loading = false;
-          } else {
-            this.rxcui = Response.data.idGroup.rxnormId[0];
-            checkfound = true;
-            console.log("rxcui ok");
-          }
-        });
-      if (checkfound == true) {
-        await axios
-          .get(
-            `https://rxnav.nlm.nih.gov/REST/interaction/interaction.json?rxcui=${
-              this.rxcui
-            }&sources=DrugBank`
-          )
-          .then(Response => {
-            this.drugList =
-              Response.data.interactionTypeGroup[0].interactionType[0].interactionPair;
-            if (Response.data == null) console.log("data is null");
-            else {
-              console.log(this.drugList);
-              this.found = true;
-              this.loading = false;
-            }
-          });
-      }
-    },
-    change() {
-      console.log(this.drugName);
-      this.loading = false;
-      this.found = false;
-      this.drugList = null;
-      this.checkSearch = false;
-    },
-    searchOnTable() {
-      this.searched = searchByName(this.users, this.search);
+  const toLower = text => {
+    return text.toString().toLowerCase();
+  };
+  const searchByName = (items, term) => {
+    if (term) {
+      return items.filter(item => toLower(item.GPName).includes(toLower(term)));
     }
-  },
-  async mounted() {
-    this.Window_Width = window.innerWidth;
-  },
-  created() {
-    this.searched = this.users;
-  }
-};
-//modal
-$(document).ready(function() {
-  $("#b1").click(function() {
-    $("#basicExampleModal").modal();
-  });
-});
+    return items;
+  };
+  import pharmacistServices from '@/services/pharmacist'
+  import axios from "axios";
+  export default {
+    name: "Drug_Interaction",
+    data: () => ({
+      //header
+      patient: [],
+      doctor: [],
+      //table
+      search: null,
+      searched: [],
+      users: [],
+      //detail dialog
+      showDialog: false,
+      itemDialog: {
+        Dosage: {
+          unit: null
+        }
+      },
+      dialogShift: "General",
+      //dispense dialog
+      showDispenDialog: false,
+      itemDispenseDialog: {
+        Dosage: {
+          unit: null
+        }
+      },
+      showErrorDialog: false,
+      messageError: ""
+    }),
+    methods: {
+      //detail dialog
+      showDetail(item) {
+        this.dialogShift = "General"
+        this.showDialog = true
+        this.itemDialog = JSON.parse(JSON.stringify(item));
+
+        //do dosage
+        this.itemDialog.Dosage = this.itemDialog.Dosage.dose + " " + this.itemDialog.Dosage.unit
+
+        //do frequency        
+        this.itemDialog.Frequency = []
+        if (item.Frequency.mor == "true") this.itemDialog.Frequency.push("Morning(เช้า)")
+        if (item.Frequency.aft == "true") this.itemDialog.Frequency.push("Afternoon(กลางวัน)")
+        if (item.Frequency.eve == "true") this.itemDialog.Frequency.push("Evening(เย็น)")
+        if (item.Frequency.bed == "true") this.itemDialog.Frequency.push("Before Bed(ก่อนนอน)")
+        if (item.Frequency.before == "true") this.itemDialog.Frequency.push("Before Meal(ก่อนอาหาร)")
+        if (item.Frequency.after == "true") this.itemDialog.Frequency.push("After Meal(หลังอาหาร)")
+        if (item.Frequency.symptoms == "true") this.itemDialog.Frequency.push("Symptoms(ตามอาการ)")
+
+        //do duration
+        this.itemDialog.Duration = ""
+        if (item.Duration.year != "0") this.itemDialog.Duration += item.Duration.year + " year "
+        if (item.Duration.month != "0") this.itemDialog.Duration += item.Duration.month + " month "
+        if (item.Duration.day != "0") this.itemDialog.Duration += item.Duration.day + " day"
+        if (item.Duration.year == "0" && item.Duration.month == "0" && item.Duration.day == "0") this.itemDialog.Duration =
+          "0"
+
+        //do dispense
+        if (item.DispendStatus == "0") this.itemDialog.DispendStatus = "Not Dispense"
+      },
+      //dispense dialog
+      dispensing(item) {
+        this.showDispenDialog = true
+        this.itemDispenseDialog = JSON.parse(JSON.stringify(item));
+        this.itemDispenseDialog.Remaining = (parseInt(item.Quantity) - parseInt(item.Dispend)).toString()
+        this.itemDispenseDialog.Dispensing = ""
+      },
+      async saveDispensing(){
+        console.log(this.itemDispenseDialog)
+        if(this.itemDispenseDialog.Dispensing == ""){
+
+        }
+        else {
+          var dispense = parseInt(this.itemDispenseDialog.Dispend) + parseInt(this.itemDispenseDialog.Dispensing)
+          var quantity = parseInt(this.itemDispenseDialog.Quantity)
+          console.log(dispense+" = "+this.itemDispenseDialog.Dispend+" + "+this.itemDispenseDialog.Dispensing)
+          console.log(quantity)
+          if(quantity < dispense){
+            this.showErrorDialog = true
+            this.messageError = "จ่ายยาเกินแพทย์สั่งครับ"
+          } else {
+            this.showErrorDialog = true
+            this.messageError = "จ่ายยาเรียบร้อยครับ"  
+            this.itemDispenseDialog.Dispend = dispense.toString() 
+            await pharmacistServices.dispense(this.itemDispenseDialog.OrderID,this.itemDispenseDialog.DrugNo,this.itemDispenseDialog).then(Response => {
+              console.log(Response.data)
+            })       
+          }
+        }
+        //this.showDispenDialog = false
+      },
+      reloadPage(){
+        var dispense = parseInt(this.itemDispenseDialog.Dispend) + parseInt(this.itemDispenseDialog.Dispensing)
+        var quantity = parseInt(this.itemDispenseDialog.Quantity)
+        if(quantity < dispense){
+          this.showErrorDialog = false
+        } else { 
+          window.location.reload();        
+        }       
+      },
+      //table
+      searchOnTable() {
+        this.searched = searchByName(this.users, this.search);
+      }
+    },
+    created() {
+
+    },
+    async mounted() {
+      //console.log(this.$localStorage.get('doctor_patient'))
+      await pharmacistServices.patientInfo(this.$localStorage.get('pharmacist_patient')).then(Response => {
+        console.log(Response.data[0])
+        this.patient = Response.data[0]
+      })
+      console.log(this.$localStorage.get('userID'))
+      await pharmacistServices.pharmacistInfo(this.$localStorage.get('userID')).then(Response => {
+        console.log(Response.data[0])
+        this.doctor = Response.data[0]
+      })
+
+      await pharmacistServices.getOrderId(this.$localStorage.get('pharmacist_patient'), this.$localStorage.get(
+        'userID')).then(
+        Response => {
+          console.log(Response.data)
+          this.users = Response.data
+          //do receive medicine
+          for (var i in this.users) {
+            var quantity = parseFloat(this.users[i].Quantity)
+            var dispense = parseFloat(this.users[i].Dispend)
+            this.users[i].Dispend2 = parseFloat(dispense * 100 / quantity).toFixed(2).toString()    
+            console.log(this.users[i].Dispend2)
+          }
+          this.searched = this.users
+        })
+    }
+  };
+
 </script>
-<style lang="scss" scoped>
-.md-app {
-  height: calc(100vh);
-  border: 1px solid rgba(#000, 0.12);
-}
 
-.md-drawer {
-  width: 230px;
-  max-width: calc(100vw - 125px);
-}
-
-.span_center {
-  text-align: center;
-  width: 100%;
-  font-size: 14px;
-}
-
-.text_all {
-  font-size: 14px;
-}
-
-.md-field {
-  max-width: 300px;
-}
-
-.textSearch {
-  float: left;
-}
-
-.buttonSearch {
-  margin-top: 16px;
-}
-
-.md-input {
-  max-width: calc(100%);
-}
-
-.menu_color {
-  background-color: #f1f1f1;
-}
-
-.delete_margin {
-  width: 100%;
-  background-color: #f1f1f1;
-}
-
-.selected {
-  background-color: #5dbfa8;
-  margin: 2px;
-}
-
-.unselected {
-  background-color: #f1f1f1;
-  margin: 2px;
-}
-
-.selected_text {
-  color: black;
-}
-
-.unselected_text {
-  color: black;
-}
-
-.md-content md-app-content md-flex md-theme-default {
-  padding-top: 23px;
-}
-
-.md-drawer
-  md-app-drawer
-  menu_color
-  md-theme-default
-  md-left
-  md-permanent
-  md-permanent-card {
-  padding-top: 20px;
-}
-
-#button {
-  border-top-width: 0px;
-}
-
-/*Tab Bar*/
-:hover,
-a:focus {
-  outline: none;
-  text-decoration: none;
-}
-
-.tab .nav-tabs {
-  position: relative;
-  border-bottom: none;
-}
-
-.tab .nav-tabs li {
-  margin: 0;
-}
-
-.tab .nav-tabs li a {
-  display: block;
-  padding: 20px 15px;
-  background: #fff;
-  font-size: 17px;
-  font-weight: 700;
-  color: #f2bd47;
-  text-transform: uppercase;
-  text-align: center;
-  border-radius: 0;
-  border: none;
-  margin-right: 0;
-  overflow: hidden;
-  z-index: 1;
-  position: relative;
-  transition: all 0.3s ease 0s;
-}
-
-.tab .nav-tabs li a:after {
-  content: "";
-  width: 100%;
-  height: 100%;
-  background: #e9e9e9;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: -1;
-  perspective-origin: 50% 100%;
-  transform: perspective(900px) rotate3d(1, 0, 0, 90deg);
-  transform-origin: 50% 100% 0;
-  transition: transform 0.3s ease 0s, background-color 0.3s ease 0s;
-}
-
-.tab .nav-tabs li.active a:after {
-  background: #eee6d2;
-  transform: perspective(900px) rotate3d(1, 0, 0, 0deg);
-}
-
-.tab .nav-tabs li.active a,
-.tab .nav-tabs li a:hover {
-  color: #4b489b;
-  border: none;
-}
-
-.tab .tab-content {
-  padding: 20px;
-  background: #eee6d2;
-  font-size: 15px;
-  color: #757575;
-  line-height: 26px;
-  width: 100%;
-}
-
-.tab .tab-content h3 {
-  font-size: 24px;
-  margin-top: 0;
-}
-
-@media only screen and (max-width: 479px) {
-  .tab .nav-tabs li {
-    width: 100%;
-    text-align: center;
+<style>
+  .textInDialog {
+    margin-bottom: 8px;
   }
-}
+
+  .md-app {
+    height: calc(100vh);
+  }
+
+  .md-drawer {
+    width: 230px;
+    max-width: calc(100vw - 125px);
+  }
+
+  .span_center {
+    text-align: center;
+    width: 100%;
+    font-size: 14px;
+  }
+
+  .text_all {
+    font-size: 14px;
+  }
+
+  .md-field {
+    max-width: 300px;
+  }
+
+  .textSearch {
+    float: left;
+  }
+
+  .buttonSearch {
+    margin-top: 16px;
+  }
+
+  .md-input {
+    max-width: calc(100%);
+  }
+
+  .menu_color {
+    background-color: #f1f1f1;
+  }
+
+  .delete_margin {
+    width: 100%;
+    background-color: #f1f1f1;
+  }
+
+  .selected {
+    background-color: #5dbfa8;
+    margin: 2px;
+  }
+
+  .unselected {
+    background-color: #f1f1f1;
+    margin: 2px;
+  }
+
+  .md-content md-app-content md-flex md-theme-default {
+    padding-top: 23px;
+  }
+
+  .md-drawer md-app-drawer menu_color md-theme-default md-left md-permanent md-permanent-card {
+    padding-top: 20px;
+  }
+
+  #tallModal .modal-body p {
+    margin-bottom: 900px
+  }
+
 </style>
