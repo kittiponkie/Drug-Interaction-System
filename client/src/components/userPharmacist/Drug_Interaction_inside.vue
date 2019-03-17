@@ -1,11 +1,19 @@
 <template>
   <div class="page-container">
-    <md-app md-mode="reveal">
-      <md-app-toolbar class="md-primary" md-elevation="0" style="background-color:#5DBFA8;">
+    <md-app md-mode="">
+      <md-app-toolbar class="md-primary" md-elevation="0" style="background-color:#CE5A57;">
         <md-button class="md-icon-button" @click="toggleMenu" v-if="!(Window_Width>600)">
           <md-icon>menu</md-icon>
         </md-button>
         <span class="md-title">Smart Drug Use</span>
+        <div class="md-toolbar-section-end">
+          <md-button @click="logout()" style="background-color: #e8928f; " v-if="(Window_Width>600)">
+            <h6 style="color:black">Logout</h6>
+          </md-button>
+            <md-button @click="logout()" class="md-icon-button" style="background-color:#e8928f" v-if="!(Window_Width>600)">
+              <md-icon style="color:black;">power_settings_new</md-icon>
+            </md-button>
+        </div>
       </md-app-toolbar>
 
       <md-app-drawer md-permanent="card" :md-active.sync="menuVisible" class="menu_color">
@@ -23,10 +31,6 @@
             <md-icon style="margin-right:10px">arrow_back_ios</md-icon>
             <span class="md-list-item-text selected_text">Back</span>
           </md-list-item>
-          <md-list-item to="/pharmacist/patient_information" class="unselected">
-            <md-icon style="margin-right:10px">account_circle</md-icon>
-            <span class="md-list-item-text unselected_text">Patient Information</span>
-          </md-list-item>
 
           <md-list-item to="/pharmacist/pharmacist_drug_dispend" class="unselected">
             <md-icon style="margin-right:10px">grain</md-icon>
@@ -37,6 +41,11 @@
             <md-icon style="margin-right:10px">folder_shared</md-icon>
             <span class="md-list-item-text selected_text">Drug History</span>
           </md-list-item>
+          
+          <md-list-item to="/pharmacist/patient_information" class="unselected">
+            <md-icon style="margin-right:10px">account_circle</md-icon>
+            <span class="md-list-item-text unselected_text">Patient Information</span>
+          </md-list-item>
 
           <md-list-item to="/pharmacist/pharmacist_drug_information" class="unselected">
             <md-icon style="margin-right:10px">description</md-icon>
@@ -44,13 +53,8 @@
           </md-list-item>
 
           <md-list-item to="/pharmacist/pharmacist_drug_interaction" class="selected">
-            <md-icon style="margin-right:10px">bubble_chart</md-icon>
-            <span class="md-list-item-text unselected_text">Drug Interaction</span>
-          </md-list-item>
-
-          <md-list-item @click="logout" class="unselected">
-            <md-icon style="margin-right:10px">power_settings_new</md-icon>
-            <span class="md-list-item-text unselected_text">Logout</span>
+            <md-icon style="margin-right:10px;color:white;">bubble_chart</md-icon>
+            <span class="md-list-item-text unselected_text" style="color:white;">Drug Interaction</span>
           </md-list-item>
 
         </md-list>
@@ -142,7 +146,7 @@
   }
 
   .selected {
-    background-color: #5DBFA8;
+    background-color: #CE5A57;
     margin: 2px;
   }
 

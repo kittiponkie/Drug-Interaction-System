@@ -1,24 +1,26 @@
 <template>
   <div>
-    <!-- <h2>Relation</h2> -->
-    <div class="col-lg-12" style="width:100%;height:100%">
+    
       <div class="panel panel-default">
-        <!--card1-->
-        <h3 style="margin-left:20px;">Patient</h3>
-        <div class="inline" v-for="(i,index) in users" :key="index" @click="gotoDetail(index)">
+            <div class="panel-heading">
+              <h3>Select Patient</h3>
+            </div>
+            <div class="paddingCard">
+            <div class="inline" v-for="(i,index) in users" :key="index" @click="gotoDetail(index)">
           <!--router-link to="/doctor"-->
-          <md-card md-with-hover>
+          <md-card class="cardColor" md-with-hover>
             <md-card-header>
               <div class="md-title">{{users_name[index]}}</div>
               <div class="md-subhead">ID : {{i.PatientID}} </div>
             </md-card-header>
           </md-card>
           <!--/router-link-->
-        </div>
-        <!-- end card1-->
-      </div>
+        </div> 
+            </div>
+          </div>
+          
+             
     </div>
-  </div>
 </template>
 
 <script>
@@ -44,7 +46,7 @@
       gotoDetail(index) {
         console.log(this.users[index].PatientID)
         this.$localStorage.set('doctor_patient', this.users[index].PatientID)
-        this.$router.push('/doctor')
+        this.$router.push('/doctor/doctor_order_drug')
       }
     },
     async mounted() {
@@ -139,7 +141,16 @@
   }
 
   .inline {
-    display: inline-block;
+    display: inline-block;  
+    padding: 5px;  
+  }
+
+  .paddingCard {
+    padding: 10px;
+  }
+
+  .cardColor {
+    background-color:#f5f5f5;
   }
 
 </style>
