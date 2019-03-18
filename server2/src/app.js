@@ -134,7 +134,7 @@ app.get('/info/:GenName', (req, res) => {
 
 app.get('/CompleteInfo/GPID', (req, res) => {
 
-  var sql = "SELECT GPID , FSN FROM gp WHERE 1 ;";
+  var sql = "SELECT * FROM `vtm` WHERE FSN NOT LIKE '%+%' AND FSN NOT LIKE '%,%' ;";
 
   connection.query(sql, (err, rows, fields) => {
     if (err) {
@@ -144,10 +144,8 @@ app.get('/CompleteInfo/GPID', (req, res) => {
     }
 
     const info1 = rows.map((row) => {
-      return {
-        GPID: row.GPID,
-        FSN_GPID: row.FSN
-      }
+      return row.FSN
+
     })
 
     var result = {
@@ -155,13 +153,22 @@ app.get('/CompleteInfo/GPID', (req, res) => {
     };
 
     res.json(result);
+    //save file
+    console.log(result)
+    var fs = require('fs');
+    fs.writeFile('message.txt', JSON.stringify(result),
+      function (err) {
+        if (err) throw err;
+        console.log('It\'s saved!');
+      }
+    )
   })
 })
 
 
 app.get('/CompleteInfo/VTM', (req, res) => {
 
-  var sql = "SELECT VTMID , FSN FROM vtm WHERE 1 ;";
+  var sql = "SELECT * FROM `vtm` WHERE FSN NOT LIKE '%+%' AND FSN NOT LIKE '%,%' ;";
 
   connection.query(sql, (err, rows, fields) => {
     if (err) {
@@ -171,10 +178,7 @@ app.get('/CompleteInfo/VTM', (req, res) => {
     }
 
     const info1 = rows.map((row) => {
-      return {
-        VTMID: row.VTMID,
-        FSN_VTMID: row.FSN
-      }
+      return row.FSN
     })
 
     var result = {
@@ -182,6 +186,15 @@ app.get('/CompleteInfo/VTM', (req, res) => {
     };
 
     res.json(result);
+    //save file
+    console.log(result)
+    var fs = require('fs');
+    fs.writeFile('message.txt', JSON.stringify(result),
+      function (err) {
+        if (err) throw err;
+        console.log('It\'s saved!');
+      }
+    )
   })
 })
 
@@ -199,11 +212,9 @@ app.get('/Allergic/:VTMName', (req, res) => {
       return
     }
 
-
     const info1 = rows.map((row) => {
       return {
         GPID: row.GPID
-       // FSN_GPID: row.FSN
       }
     })
 
@@ -214,5 +225,34 @@ app.get('/Allergic/:VTMName', (req, res) => {
     res.json(result)
 
   })
-  
+
+})
+
+
+// Search GPID By GPName 
+app.get('/Allergic/GP/:GPName', (req, res) => {
+  console.log('Fetching GP :' + req.params.GPName)
+  const GPName = req.params.GPName
+  var sql = "SELECT GPID FROM gp WHERE FSN LIKE ? ";
+
+  connection.query(sql, [GPName], (err, rows, fields) => {
+    if (err) {
+      console.log('Failed to query for users : ' + err)
+      res.sendStatus(500)
+      return
+    }
+
+    const info1 = rows.map((row) => {
+      return {
+        GPID: row.GPID
+      }
+    })
+
+    var result = {
+      GP: info1
+    };
+
+    res.json(result)
+
+  })
 })

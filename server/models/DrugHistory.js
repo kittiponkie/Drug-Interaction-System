@@ -1,19 +1,28 @@
 const mongoose = require("mongoose");
 const DrugHistorySchema = mongoose.Schema({
-    OrderID : String,
-    PatientID : String,
-    DoctorID : String,
-    PharmacistID : String,
-    OrderStartDate : String,
-    DispendStartDate : String,
-    Duration : String,
-    UsingStatus : String,
-    DispendStatus : String,
-    DrugNo : String,
-    GPName : String,
-    RXCUI : String,
-    Dosage  : String,
-    Frequency : String,
+    PatientID: String,
+    DoctorID: String,
+    Duration: {
+        year: String,
+        month: String,
+        day: String
+    },
+    DrugNo: String,
+    GPName: String,
+    RXCUI: String,
+    Dosage: {
+        dose: String,
+        unit: String
+    },
+    Frequency: {
+        mor: String,
+        aft: String,
+        eve: String,
+        bed: String,
+        before: String,
+        after: String,
+        symptoms: String
+    },
     Times: String,
     Quantity: String,
     Dispend: String,
