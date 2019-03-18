@@ -1,6 +1,6 @@
 <template>
   <div>
-    <!--header-->
+    <!--header-->    
     <md-card>
       <md-card-header>
         <md-card-header-text>
@@ -35,11 +35,11 @@
                 <md-card-content style="padding-bottom:0px;">
 
                   <form novalidate @submit.prevent="addDrugToList">
-                    <label>GPName</label>
-                    <md-field md-clearable>
-                      <md-input v-model="newDrugs.GPName" placeholder="Enter Text"></md-input>
-                    </md-field>
-
+                    <label>GPName</label>   
+                     <div style="margin:20px 0 20px 0;">                 
+                    <input v-model="query2" id="input" class="form-control" type="text" placeholder="Type to search...">
+                    <typeahead v-model="query" @select="query2=query" target="#input" :data="drugsSearch" :limit="drugsSearch.length" match-start=true force-select=true />    
+                     </div>                
                     <div class="md-layout">
                       <div class="md-layout-item" style="margin-right:5px">
                         <label>Dosage</label>
@@ -240,6 +240,7 @@
 </template>
 
 <script>
+
   const toLower = text => {
     return text.toString().toLowerCase()
   }
@@ -249,7 +250,7 @@
     }
     return items
   }
-
+import DRUGS from '../../data/drugs.js'
   import doctorServices from '@/services/doctor'
   import axios from "axios";
   export default {
@@ -310,6 +311,11 @@
       showDialog: false,
       //drug history
       first: false,
+
+      //auto complete
+      query: '',
+      query2: '',
+      drugsSearch: DRUGS.GP
     }),
     methods: {
       //add drug to list
@@ -577,11 +583,15 @@
           this.newDrugs.OrderID = orderId
         }
       })
+
+      /*axios.get(`http://localhost:8082/info/${this.drugName}`).then(Response => {          
+      
+      })*/
     }
+
   }
 
 </script>
 
 <style lang="css" scoped>
-
 </style>

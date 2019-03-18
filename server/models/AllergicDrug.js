@@ -1,9 +1,7 @@
 const mongoose = require("mongoose");
 const AllergicDrugSchema = mongoose.Schema({
     PatientID: String,
-    GPName: String,
-    //GPID: String,
-    RXCUI: String
+    VTMName: String
 })
 
 module.exports = mongoose.model('AllergicDrug', AllergicDrugSchema)

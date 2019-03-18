@@ -9,7 +9,7 @@
       Register
     </h1>
     <md-tabs md-sync-route>
-      <md-tab id="tab-patient" md-label="Patient" to="/register/patient">
+      <md-tab id="tab-patient" md-label="Patient" to="/register/patient" style="overflow:scroll;">
         <div>
           <div class="row">
             <form>
@@ -77,22 +77,11 @@
                 <!-- Birthday & Age(autocalculation) -->
                 <div class="row">
                   <div class="col-sm-6 form-group">
-                    <label>Birthday</label>                    
-                      <md-datepicker ref="birthday" md-immediately>
-                        <label>Enter Birthday Here..</label>
-                      </md-datepicker>
-  <div>
-    <v-layout row wrap>
-      <v-flex xs12 sm3>
-        <v-checkbox v-model="landscape" hide-details label="Landscape"></v-checkbox>
-      </v-flex>
-      <v-flex xs12 sm3>
-        <v-checkbox v-model="reactive" hide-details label="Reactive"></v-checkbox>
-      </v-flex>
-    </v-layout>
+                    <label>Birthday</label>
+                    <md-datepicker ref="birthday" md-immediately>
+                      <label>Enter Birthday Here..</label>
+                    </md-datepicker>
 
-    <v-date-picker v-model="test" :landscape="landscape" :reactive="reactive"></v-date-picker>
-  </div>
                   </div>
                   <div class="col-sm-6 form-group">
                     <label>Age</label>
@@ -102,56 +91,75 @@
                 </div>
 
                 <!-- id card -->
-                  <div class="row">
-                    <div class="col-sm-6 form-group">
-                      <label>ID Card</label>
-                      <input ref="idcard" type="text" placeholder="Enter Designation Here.." class="form-control">
-                    </div>
-                    <div class="col-sm-6 form-group">
-                        <label>Status</label>
-                        <select ref="status" class="form-control">
-                          <option selected="">Single </option>
-                          <option>Married </option>
-                          <option>Divorced </option>
-                          <option>Separate</option>
-                        </select>
-                    </div>
+                <div class="row">
+                  <div class="col-sm-6 form-group">
+                    <label>ID Card</label>
+                    <input ref="idcard" type="text" placeholder="Enter Designation Here.." class="form-control">
                   </div>
-                  <!-- Rac & Nationality & Religion-->
-                  <div class="row">
-                    <div class="col-sm-6 form-group">
-                      <label>Nationality</label>
-                      <input ref="nation" type="text" placeholder="Enter Nationality Here.." class="form-control">
-                    </div>
-                    <div class="col-sm-6 form-group">
-                      <label>Race</label>
-                      <input ref="rac" type="text" placeholder="Enter Rac Here.." class="form-control">
-                    </div>
-                    <div class="col-sm-6 form-group">
-                      <label>Religion</label>
-                      <input ref="religion" type="text" placeholder="Enter Religion Here.." class="form-control">
-                    </div>
+                  <div class="col-sm-6 form-group">
+                    <label>Status</label>
+                    <select ref="status" class="form-control">
+                      <option selected="">Single </option>
+                      <option>Married </option>
+                      <option>Divorced </option>
+                      <option>Separate</option>
+                    </select>
                   </div>
-                  <!-- blood -->
-                  <div class="row">
-                    <div class="col-sm-6 form-group">
-                      <label>Blood</label>
-                      <select ref="blood" class="form-control">
-                        <option selected="">A </option>
-                        <option>B</option>
-                        <option>AB</option>
-                        <option>O</option>
-                        <option>Rh-positive</option>
-                        <option>Rh-negative</option>
-                        <option>Unknown</option>
-                      </select>
-                    </div>
-                  </div>
-                <div class="form-group">
-                  <label>Drug allergy</label>
-                  <input ref="drugAllergy" type="text" placeholder="Enter Drug allergy Here.." class="form-control">
                 </div>
-                <div class="form-group">
+                <!-- Rac & Nationality & Religion-->
+                <div class="row">
+                  <div class="col-sm-6 form-group">
+                    <label>Nationality</label>
+                    <input ref="nation" type="text" placeholder="Enter Nationality Here.." class="form-control">
+                  </div>
+                  <div class="col-sm-6 form-group">
+                    <label>Race</label>
+                    <input ref="rac" type="text" placeholder="Enter Rac Here.." class="form-control">
+                  </div>
+                  <div class="col-sm-6 form-group">
+                    <label>Religion</label>
+                    <input ref="religion" type="text" placeholder="Enter Religion Here.." class="form-control">
+                  </div>
+                </div>
+                <!-- blood -->
+                <div class="row">
+                  <div class="col-sm-6 form-group">
+                    <label>Blood</label>
+                    <select ref="blood" class="form-control">
+                      <option selected="">A </option>
+                      <option>B</option>
+                      <option>AB</option>
+                      <option>O</option>
+                      <option>Rh-positive</option>
+                      <option>Rh-negative</option>
+                      <option>Unknown</option>
+                    </select>
+                  </div>
+                </div>
+                
+                  <label>Drug allergy</label>
+                  <div style="margin:5px 0px 10px 0px;min-height:36px;">
+                    
+                    <form @submit.prevent="addAllergicList()" >
+                      
+                      <div class="col-sm-6" style="padding-left:0;">
+                      <input v-model="query2" id="input" class="form-control" type="text" placeholder="Type to search...">
+                       <typeahead v-model="query" target="#input" :data="drugsSearch" :limit="drugsSearch.length"
+                        match-start=true force-select=true force-clear=true />
+                       </div>    
+                       <div class="col-sm-6" style="padding-left:0;">            
+                      
+                      <md-button type="submit" style="margin:0;background-color:#5bc0de;color:black">ADD</md-button>
+                      </div>  
+                      
+                    </form>
+                    <md-chip v-for="(chip,index) in AllergicDrugs" :key="index" @md-delete="AllergicDrugs.splice(index,1)"
+                    md-deletable style="margin-top:5px;">{{
+                    chip }}</md-chip>                    
+                  </div>
+                     
+                
+                <div class="form-group" style="padding-top:10px;">
                   <label> Address</label>
                   <textarea ref="address" placeholder="Enter Address Here.." rows="3" class="form-control"></textarea>
                 </div>
@@ -197,6 +205,7 @@
 
 <script>
   import axios from 'axios'
+  import DRUGS from '../../data/VTM.js'
   import registerService from '@/services/registerService'
   export default {
     name: 'PatientRegister',
@@ -231,13 +240,18 @@
       },
       dataAllergic: {
         PatientID: String,
-        GPName: String,
-        RXCUI: String
+        VTMName: String
       },
       test: null,
       picker: new Date().toISOString().substr(0, 10),
-        landscape: false,
-        reactive: false
+      landscape: false,
+      reactive: false,
+
+      //auto complete
+      AllergicDrugs: [],
+      query: '',
+      query2: '',
+      drugsSearch: DRUGS.VTM
     }),
     methods: {
       cancel() {
@@ -248,7 +262,7 @@
           await this.DataPatient()
           await this.DataAccount()
           if (this.$refs.drugAllergy.value != '') await this.DataAllergic()
-          
+
         }
       },
       async DataPatient() {
@@ -288,9 +302,14 @@
       },
       DataAllergic() {
         this.dataAllergic.PatientID = this.dataPatient.PatientID
-        this.dataAllergic.GPName = this.$refs.drugAllergy.value
-        this.dataAllergic.RXCUI = "not done"
+        //this.dataAllergic.VTMName = this.$refs.drugAllergy.value
         registerService.allergicDrug(this.dataAllergic)
+      },
+      addAllergicList() {
+        if(this.query != null && this.query != '') this.AllergicDrugs.push(this.query)
+        this.query = ''
+        this.query2 = ''
+
       }
     },
     async mounted() {

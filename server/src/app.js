@@ -751,16 +751,13 @@ app.get("/AllergicDrug/:PatientID", (req, res) => {
 app.post('/post/AllergicDrug', (req, res) => {
   var db = req.db;
   var PatientID = req.body.PatientID
-  var GPName = req.body.GPName
-  var RXCUI = req.body.RXCUI
+  var VTMName = req.body.VTMName
   //var GPID = req.body.GPID
 
   console.log("POST Method")
   var new_AllergicDrug = new AllergicDrug({
     PatientID: PatientID,
-    GPName: GPName,
-    //GPIP: GPID,
-    RXCUI: RXCUI
+    VTMName: VTMName
   })
   new_AllergicDrug.save(function (error) {
     if (error) {
@@ -777,11 +774,11 @@ app.post('/post/AllergicDrug', (req, res) => {
 app.delete('/remove/AllergicDrug/:PatientID/:GPName', (req, res) => {
   var db = req.db;
   var PatientID = req.params.PatientID
-  var GPName = req.params.GPName
+  var VTMName = req.params.VTMName
 
   AllergicDrug.remove({
     "PatientID": PatientID,
-    "GPName": GPName
+    "VTMName": VTMName
   }, function (err, post) {
     if (err)
       res.send(err)
