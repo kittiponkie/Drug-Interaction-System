@@ -1,11 +1,19 @@
 <template>
   <div class="page-container">
-    <md-app md-mode="reveal">
-      <md-app-toolbar class="md-primary" md-elevation="0" style="background-color:#5DBFA8;">
+    <md-app md-mode="">
+      <md-app-toolbar class="md-primary" md-elevation="0" style="background-color:#E1B16A;">
         <md-button class="md-icon-button" @click="toggleMenu" v-if="!(Window_Width>600)">
           <md-icon>menu</md-icon>
         </md-button>
         <span class="md-title">Smart Drug Use</span>
+        <div class="md-toolbar-section-end">          
+          <md-button @click="logout()" style="background-color: #edcd9e; " v-if="(Window_Width>600)">
+            <h6 style="color:black">Logout</h6>
+          </md-button>
+            <md-button @click="logout()" class="md-icon-button" style="background-color:#edcd9e" v-if="!(Window_Width>600)">
+              <md-icon style="color:black;">power_settings_new</md-icon>
+            </md-button>
+        </div>
       </md-app-toolbar>
 
       <md-app-drawer md-permanent="card" :md-active.sync="menuVisible" class="menu_color">
@@ -20,13 +28,8 @@
  
         <md-list class="delete_margin">
           <md-list-item to="/admin" class="selected">
-            <md-icon style="margin-right:10px">account_circle</md-icon>
-            <span class="md-list-item-text unselected_text">Admin Management</span>
-          </md-list-item>
-
-          <md-list-item to="/login" class="unselected">
-            <md-icon style="margin-right:10px">power_settings_new</md-icon>
-            <span class="md-list-item-text unselected_text">Logout</span>
+            <md-icon style="margin-right:10px;color:white;">account_circle</md-icon>
+            <span class="md-list-item-text unselected_text" style="color:white;">Admin Management</span>
           </md-list-item>
 
         </md-list>
@@ -369,6 +372,9 @@
       },
       searchOnTable() {
         this.searched = searchByName(this.users, this.search)
+      },
+      logout(){
+        this.$router.push('/login')
       }
     },
     async mounted() {
@@ -429,7 +435,7 @@
   }
 
   .selected {
-    background-color: #5DBFA8;
+    background-color: #E1B16A;
     margin: 2px;
   }
 
@@ -520,13 +526,13 @@
 
   .tab .nav-tabs li.active a,
   .tab .nav-tabs li a:hover {
-    color: #5DBFA8;
+    color: #E1B16A;
     border: none;
   }
 
   .tab .tab-content {
     padding: 20px;
-    background-color: #5DBFA8;
+    background-color: #E1B16A;
 
     font-size: 15px;
     color: #fffefe;

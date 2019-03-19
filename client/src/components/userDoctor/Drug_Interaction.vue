@@ -1,11 +1,25 @@
 <template>
   <div class="page-container">
-    <md-app md-mode="reveal">
-      <md-app-toolbar class="md-primary" md-elevation="0" style="background-color:#5DBFA8;">
+    <md-app md-mode="">
+      <md-app-toolbar class="md-primary" md-elevation="0" style="background-color:#78A5A3;">
         <md-button class="md-icon-button" @click="toggleMenu" v-if="!(Window_Width>600)">
           <md-icon>menu</md-icon>
         </md-button>
         <span class="md-title">Smart Drug Use</span>
+        <div class="md-toolbar-section-end">
+          <md-button @click="toDoctorInfo()" style="background-color: #b6d6d4; " v-if="(Window_Width>600)">
+            <h6 style="color:black">Doctor Information</h6>
+          </md-button>
+            <md-button @click="toDoctorInfo()" class="md-icon-button" style="background-color:#b6d6d4" v-if="!(Window_Width>600)">
+              <md-icon style="color:black;">account_circle</md-icon>
+            </md-button>
+            <md-button @click="logout()" style="background-color: #b6d6d4; " v-if="(Window_Width>600)">
+            <h6 style="color:black">Logout</h6>
+          </md-button>
+            <md-button @click="logout()" class="md-icon-button" style="background-color:#b6d6d4" v-if="!(Window_Width>600)">
+              <md-icon style="color:black;">power_settings_new</md-icon>
+            </md-button>
+        </div>
       </md-app-toolbar>
 
       <md-app-drawer md-permanent="card" :md-active.sync="menuVisible" class="menu_color">
@@ -19,15 +33,10 @@
         </md-toolbar>
 
         <md-list class="delete_margin">
-          <md-list-item to="/doctor_information" class="unselected">
-            <md-icon style="margin-right:10px">account_circle</md-icon>
-            <span class="md-list-item-text unselected_text">Doctor Information</span>
-          </md-list-item>
-
           <md-list-item to="/doctor_relation" class="unselected">
             <md-icon style="margin-right:10px">person_add</md-icon>
-            <span class="md-list-item-text selected_text">Patient</span>
-          </md-list-item>      
+            <span class="md-list-item-text selected_text">Select Patient</span>
+          </md-list-item>
 
           <md-list-item to="/doctor_drug_information" class="unselected">
             <md-icon style="margin-right:10px">description</md-icon>
@@ -35,15 +44,9 @@
           </md-list-item>
 
           <md-list-item to="/doctor_drug_interaction" class="selected">
-            <md-icon style="margin-right:10px">bubble_chart</md-icon>
-            <span class="md-list-item-text unselected_text">Drug Interaction</span>
+            <md-icon style="margin-right:10px;color:white;">bubble_chart</md-icon>
+            <span class="md-list-item-text unselected_text" style="color:white;">Drug Interaction</span>
           </md-list-item>
-
-          <md-list-item @click="logout" class="unselected">
-            <md-icon style="margin-right:10px">power_settings_new</md-icon>
-            <span class="md-list-item-text unselected_text">Logout</span>
-          </md-list-item>
-
         </md-list>
 
       </md-app-drawer>
@@ -75,6 +78,9 @@
       },
       logout(){
         this.$router.push('/login')
+      },
+      toDoctorInfo(){
+        this.$router.push('/doctor_information')
       }
     },
     async mounted() {
@@ -132,7 +138,7 @@
   }
 
   .selected {
-    background-color: #5DBFA8;
+    background-color: #78A5A3;
     margin: 2px;
   }
 

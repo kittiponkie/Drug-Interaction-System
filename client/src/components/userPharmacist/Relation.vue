@@ -1,11 +1,25 @@
 <template>
   <div class="page-container">
-    <md-app md-mode="reveal">
-      <md-app-toolbar class="md-primary" md-elevation="0" style="background-color:#5DBFA8;">
+    <md-app md-mode="">
+      <md-app-toolbar class="md-primary" md-elevation="0" style="background-color:#CE5A57;">
         <md-button class="md-icon-button" @click="toggleMenu" v-if="!(Window_Width>600)">
           <md-icon>menu</md-icon>
         </md-button>
         <span class="md-title">Smart Drug Use</span>
+        <div class="md-toolbar-section-end">
+          <md-button @click="toPharInfo()" style="background-color:#e8928f;" v-if="(Window_Width>600)">
+            <h6 style="color:black;">Pharmacist Information</h6>
+          </md-button>
+            <md-button @click="toPharInfo()" class="md-icon-button" style="background-color:#e8928f;" v-if="!(Window_Width>600)">
+              <md-icon style="color:black;">account_circle</md-icon>
+            </md-button>
+          <md-button @click="logout()" style="background-color: #e8928f; " v-if="(Window_Width>600)">
+            <h6 style="color:black">Logout</h6>
+          </md-button>
+            <md-button @click="logout()" class="md-icon-button" style="background-color:#e8928f" v-if="!(Window_Width>600)">
+              <md-icon style="color:black;">power_settings_new</md-icon>
+            </md-button>
+        </div>
       </md-app-toolbar>
 
       <md-app-drawer md-permanent="card" :md-active.sync="menuVisible" class="menu_color">
@@ -19,15 +33,10 @@
         </md-toolbar>
 
         <md-list class="delete_margin">
-          <md-list-item to="/pharmacist_information" class="unselected">
-            <md-icon style="margin-right:10px">account_circle</md-icon>
-            <span class="md-list-item-text unselected_text">Pharmacist Information</span>
-          </md-list-item>
-
           <md-list-item to="/pharmacist_relation" class="selected">
-            <md-icon style="margin-right:10px">person_add</md-icon>
-            <span class="md-list-item-text selected_text">Patient</span>
-          </md-list-item>      
+            <md-icon style="margin-right:10px;color:white;">person_add</md-icon>
+            <span class="md-list-item-text selected_text" style="color:white;">Select Patient</span>
+          </md-list-item>              
 
           <md-list-item to="/pharmacist_drug_information" class="unselected">
             <md-icon style="margin-right:10px">description</md-icon>
@@ -39,82 +48,13 @@
             <span class="md-list-item-text unselected_text">Drug Interaction</span>
           </md-list-item>
 
-          <md-list-item @click="logout" class="unselected">
-            <md-icon style="margin-right:10px">power_settings_new</md-icon>
-            <span class="md-list-item-text unselected_text">Logout</span>
-          </md-list-item>
-
         </md-list>
 
       </md-app-drawer>
       <md-app-content>
         <contentA />
       </md-app-content>
-    </md-app>
-
-    <div class="container">
-      <h2>Small Modal</h2>
-      <!-- Button to Open the Modal -->
-      <button
-        type="button"
-        class="btn btn-primary"
-        data-toggle="modal"
-        data-target="#myModal"
-      >Open modal</button>
-
-      <!-- The Modal -->
-      <div class="modal fade" id="basicExampleModal">
-        <div class="modal-dialog modal-sm">
-          <div class="modal-content">
-            <!-- Modal Header -->
-            <div class="modal-header">
-              <h4 class="modal-title">Summary</h4>
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <!-- Modal body -->
-            <div class="modal-body">// Show Summary data //</div>
-            <!-- Modal footer1 -->
-            <div class="modal-footer">
-              <button type="button" class="btn btn-success">Save changes</button>
-              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  
-  <div class="container">
-   <!-- Modal add friend -->
-    <div class="modal fade" id="basicExampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-      aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Add Friend</h5><br />
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <!--content summary -->
-          <div class="modal-body">
-            <p>กรุณากรอก ID ที่ต้องการเพิ่มเพื่อน</p>
-            <div class="row">
-              <div class="col-sm-6 form-group">
-                <input type="text" placeholder="ตัวอย่าง D00001" class="form-control">
-                <!-- ยังไม่ได้ทำ auto complete -->
-              </div>
-            </div>
-          </div>
-          <!-- confirm to dispend drug button -->
-          <div class="modal-footer">
-            <button type="button" class="btn btn-primary">Add Friend</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- end add friend modal -->
-  </div>
-  
+    </md-app> 
   
   </div> <!-- end -->
 </template>
@@ -138,6 +78,9 @@
       },
       logout(){
         this.$router.push('/login')
+      },
+      toPharInfo(){
+        this.$router.push('/pharmacist_information')
       }
     },
     async mounted() {
@@ -195,7 +138,7 @@
   }
 
   .selected {
-    background-color: #5DBFA8;
+    background-color: #CE5A57;
     margin: 2px;
   }
 

@@ -44,7 +44,7 @@
       gotoDetail(index) {
         console.log(this.users[index].PatientID)
         this.$localStorage.set('pharmacist_patient', this.users[index].PatientID)
-        this.$router.push('/pharmacist')
+        this.$router.push('/pharmacist/pharmacist_drug_dispend')
       }
     },
     async mounted() {

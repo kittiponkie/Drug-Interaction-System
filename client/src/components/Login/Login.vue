@@ -32,7 +32,7 @@
             Login
           </button>
           <router-link to="/register" target="_parent"><button class="btn btn-success btn-lg">Register</button></router-link>
-          <router-link to="/forgotpassword" target="_blank" class="btn btn-link">forget Password?</router-link>
+          <router-link to="/forgotpassword" target="_blank" class="btn btn-link">Forget Password?</router-link>
         </div>        
         {{test}}
       </div>
@@ -71,8 +71,8 @@
             this.test = Response.data.AccountType
             this.$localStorage.set('userID', Response.data.ID)
             if(Response.data.AccountType == 'Patient')  this.$router.push('/patient_information')            
-            else if(Response.data.AccountType == 'Doctor') this.$router.push('/doctor_information')
-            else if(Response.data.AccountType == 'Pharmacist') this.$router.push('/pharmacist_information')
+            else if(Response.data.AccountType == 'Doctor') this.$router.push('/doctor_relation')
+            else if(Response.data.AccountType == 'Pharmacist') this.$router.push('/pharmacist_relation')
             else if(Response.data.AccountType == 'Admin') this.$router.push('/admin')
             else {
               this.test = "error type not found"              

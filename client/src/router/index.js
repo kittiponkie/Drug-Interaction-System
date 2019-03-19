@@ -25,6 +25,14 @@ Vue.use(Vuetify)
 import VueLocalStorage from 'vue-localstorage'
 Vue.use(VueLocalStorage)
 
+//auto complete
+//import VueBootstrapTypeahead from 'vue-bootstrap-typeahead'
+//import 'bootstrap/scss/bootstrap.scss'
+//Vue.component('vue-bootstrap-typeahead', VueBootstrapTypeahead)
+//import 'bootstrap/dist/css/bootstrap.min.css'
+import * as uiv from 'uiv'
+Vue.use(uiv)
+
 import login from '@/components/Login/login'
 import forgotpassword from '@/components/Login/forgotpassword'
 import RegisterPatient from '@/components/Register/Patient'

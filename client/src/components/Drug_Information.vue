@@ -3,7 +3,8 @@
         <div class="col-lg-6" style="width:100%;">
           <div class="panel panel-default">
             <div class="panel-heading">
-              <h3>Drug Name : {{drugName}}</h3>
+              <h3>Drug Information</h3>              
+              <h4>Drug Name : {{drugName}}</h4>
               <form v-on:submit.prevent="getData">
                 <md-field md-clearable class="md-toolbar-section-end textSearch">
                   <md-input placeholder="Search by Drug name..." v-model="drugName" @input="change"></md-input>

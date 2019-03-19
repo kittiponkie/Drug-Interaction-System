@@ -206,3 +206,61 @@ app.get('/CompleteInfo/VTM', (req, res) => {
     
   })
 })
+
+// Check allergic drug ฺBy VtMname  - return list of GPID Drug 
+app.get('/Allergic/:VTMName', (req, res) => {
+  console.log('Fetching VTM :' + req.params.VTMName)
+  const VTMName = "%" + req.params.VTMName + "%"
+  console.log(VTMName)
+  var sql = "SELECT * FROM gp WHERE GPID IN (SELECT GPID FROM vtmtogp WHERE VTMID IN (SELECT VTMID FROM vtm WHERE FSN LIKE ? ))";
+
+  connection.query(sql, [VTMName], (err, rows, fields) => {
+    if (err) {
+      console.log('Failed to query for users : ' + err)
+      res.sendStatus(500)
+      return
+    }
+
+    const info1 = rows.map((row) => {
+      return {
+        GPID: row.GPID
+      }
+    })
+
+    var result = {
+      GP: info1
+    };
+
+    res.json(result)
+
+  })
+  
+})
+
+// Search GPID By GPName 
+app.get('/Allergic/GP/:GPName', (req, res) => {
+  console.log('Fetching GP :' + req.params.GPName)
+  const GPName = req.params.GPName
+  var sql = "SELECT GPID FROM gp WHERE FSN LIKE ? ";
+
+  connection.query(sql, [GPName], (err, rows, fields) => {
+    if (err) {
+      console.log('Failed to query for users : ' + err)
+      res.sendStatus(500)
+      return
+    }
+
+    const info1 = rows.map((row) => {
+      return {
+        GPID: row.GPID
+      }
+    })
+
+    var result = {
+      GP: info1
+    };
+
+    res.json(result)
+
+  })
+})
