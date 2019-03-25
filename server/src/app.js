@@ -279,14 +279,38 @@ app.put("/update/PatientInfo/:Id", (req, res, next) => {
 // Delete a post
 app.delete('/remove/PatientInfo/:id', (req, res) => {
   var db = req.db;
-  PatientInfo.remove({
-    _id: req.params.id
+  Account.remove({
+    ID: req.params.id
   }, function (err, post) {
     if (err)
       res.send(err)
-    res.send({
-      success: true
-    })
+      PatientInfo.remove({
+        PatientID: req.params.id
+      }, function (err, post) {
+        if (err)
+          res.send(err)
+          AllergicDrug.remove({
+            PatientID : req.params.id
+          }, function (err, post) {
+            if (err)
+              res.send(err)
+              DrugHistory.remove({
+                PatientID : req.params.id
+              }, function (err, post) {
+                if (err)
+                  res.send(err)
+                  PharmacistRelation.remove({
+                    PatientID : req.params.id
+                  }, function (err, post) {
+                    if (err)
+                      res.send(err)
+                    res.send({
+                      success: true
+                    })
+                  })
+              })
+          })
+      })
   })
 })
 

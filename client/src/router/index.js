@@ -40,6 +40,9 @@ import RegisterDoctor from '@/components/Register/Doctor'
 import registerPharmacist from '@/components/Register/Pharmacist'
 //Admin
 import admin from '@/components/Admin/admin'
+import admin_request from '@/components/Admin/request'
+import admin_relation from '@/components/Admin/relation'
+
 //Patient
 import Patient_Information from '@/components/userPatient/Patient_Information'
 import Patient_Drug_History from '@/components/userPatient/Drug_History'
@@ -89,6 +92,16 @@ export default new VueRouter({
       path: '/admin',
       name: 'admin',
       component: admin
+    },
+    {
+      path: '/admin_request',
+      name: 'request',
+      component: admin_request
+    },
+    {
+      path: '/admin_relation',
+      name: 'relation',
+      component: admin_relation
     },
     {
       path: '/',
