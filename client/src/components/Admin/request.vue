@@ -27,13 +27,13 @@
         </md-toolbar>
  
         <md-list class="delete_margin">
-          <md-list-item to="/admin" class="selected">
-            <md-icon style="margin-right:10px;color:white;">account_circle</md-icon>
-            <span class="md-list-item-text unselected_text" style="color:white;">Account Management</span>
-          </md-list-item>
-          <md-list-item to="/admin_request" class="unselected">
+          <md-list-item to="/admin" class="unselected">
             <md-icon style="margin-right:10px;color:black;">account_circle</md-icon>
-            <span class="md-list-item-text unselected_text" style="color:black;">Doctor Request</span>
+            <span class="md-list-item-text unselected_text" style="color:black;">Account Management</span>
+          </md-list-item>
+          <md-list-item to="/admin_request" class="selected">
+            <md-icon style="margin-right:10px;color:white;">account_circle</md-icon>
+            <span class="md-list-item-text unselected_text" style="color:white;">Doctor Request</span>
           </md-list-item>
           <md-list-item to="/admin_relation" class="unselected">
             <md-icon style="margin-right:10px;color:black;">account_circle</md-icon>
@@ -52,7 +52,7 @@
 
 <script>
   import axios from 'axios'
-  import contentA from './content_admin.vue'
+  import contentA from './content_request.vue'
   export default {
     name: 'Drug_Interaction',
     components: {

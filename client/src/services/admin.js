@@ -1,7 +1,10 @@
 import Api from '@/services/Api'
 
 export default {  
-  doctorInfo (params) {
-    return Api().get("/DoctorInfo/"+params )
+  getAllPatient () {
+    return Api().get("/PatientInfo" )
+  },
+  deletePatient (id) {
+    return Api().delete('/remove/PatientInfo/'+id)
   }
 }

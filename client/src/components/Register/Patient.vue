@@ -6,14 +6,14 @@
           Back
         </button>
       </router-link>
-      Register
+      Register     
     </h1>
+
     <md-tabs md-sync-route>
       <md-tab id="tab-patient" md-label="Patient" to="/register/patient" style="overflow:scroll;">
         <div>
           <div class="row">
             <form>
-
               <div class="col-sm-12">
                 <div class="row">
                   <!-- prefix -->
@@ -78,7 +78,7 @@
                 <div class="row">
                   <div class="col-sm-6 form-group">
                     <label>Birthday</label>
-                    <md-datepicker ref="birthday" md-immediately>
+                    <md-datepicker ref="birthday" v-model="datePicker">
                       <label>Enter Birthday Here..</label>
                     </md-datepicker>
 
@@ -145,7 +145,7 @@
                       <div class="col-sm-6" style="padding-left:0;">
                       <input v-model="query2" id="input" class="form-control" type="text" placeholder="Type to search...">
                        <typeahead v-model="query" target="#input" :data="drugsSearch" :limit="drugsSearch.length"
-                        match-start=true force-select=true force-clear=true />
+                        :match-start="true" :force-select="true" :force-clear="true" />
                        </div>    
                        <div class="col-sm-6" style="padding-left:0;">            
                       
@@ -242,10 +242,9 @@
         PatientID: String,
         VTMName: String
       },
-      test: null,
-      picker: new Date().toISOString().substr(0, 10),
-      landscape: false,
-      reactive: false,
+
+      //date picker
+      datePicker: null,
 
       //auto complete
       AllergicDrugs: [],
@@ -261,7 +260,7 @@
         if (this.$refs.username.value != '') {
           await this.DataPatient()
           await this.DataAccount()
-          if (this.$refs.drugAllergy.value != '') await this.DataAllergic()
+          if (this.AllergicDrugs != []) await this.DataAllergic()
 
         }
       },
@@ -272,7 +271,7 @@
         this.dataPatient.Firstname = this.$refs.firstname.value
         this.dataPatient.Lastname = this.$refs.lastname.value
         this.dataPatient.Sex = this.$refs.sex.value
-        this.dataPatient.DOB = this.$refs.birthday.value
+        this.dataPatient.DOB = this.datePicker.toString().split('00:00:00')[0]
         this.dataPatient.Age = this.$refs.age.value
         this.dataPatient.Email = this.$refs.email.value
         this.dataPatient.Weight = this.$refs.weight.value
@@ -285,7 +284,7 @@
         this.dataPatient.Bloodgroup = this.$refs.blood.value
         this.dataPatient.Address = this.$refs.address.value
         this.dataPatient.Phone = this.$refs.phone.value
-
+        console.log("birthday is ",this.dataPatient.DOB)
         await registerService.patientInfo(this.dataPatient).then(Response => {
           if (Response.data != "") {
             this.dataPatient.PatientID = Response.data.PatientID
@@ -302,18 +301,22 @@
       },
       DataAllergic() {
         this.dataAllergic.PatientID = this.dataPatient.PatientID
-        //this.dataAllergic.VTMName = this.$refs.drugAllergy.value
+        this.dataAllergic.VTMName = this.AllergicDrugs
+        console.log(this.dataAllergic)
         registerService.allergicDrug(this.dataAllergic)
       },
       addAllergicList() {
+        //console.log(this.drugsSearch.findIndex(x => x == this.query))
+        //this.drugsSearch.splice(this.drugsSearch.findIndex(x => x == this.query),1)
         if(this.query != null && this.query != '') this.AllergicDrugs.push(this.query)
         this.query = ''
-        this.query2 = ''
-
+        this.query2 = ''        
       }
     },
     async mounted() {
       this.Window_Width = window.innerWidth
+      /*var DateTime = new Date()
+      console.log(DateTime.toLocaleDateString())*/
     }
   }
 
