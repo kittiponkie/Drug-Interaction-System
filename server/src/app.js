@@ -38,6 +38,7 @@ var AccountRelation = require("../models/AccountRelation")
 var DoctorRelation = require("../models/DoctorRelation")
 var PharmacistRelation = require("../models/PharmacistRelation")
 var DrugHistory = require("../models/DrugHistory")
+
 // PatientInfo
 // Fetch single post
 app.get("/PatientInfo/:Id", (req, res) => {
@@ -269,6 +270,36 @@ app.put("/update/PatientInfo/:Id", (req, res, next) => {
             res.status(500).send();
           } else {
             res.send(updateObject)
+          }
+        })
+      }
+    }
+  })
+})
+
+//Change Status Active
+app.put("/activeStatus/Account/:Id/:active", (req, res, next) => {
+  console.log("Put Method => Change Status Active")
+  var id = req.params.Id
+  var active = req.params.active
+  Account.findOne({
+    ID: id
+  }, function (err, foundObject) {
+    if (err) {
+      console.log(err)
+      res.status(500).send()
+    } else {
+      if (!foundObject) {
+        res.status(404).send()
+      } else {        
+        console.log(foundObject)
+        foundObject.ActiveStatus = active 
+        foundObject.save(function (err, updateObject) {
+          if (err) {
+            console.log(err)
+            res.send(false)
+          } else {
+            res.send(true)
           }
         })
       }
@@ -1023,6 +1054,7 @@ app.post('/Register', (req, res) => {
   var Email = req.body.Email
   var AccountType = req.body.AccountType
   var RegisterStatus
+  var ActiveStatus = "1"
 
   if (AccountType == 'Doctor') {
     RegisterStatus = '0'
@@ -1056,7 +1088,8 @@ app.post('/Register', (req, res) => {
                 Password: Password,
                 Email: Email,
                 AccountType: AccountType,
-                RegisterStatus: RegisterStatus
+                RegisterStatus: RegisterStatus,
+                ActiveStatus: ActiveStatus
               })
               new_Account.save(function (error) {
                 if (error) {
@@ -1093,6 +1126,45 @@ app.post('/Register', (req, res) => {
     });
 })
 
+//get all account
+app.get('/allAccount', (req, res) => {
+  console.log('GET all Account')
+  Account.find()
+    .exec()
+    .then(doc => {
+      if (doc) {
+        res.status(200).json(doc);
+      } else {
+        res
+          .status(404)
+          .json({ message: "No valid account" });
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({ error: err });
+    });
+})
+
+//get all active account
+app.get('/allActiveAccount', (req, res) => {
+  console.log('GET all Active Account')
+  Account.find({"ActiveStatus":"1"})
+    .exec()
+    .then(doc => {
+      if (doc) {
+        res.status(200).json(doc);
+      } else {
+        res
+          .status(404)
+          .json({ message: "No valid account" });
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({ error: err });
+    });
+})
 
 // Login
 app.post('/Login', (req, res) => {
@@ -1281,40 +1353,6 @@ app.get("/DrugHistory/Pharmacist/:PatientID/:PharmacistID", (req, res) => {
       res.status(500).json({ error: err });
     });
 });
-
-/*
-app.get("/test/date", (req, res) => {
-  console.log('GET method')
-  DrugHistory.find({ "PatientID": "U00001" })
-    .exec()
-    .then(doc => {
-      //console.log("From database", doc);
-      var DateTime = new Date();
-      //var DateNow = DateTime.toLocaleDateString();
-      var DateNow = new Date();
-      DateTime.setDate(DateTime.getDate() + 60);
-      var oneday = 1000 * 60 * 60 * 24
-      console.log(DateNow.toLocaleDateString());
-      console.log(DateTime.toLocaleDateString());
-
-      var Date1_ms = DateTime.getTime()
-      var Date2_ms = DateNow.getTime()
-      var diff = Math.abs(Date1_ms - Date2_ms)
-      console.log(Math.round(diff / oneday))
-      if (doc) {
-        res.status(200).json(doc);
-      } else {
-        res
-          .status(404)
-          .json({ message: "No valid entry found for provided ID" });
-      }
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json({ error: err });
-    });
-});
-*/
 
 // Get Last OrderID and Provide New OrderID
 app.get("/get/OrderID", (req, res) => {
