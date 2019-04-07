@@ -1111,7 +1111,7 @@ app.post('/post/AccountRelation/DoctorPatient', (req, res) => {
         })
       } else {
         res
-          .status(404)
+          .status(200)
           .json({
             success: false,
             message: "This relation had already"
@@ -1160,7 +1160,7 @@ app.post('/post/AccountRelation/PharmacistPatient', (req, res) => {
         })
       } else {
         res
-          .status(404)
+          .status(200)
           .json({
             success: false,
             message: "This relation had already"

@@ -56,7 +56,7 @@
                   </select>
                 </div>
                 <div class="md-layout-item md-toolbar-section-end">
-                  <md-button v-if="selectedPatient != null" class="md-icon-button" style="background-color:#5cb85c" @click="acceptUser(item)">
+                  <md-button v-if="selectedPatient != null" class="md-icon-button" style="background-color:#5cb85c" @click="showDialog1=true">
                     <md-icon style="color:white">add</md-icon>
                     <md-tooltip md-direction="left">Add Relation</md-tooltip>
                   </md-button>
@@ -84,6 +84,50 @@
                   <md-table-cell md-label="Lastname" md-sort-by="Lastname">{{ item.Lastname }}</md-table-cell>
                 </md-table-row>
               </md-table>
+
+              <md-dialog :md-active.sync="showDialog1" :md-click-outside-to-close="false" style="padding-top:20px" >   
+                <div v-if="!loading">             
+                <md-dialog-title>Add Relation</md-dialog-title>
+                <div style="padding:20px;">
+                  <div style="margin-bottom:20px;">
+                <label>Select Type</label>
+                  <select id="selectedType" class="form-control" v-model="type" @change="select='none'">
+                    <option value="none">None</option>
+                    <option value="Doctor">Doctor</option>
+                    <option value="Pharmacist">Pharmacist</option>
+                  </select>
+                  </div>
+                  <div v-if="type=='Doctor'" style="margin-bottom:20px;">
+                <label>Select Doctor</label>
+                <select v-model="select" class="form-control" >
+                  <option v-for="i in doctors" :value="i.DoctorID" :key="i.DoctorID">{{i.DoctorID}}</option>
+                </select>
+                </div>
+                <div v-if="type=='Pharmacist'" style="margin-bottom:20px;">
+                <label>Select Pharmacist</label>
+                <select v-model="select" class="form-control">
+                  <option v-for="i in pharmacists" :value="i.PharmacistID" :key="i.PharmacistID">{{i.PharmacistID}}</option>
+                </select>
+                </div>
+                </div>
+                </div>
+                <div v-else-if="loading==true">
+                  <md-empty-state md-label="Loading" :md-description="`Please wait a second`">
+                  <md-progress-spinner md-mode="indeterminate"></md-progress-spinner>
+                  </md-empty-state>
+                </div>
+                <div v-else-if="loading=='success'">
+                  <md-dialog-title>Success</md-dialog-title>
+                </div>
+                <div v-else-if="loading=='fail'">
+                  <md-dialog-title>Fail</md-dialog-title>
+                  <div><md-dialog-title>This relation had already</md-dialog-title></div>
+                </div>
+                <md-dialog-actions>
+                  <md-button v-if="loading!=true" class="md-primary" @click="onClose()">{{loading==false? 'Cancel':'Close'}}</md-button>
+                  <md-button v-if="type!='none' && select!='none' && loading==false" class="md-primary" @click="onSave1()">Save</md-button>
+                </md-dialog-actions>
+              </md-dialog>
             </div>
 
             <!-- doctor tab -->
@@ -96,7 +140,7 @@
                   </select>
                 </div>
                 <div class="md-layout-item md-toolbar-section-end">
-                  <md-button v-if="selectedDoctor != null" class="md-icon-button" style="background-color:#5cb85c" @click="acceptUser(item)">
+                  <md-button v-if="selectedDoctor != null" class="md-icon-button" style="background-color:#5cb85c" @click="showDialog2=true">
                     <md-icon style="color:white">add</md-icon>
                     <md-tooltip md-direction="left">Add Relation</md-tooltip>
                   </md-button>
@@ -124,6 +168,36 @@
                   <md-table-cell md-label="Lastname" md-sort-by="Lastname">{{ item.Lastname }}</md-table-cell>
                 </md-table-row>
               </md-table>
+
+              <md-dialog :md-active.sync="showDialog2" :md-click-outside-to-close="false" style="padding-top:20px" >   
+                <div v-if="!loading">             
+                <md-dialog-title>Add Relation</md-dialog-title>
+                <div style="padding:20px;">
+                  <div style="margin-bottom:20px;">
+                <label>Select Patient</label>
+                <select v-model="select" class="form-control" >
+                  <option v-for="i in patients" :value="i.PatientID" :key="i.PatientID">{{i.PatientID}}</option>
+                </select>
+                </div>
+                </div>
+                </div>
+                <div v-else-if="loading==true">
+                  <md-empty-state md-label="Loading" :md-description="`Please wait a second`">
+                  <md-progress-spinner md-mode="indeterminate"></md-progress-spinner>
+                  </md-empty-state>
+                </div>
+                <div v-else-if="loading=='success'">
+                  <md-dialog-title>Success</md-dialog-title>
+                </div>
+                <div v-else-if="loading=='fail'">
+                  <md-dialog-title>Fail</md-dialog-title>
+                  <div><md-dialog-title>This relation had already</md-dialog-title></div>
+                </div>
+                <md-dialog-actions>
+                  <md-button v-if="loading!=true" class="md-primary" @click="onClose()">{{loading==false? 'Cancel':'Close'}}</md-button>
+                  <md-button v-if="select!='none' && loading==false" class="md-primary" @click="onSave2()">Save</md-button>
+                </md-dialog-actions>
+              </md-dialog>
             </div>
 
             <!-- pharmacist tab -->
@@ -136,7 +210,7 @@
                   </select>
                 </div>
                 <div class="md-layout-item md-toolbar-section-end">
-                  <md-button v-if="selectedPharmacist != null" class="md-icon-button" style="background-color:#5cb85c" @click="acceptUser(item)">
+                  <md-button v-if="selectedPharmacist != null" class="md-icon-button" style="background-color:#5cb85c" @click="showDialog3=true">
                     <md-icon style="color:white">add</md-icon>
                     <md-tooltip md-direction="left">Add Relation</md-tooltip>
                   </md-button>
@@ -164,6 +238,36 @@
                   <md-table-cell md-label="Lastname" md-sort-by="Lastname">{{ item.Lastname }}</md-table-cell>
                 </md-table-row>
               </md-table>
+
+              <md-dialog :md-active.sync="showDialog3" :md-click-outside-to-close="false" style="padding-top:20px" >   
+                <div v-if="!loading">             
+                <md-dialog-title>Add Relation</md-dialog-title>
+                <div style="padding:20px;">
+                  <div style="margin-bottom:20px;">
+                <label>Select Patient</label>
+                <select v-model="select" class="form-control" >
+                  <option v-for="i in patients" :value="i.PatientID" :key="i.PatientID">{{i.PatientID}}</option>
+                </select>
+                </div>
+                </div>
+                </div>
+                <div v-else-if="loading==true">
+                  <md-empty-state md-label="Loading" :md-description="`Please wait a second`">
+                  <md-progress-spinner md-mode="indeterminate"></md-progress-spinner>
+                  </md-empty-state>
+                </div>
+                <div v-else-if="loading=='success'">
+                  <md-dialog-title>Success</md-dialog-title>
+                </div>
+                <div v-else-if="loading=='fail'">
+                  <md-dialog-title>Fail</md-dialog-title>
+                  <div><md-dialog-title>This relation had already</md-dialog-title></div>
+                </div>
+                <md-dialog-actions>
+                  <md-button v-if="loading!=true" class="md-primary" @click="onClose()">{{loading==false? 'Cancel':'Close'}}</md-button>
+                  <md-button v-if="select!='none' && loading==false" class="md-primary" @click="onSave3()">Save</md-button>
+                </md-dialog-actions>
+              </md-dialog>
             </div>
           </div>
         </div>
@@ -190,15 +294,21 @@
     name: 'TabContent',
     data() {
       return {
+        loading: false,
         search1: null,
         searched1: [],
         users1: [],
+        showDialog1:false,
+        type: "none",
+        select: "none",
         search2: null,
         searched2: [],
         users2: [],
+        showDialog2:false,
         search3: null,
         searched3: [],
         users3: [],
+        showDialog3:false,
         changeTab: [true, false, false],
         selectedPatient: null,
         selectedDoctor: null,
@@ -243,6 +353,49 @@
           })  
         }
       },
+      async onSave1(){
+        this.loading = true
+        if(this.type == "Doctor"){
+          await adminServices.addRelationDoctorPatient({
+            PatientID:this.selectedPatient,
+            DoctorID:this.select
+          }).then(Response =>{
+            if(Response.data){
+              if(Response.data.success==true){
+                adminServices.getDoctor(this.select).then(Response2 =>{
+                  if(Response2.data){
+                  Response2.data[0].ID = Response2.data[0].DoctorID
+                  this.users1.push(Response2.data[0])
+                  this.searchOnTable()
+                  this.loading = "success"
+                  }
+                }) 
+              } 
+              else this.loading = "fail"              
+            }
+          })
+        }
+        else if(this.type == 'Pharmacist'){
+          await adminServices.addRelationPharmacistPatient({
+            PatientID:this.selectedPatient,
+            PharmacistID:this.select
+          }).then(Response =>{
+            if(Response.data){
+              if(Response.data.success==true){
+                adminServices.getPharmacist(this.select).then(Response2 =>{
+                  if(Response2.data){
+                    Response2.data[0].ID = Response2.data[0].PharmacistID
+                    this.users1.push(Response2.data[0])
+                    this.searchOnTable()
+                    this.loading = "success"
+                  }
+                })
+              } 
+              else this.loading = "fail"
+            }
+          })
+        }        
+      },
       async doSelectedDoctor() {        
         this.search2 = null
         this.searched2 = []
@@ -262,6 +415,29 @@
           })  
         }
       },
+      async onSave2(){
+        this.loading = true
+        
+          await adminServices.addRelationDoctorPatient({
+            PatientID:this.select,
+            DoctorID:this.selectedDoctor
+          }).then(Response =>{
+            if(Response.data){
+              if(Response.data.success==true){
+                adminServices.getPatient(this.select).then(Response2 =>{
+                  if(Response2.data){
+                  Response2.data[0].ID = Response2.data[0].PatientID
+                  this.users2.push(Response2.data[0])
+                  this.searchOnTable()
+                  this.loading = "success"
+                  }
+                }) 
+              } 
+              else this.loading = "fail"              
+            }
+          })
+        
+      },
       async doSelectedPharmacist() {        
        this.search3 = null
         this.searched3 = []
@@ -280,6 +456,36 @@
             }
           })  
         }
+      },
+      async onSave3(){
+        this.loading = true
+        
+          await adminServices.addRelationPharmacistPatient({
+            PatientID:this.select,
+            PharmacistID:this.selectedPharmacist
+          }).then(Response =>{
+            if(Response.data){
+              if(Response.data.success==true){
+                adminServices.getPatient(this.select).then(Response2 =>{
+                  if(Response2.data){
+                  Response2.data[0].ID = Response2.data[0].PatientID
+                  this.users3.push(Response2.data[0])
+                  this.searchOnTable()
+                  this.loading = "success"
+                  }
+                }) 
+              } 
+              else this.loading = "fail"              
+            }
+          })
+      },
+      onClose(){
+        this.showDialog1 = false
+        this.loading= false
+        this.type= "none"
+        this.select= "none"
+        this.showDialog2 = false
+        this.showDialog3 = false
       },
       changeBackgroundColorHeader(color) {
         document.getElementById("headBack").style.backgroundColor = color
