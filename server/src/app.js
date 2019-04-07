@@ -291,9 +291,9 @@ app.put("/activeStatus/Account/:Id/:active", (req, res, next) => {
     } else {
       if (!foundObject) {
         res.status(404).send()
-      } else {        
+      } else {
         console.log(foundObject)
-        foundObject.ActiveStatus = active 
+        foundObject.ActiveStatus = active
         foundObject.save(function (err, updateObject) {
           if (err) {
             console.log(err)
@@ -321,9 +321,9 @@ app.put("/registerStatus/Account/:Id/:status", (req, res, next) => {
     } else {
       if (!foundObject) {
         res.status(404).send()
-      } else {        
+      } else {
         console.log(foundObject)
-        foundObject.RegisterStatus = status 
+        foundObject.RegisterStatus = status
         foundObject.save(function (err, updateObject) {
           if (err) {
             console.log(err)
@@ -345,33 +345,33 @@ app.delete('/remove/PatientInfo/:id', (req, res) => {
   }, function (err, post) {
     if (err)
       res.send(err)
-      PatientInfo.remove({
+    PatientInfo.remove({
+      PatientID: req.params.id
+    }, function (err, post) {
+      if (err)
+        res.send(err)
+      AllergicDrug.remove({
         PatientID: req.params.id
       }, function (err, post) {
         if (err)
           res.send(err)
-          AllergicDrug.remove({
-            PatientID : req.params.id
+        DrugHistory.remove({
+          PatientID: req.params.id
+        }, function (err, post) {
+          if (err)
+            res.send(err)
+          PharmacistRelation.remove({
+            PatientID: req.params.id
           }, function (err, post) {
             if (err)
               res.send(err)
-              DrugHistory.remove({
-                PatientID : req.params.id
-              }, function (err, post) {
-                if (err)
-                  res.send(err)
-                  PharmacistRelation.remove({
-                    PatientID : req.params.id
-                  }, function (err, post) {
-                    if (err)
-                      res.send(err)
-                    res.send({
-                      success: true
-                    })
-                  })
-              })
+            res.send({
+              success: true
+            })
           })
+        })
       })
+    })
   })
 })
 
@@ -380,7 +380,7 @@ app.delete('/remove/PatientInfo/:id', (req, res) => {
 app.get("/DoctorInfo/:Id", (req, res) => {
   console.log('GET method')
   const id = req.params.Id;
-  console.log("ID ===== >"+id)
+  console.log("ID ===== >" + id)
   DoctorInfo.find({
       "DoctorID": id
     })
@@ -444,7 +444,7 @@ app.post('/post/DoctorInfo', (req, res) => {
   var Department = req.body.Department
   var Address = req.body.Address
   var Phone = req.body.Phone
-  
+
   DoctorInfo.find()
     .exec()
     .then(docs => {
@@ -593,7 +593,7 @@ app.delete('/remove/DoctorInfo/:id', (req, res) => {
 // PharmacistInfo
 // Fetch single post
 app.get("/PharmacistInfo/:Id", (req, res) => {
-  console.log('GET methodkk',req.params)
+  console.log('GET methodkk', req.params)
   const id = req.params.Id;
   PharmacistInfo.find({
       "PharmacistID": id
@@ -658,7 +658,7 @@ app.post('/post/PharmacistInfo', (req, res) => {
   var Address = req.body.Address
   var Phone = req.body.Phone
 
-  
+
   PharmacistInfo.find()
     .exec()
     .then(docs => {
@@ -876,23 +876,30 @@ app.delete('/remove/AllergicDrug/:PatientID/:GPName', (req, res) => {
 // AccountRelation
 // Get friend list of Patient By PatientID
 app.get("/AccountRelation/Patient/:PatientID", (req, res) => {
-  console.log('GET method')
+  console.log('GET method patient relation')
   const PatientID = req.params.PatientID;
-  AccountRelation.find({
+  DoctorRelation.find({
       "PatientID": PatientID
     })
     .exec()
-    .then(doc => {
-      console.log("PatientID :" + PatientID);
-      console.log("From database", doc);
-      if (doc) {
-        res.status(200).json(doc);
+    .then(doc1 => {
+      if (doc1.length!=0) {
+        var docinfo = []
+        for (var i in doc1) {
+          DoctorInfo.find({
+            "DoctorID": doc1[i].DoctorID
+          }).exec().then(result => {
+            if (result) {
+              docinfo.push(result[0])
+              if (docinfo.length == doc1.length) {
+                //res.status(200).json(docinfo);       
+                findPharmacist(docinfo)         
+              }
+            }
+          })
+        }
       } else {
-        res
-          .status(404)
-          .json({
-            message: "No valid entry found for provided ID"
-          });
+        findPharmacist([])  
       }
     })
     .catch(err => {
@@ -901,6 +908,49 @@ app.get("/AccountRelation/Patient/:PatientID", (req, res) => {
         error: err
       });
     });
+  function findPharmacist(docinfo){
+    PharmacistRelation.find({
+      "PatientID": PatientID
+    })
+    .exec()
+    .then(doc2 => {
+      var pharinfo = []
+      if (doc2.length!=0) { 
+        for (var j in doc2) {          
+          PharmacistInfo.find({
+            "PharmacistID": doc2[j].PharmacistID
+          }).exec().then(result2 => {
+            if (result2) {
+              pharinfo.push(result2[0])
+              if (pharinfo.length == doc2.length) {
+                var doc = []
+                doc.push(docinfo)
+                doc.push(pharinfo)
+                res.status(200).json(doc);
+              } else {
+                res
+                  .status(404)
+                  .json({
+                    message: "No valid entry found for provided ID"
+                  });
+              }
+            }
+          })
+        }
+      } else {
+        var doc = []
+        doc.push(docinfo)
+        doc.push(pharinfo)
+        res.status(200).json(doc);
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({
+        error: err
+      });
+    });
+  }
 });
 
 // Get friend list of Patient By PharmacistID
@@ -912,16 +962,24 @@ app.get("/PharmacistRelation/Pharmacist/:PharmacistID", (req, res) => {
     })
     .exec()
     .then(doc => {
-      console.log("PharmacistID :" + PharmacistID);
-      console.log("From database", doc);
       if (doc) {
-        res.status(200).json(doc);
+        if (doc.length!=0) {
+          var patientinfo = []
+          for (var i in doc) {
+            PatientInfo.find({
+              "PatientID": doc[i].PatientID
+            }).exec().then(result => {
+              if (result) {
+                patientinfo.push(result[0])
+                if (patientinfo.length == doc.length) {
+                  res.status(200).json(patientinfo);          
+                }
+              }
+            })
+          }
+        }
       } else {
-        res
-          .status(404)
-          .json({
-            message: "No valid entry found for provided ID"
-          });
+        res.status(200).json([]); 
       }
     })
     .catch(err => {
@@ -941,7 +999,40 @@ app.get("/DoctorRelation/Doctor/:DoctorID", (req, res) => {
     })
     .exec()
     .then(doc => {
-      console.log("DoctorID :" + DoctorID);
+      if (doc) {
+        if (doc.length!=0) {
+          var patientinfo = []
+          for (var i in doc) {
+            PatientInfo.find({
+              "PatientID": doc[i].PatientID
+            }).exec().then(result => {
+              if (result) {
+                patientinfo.push(result[0])
+                if (patientinfo.length == doc.length) {
+                  res.status(200).json(patientinfo);          
+                }
+              }
+            })
+          }
+        }
+      } else {
+        res.status(200).json([]); 
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({
+        error: err
+      });
+    });
+});
+/*
+// Get friend list of Doctor and Patient
+app.get("/DoctorRelation/DoctorPatient", (req, res) => {
+  console.log('GET method')
+  DoctorRelation.find({})
+    .exec()
+    .then(doc => {
       console.log("From database", doc);
       if (doc) {
         res.status(200).json(doc);
@@ -961,7 +1052,130 @@ app.get("/DoctorRelation/Doctor/:DoctorID", (req, res) => {
     });
 });
 
-// ADD Relation between Account and Check ralation had already or not?
+// Get friend list of Pharmacist and Patient
+app.get("/PharmacistRelation/PharmacistPatient", (req, res) => {
+  console.log('GET method')
+  PharmacistRelation.find({})
+    .exec()
+    .then(doc => {
+      console.log("From database", doc);
+      if (doc) {
+        res.status(200).json(doc);
+      } else {
+        res
+          .status(404)
+          .json({
+            message: "No valid entry found for provided ID"
+          });
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({
+        error: err
+      });
+    });
+});
+*/
+// ADD Relation between Account doctor and patient
+app.post('/post/AccountRelation/DoctorPatient', (req, res) => {
+  var db = req.db;
+  var PatientID = req.body.PatientID
+  var DoctorID = req.body.DoctorID
+
+  function isEmptyObject(obj) {
+    return !Object.keys(obj).length;
+  }
+
+  DoctorRelation.find({
+      "PatientID": PatientID,
+      "DoctorID": DoctorID
+    })
+    .exec()
+    .then(doc => {
+      console.log(doc)
+
+      if (isEmptyObject(doc)) {
+        var newDoctorRelation = new DoctorRelation({
+          PatientID: PatientID,
+          DoctorID: DoctorID
+        })
+        newDoctorRelation.save(function (error) {
+          if (error) {
+            console.log(error)
+          }
+          res.status(200).send({
+            success: true,
+            message: 'Post saved successfully!'
+          })
+        })
+      } else {
+        res
+          .status(404)
+          .json({
+            success: false,
+            message: "This relation had already"
+          })
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({
+        error: err
+      });
+    });
+})
+
+// ADD Relation between Account Pharmacist and patient
+app.post('/post/AccountRelation/PharmacistPatient', (req, res) => {
+  var db = req.db;
+  var PatientID = req.body.PatientID
+  var PharmacistID = req.body.PharmacistID
+
+  function isEmptyObject(obj) {
+    return !Object.keys(obj).length;
+  }
+
+  PharmacistRelation.find({
+      "PatientID": PatientID,
+      "PharmacistID": PharmacistID
+    })
+    .exec()
+    .then(doc => {
+      console.log(doc)
+
+      if (isEmptyObject(doc)) {
+        var newPharmacistRelation = new PharmacistRelation({
+          PatientID: PatientID,
+          PharmacistID: PharmacistID
+        })
+        newPharmacistRelation.save(function (error) {
+          if (error) {
+            console.log(error)
+          }
+          res.status(200).send({
+            success: true,
+            message: 'Post saved successfully!'
+          })
+        })
+      } else {
+        res
+          .status(404)
+          .json({
+            success: false,
+            message: "This relation had already"
+          })
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({
+        error: err
+      });
+    });
+})
+
+// ADD Relation between Account (doctor and patient only)
 app.post('/post/AccountRelation', (req, res) => {
   var db = req.db;
   var PatientID = req.body.PatientID
@@ -1167,19 +1381,25 @@ app.get('/allAccount', (req, res) => {
       } else {
         res
           .status(404)
-          .json({ message: "No valid account" });
+          .json({
+            message: "No valid account"
+          });
       }
     })
     .catch(err => {
       console.log(err);
-      res.status(500).json({ error: err });
+      res.status(500).json({
+        error: err
+      });
     });
 })
 
 //get all active account
 app.get('/allActiveAccount', (req, res) => {
   console.log('GET all Active Account')
-  Account.find({"ActiveStatus":"1"})
+  Account.find({
+      "ActiveStatus": "1"
+    })
     .exec()
     .then(doc => {
       if (doc) {
@@ -1187,12 +1407,16 @@ app.get('/allActiveAccount', (req, res) => {
       } else {
         res
           .status(404)
-          .json({ message: "No valid account" });
+          .json({
+            message: "No valid account"
+          });
       }
     })
     .catch(err => {
       console.log(err);
-      res.status(500).json({ error: err });
+      res.status(500).json({
+        error: err
+      });
     });
 })
 
@@ -1316,7 +1540,9 @@ app.put("/ConfirmAccount/:ID", (req, res, next) => {
 app.get("/DrugHistory/:PatientID", (req, res) => {
   console.log('GET method')
   const PatientID = req.params.PatientID;
-  DrugHistory.find({ "PatientID": PatientID })
+  DrugHistory.find({
+      "PatientID": PatientID
+    })
     .exec()
     .then(doc => {
       console.log("PatientID :" + PatientID);
@@ -1326,12 +1552,16 @@ app.get("/DrugHistory/:PatientID", (req, res) => {
       } else {
         res
           .status(404)
-          .json({ message: "No valid entry found for provided ID" });
+          .json({
+            message: "No valid entry found for provided ID"
+          });
       }
     })
     .catch(err => {
       console.log(err);
-      res.status(500).json({ error: err });
+      res.status(500).json({
+        error: err
+      });
     });
 });
 
@@ -1341,7 +1571,10 @@ app.get("/DrugHistory/Doctor/:PatientID/:DoctorID", (req, res) => {
   const PatientID = req.params.PatientID;
   const DoctorID = req.params.DoctorID;
   console.log(PatientID + DoctorID)
-  DrugHistory.find({ "PatientID": PatientID, "DoctorID": DoctorID })
+  DrugHistory.find({
+      "PatientID": PatientID,
+      "DoctorID": DoctorID
+    })
     .exec()
     .then(doc => {
       console.log("PatientID :" + PatientID);
@@ -1351,12 +1584,16 @@ app.get("/DrugHistory/Doctor/:PatientID/:DoctorID", (req, res) => {
       } else {
         res
           .status(404)
-          .json({ message: "No valid entry found for provided ID" });
+          .json({
+            message: "No valid entry found for provided ID"
+          });
       }
     })
     .catch(err => {
       //console.log(err);
-      res.status(500).json({ error: err });
+      res.status(500).json({
+        error: err
+      });
     });
 });
 
@@ -1365,7 +1602,10 @@ app.get("/DrugHistory/Pharmacist/:PatientID/:PharmacistID", (req, res) => {
   console.log('GET method')
   const PatientID = req.params.PatientID;
   const PharmacistID = req.params.PharmacistID;
-  DrugHistory.find({ "PatientID": PatientID, "PharmacistID": PharmacistID })
+  DrugHistory.find({
+      "PatientID": PatientID,
+      "PharmacistID": PharmacistID
+    })
     .exec()
     .then(doc => {
       console.log("PatientID :" + PatientID);
@@ -1375,19 +1615,27 @@ app.get("/DrugHistory/Pharmacist/:PatientID/:PharmacistID", (req, res) => {
       } else {
         res
           .status(404)
-          .json({ message: "No valid entry found for provided ID" });
+          .json({
+            message: "No valid entry found for provided ID"
+          });
       }
     })
     .catch(err => {
       console.log(err);
-      res.status(500).json({ error: err });
+      res.status(500).json({
+        error: err
+      });
     });
 });
 
 // Get Last OrderID and Provide New OrderID
 app.get("/get/OrderID", (req, res) => {
   console.log('GET orderID')
-  DrugHistory.findOne({}, null, { "sort": { "OrderID": -1 } })
+  DrugHistory.findOne({}, null, {
+      "sort": {
+        "OrderID": -1
+      }
+    })
     .exec()
     .then(doc => {
       if (doc) {
@@ -1403,16 +1651,18 @@ app.get("/get/OrderID", (req, res) => {
       } else {
         newID = "O00001"
       }
-      console.log("newID" + newID )
+      console.log("newID" + newID)
       res.send({
-        "NewOrderID" : newID 
+        "NewOrderID": newID
       })
     })
     .catch(err => {
       console.log(err);
-      res.status(500).json({ error: err });
+      res.status(500).json({
+        error: err
+      });
     });
-    
+
 });
 
 // ADD DrugHistory -> Drug Order Page 
@@ -1424,14 +1674,14 @@ app.post('/post/DrugOrder', (req, res) => {
   var PatientID = req.body.PatientID
   var DoctorID = req.body.DoctorID
   var PharmacistID = req.body.PharmacistID
-  var OrderStartDate = req.body.OrderStartDate// Date when add this record
+  var OrderStartDate = req.body.OrderStartDate // Date when add this record
   var DispendStartDate = req.body.DispendStartDate // Date when update 'Dispend' 
   var Duration = req.body.Duration
   var UsingStatus = req.body.UsingStatus // Calculate with DispendDate + Duration [0=Using]
   var DispendStatus = req.body.DispendStatus // Check by Dispend Status [0,1,2]
   var DrugNo = req.body.DrugNo // Gen ID of 1 Order used to sort the record
   var GPName = req.body.GPName
-  var RXCUI = req.body.RXCUI// find by axios API 
+  var RXCUI = req.body.RXCUI // find by axios API 
   var Dosage = req.body.Dosage
   var Frequency = req.body.Frequency
   var Times = req.body.Times
@@ -1444,39 +1694,12 @@ app.post('/post/DrugOrder', (req, res) => {
   }
 
   async function getData() {
-    /*await axios.get('https://rxnav.nlm.nih.gov/REST/rxcui?name=' + GPName).then(Response => {
-      console.log('Axios OK')
-      if (Response.data.idGroup.rxnormId == null) {
-        console.log('rxcui id is null')
-        res.send({
-          success: false,
-          message: 'RXCUI is NULL'
-        })
-      } else {
-        RXCUI = Response.data.idGroup.rxnormId
-        console.log('rxcui ok : ' + RXCUI)
-      }
-    });*/
-
-    //console.log('rxcui : ' + RXCUI)
-
-    /*await DrugHistory.findOne({ "OrderID": OrderID }, null, { "sort": { "DrugNo": -1 } })
-      .exec()
-      .then(doc => {
-        console.log(doc);
-        if (doc) {
-          console.log("LastID :", doc.DrugNo);
-          newID = doc.DrugNo.replace(' ', '');
-          newID = (newID * 1) + 1
-          console.log("์NewDrugNoID :", newID);
-        } else {
-          newID = "1"
-        }
-      })*/
-    //DrugNo = newID
     var DateTime = new Date()
     OrderStartDate = DateTime.toLocaleDateString()
-    DoctorRelation.find({ "PatientID": PatientID, "DoctorID": DoctorID })
+    DoctorRelation.find({
+        "PatientID": PatientID,
+        "DoctorID": DoctorID
+      })
       .exec()
       .then(doc => {
         if (!isEmptyObject(doc)) {
@@ -1510,8 +1733,7 @@ app.post('/post/DrugOrder', (req, res) => {
               message: 'Post saved successfully!'
             })
           })
-        }
-        else {
+        } else {
           res.status(404).send({
             success: false,
             message: "Doesn't have relation between account"
@@ -1520,7 +1742,9 @@ app.post('/post/DrugOrder', (req, res) => {
       })
       .catch(err => {
         console.log(err);
-        res.status(500).json({ error: err });
+        res.status(500).json({
+          error: err
+        });
       });
   }
 
@@ -1558,7 +1782,7 @@ app.put("/update/DrugHistory/:OrderID/:DrugNo", (req, res, next) => {
         else if (total >= 1) DispendStatus = 1   // In process
         else if (total <= 0) DispendStatus = 2   // Already Done*/
         //foundObject.DispendStatus = DispendStatus
-        
+
         foundObject.Dispend = req.body.Dispend
         foundObject.UsingStatus = "Using"
         console.log(foundObject)
@@ -1600,7 +1824,10 @@ app.delete('/remove/DrugHistory/:OrderID/:DrugNo', (req, res) => {
   var OrderID = req.params.OrderID
   var DrugNo = req.params.DrugNo
 
-  DrugHistory.findOneAndRemove({ "OrderID": OrderID, "DrugNo": DrugNo }, function (err, post) {
+  DrugHistory.findOneAndRemove({
+    "OrderID": OrderID,
+    "DrugNo": DrugNo
+  }, function (err, post) {
     if (err)
       res.send(err)
     res.send({
