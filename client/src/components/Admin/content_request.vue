@@ -22,13 +22,12 @@
 
             <md-table-empty-state md-label="No users found"
               :md-description="`No user found for this '${search}' query. Try a different search term.`">
-
             </md-table-empty-state>
 
             <md-table-row slot="md-table-row" slot-scope="{ item }">
-              <md-table-cell md-label="ID" md-sort-by="id" md-numeric>{{ item.id }}</md-table-cell>
-              <md-table-cell md-label="Firstname" md-sort-by="name">{{ item.name }}</md-table-cell>
-              <md-table-cell md-label="Lastname" md-sort-by="email">{{ item.email }}</md-table-cell>
+              <md-table-cell md-label="ID" md-sort-by="ID" md-numeric>{{ item.DoctorID }}</md-table-cell>
+              <md-table-cell md-label="Firstname" md-sort-by="Firstname">{{ item.Firstname }}</md-table-cell>
+              <md-table-cell md-label="Lastname" md-sort-by="Lastname">{{ item.Lastname }}</md-table-cell>
               <md-table-cell md-label="Action">
                 <md-button class="md-icon-button" style="background-color:#5cb85c" @click="acceptUser(item)">
                   <md-icon style="color:white">done</md-icon>
@@ -41,9 +40,20 @@
               </md-table-cell>
             </md-table-row>
           </md-table>
-          <md-dialog-confirm :md-active.sync="confirmDelete"
-                  :md-content="'Do you want to Delete '+deleteUser.name+ ' '+deleteUser.email+' ?'" md-confirm-text="Confirm"
-                  md-cancel-text="Cancel" @md-cancel="confirmDelete = false" @md-confirm="onConfirmDelete()" />
+          <md-dialog-confirm :md-active.sync="confirmAccept"
+                  :md-content="'Do you want to Accept '+targetUser.Firstname+ ' '+targetUser.Lastname+' ?'" md-confirm-text="Confirm"
+                  md-cancel-text="Cancel" @md-cancel="confirmAccept = false" @md-confirm="onConfirmAccept()" />
+          <md-dialog-confirm :md-active.sync="confirmReject"
+                  :md-content="'Do you want to Reject '+targetUser.Firstname+ ' '+targetUser.Lastname+' ?'" md-confirm-text="Confirm"
+                  md-cancel-text="Cancel" @md-cancel="confirmReject = false" @md-confirm="onConfirmReject()" />     
+          <md-dialog-alert
+                  :md-active.sync="success"
+                  md-content="Success"
+                  md-confirm-text="Close" />
+          <md-dialog-alert
+                  :md-active.sync="fail"
+                  md-content="Fail"
+                  md-confirm-text="Close" />           
         </div>
       </div>
   </div>
@@ -56,33 +66,24 @@
 
   const searchByID = (items, term) => {
     if (term) {
-      return items.filter(item => toLower(item.id).includes(toLower(term)))
+      return items.filter(item => toLower(item.DoctorID).includes(toLower(term)))
     }
     return items
   }
+  import axios from 'axios'
+  import adminServices from '@/services/admin'
   export default {
     name: 'TabContent',
     data() {
       return {
         search: null,
         searched: [],
-        confirmDelete: false,
-        deleteUser: {},
-        users: [{
-            id: 1,
-            name: "Shawna Dubbin",
-            email: "sdubbin0@geocities.com",
-            gender: "Male",
-            title: "Assistant Media Planner"
-          },
-          {
-            id: 2,
-            name: "Odette Demageard",
-            email: "odemageard1@spotify.com",
-            gender: "Female",
-            title: "Account Coordinator"
-          }
-        ]
+        confirmAccept: false,
+        confirmReject: false,
+        success: false,
+        fail: false,
+        targetUser: {},
+        users: []
       }
     },
     methods: {
@@ -90,27 +91,69 @@
         this.searched = searchByID(this.users, this.search)
       },
       acceptUser(item) {
-        this.deleteUser = item
-        this.confirmDelete = true
+        this.targetUser = item
+        this.confirmAccept = true
+      },
+      async onConfirmAccept() {
+        for (var i in this.users) {
+          if (this.targetUser.DoctorID == this.users[i].DoctorID) {
+            this.confirmAccept = false
+            await adminServices.changeRegisterStatusForDoctor(this.targetUser.DoctorID,'1').then(Response => {
+              if(Response.data){
+                this.targetUser = {}
+                this.success = true
+                this.users.splice(i, 1)
+              } else {
+                this.targetUser = {}
+                this.fail = true
+              } 
+            }) 
+          }
+        }
       },
       rejectUser(item) {
-        this.deleteUser = item
-        this.confirmDelete = true
+        this.targetUser = item
+        this.confirmReject = true
       },
-      onConfirmDelete() {
-        console.log(this.deleteUser)
+      async onConfirmReject() {
         for (var i in this.users) {
-          if (this.deleteUser.id == this.users[i].id) {
-            this.confirmDelete = false
-            this.deleteUser = {}
-            this.users.splice(i, 1)
+          if (this.targetUser.DoctorID == this.users[i].DoctorID) {
+            this.confirmReject = false
+            await adminServices.changeRegisterStatusForDoctor(this.targetUser.DoctorID,'2').then(Response => {
+              if(Response.data){
+                this.targetUser = {}
+                this.success = true
+                this.users.splice(i, 1)
+              } else {
+                this.targetUser = {}
+                this.fail = true
+              } 
+            }) 
           }
+        }
+      },
+      async setData(allAccount){        
+        for(var i in allAccount){          
+          //doctor
+          if(allAccount[i].ID[0] == 'D' && allAccount[i].RegisterStatus == '0') {
+            await adminServices.getDoctor(allAccount[i].ID).then(Response =>{
+              console.log(Response.data)
+              if(Response.data.length != 0) {
+                this.users.push(Response.data[0])   
+                this.searchOnTable()                  
+              }
+              this.searchOnTable()     
+            })
+          }
+
         }
       }
     },
-    mounted() {
-      this.searched = searchByID(this.users, this.search)
-      console.log(this.searched)
+    async mounted() {      
+      //set data on table
+      await adminServices.getAccount().then(Response => {
+        this.setData(Response.data)        
+      })  
     }
   }
 

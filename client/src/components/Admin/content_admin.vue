@@ -555,17 +555,17 @@
       },
       async setData(allAccount){        
         for(var i in allAccount){
-          var active_status = allAccount[i].ActiveStatus.slice()
-          console.log(active_status)
+          //var active_status = allAccount[i].ActiveStatus.slice()
+          //console.log(active_status)
           //patient
           if(allAccount[i].ID[0] == 'P' && allAccount[i].ID[1] != 'H') {
             await adminServices.getPatient(allAccount[i].ID).then(Response =>{
               if(Response.data.length != 0) {
                 Response.data[0].ActiveStatus = allAccount[i].ActiveStatus
                 this.users1.push(Response.data[0])   
-                if(parseInt(i)+1 == allAccount.length) this.searchOnTable()    
+                this.searchOnTable()    
               }
-              if(parseInt(i)+1 == allAccount.length) this.searchOnTable()     
+              this.searchOnTable()     
             })
           }
 
@@ -575,9 +575,9 @@
               if(Response.data.length != 0) {
                 Response.data[0].ActiveStatus = allAccount[i].ActiveStatus
                 this.users2.push(Response.data[0])   
-                if(parseInt(i)+1 == allAccount.length) this.searchOnTable()    
+                this.searchOnTable()    
               }
-              if(parseInt(i)+1 == allAccount.length) this.searchOnTable()     
+              this.searchOnTable()     
             })
           }
 
@@ -587,16 +587,16 @@
               if(Response.data.length != 0) {
                 Response.data[0].ActiveStatus = allAccount[i].ActiveStatus
                 this.users3.push(Response.data[0])   
-                if(parseInt(i)+1 == allAccount.length) this.searchOnTable()    
+                this.searchOnTable()    
               }
-              if(parseInt(i)+1 == allAccount.length) this.searchOnTable()     
+              this.searchOnTable()     
             })
           }
 
           //admin
           else if(allAccount[i].ID[0] == 'A') {
             this.users4.push(allAccount[i])
-            if(parseInt(i)+1 == allAccount.length) this.searchOnTable() 
+            this.searchOnTable() 
           }
           
         }

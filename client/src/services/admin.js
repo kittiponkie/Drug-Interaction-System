@@ -7,6 +7,9 @@ export default {
   changeStatusAccount (id,active) {
     return Api().put("/activeStatus/Account/"+id+"/"+active)
   },
+  changeRegisterStatusForDoctor (id,status) {
+    return Api().put("/registerStatus/Account/"+id+"/"+status)
+  },
   getPatient(id) {
     return Api().get("/PatientInfo/"+id)
   },

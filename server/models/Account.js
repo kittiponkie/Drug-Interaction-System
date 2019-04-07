@@ -5,7 +5,7 @@ const AccountSchema = mongoose.Schema({
     Password: String,
     Email: String,
     AccountType: String, // "Doctor" ,"Pharmacist" ,"Patient" ,"Admin"
-    RegisterStatus: String, // "0" = not confirm by admin,"1" = ready to use
+    RegisterStatus: String, // "0" = not confirm by admin,"1" = ready to use , "2" = reject by admin
     ActiveStatus: String // "0" = not active,"1" = active
 })
 

@@ -307,6 +307,36 @@ app.put("/activeStatus/Account/:Id/:active", (req, res, next) => {
   })
 })
 
+//Change Register Status 
+app.put("/registerStatus/Account/:Id/:status", (req, res, next) => {
+  console.log("Put Method => Change Status Active")
+  var id = req.params.Id
+  var status = req.params.status
+  Account.findOne({
+    ID: id
+  }, function (err, foundObject) {
+    if (err) {
+      console.log(err)
+      res.status(500).send()
+    } else {
+      if (!foundObject) {
+        res.status(404).send()
+      } else {        
+        console.log(foundObject)
+        foundObject.RegisterStatus = status 
+        foundObject.save(function (err, updateObject) {
+          if (err) {
+            console.log(err)
+            res.send(false)
+          } else {
+            res.send(true)
+          }
+        })
+      }
+    }
+  })
+})
+
 // Delete a post
 app.delete('/remove/PatientInfo/:id', (req, res) => {
   var db = req.db;
