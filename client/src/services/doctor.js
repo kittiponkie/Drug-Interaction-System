@@ -16,6 +16,9 @@ export default {
   },
   postOrder(params){
     return Api().post('/post/DrugOrder',params)
+  },
+  allergicOfPatient(id){
+    return Api().get('/AllergicDrug/'+id)
   }  
 
 }
