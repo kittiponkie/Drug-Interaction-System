@@ -242,7 +242,106 @@ app.get('/Allergic/GP/:GPName', (req, res) => {
   console.log('Fetching GP :' + req.params.GPName)
   const GPName = req.params.GPName
   var sql = "SELECT GPID FROM gp WHERE FSN LIKE ? ";
+  connection.query(sql, [GPName], (err, rows, fields) => {
+    if (err) {
+      console.log('Failed to query for users : ' + err)
+      res.sendStatus(500)
+      return
+    }
 
+    const info1 = rows.map((row) => {
+      return {
+        GPID: row.GPID
+      }
+    })
+
+    var result = {
+      GP: info1
+    };
+
+    res.json(result)
+
+  })
+})
+app.get('/Allergic/GP/:GPName/:GPName2', (req, res) => {
+  console.log('Fetching GP :' + req.params.GPName)
+  const GPName = req.params.GPName + '/' + req.params.GPName2
+  var sql = "SELECT GPID FROM gp WHERE FSN LIKE ? ";
+  connection.query(sql, [GPName], (err, rows, fields) => {
+    if (err) {
+      console.log('Failed to query for users : ' + err)
+      res.sendStatus(500)
+      return
+    }
+
+    const info1 = rows.map((row) => {
+      return {
+        GPID: row.GPID
+      }
+    })
+
+    var result = {
+      GP: info1
+    };
+
+    res.json(result)
+
+  })
+})
+app.get('/Allergic/GP/:GPName/:GPName2/:GPName3', (req, res) => {  
+  const GPName = req.params.GPName + '/' +  req.params.GPName2 + '/' +  req.params.GPName3
+  console.log('Fetching GP :' + GPName)
+  var sql = "SELECT GPID FROM gp WHERE FSN LIKE ? ";
+  connection.query(sql, [GPName], (err, rows, fields) => {
+    if (err) {
+      console.log('Failed to query for users : ' + err)
+      res.sendStatus(500)
+      return
+    }
+
+    const info1 = rows.map((row) => {
+      return {
+        GPID: row.GPID
+      }
+    })
+
+    var result = {
+      GP: info1
+    };
+
+    res.json(result)
+
+  })
+})
+app.get('/Allergic/GP/:GPName/:GPName2/:GPName3/:GPName4', (req, res) => {  
+  const GPName = req.params.GPName + '/' +  req.params.GPName2 + '/' +  req.params.GPName3 + '/' +  req.params.GPName4
+  console.log('Fetching GP :' + GPName)
+  var sql = "SELECT GPID FROM gp WHERE FSN LIKE ? ";
+  connection.query(sql, [GPName], (err, rows, fields) => {
+    if (err) {
+      console.log('Failed to query for users : ' + err)
+      res.sendStatus(500)
+      return
+    }
+
+    const info1 = rows.map((row) => {
+      return {
+        GPID: row.GPID
+      }
+    })
+
+    var result = {
+      GP: info1
+    };
+
+    res.json(result)
+
+  })
+})
+app.get('/Allergic/GP/:GPName/:GPName2/:GPName3/:GPName4/:GPName5', (req, res) => {  
+  const GPName = req.params.GPName + '/' +  req.params.GPName2 + '/' +  req.params.GPName3 + '/' +  req.params.GPName4 + '/' +  req.params.GPName5 
+  console.log('Fetching GP :' + GPName)
+  var sql = "SELECT GPID FROM gp WHERE FSN LIKE ? ";
   connection.query(sql, [GPName], (err, rows, fields) => {
     if (err) {
       console.log('Failed to query for users : ' + err)

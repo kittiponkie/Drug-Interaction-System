@@ -7,6 +7,7 @@
           <h4 style="text-align:left;">Patient Name : {{patient.Firstname}} {{patient.Lastname}}
             <span style="float:right;margin-right: 150px;">Doctor Name : {{doctor.Firstname}} {{doctor.Lastname}}</span>
           </h4>
+          allergic drug of patient is {{allergicOfPatient}} 
         </md-card-header-text>
       </md-card-header>
     </md-card>
@@ -195,15 +196,25 @@
                 <md-table-row slot="md-table-row" slot-scope="{ item }">
                   <md-table-cell md-label="Drug No.">{{ item.DrugNo }}</md-table-cell>
                   <md-table-cell md-label="Drug Name">{{ item.GPName }}</md-table-cell>
+                  <md-table-cell md-label="Status">    
+                    <md-progress-spinner v-if="item.statusDetail=='load' || loadingAll" :md-diameter="20" :md-stroke="2" md-mode="indeterminate"></md-progress-spinner>
+                    <md-button v-else-if="item.statusDetail!='' && !loadingAll" class="md-icon-button" @click="true">
+                      <md-icon style="color:red;">error</md-icon>
+                    </md-button>
+                    <md-button v-else class="md-icon-button" @click="true">
+                      <md-icon style="color:green;">check_circle</md-icon>
+                    </md-button>
+                  </md-table-cell>
+                  <md-table-cell md-label="Detail">{{ item.detail }}</md-table-cell>
                 </md-table-row>
               </md-table>
               <md-dialog-actions>
-                <md-button class="md-primary" @click="showDialog = false">Close</md-button>
+                <md-button class="md-primary" @click="restartConfirm()">Close</md-button>
                 <md-button class="md-primary" @click="confirmOrder">Save</md-button>
               </md-dialog-actions>
             </md-dialog>
             <!--md-button class="md-accent md-raised" @click="showDialog = true">Confirm</md-button-->
-            <md-button class="md-primary md-raised" @click="showDialog = true">Confirm</md-button>
+            <md-button class="md-primary md-raised" @click="onConfirmClick()">Confirm</md-button>
           </div>
           <!--show drug history button-->
           <div style="margin-left:5px;margin-right:5px;">
@@ -233,14 +244,13 @@
               <md-icon style="color:#f44336;">&#xE872;</md-icon>
             </md-button>
           </md-table-cell>
-        </md-table-row>
+        </md-table-row>        
       </md-table>
     </div>
   </div>
 </template>
 
 <script>
-
   const toLower = text => {
     return text.toString().toLowerCase()
   }
@@ -250,7 +260,7 @@
     }
     return items
   }
-import DRUGS from '../../data/drugs.js'
+  import DRUGS from '../../data/drugs.js'
   import doctorServices from '@/services/doctor'
   import axios from "axios";
   export default {
@@ -305,7 +315,10 @@ import DRUGS from '../../data/drugs.js'
         Description: "-",
         // not in db
         doctorName: "-",
-        ward: "-"
+        ward: "-",
+        //allergic and interac
+        detail: "",
+        statusDetail: ""
       },
       //confirm
       showDialog: false,
@@ -315,7 +328,16 @@ import DRUGS from '../../data/drugs.js'
       //auto complete
       query: '',
       query2: '',
-      drugsSearch: DRUGS.GP
+      drugsSearch: DRUGS.GP,
+
+      //allergic drug checking
+      allergicOfPatient: [],
+      temp1: [],
+      temp2: [],
+      loadingAll: true,
+
+      //interaction
+      drugHistory: []
     }),
     methods: {
       //add drug to list
@@ -350,6 +372,11 @@ import DRUGS from '../../data/drugs.js'
         this.newDrugs.Description = "-"
         //doctorName: "not found",
         //ward: "not found"
+        this.newDrugs.detail = ""
+        this.newDrugs.statusDetail = ""
+        this.query = ""
+        this.query2 = ""
+        
       },
       calculateQuantity() {
         console.log("ok")
@@ -428,7 +455,7 @@ import DRUGS from '../../data/drugs.js'
           },
           UsingStatus: this.newDrugs.UsingStatus,
           DispendStatus: this.newDrugs.DispendStatus,
-          GPName: this.newDrugs.GPName,
+          GPName: this.query,
           RXCUI: this.newDrugs.RXCUI,
           Dosage: {
             dose: this.newDrugs.Dosage.dose,
@@ -448,22 +475,10 @@ import DRUGS from '../../data/drugs.js'
           Dispend: this.newDrugs.Dispend,
           Description: this.newDrugs.Description,
           doctorName: this.doctor.Firstname + " " + this.doctor.Lastname,
-          ward: this.doctor.Department
+          ward: this.doctor.Department,
+          detail: this.newDrugs.detail,
+          statusDetail: this.newDrugs.statusDetail
         }
-        axios.get('https://rxnav.nlm.nih.gov/REST/rxcui?name=' + x.GPName).then(Response => {
-          console.log('Axios OK')
-          if (Response.data.idGroup.rxnormId == null) {
-            console.log('rxcui id is null')
-            x.RXCUI = "not found"
-            console.log(this.drugs)
-          } else {
-            var RXCUI = Response.data.idGroup.rxnormId
-            console.log('rxcui ok : ' + RXCUI)
-            x.RXCUI = RXCUI.toString()
-            console.log(this.drugs)
-          }
-        });
-
         if (this.checkEdit) {
           console.log()
           this.drugs[this.itemEdit.DrugNo - 1] = x
@@ -528,47 +543,125 @@ import DRUGS from '../../data/drugs.js'
           Dispend: item.Dispend,
           Description: item.Description,
           doctorName: item.doctorName,
-          ward: item.ward
+          ward: item.ward,
+          detail: item.detail,
+          statusDetail: item.statusDetail
         }
         this.newDrugs = x
         this.active = true
         this.checkEdit = true
         this.itemEdit = item
       },
-      //confirm
-      confirmOrder() {
+      //confirm click
+      async onConfirmClick(){
+        this.showDialog = true
+        console.log(this.drugs)
+        //set load
+        await this.drugs.forEach(item=>{
+          item.statusDetail = 'load'
+        })
+        //check allergic
+        await this.allergicOfPatient.forEach(element => {
+          console.log("allergic ",element)
+          var temp = []
+          axios.get(`http://localhost:8082/Allergic/`+element).then(Response => {          
+            console.log('gpid ',Response.data.GP)
+            temp = Response.data.GP
+          }).then(()=>{            
+            this.drugs.forEach(item=>{
+              axios.get(`http://localhost:8082/Allergic/GP/`+item.GPName).then(Response2 => {
+                //console.log('gpid of gpname',Response2.data.GP[0].GPID)
+                var temp2 = []
+                temp2 = Response2.data.GP[0].GPID
+                temp.forEach(gpidItem=>{
+                  if(gpidItem.GPID==temp2) {
+                    console.log("ALLERGIC NOW!!!! ",element)
+                    item.detail = "Allergic with "+element
+                    if(item.statusDetail == 'load') item.statusDetail = "Allergic"
+                    else if(item.statusDetail == 'Allergic') ;
+                    else item.statusDetail = "Both"
+                    this.searchOnTable()
+                  }      
+                })              
+              }) 
+            })
+          })           
+        })
+        //check interaction
+        await this.drugs.forEach(item=>{
+          var drugName = item.GPName.split(' ')
+          this.checkInteraction(drugName,item)          
+        }) 
+      },
+      async checkInteraction(drugName,item){
+        var rxcui = ''
+        await axios.get(`https://rxnav.nlm.nih.gov/REST/rxcui.json?name=`+drugName[0]).then(Response => {  
+          console.log(drugName[0])        
+          console.log('rxcui ',Response.data.idGroup.rxnormId)
+          if(Response.data.idGroup.rxnormId) rxcui = Response.data.idGroup.rxnormId[0].toString()
+          else console.log("not found rxcui")
+        })        
+        await axios.get(`https://rxnav.nlm.nih.gov/REST/interaction/interaction.json?rxcui=${rxcui}&sources=DrugBank`).then(result => {  
+          console.log(rxcui)    
+          if(rxcui != ''){
+            console.log('interaction ',result.data.interactionTypeGroup[0].interactionType[0].interactionPair)            
+          }
+          if(this.drugs[this.drugs.length-1] == item) {
+            this.drugs.forEach(item=>{
+              if(item.statusDetail == 'load') item.statusDetail = ""
+            })
+            this.loadingAll = false
+          }
+        })
+      },
+      async restartConfirm(){
         this.showDialog = false
-        for (var i in this.drugs) {
+        this.loadingAll = true
+        await this.drugs.forEach(item=>{
+          item.statusDetail = ""
+          item.detail = ""
+        })
+      },
+      //confirm
+      async confirmOrder() {
+        this.showDialog = false
+        console.log("Save to Database")
+        
+        /*for (var i in this.drugs) {
           console.log(i)
           doctorServices.postOrder(this.drugs[i]).then(Response => {
             console.log("ok1" + this.drugs[i].DrugNo)
           })
         }
-        window.location.reload();
+        window.location.reload();*/
       }
     },
     //table add drug
     created() {
       this.searched = this.drugs
     },
-    async mounted() {
-      //console.log(this.$localStorage.get('doctor_patient'))
+    async mounted() {   
+      //get patient info   
       await doctorServices.patientInfo(this.$localStorage.get('doctor_patient')).then(Response => {
         console.log(Response.data[0])
         this.patient = Response.data[0]
-      })
-      //console.log(this.$localStorage.get('userID'))
+      })       
+      
+      //get doctor info
       await doctorServices.doctorInfo(this.$localStorage.get('userID')).then(Response => {
         console.log(Response.data[0])
         this.doctor = Response.data[0]
       })
 
+      //set orderID
       await doctorServices.getOrderId(this.patient.PatientID, this.doctor.DoctorID).then(Response => {
         console.log(Response.data)
         if (Response.data == "") {
           console.log("nullll")
-          this.newDrugs.OrderID = "O00001"
+          this.newDrugs.OrderID = "O00001"          
         } else {
+          this.drugHistory = Response.data
+          console.log("drug history => ",this.drugHistory)          
           console.log(Response.data[Response.data.length - 1].OrderID)
           var orderId = Response.data[Response.data.length - 1].OrderID
           var x = orderId.split('O')
@@ -583,10 +676,28 @@ import DRUGS from '../../data/drugs.js'
           this.newDrugs.OrderID = orderId
         }
       })
-
-      /*axios.get(`http://localhost:8082/info/${this.drugName}`).then(Response => {          
       
-      })*/
+      //get allergic of patient
+      await doctorServices.allergicOfPatient(this.$localStorage.get('doctor_patient')).then(Response => {
+        console.log("Allergic drug of patient is ",Response.data)
+        for(var i in Response.data){
+          this.allergicOfPatient.push(Response.data[i].VTMName)
+        }        
+      })
+      
+      //check drug allergic      
+     /* await axios.get(`http://localhost:8082/Allergic/paracetamol`).then(Response => {          
+        console.log('gpid of vtmname',Response.data)
+        console.log(this.allergicOfPatient)
+        this.temp1.push(Response.data.GP)
+      })
+
+      await axios.get(`http://localhost:8082/Allergic/GP/paracetamol 325 mg tablet`).then(Response => {          
+        console.log('gpid of gpname',Response.data)
+        this.temp2.push(Response.data)
+      }).then(()=>{
+        console.log(this.temp2,"2")
+      })   */   
     }
 
   }

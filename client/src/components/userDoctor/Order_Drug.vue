@@ -1,6 +1,6 @@
 <template>
   <div class="page-container">
-    <md-app md-mode="">
+    <md-app md-mode="fixed">
       <md-app-toolbar class="md-primary" md-elevation="0" style="background-color:#78A5A3;">
         <md-button class="md-icon-button" @click="toggleMenu" v-if="!(Window_Width>600)">
           <md-icon>menu</md-icon>
@@ -80,7 +80,7 @@
     }),
     methods: {
       //toggle visible menu
-      toggleMenu() {
+      toggleMenu() { 
         this.menuVisible = !this.menuVisible;
       },
       logout() {

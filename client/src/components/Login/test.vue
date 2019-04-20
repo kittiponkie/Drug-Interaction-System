@@ -1,5 +1,6 @@
 <template>
   <div class="page-container">
+    {{test}}
     <md-app md-mode="">
       <md-app-toolbar class="md-primary" md-elevation="0" style="background-color:#E1B16A;">
         <md-button class="md-icon-button" @click="toggleMenu" v-if="!(Window_Width>600)">
@@ -324,12 +325,15 @@
           name: "Acetaminophen",
           email: "xxxxxxxxxxx",
         }
-      ]
+      ],
+      test: 0
     }),
     methods: {
       //toggle visible menu
       toggleMenu() {
         this.menuVisible = !this.menuVisible
+        
+      this.test2()
       },
 
       //get data from API
@@ -375,10 +379,21 @@
       },
       logout(){
         this.$router.push('/login')
+      },
+      test2(){
+        console.log("testa")
+        var x = 1
+        this.test =x
+        for(a in 2) {
+          x=a
+          console.log(x)
+          this.test = x
+        }
       }
     },
     async mounted() {
       this.Window_Width = window.innerWidth
+      
     },
     created() {
       this.searched = this.users
