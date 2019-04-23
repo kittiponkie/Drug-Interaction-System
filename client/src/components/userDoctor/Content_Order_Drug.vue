@@ -587,7 +587,8 @@
             })
           })           
         })
-        //check interaction
+        //check interaction      
+        console.log(this.drugHistory)
         await this.drugs.forEach(item=>{
           var drugName = item.GPName.split(' ')
           this.checkInteraction(drugName,item)          
@@ -598,13 +599,38 @@
         await axios.get(`https://rxnav.nlm.nih.gov/REST/rxcui.json?name=`+drugName[0]).then(Response => {  
           console.log(drugName[0])        
           console.log('rxcui ',Response.data.idGroup.rxnormId)
-          if(Response.data.idGroup.rxnormId) rxcui = Response.data.idGroup.rxnormId[0].toString()
+          if(Response.data.idGroup.rxnormId) {
+            rxcui = Response.data.idGroup.rxnormId[0].toString()
+            item.RXCUI = Response.data.idGroup.rxnormId[0].toString()
+          }
           else console.log("not found rxcui")
         })        
         await axios.get(`https://rxnav.nlm.nih.gov/REST/interaction/interaction.json?rxcui=${rxcui}&sources=DrugBank`).then(result => {  
           console.log(rxcui)    
-          if(rxcui != ''){
-            console.log('interaction ',result.data.interactionTypeGroup[0].interactionType[0].interactionPair)            
+          if(rxcui != ''){                        
+            if(result.data.interactionTypeGroup){
+              console.log('interaction ',result.data.interactionTypeGroup[0].interactionType[0].interactionPair)
+              result.data.interactionTypeGroup[0].interactionType[0].interactionPair.forEach(itemResult=>{
+                //console.log(itemResult.interactionConcept[1].minConceptItem.rxcui)
+                this.drugHistory.forEach(itemHis=>{
+                  if(itemResult.interactionConcept[1].minConceptItem.rxcui == itemHis.RXCUI) {
+                    console.log("Interaction1 !!! "+itemHis.RXCUI+','+rxcui)
+                    console.log("Interaction1 !!! "+itemHis.GPName+','+drugName[0])
+                    this.detailInteraction(item,itemHis.GPName.split(' ')[0])
+                  }
+                  //console.log(itemHis.RXCUI + " itemHis")              
+                })   
+                this.drugs.forEach(itemDrugs=>{
+                  if(itemResult.interactionConcept[1].minConceptItem.rxcui == itemDrugs.RXCUI) {
+                    console.log("Interaction2 !!! "+itemDrugs.RXCUI+','+rxcui)
+                    console.log("Interaction2 !!! "+itemDrugs.GPName+','+drugName[0])
+                    this.detailInteraction(item,itemDrugs.GPName.split(' ')[0])
+                  }
+                  //console.log(itemDrugs.RXCUI + " itemDrugs")
+                }) 
+              })
+              
+            }             
           }
           if(this.drugs[this.drugs.length-1] == item) {
             this.drugs.forEach(item=>{
@@ -613,6 +639,15 @@
             this.loadingAll = false
           }
         })
+      },
+      detailInteraction(item,element){
+        console.log("ALLERGIC NOW!!!! ",element)
+        if(item.detail != '') item.detail += " and "
+        item.detail += "Interaction with "+element
+        if(item.statusDetail == 'load') item.statusDetail = "Interaction"
+        else if(item.statusDetail == 'Interaction') ;
+        else item.statusDetail = "Both"
+        this.searchOnTable()
       },
       async restartConfirm(){
         this.showDialog = false
