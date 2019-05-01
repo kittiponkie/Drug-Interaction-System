@@ -4,10 +4,10 @@
     <md-card>
       <md-card-header>
         <md-card-header-text>
-          <h4 style="text-align:left;">Patient Name : {{patient.Firstname}} {{patient.Lastname}}
-            <span style="float:right;margin-right: 150px;">Doctor Name : {{doctor.Firstname}} {{doctor.Lastname}}</span>
-          </h4>
-          allergic drug of patient is {{allergicOfPatient}} 
+          <h2 style="text-align:center;">Ordering Drug</h2>
+          <h4 style="text-align:left;">Patient Name : {{patient.Firstname}} {{patient.Lastname}}</h4>
+          <h4 style="text-align:left;">Doctor Name : {{doctor.Firstname}} {{doctor.Lastname}}</h4>
+          <h3> allergic drug of patient is {{allergicOfPatient.length>0? "":'-'}} <md-chip v-for="index in allergicOfPatient" :key="index">{{index}}</md-chip></h3> 
         </md-card-header-text>
       </md-card-header>
     </md-card>
@@ -20,7 +20,7 @@
         <!--header of list-->
         <md-table-toolbar>
           <div class="md-toolbar-section-start">
-            <h1 class="md-title">Ordering Drug</h1>
+            <h1 class="md-title">OrderID {{orderID}}</h1>
           </div>
           <md-field md-clearable class="md-toolbar-section-end" style="margin-left:5px;margin-right:5px;">
             <md-input placeholder="Search by Drug Name..." v-model="search" @input="searchOnTable" />
@@ -39,13 +39,13 @@
                     <label>GPName</label>   
                      <div style="margin:20px 0 20px 0;">                 
                     <input v-model="query2" id="input" class="form-control" type="text" placeholder="Type to search...">
-                    <typeahead v-model="query" @select="query2=query" target="#input" :data="drugsSearch" :limit="drugsSearch.length" match-start=true force-select=true />    
+                    <typeahead v-model="query" target="#input" :data="drugsSearch" :limit="drugsSearch.length" :match-start="true" :force-select="true" />    
                      </div>                
                     <div class="md-layout">
                       <div class="md-layout-item" style="margin-right:5px">
                         <label>Dosage</label>
                         <md-field md-clearable>
-                          <md-input v-model="newDrugs.Dosage.dose" type="number" placeholder="Enter Number" @input="calculateQuantity"></md-input>
+                          <md-input v-model="newDrugs.Dosage.dose" type="number" min="0" placeholder="Enter Number" @input="calculateQuantity"></md-input>
                         </md-field>
                       </div>
                       <div class="md-layout-item" style="margin-left:5px">
@@ -69,19 +69,19 @@
                       <div class="md-layout-item" style="margin-right:5px">
                         <md-field md-clearable>
                           <label>ปี</label>
-                          <md-input v-model="newDrugs.Duration.year" type="number" @input="calculateQuantity"></md-input>
+                          <md-input v-model="newDrugs.Duration.year" type="number" min="0" @input="calculateQuantity"></md-input>
                         </md-field>
                       </div>
                       <div class="md-layout-item" style="margin-right:5px">
                         <md-field md-clearable>
                           <label>เดือน</label>
-                          <md-input v-model="newDrugs.Duration.month" type="number" @input="calculateQuantity"></md-input>
+                          <md-input v-model="newDrugs.Duration.month" type="number" min="0" @input="calculateQuantity"></md-input>
                         </md-field>
                       </div>
                       <div class="md-layout-item" style="margin-right:5px">
                         <md-field md-clearable>
                           <label>วัน</label>
-                          <md-input v-model="newDrugs.Duration.day" type="number" @input="calculateQuantity"></md-input>
+                          <md-input v-model="newDrugs.Duration.day" type="number" min="0" @input="calculateQuantity"></md-input>
                         </md-field>
                       </div>
                     </div>
@@ -146,7 +146,7 @@
 
                         <md-field md-clearable>
                           <label>Calculate Automatic</label>
-                          <md-input v-model="newDrugs.Quantity" type="number" placeholder="Enter Number" @input="calculateQuantity"></md-input>
+                          <md-input v-model="newDrugs.Quantity" type="number" min="0" placeholder="Enter Number" @input="calculateQuantity"></md-input>
                         </md-field>
                       </div>
 
@@ -165,25 +165,26 @@
                       </div>
                     </div>
 
+                    <label>Select Dispense Date</label>    
+                    <md-datepicker v-model="newDrugs.DispendStartDate" md-immediately>
+                      <label>Select Dispense Date</label>
+                    </md-datepicker>
+
                     <label>Note</label>
                     <md-field md-clearable>
-
                       <md-textarea v-model="newDrugs.Description" placeholder="Enter Text"></md-textarea>
                     </md-field>
 
                     <md-card-actions style="padding:0px;padding-bottom:8px;">
                       <!--md-button type="submit" class="md-primary" :disabled="sending">Create user</md-button-->
                       <md-button class="md-primary" @click="active = false">Close</md-button>
-                      <md-button type="submit" class="md-primary" @click="active = false">Save</md-button>
+                      <md-button type="submit" class="md-primary">Save</md-button>
                     </md-card-actions>
                   </form>
                 </md-card-content>
               </md-card>
-
-
-
             </md-dialog>
-            <md-button class="md-primary md-raised" @click="addDrugToListBtn">
+            <md-button class="md-primary md-raised" @click="addDrugToListBtn" style="background-color:#FB6A07">
               <!--i class="material-icons">&#xE147;</i-->
               Add drug to list
             </md-button>
@@ -205,27 +206,37 @@
                       <md-icon style="color:green;">check_circle</md-icon>
                     </md-button>
                   </md-table-cell>
-                  <md-table-cell md-label="Detail">{{ item.detail }}</md-table-cell>
+                  <md-table-cell md-label="Allergic with"><h6 v-for="(value,index) in item.detail.allergic" :key="index">{{value}}</h6></md-table-cell>
+                  <md-table-cell md-label="Interaction with"><h6 v-for="(value,index) in item.detail.interaction" :key="index">{{value}}</h6></md-table-cell>
+                  <md-table-cell md-label="Time conflict with"><h6 v-for="(value,index) in item.detail.timeConflict" :key="index">{{value}}</h6></md-table-cell>
                 </md-table-row>
               </md-table>
               <md-dialog-actions>
-                <md-button class="md-primary" @click="restartConfirm()">Close</md-button>
-                <md-button class="md-primary" @click="confirmOrder">Save</md-button>
+                <md-button class="md-primary" @click="restartConfirm()">Cancel</md-button>
+                <md-button v-if="loadingAll == false" class="md-primary" @click="confirmOrder">Confirm</md-button>
+                <md-button v-else class="md-primary" @click="confirmOrder" disabled>Confirm</md-button>
               </md-dialog-actions>
             </md-dialog>
             <!--md-button class="md-accent md-raised" @click="showDialog = true">Confirm</md-button-->
-            <md-button class="md-primary md-raised" @click="onConfirmClick()">Confirm</md-button>
+            <md-button v-if="drugs.length!=0" class="md-primary md-raised" @click="onConfirmClick()" style="background-color:#05AB00">Save</md-button>
+            <md-button v-else class="md-primary md-raised" @click="onConfirmClick()" disabled>Save</md-button>
           </div>
           <!--show drug history button-->
-          <div style="margin-left:5px;margin-right:5px;">
-            <md-dialog-alert :md-active.sync="first" md-content="Your post has been deleted!" md-confirm-text="Cool!" />
-            <md-button class="md-primary md-raised" @click="first = true">Drug History</md-button>
+          <div style="margin-left:5px;margin-right:5px;">    
+            <md-dialog :md-active.sync="first" style="overflow:auto">
+              <contentA/>
+              <md-dialog-actions>
+                <md-button class="md-primary" @click="first = false">Close</md-button>
+              </md-dialog-actions>
+            </md-dialog>
+            <md-button class="md-primary md-raised" @click="first = true" style="background-color:#643895">Drug History</md-button>
           </div>
+          <!-- dialog message-->
+          <md-dialog-alert :md-active.sync="showMessage" :md-content="message" md-confirm-text="Close" /> 
         </md-table-toolbar>
 
         <!--show when search not found-->
         <md-table-empty-state md-label="No drugs found" :md-description="`No Drug found for this '${search}' query. Try a different search term or create a new drug.`">
-          <md-button class="md-primary md-raised" @click="addDrugToListBtn">Add New Drug</md-button>
         </md-table-empty-state>
 
         <!--list-->
@@ -244,8 +255,8 @@
               <md-icon style="color:#f44336;">&#xE872;</md-icon>
             </md-button>
           </md-table-cell>
-        </md-table-row>        
-      </md-table>
+        </md-table-row> 
+      </md-table>      
     </div>
   </div>
 </template>
@@ -262,13 +273,21 @@
   }
   import DRUGS from '../../data/drugs.js'
   import doctorServices from '@/services/doctor'
+  import contentA from "./Content_Drug_History";
   import axios from "axios";
   export default {
     name: "Drug_Interaction",
+    components: {
+      contentA
+    },
     data: () => ({
+      //message dialog
+      message: '',
+      showMessage: false,
       //header
       patient: [],
       doctor: [],
+      orderID: '',
       //search in table
       search: null,
       searched: [],
@@ -285,7 +304,7 @@
         DoctorID: "-",
         PharmacistID: "-",
         OrderStartDate: "-",
-        DispendStartDate: "-",
+        DispendStartDate: "",
         DrugNo: "-",
         Duration: {
           year: "0",
@@ -293,7 +312,7 @@
           day: "0"
         },
         UsingStatus: "Waiting Dispense",
-        DispendStatus: "0",
+        DispendStatus: "",
         GPName: "-",
         RXCUI: "-",
         Dosage: {
@@ -317,7 +336,11 @@
         doctorName: "-",
         ward: "-",
         //allergic and interac
-        detail: "",
+        detail: {
+          allergic: [],
+          interaction: [],
+          timeConflict: []
+        },
         statusDetail: ""
       },
       //confirm
@@ -337,7 +360,9 @@
       loadingAll: true,
 
       //interaction
-      drugHistory: []
+      drugHistory: [],      
+      users: [],
+      users2: [],
     }),
     methods: {
       //add drug to list
@@ -348,13 +373,13 @@
         //DoctorID: null,
         //PharmacistID: "not dispense",
         //OrderStartDate: null,
-        //DispendStartDate: "not dispense",
+        this.newDrugs.DispendStartDate = "",
         this.newDrugs.DrugNo = "-"
         this.newDrugs.Duration.year = "0"
         this.newDrugs.Duration.month = "0"
         this.newDrugs.Duration.day = "0"
         //UsingStatus: null,
-        //DispendStatus: null,
+        this.newDrugs.DispendStatus = "",
         this.newDrugs.GPName = "-"
         this.newDrugs.RXCUI = "-"
         this.newDrugs.Dosage.dose = "0"
@@ -372,14 +397,26 @@
         this.newDrugs.Description = "-"
         //doctorName: "not found",
         //ward: "not found"
-        this.newDrugs.detail = ""
+        this.newDrugs.detail = {
+          allergic: [],
+          interaction: [],
+          timeConflict: []
+        }
         this.newDrugs.statusDetail = ""
         this.query = ""
         this.query2 = ""
-        
+        this.checkEdit = false        
       },
       calculateQuantity() {
-        console.log("ok")
+        console.log(this.query + 'mmm ' +this.query2)
+        this.query2 = this.query
+        if(this.newDrugs.Dosage.dose < 0) this.newDrugs.Dosage.dose = 0
+        if(this.newDrugs.Duration.year < 0) this.newDrugs.Duration.year = 0
+        if(this.newDrugs.Duration.month < 0) this.newDrugs.Duration.month = 0
+        if(this.newDrugs.Duration.day < 0) this.newDrugs.Duration.day = 0
+        if(this.newDrugs.Quantity < 0) this.newDrugs.Quantity = 0
+
+        console.log("Calculate function")
         if(this.newDrugs.Frequency.symptoms != "true"){
         this.newDrugs.Times = 0;
         var key = 0;
@@ -403,14 +440,14 @@
 
         var duration = (year + month + day)
 
-        this.newDrugs.Quantity = parseInt(this.newDrugs.Dosage.dose) * this.newDrugs.Times * duration
+        this.newDrugs.Quantity = parseInt(this.newDrugs.Dosage.dose) * this.newDrugs.Times * duration        
         this.newDrugs.Quantity = this.newDrugs.Quantity.toString()
         //console.log(this.newDrugs.Quantity)
         this.newDrugs.Times = this.newDrugs.Times.toString()
         //console.log("Times = ", this.newDrugs.Times)
         }
       },
-      addDrugToList() {
+      async addDrugToList() {
         var year = parseInt(this.newDrugs.Duration.year) * 12 * 30
         var month = parseInt(this.newDrugs.Duration.month) * 30
         var day = parseInt(this.newDrugs.Duration.day)
@@ -454,7 +491,7 @@
             day: parseInt(this.newDrugs.Duration.day).toString()
           },
           UsingStatus: this.newDrugs.UsingStatus,
-          DispendStatus: this.newDrugs.DispendStatus,
+          DispendStatus: this.newDrugs.DispendStartDate,
           GPName: this.query,
           RXCUI: this.newDrugs.RXCUI,
           Dosage: {
@@ -479,16 +516,47 @@
           detail: this.newDrugs.detail,
           statusDetail: this.newDrugs.statusDetail
         }
-        if (this.checkEdit) {
-          console.log()
-          this.drugs[this.itemEdit.DrugNo - 1] = x
-          this.checkEdit = false
-        } else {
-          console.log("add drug success")
-          x.DrugNo = (this.drugs.length + 1).toString()
-          console.log(x)
-          this.drugs.push(x)
+
+        var finding = await this.drugsSearch.find(item =>{
+          return item == x.GPName           
+        })
+        this.message = ''
+        if(!finding) {
+          this.message += "Drug name is not correct <br>"
         }
+        if(x.Dosage.dose == 0){
+          this.message += "Dosage can't be 0 <br>"
+        }
+        if(x.Duration.year == 0 && x.Duration.month == 0 && x.Duration.day == 0){
+          this.message += "Duration can't be 0 at all <br>"
+        }
+        if(x.Frequency.mor=='false' && x.Frequency.aft=='false' && x.Frequency.eve=='false' && x.Frequency.bed=='false' && x.Frequency.symptoms=='false'){
+          this.message += "Choose เช้า ,กลางวัน ,เย็น ,ก่อนนอน ,ทานตามอาการ<br>"
+        }
+        if(x.Frequency.before=='false' && x.Frequency.after=='false'){
+          this.message += "Choose ก่อนอาหาร ,หลังอาหาร<br>"  
+        }
+        if(x.Quantity == 0 && x.Frequency.symptoms == "true"){
+          this.message += "Quantity can't be 0 <br>"
+        }
+        if(x.DispendStartDate == ''){
+          this.message += "Dipense Date can't be empty <br>"
+        }
+
+        if(this.message != '') this.showMessage = true   
+
+        if(x.GPName!='' && finding && !this.showMessage) {
+          this.active = false
+          if (this.checkEdit) {
+            console.log("edit success")
+            this.drugs[this.itemEdit.DrugNo - 1] = x
+            this.checkEdit = false
+          } else {
+            console.log("add drug success")
+            x.DrugNo = (this.drugs.length + 1).toString()
+            this.drugs.push(x)
+          }    
+        }       
       },
       //table
       searchOnTable() {
@@ -522,7 +590,7 @@
             day: item.Duration.day
           },
           UsingStatus: item.UsingStatus,
-          DispendStatus: item.DispendStatus,
+          DispendStatus: item.DispendStartDate,
           GPName: item.GPName,
           RXCUI: item.RXCUI,
           Dosage: {
@@ -560,6 +628,13 @@
         await this.drugs.forEach(item=>{
           item.statusDetail = 'load'
         })
+
+        //check Duplicate Drugs 
+        await this.drugs.forEach(item=>{
+          var drugName = item.GPName.split(' ') 
+          this.checkDuplicateDrugs(drugName,item)        
+        }) 
+
         //check allergic
         await this.allergicOfPatient.forEach(element => {
           console.log("allergic ",element)
@@ -576,7 +651,7 @@
                 temp.forEach(gpidItem=>{
                   if(gpidItem.GPID==temp2) {
                     console.log("ALLERGIC NOW!!!! ",element)
-                    item.detail = "Allergic with "+element
+                    item.detail.allergic.push(element)
                     if(item.statusDetail == 'load') item.statusDetail = "Allergic"
                     else if(item.statusDetail == 'Allergic') ;
                     else item.statusDetail = "Both"
@@ -587,11 +662,10 @@
             })
           })           
         })
-        //check interaction      
-        console.log(this.drugHistory)
+        //check interaction    
         await this.drugs.forEach(item=>{
           var drugName = item.GPName.split(' ')
-          this.checkInteraction(drugName,item)          
+          this.checkInteraction(drugName,item)         
         }) 
       },
       async checkInteraction(drugName,item){
@@ -604,19 +678,44 @@
             item.RXCUI = Response.data.idGroup.rxnormId[0].toString()
           }
           else console.log("not found rxcui")
-        })        
-        await axios.get(`https://rxnav.nlm.nih.gov/REST/interaction/interaction.json?rxcui=${rxcui}&sources=DrugBank`).then(result => {  
-          console.log(rxcui)    
+        })  
+        await this.users.forEach(itemHis=>{
+          console.log(itemHis.RXCUI,rxcui) 
+          doctorServices.checkInteraction(rxcui,itemHis.RXCUI).then(result => {
+            console.log(result.data.message)
+            if(result.data.success) {
+              this.detailInteraction(item,itemHis)
+            }
+          })        
+        })  
+        await this.drugs.forEach(itemDrugs=>{
+          doctorServices.checkInteraction(rxcui,itemDrugs.RXCUI).then(result => {
+            console.log(result.data.message)
+            if(result.data.success) {
+              this.detailInteraction(item,itemDrugs)
+            }
+          }) 
+        })      
+        if(this.drugs[this.drugs.length-1] == item) {
+          this.drugs.forEach(item=>{
+            if(item.statusDetail == 'load') item.statusDetail = ""
+          })
+          this.loadingAll = false
+        }  
+        /*await doctorServices.getOrderId(rxcui,rxcui).then(result => {  
+          console.log(rxcui)  
+          console.log(result.data)  
           if(rxcui != ''){                        
             if(result.data.interactionTypeGroup){
               console.log('interaction ',result.data.interactionTypeGroup[0].interactionType[0].interactionPair)
               result.data.interactionTypeGroup[0].interactionType[0].interactionPair.forEach(itemResult=>{
                 //console.log(itemResult.interactionConcept[1].minConceptItem.rxcui)
-                this.drugHistory.forEach(itemHis=>{
+                this.users.forEach(itemHis=>{
+                  console.log(itemHis.RXCUI)
                   if(itemResult.interactionConcept[1].minConceptItem.rxcui == itemHis.RXCUI) {
                     console.log("Interaction1 !!! "+itemHis.RXCUI+','+rxcui)
                     console.log("Interaction1 !!! "+itemHis.GPName+','+drugName[0])
-                    this.detailInteraction(item,itemHis.GPName.split(' ')[0])
+                    this.detailInteraction(item,itemHis)
                   }
                   //console.log(itemHis.RXCUI + " itemHis")              
                 })   
@@ -624,7 +723,7 @@
                   if(itemResult.interactionConcept[1].minConceptItem.rxcui == itemDrugs.RXCUI) {
                     console.log("Interaction2 !!! "+itemDrugs.RXCUI+','+rxcui)
                     console.log("Interaction2 !!! "+itemDrugs.GPName+','+drugName[0])
-                    this.detailInteraction(item,itemDrugs.GPName.split(' ')[0])
+                    this.detailInteraction(item,itemDrugs)
                   }
                   //console.log(itemDrugs.RXCUI + " itemDrugs")
                 }) 
@@ -638,37 +737,67 @@
             })
             this.loadingAll = false
           }
-        })
+        })*/
       },
       detailInteraction(item,element){
-        console.log("ALLERGIC NOW!!!! ",element)
-        if(item.detail != '') item.detail += " and "
-        item.detail += "Interaction with "+element
+        item.detail.interaction.push(element.OrderID+" "+element.GPName.split(' ')[0])
         if(item.statusDetail == 'load') item.statusDetail = "Interaction"
         else if(item.statusDetail == 'Interaction') ;
         else item.statusDetail = "Both"
         this.searchOnTable()
+      },
+      async checkDuplicateDrugs(drugName,item){
+        await this.users.forEach((drugHis,index)=>{
+          var finalTime = new Date(drugHis.DispendStartDate)
+          finalTime.setFullYear(finalTime.getFullYear() + parseInt(drugHis.Duration.year),
+                                finalTime.getMonth() + parseInt(drugHis.Duration.month),
+                                finalTime.getDate() + parseInt(drugHis.Duration.day))      
+          if(drugHis.GPName.split(' ')[0] == drugName[0]) {
+            if(item.DispendStartDate - finalTime <= 0){
+              item.detail.timeConflict.push(drugHis.OrderID+" "+ drugHis.GPName)  
+              item.statusDetail = "Time Conflict"          
+            }
+          }
+        })
+        await this.drugs.forEach(itemDrugs=>{
+          if(itemDrugs != item){
+            var finalTime = new Date(itemDrugs.DispendStartDate)
+            finalTime.setFullYear(finalTime.getFullYear() + parseInt(itemDrugs.Duration.year),
+                                  finalTime.getMonth() + parseInt(itemDrugs.Duration.month),
+                                  finalTime.getDate() + parseInt(itemDrugs.Duration.day))      
+            if(itemDrugs.GPName.split(' ')[0] == drugName[0]) {
+              if(item.DispendStartDate - finalTime <= 0){
+                item.detail.timeConflict.push(itemDrugs.OrderID+" "+ itemDrugs.GPName)  
+                item.statusDetail = "Time Conflict"          
+              }
+            }
+          }
+        })
       },
       async restartConfirm(){
         this.showDialog = false
         this.loadingAll = true
         await this.drugs.forEach(item=>{
           item.statusDetail = ""
-          item.detail = ""
+          item.detail = {
+          allergic: [],
+          interaction: [],
+          timeConflict: []
+        }
         })
       },
-      //confirm
+      //last confirm (save to DB)
       async confirmOrder() {
         this.showDialog = false
         console.log("Save to Database")
-        
+        console.log(this.drugs)        
         /*for (var i in this.drugs) {
           console.log(i)
           doctorServices.postOrder(this.drugs[i]).then(Response => {
             console.log("ok1" + this.drugs[i].DrugNo)
           })
         }
-        window.location.reload();*/
+        window.location.reload()*/
       }
     },
     //table add drug
@@ -709,6 +838,7 @@
           else orderId = "O" + orderId
           console.log(orderId)
           this.newDrugs.OrderID = orderId
+          this.orderID = orderId
         }
       })
       
@@ -718,21 +848,109 @@
         for(var i in Response.data){
           this.allergicOfPatient.push(Response.data[i].VTMName)
         }        
-      })
-      
-      //check drug allergic      
-     /* await axios.get(`http://localhost:8082/Allergic/paracetamol`).then(Response => {          
-        console.log('gpid of vtmname',Response.data)
-        console.log(this.allergicOfPatient)
-        this.temp1.push(Response.data.GP)
-      })
+      })    
 
-      await axios.get(`http://localhost:8082/Allergic/GP/paracetamol 325 mg tablet`).then(Response => {          
-        console.log('gpid of gpname',Response.data)
-        this.temp2.push(Response.data)
-      }).then(()=>{
-        console.log(this.temp2,"2")
-      })   */   
+      //get order of patient
+      await doctorServices.getOrderId(this.$localStorage.get('doctor_patient')).then(Response => {
+          console.log(Response.data)  
+          Response.data.forEach((item,i) =>{
+            //set pharmacist
+            if(item.PharmacistID[0] == 'P' && item.PharmacistID[1] == 'H') {
+              var tempPharmacistInfo = item.PharmacistID.split(',')
+              item.PharmacistID = []
+              tempPharmacistInfo.forEach(itemPhar=>{
+                var tempPhar = {
+                  ID: itemPhar,
+                  Name: ''
+                }
+                item.PharmacistID.push(tempPhar)
+              })
+              console.log(item.PharmacistID)
+            } else {
+              item.PharmacistID = ''
+            }
+
+            //set Time
+            var dispenseTime = new Date(item.DispendStartDate)
+            var dispenseNextTime = new Date(item.DispendStatus) 
+            dispenseNextTime.setHours(0,0,0,0) 
+            var currentTime = new Date()
+            currentTime.setHours(0,0,0,0) 
+            var finalTime = new Date(item.DispendStartDate)
+            finalTime.setFullYear(finalTime.getFullYear() + parseInt(item.Duration.year),
+                                  finalTime.getMonth() + parseInt(item.Duration.month),
+                                  finalTime.getDate() + parseInt(item.Duration.day))
+
+            //do receive medicine
+            var quantity = parseFloat(item.Quantity.split(" ")[0])
+            var dispense = parseFloat(item.Dispend)
+            item.Dispend = parseFloat(dispense*100/quantity).toFixed(2).toString()  
+
+            //do using medicine            
+            var usingMed = currentTime-dispenseTime
+            var allMed = finalTime-dispenseTime
+            item.Using = parseFloat(usingMed*100/allMed).toFixed(2).toString()
+            if(item.Using > item.Dispend) item.Using = item.Dispend
+            else if(item.Using <0) item.Using = 0
+            
+            //next receive medicine
+            if(item.DispendStatus == 'done') item.nextReceiveMedicine = "Received All Medicine"
+            else {
+              item.nextReceiveMedicine = new Date(item.DispendStatus).toDateString()
+            }
+
+            //get doctor info
+            item.DoctorName = 'Loading'
+            doctorServices.doctorInfo(item.DoctorID).then(result => {    
+              item.DoctorName = result.data[0].Firstname + ' ' + result.data[0].Lastname
+              item.DoctorWard = result.data[0].Department
+            })
+
+            //get pharmacist info
+            item.PharmacistID.forEach(phar =>{
+              doctorServices.pharmacistInfo(phar.ID).then(result => {
+                if(result.data[0])  {       
+                  phar.Name = result.data[0].Firstname + ' ' + result.data[0].Lastname
+                } else {
+                  phar.Name = "-"
+                }
+              })
+            }) 
+
+            //separate table
+            if(item.DispendStatus == 'done'){ 
+              //separate using and stop using
+              if(item.Using != 100){
+                item.UsingStatus = "Using"  
+                this.users.push(item) 
+              } else {
+                item.UsingStatus = "Stop Using"  
+                this.users2.push(item) 
+              } 
+            }
+            else{
+              //separate Incomplete ,waiting dispense and Using  
+              if(dispenseNextTime-currentTime >= 0){
+                //separate waiting dispense and using 
+                if(item.Dispend == 0) {
+                  item.UsingStatus = "Waiting Dispense"
+                } else {
+                  item.UsingStatus = "Using"
+                }
+                this.users.push(item) 
+              } else {
+                item.UsingStatus = "Incomplete"  
+                this.users2.push(item) 
+              }                             
+            }
+            
+            //update response data to Table 
+            if(i == Response.data.length-1) {
+              console.log("Last item")
+              console.log(this.users)
+            }     
+          })          
+      })  
     }
 
   }

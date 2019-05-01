@@ -38,6 +38,7 @@ var AccountRelation = require("../models/AccountRelation")
 var DoctorRelation = require("../models/DoctorRelation")
 var PharmacistRelation = require("../models/PharmacistRelation")
 var DrugHistory = require("../models/DrugHistory")
+var list = require("../models/InteractionList")
 
 // PatientInfo
 // Fetch single post
@@ -1732,7 +1733,8 @@ app.put("/update/DrugHistory/:OrderID/:DrugNo", (req, res, next) => {
         else if (total >= 1) DispendStatus = 1   // In process
         else if (total <= 0) DispendStatus = 2   // Already Done*/
         //foundObject.DispendStatus = DispendStatus
-
+        foundObject.PharmacistID = req.body.PharmacistID
+        foundObject.DispendStatus = req.body.DispendStatus
         foundObject.Dispend = req.body.Dispend
         foundObject.UsingStatus = "Using"
         console.log(foundObject)
@@ -1785,3 +1787,34 @@ app.delete('/remove/DrugHistory/:OrderID/:DrugNo', (req, res) => {
     })
   })
 })
+
+app.get("/checkinteract/:rxcui1/:rxcui2", (req, res) => {
+  console.log("get check interaction")
+  function isEmptyObject(obj) {
+    return !Object.keys(obj).length;
+  }
+  const rxcui1 = req.params.rxcui1;
+  const rxcui2 = req.params.rxcui2;
+  list.find({ $or: [{ "Rxcui1": rxcui1, "Rxcui2": rxcui2 }, { "Rxcui1": rxcui2, "Rxcui2": rxcui1 }] })
+    .exec()
+    .then(doc => {
+      console.log(doc)
+      console.log("get check interaction2")
+      if (!isEmptyObject(doc) ) {
+        res.status(200).send({
+          success: true,
+          message: 'Interaction alert !!!'
+        })
+        
+      } else {
+        res.status(200).send({
+          success: false,
+          message: 'No interact , Can have togeter'
+        })
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({ error: err });
+    });
+});

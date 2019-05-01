@@ -4,18 +4,18 @@
     <md-card style="padding-left: 0px;">
       <md-card-header>
         <md-card-header-text>
-          <h4 style="text-align:left;">Patient Name : {{patient.Firstname}} {{patient.Lastname}}
-            <span style="float:right;margin-right: 150px;">Pharmacist Name : {{doctor.Firstname}} {{doctor.Lastname}}</span>
-          </h4>
+          <h2 style="text-align:center;">Dispensing Drug</h2>
+          <h4 style="text-align:left;">Patient Name : {{patient.Firstname}} {{patient.Lastname}}</h4>
+          <h4 style="text-align:left;">Pharmacist Name : {{doctor.Firstname}} {{doctor.Lastname}}</h4>
         </md-card-header-text>
       </md-card-header>
     </md-card>
 
     <!--Table-->
-    <md-table v-model="searched" md-sort="GPName" md-sort-order="asc" md-card>
+    <md-table v-model="searched" md-sort="GPName" md-sort-order="asc" md-card style="margin-bottom:10px;">
       <md-table-toolbar>
         <div class="md-toolbar-section-start">
-          <h1 class="md-title">Users Name</h1>
+          <h1 class="md-title">Using</h1>
         </div>
         <md-field md-clearable class="md-toolbar-section-end">
           <md-input placeholder="Search by drug name..." v-model="search" @input="searchOnTable" />
@@ -27,7 +27,7 @@
       <md-table-row slot="md-table-row" slot-scope="{ item }">
         <md-table-cell md-label="Order ID" md-sort-by="OrderID" md-numeric>{{ item.OrderID }}</md-table-cell>
         <md-table-cell md-label="Drug Name" md-sort-by="GPName">{{ item.GPName }}</md-table-cell>
-        <md-table-cell md-label="Doctor's Name" md-sort-by="DoctorID">{{ item.DoctorID }}</md-table-cell>
+        <md-table-cell md-label="Doctor's Name" md-sort-by="DoctorID">{{ item.DoctorName }}</md-table-cell>
         <md-table-cell md-label="Status" md-sort-by="UsingStatus">{{ item.UsingStatus }}</md-table-cell>
         <md-table-cell md-label="Receive Medicine" md-sort-by="Dispend2">
           <b-progress :value="parseFloat(item.Dispend2)" striped show-value class="mb-3"></b-progress>
@@ -43,6 +43,37 @@
           </md-button>
           <md-button v-else disabled class="md-icon-button md-dense">
             <md-icon>ballot</md-icon>
+          </md-button>
+        </md-table-cell>
+      </md-table-row>
+    </md-table>
+    <!--Table2-->
+    <md-table v-model="searched2" md-sort="UsingStatus" md-sort-order="asc" md-card style="margin-bottom:10px;">
+      <md-table-toolbar>
+        <div class="md-toolbar-section-start">
+          <h1 class="md-title">Stop Using</h1>
+        </div>
+        <md-field md-clearable class="md-toolbar-section-end">
+          <md-input placeholder="Search by drug name..." v-model="search2" @input="searchOnTable" />
+        </md-field>
+      </md-table-toolbar>
+
+      <md-table-empty-state md-label="No Order Found" :md-description="`No order found for this '${search2}' query. Try a different search term.`"></md-table-empty-state>
+
+      <md-table-row slot="md-table-row" slot-scope="{ item }">
+        <md-table-cell md-label="OrderID" md-sort-by="OrderID" md-numeric>{{ item.OrderID }}</md-table-cell>
+        <md-table-cell md-label="Drug Name" md-sort-by="GPName">{{ item.GPName }}</md-table-cell>
+        <md-table-cell md-label="Doctor's Name" md-sort-by="DoctorID">{{ item.DoctorName }}</md-table-cell>
+        <md-table-cell md-label="Status" md-sort-by="UsingStatus">{{ item.UsingStatus }}</md-table-cell>
+        <md-table-cell md-label="Receive Medicine" md-sort-by="Dispend">
+          <b-progress :value="parseFloat(item.Dispend2)" striped show-value class="mb-3"></b-progress>
+        </md-table-cell>
+        <md-table-cell md-label="Using Medicine" md-sort-by="Dispend">
+          <b-progress :value="parseFloat(item.Using)" striped show-value class="mb-3"></b-progress>
+        </md-table-cell>
+        <md-table-cell md-label="Detail">
+          <md-button @click="showDetail(item)" class="md-icon-button md-dense">
+            <md-icon>assignment</md-icon>
           </md-button>
         </md-table-cell>
       </md-table-row>
@@ -116,10 +147,9 @@
                 </div>
 
                 <div class="md-layout textInDialog" v-for="(i,index) in itemDialog.Frequency" v-bind:key="index">
-                  <div class="md-layout-item"><label style="min-width:180px;" v-if="index == 0">Frequency : </label><label
-                      style="min-width:180px;" v-else></label></div>
+                  <div class="md-layout-item"><label style="min-width:180px;" v-if="index == 0">Frequency : </label></div>
                   <div class="md-layout-item"> <input class="form-control" type="text" placeholder="-" style="min-width:260px;"
-                      readonly :value="i"></div>
+                      readonly :value="i"></div>  
                 </div>
 
                 <div class="md-layout textInDialog">
@@ -135,7 +165,17 @@
                 <div class="md-layout textInDialog">
                   <div class="md-layout-item"><label style="min-width:180px;">Recieve medicine(%) :</label></div>
                   <div class="md-layout-item"> <input class="form-control" type="text" placeholder="-" style="min-width:260px;"
-                      readonly :value="itemDialog.Dispend2"></div>
+                      readonly :value="itemDialog.Dispend"></div>
+                </div>
+                <div class="md-layout textInDialog">
+                  <div class="md-layout-item"><label style="min-width:180px;">Using medicine(%) :</label></div>
+                  <div class="md-layout-item"> <input class="form-control" type="text" placeholder="-" style="min-width:260px;"
+                      readonly :value="itemDialog.Using"></div>
+                </div>
+                <div class="md-layout textInDialog">
+                  <div class="md-layout-item"><label style="min-width:180px;">Next Receive Medicine :</label></div>
+                  <div class="md-layout-item"> <input class="form-control" type="text" placeholder="-" style="min-width:260px;"
+                      readonly :value="itemDialog.nextReceiveMedicine"></div>
                 </div>
                 <div class="md-layout textInDialog">
                   <div class="md-layout-item"><label style="min-width:180px;">Note :</label></div>
@@ -159,12 +199,12 @@
                 <div class="md-layout textInDialog">
                   <div class="md-layout-item"><label style="min-width:180px;">Doctor Name :</label></div>
                   <div class="md-layout-item"> <input class="form-control" type="text" placeholder="-" style="min-width:260px;"
-                      readonly :value="itemDialog.OrderID"></div>
+                      readonly :value="itemDialog.DoctorName"></div>
                 </div>
                 <div class="md-layout textInDialog">
                   <div class="md-layout-item"><label style="min-width:180px;">Ward :</label></div>
                   <div class="md-layout-item"> <input class="form-control" type="text" placeholder="-" style="min-width:260px;"
-                      readonly :value="itemDialog.OrderID"></div>
+                      readonly :value="itemDialog.DoctorWard"></div>
                 </div>
                 <md-card-actions style="padding:0px;padding-bottom:8px;padding-top:8px;">
                   <md-button class="md-primary" @click="showDialog = false">Close</md-button>
@@ -175,15 +215,18 @@
           <md-tabs md-dynamic-height v-if="dialogShift == 'Pharmacist'">
             <md-tab md-label="Pharmacist">
               <form>
+                <div v-for="index in itemDialog.PharmacistID.length" :key="index">
+                <label v-if="itemDialog.PharmacistID.length>1">{{index}}.</label>
                 <div class="md-layout textInDialog">
                   <div class="md-layout-item"><label style="min-width:180px;">Pharmacist id :</label></div>
                   <div class="md-layout-item"> <input class="form-control" type="text" placeholder="-" style="min-width:260px;"
-                      readonly :value="itemDialog.PharmacistID"></div>
+                      readonly :value="itemDialog.PharmacistID[index-1].ID"></div>
                 </div>
                 <div class="md-layout textInDialog">
                   <div class="md-layout-item"><label style="min-width:180px;">Pharmacist Name :</label></div>
                   <div class="md-layout-item"> <input class="form-control" type="text" placeholder="-" style="min-width:260px;"
-                      readonly :value="itemDialog.OrderID"></div>
+                      readonly :value="itemDialog.PharmacistID[index-1].Name"></div>
+                </div>
                 </div>
                 <br>
                 <br>
@@ -231,9 +274,15 @@
             </div>
             <div class="md-layout textInDialog">
               <div class="md-layout-item"><label style="min-width:180px;">Dispensing({{itemDispenseDialog.Dosage.unit}}) :</label></div>
-              <div class="md-layout-item"> <input class="form-control" type="text" placeholder="Enter Number" style="min-width:260px;"
+              <div class="md-layout-item"> <input class="form-control" type="number" min="0" :max="itemDispenseDialog.Remaining" placeholder="Enter Number" style="min-width:260px;"
                   v-model="itemDispenseDialog.Dispensing"></div>
             </div>
+            <div class="md-layout textInDialog">
+              <label>Select Dispense Date</label>    
+              <md-datepicker v-model="itemDispenseDialog.DispendStatus" md-immediately>
+                <label>Select Dispense Date</label>
+              </md-datepicker>
+            </div>            
             <md-card-actions style="padding:0px;padding-bottom:8px;padding-top:8px;">
               <md-button class="md-primary" @click="saveDispensing()">Save</md-button>
               <md-button class="md-primary" @click="showDispenDialog = false">Close</md-button>              
@@ -251,8 +300,8 @@
         <md-card-content style="padding-bottom:0px;" class="md-scrollbar">
           {{messageError}}
           <md-card-actions style="padding:0px;padding-bottom:8px;padding-top:8px;">
-              <md-button class="md-primary" @click="reloadPage()">Close</md-button>              
-            </md-card-actions>
+            <md-button class="md-primary" @click="reloadPage()">Close</md-button>              
+          </md-card-actions>
         </md-card-content>
       </md-card>
      </md-dialog>
@@ -278,10 +327,14 @@
       //header
       patient: [],
       doctor: [],
-      //table
+      //table using ,waiting dispense
       search: null,
       searched: [],
       users: [],
+      //table stop using ,incomplete
+      search2: null,
+      searched2: [],
+      users2: [],
       //detail dialog
       showDialog: false,
       itemDialog: {
@@ -327,9 +380,6 @@
         if (item.Duration.day != "0") this.itemDialog.Duration += item.Duration.day + " day"
         if (item.Duration.year == "0" && item.Duration.month == "0" && item.Duration.day == "0") this.itemDialog.Duration =
           "0"
-
-        //do dispense
-        if (item.DispendStatus == "0") this.itemDialog.DispendStatus = "Not Dispense"
       },
       //dispense dialog
       dispensing(item) {
@@ -341,13 +391,20 @@
       async saveDispensing(){
         console.log(this.itemDispenseDialog)
         if(this.itemDispenseDialog.Dispensing == ""){
-
+          this.showErrorDialog = true
+          this.messageError = "กรุณากรอกจำนวนยาด้วยครับ"
+        }
+        else if(this.itemDispenseDialog.Dispensing ==0){
+          this.showErrorDialog = true
+          this.messageError = "กรุณากรอกจำนวนยาด้วยครับ"
+        }
+        else if(parseInt(this.itemDispenseDialog.Dispensing) <0){
+          this.showErrorDialog = true
+          this.messageError = "จ่ายยาด้วยจำนวนเต็มบวกด้วยครับ"
         }
         else {
           var dispense = parseInt(this.itemDispenseDialog.Dispend) + parseInt(this.itemDispenseDialog.Dispensing)
           var quantity = parseInt(this.itemDispenseDialog.Quantity)
-          console.log(dispense+" = "+this.itemDispenseDialog.Dispend+" + "+this.itemDispenseDialog.Dispensing)
-          console.log(quantity)
           if(quantity < dispense){
             this.showErrorDialog = true
             this.messageError = "จ่ายยาเกินแพทย์สั่งครับ"
@@ -355,17 +412,36 @@
             this.showErrorDialog = true
             this.messageError = "จ่ายยาเรียบร้อยครับ"  
             this.itemDispenseDialog.Dispend = dispense.toString() 
+            if(quantity == dispense)  this.itemDispenseDialog.DispendStatus = 'done'
+            
+            var pharid = ''
+            if(this.itemDispenseDialog.PharmacistID != [])
+            {
+              var findPhar = await this.itemDispenseDialog.PharmacistID.find(item=>{
+                if(pharid!='') pharid += ','
+                pharid += item.ID
+                return item.ID == this.doctor.PharmacistID 
+              })
+              if(findPhar) console.log("found")
+              else {
+                pharid += this.doctor.PharmacistID 
+              }
+            } else {
+              pharid += this.doctor.PharmacistID 
+            }            
+            this.itemDispenseDialog.PharmacistID = pharid
+            console.log(pharid)
+
             await pharmacistServices.dispense(this.itemDispenseDialog.OrderID,this.itemDispenseDialog.DrugNo,this.itemDispenseDialog).then(Response => {
               console.log(Response.data)
-            })       
+            })    
           }
         }
-        //this.showDispenDialog = false
       },
       reloadPage(){
         var dispense = parseInt(this.itemDispenseDialog.Dispend) + parseInt(this.itemDispenseDialog.Dispensing)
         var quantity = parseInt(this.itemDispenseDialog.Quantity)
-        if(quantity < dispense){
+        if(quantity < dispense || this.itemDispenseDialog.Dispensing == "" || this.itemDispenseDialog.Dispensing == 0 || parseInt(this.itemDispenseDialog.Dispensing) <0){
           this.showErrorDialog = false
         } else { 
           window.location.reload();        
@@ -376,35 +452,135 @@
         this.searched = searchByName(this.users, this.search);
       }
     },
-    created() {
-
-    },
     async mounted() {
       //console.log(this.$localStorage.get('doctor_patient'))
       await pharmacistServices.patientInfo(this.$localStorage.get('pharmacist_patient')).then(Response => {
         console.log(Response.data[0])
         this.patient = Response.data[0]
       })
-      console.log(this.$localStorage.get('userID'))
+
       await pharmacistServices.pharmacistInfo(this.$localStorage.get('userID')).then(Response => {
         console.log(Response.data[0])
         this.doctor = Response.data[0]
       })
 
-      await pharmacistServices.getOrderId(this.$localStorage.get('pharmacist_patient'), this.$localStorage.get(
-        'userID')).then(
-        Response => {
-          console.log(Response.data)
-          this.users = Response.data
-          //do receive medicine
-          for (var i in this.users) {
-            var quantity = parseFloat(this.users[i].Quantity)
-            var dispense = parseFloat(this.users[i].Dispend)
-            this.users[i].Dispend2 = parseFloat(dispense * 100 / quantity).toFixed(2).toString()    
-            console.log(this.users[i].Dispend2)
+      await pharmacistServices.getOrderId(this.$localStorage.get('pharmacist_patient'), this.$localStorage.get('userID')).then(Response => {
+        console.log(Response.data)    
+        Response.data.forEach((item,i) =>{
+          //set pharmacist
+          if(item.PharmacistID[0] == 'P' && item.PharmacistID[1] == 'H') {
+            var tempPharmacistInfo = item.PharmacistID.split(',')
+            item.PharmacistID = []
+            tempPharmacistInfo.forEach(itemPhar=>{
+              var tempPhar = {
+                ID: itemPhar,
+                Name: ''
+              }
+              item.PharmacistID.push(tempPhar)
+            })
+            console.log(item.PharmacistID)
+          } else {
+            item.PharmacistID = ''
           }
-          this.searched = this.users
-        })
+
+          //set Time
+          var dispenseTime = new Date(item.DispendStartDate)
+          var dispenseNextTime = new Date(item.DispendStatus) 
+          dispenseNextTime.setHours(0,0,0,0) 
+          var currentTime = new Date()
+          currentTime.setHours(0,0,0,0) 
+          var finalTime = new Date(item.DispendStartDate)
+          finalTime.setFullYear(finalTime.getFullYear() + parseInt(item.Duration.year),
+                                finalTime.getMonth() + parseInt(item.Duration.month),
+                                finalTime.getDate() + parseInt(item.Duration.day))
+
+          //do receive medicine
+          var quantity = parseFloat(item.Quantity.split(" ")[0])
+          var dispense = parseFloat(item.Dispend)
+          item.Dispend2 = parseFloat(dispense*100/quantity).toFixed(2).toString()            
+
+          //do using medicine            
+          var usingMed = currentTime-dispenseTime
+          var allMed = finalTime-dispenseTime
+          item.Using = parseFloat(usingMed*100/allMed).toFixed(2).toString()
+          if(item.Using > item.Dispend) item.Using = item.Dispend2
+          else if(item.Using <0) item.Using = 0
+          
+          //next receive medicine
+          if(item.DispendStatus == 'done') item.nextReceiveMedicine = "Received All Medicine"
+          else {
+            item.nextReceiveMedicine = new Date(item.DispendStatus).toDateString()
+          }
+
+          //get doctor info
+          item.DoctorName = 'Loading'
+          pharmacistServices.doctorInfo(item.DoctorID).then(result => {    
+            item.DoctorName = result.data[0].Firstname + ' ' + result.data[0].Lastname
+            item.DoctorWard = result.data[0].Department
+          })
+
+          //get pharmacist info
+          if(item.PharmacistID != [])
+          {
+            item.PharmacistID.forEach(phar =>{
+              pharmacistServices.pharmacistInfo(phar.ID).then(result => {
+                if(result.data[0])  {       
+                  phar.Name = result.data[0].Firstname + ' ' + result.data[0].Lastname
+                } else {
+                  phar.Name = "-"
+                }
+              })
+            }) 
+          }
+
+          //separate table
+          if(item.DispendStatus == 'done'){ 
+            //separate using and stop using
+            if(item.Using != 100){
+              item.UsingStatus = "Using"  
+              this.users.push(item) 
+            } else {
+              item.UsingStatus = "Stop Using"  
+              this.users2.push(item) 
+            } 
+          }
+          else{
+            //separate Incomplete ,waiting dispense and Using  
+            if(dispenseNextTime-currentTime >= 0){
+              //separate waiting dispense and using 
+              if(item.Dispend == 0) {
+                item.UsingStatus = "Waiting Dispense"
+              } else {
+                item.UsingStatus = "Using"
+              }
+              this.users.push(item) 
+            } else {
+              item.UsingStatus = "Incomplete"  
+              this.users2.push(item) 
+            }                             
+          }
+          
+          //update response data to Table 
+          if(i == Response.data.length-1) {
+            console.log("Last item")
+            this.searched = this.users
+            this.searched2 = this.users2
+          }     
+        })          
+        
+        
+        
+        /*console.log(Response.data)
+        this.users = Response.data
+        //do receive medicine
+        for (var i in this.users) {
+          var quantity = parseFloat(this.users[i].Quantity)
+          var dispense = parseFloat(this.users[i].Dispend)
+          this.users[i].Dispend2 = parseFloat(dispense * 100 / quantity).toFixed(2).toString()    
+          console.log(this.users[i].Dispend2)
+        }
+        this.searched = this.users*/
+      })
     }
   };
 

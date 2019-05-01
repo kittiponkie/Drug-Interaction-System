@@ -1,6 +1,9 @@
 import Api from '@/services/Api'
 
 export default {  
+  doctorInfo (params) {
+    return Api().get("/DoctorInfo/"+params )
+  },
   pharmacistInfo (params) {
     return Api().get("/PharmacistInfo/"+params )
   },
@@ -19,5 +22,8 @@ export default {
   },
   dispense(OrderID,DrugNo,params){
     return Api().put("/update/DrugHistory/"+OrderID+"/"+DrugNo,params)
-  }    
+  },
+  allergicOfPatient(id){
+    return Api().get('/AllergicDrug/'+id)
+  } 
 }

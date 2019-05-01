@@ -1,6 +1,6 @@
 <template>
   <div class="page-container">
-    <md-app md-mode="">
+    <md-app md-mode="fixed">
       <md-app-toolbar class="md-primary" md-elevation="0" style="background-color:#CE5A57;">
         <md-button class="md-icon-button" @click="toggleMenu" v-if="!(Window_Width>600)">
           <md-icon>menu</md-icon>
@@ -39,11 +39,6 @@
           <md-list-item to="/pharmacist/pharmacist_drug_dispend" class="selected">
             <md-icon style="margin-right:10px;color:white;">grain</md-icon>
             <span class="md-list-item-text selected_text" style="color:white;">Drug Dispend</span>
-          </md-list-item>
-
-          <md-list-item to="/pharmacist/pharmacist_drug_history" class="unselected">
-            <md-icon style="margin-right:10px">folder_shared</md-icon>
-            <span class="md-list-item-text selected_text">Drug History</span>
           </md-list-item>
           
           <md-list-item to="/pharmacist/patient_information" class="unselected">

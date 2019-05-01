@@ -3,7 +3,14 @@
     <div class="col-lg-6" style="width:100%;">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h3>Patient id : xxxxxxx </h3>
+          <h2 style="text-align:center;">Patient Information</h2>
+          <br>
+          <div class="form-goup row">
+            <label for="prefix" class="col-sm-2 col-form-label">Patient ID</label>
+            <div class="col-sm-10">
+              <input type="text" readonly class="form-control" id="prefix" :value="patientInfo.PatientID">
+            </div>
+          </div>
           <br>
           <!-- patient data -->
           <form>
@@ -11,7 +18,7 @@
             <div class="form-goup row">
               <label for="prefix" class="col-sm-2 col-form-label">Prefix</label>
               <div class="col-sm-10">
-                <input type="text" readonly class="form-control" id="prefix" value="MR.">
+                <input type="text" readonly class="form-control" id="prefix" :value="patientInfo.Prefix">
               </div>
             </div>
             <br>
@@ -19,99 +26,90 @@
             <div class="form-group row">
               <label for="name" class="col-sm-2 col-form-label">Name</label>
               <div class="col-sm-10">
-                <input type="text" readonly class="form-control" id="namesurname" value="Naphatsorn">
+                <input type="text" readonly class="form-control" id="namesurname" :value="patientInfo.Firstname">
               </div>
             </div>
             <!--surname-->
             <div class="form-group row">
               <label for="surname" class="col-sm-2 col-form-label">Surname</label>
               <div class="col-sm-10">
-                <input type="text" readonly class="form-control" id="surname" value="Buarattanakarn">
+                <input type="text" readonly class="form-control" id="surname" :value="patientInfo.Lastname">
               </div>
             </div>
             <!--sex-->
             <div class="form-group row">
               <label for="sex" class="col-sm-2 col-form-label">Sex</label>
               <div class="col-sm-10">
-                <input type="text" readonly class="form-control" id="sex" value="Female">
+                <input type="text" readonly class="form-control" id="sex" :value="patientInfo.Sex">
               </div>
             </div>
             <!--birthday-->
             <div class="form-group row">
               <label for="bod" class="col-sm-2 col-form-label">Birthday</label>
               <div class="col-sm-10">
-                <input type="text" readonly class="form-control" id="birthday" value="09/06/2540">
-                <input type="text" readonly class="form-control" id="age" value="21 y 5 m 21 d">
+                <input type="text" readonly class="form-control" id="birthday" :value="patientInfo.DOB">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="bod" class="col-sm-2 col-form-label">Age</label>
+              <div class="col-sm-10">
+                <input type="text" readonly class="form-control" id="age" :value="patientInfo.Age">
               </div>
             </div>
             <!--id card-->
             <div class="form-group row">
               <label for="idcard" class="col-sm-2 col-form-label">ID Card</label>
               <div class="col-sm-10">
-                <input type="text" readonly class="form-control" id="card" value="1849900281533">
+                <input type="text" readonly class="form-control" id="card" :value="patientInfo.IDcardNumber">
               </div>
             </div>
             <!--status-->
             <div class="form-group row">
               <label for="idcard" class="col-sm-2 col-form-label">Status</label>
               <div class="col-sm-10">
-                <input type="text" readonly class="form-control" id="card" value="1849900281533">
-              </div>
-            </div>
-            <!--ethnicity -->
-            <div class="form-group row">
-              <label for="ethnicity " class="col-sm-2 col-form-label">Ethnicity</label>
-              <div class="col-sm-10">
-                <input type="text" readonly class="form-control" id="ethnicity " value="Thai">
+                <input type="text" readonly class="form-control" id="card" :value="patientInfo.Status">
               </div>
             </div>
             <!--nationality-->
             <div class="form-group row">
               <label for="nationality" class="col-sm-2 col-form-label">Nationality</label>
               <div class="col-sm-10">
-                <input type="text" readonly class="form-control" id="nationality" value="Thai">
+                <input type="text" readonly class="form-control" id="nationality" :value="patientInfo.Nation">
               </div>
             </div>
             <!--Religion-->
             <div class="form-group row">
               <label for="Religion" class="col-sm-2 col-form-label">Religion</label>
               <div class="col-sm-10">
-                <input type="text" readonly class="form-control" id="Religion" value="Thai">
+                <input type="text" readonly class="form-control" id="Religion" :value="patientInfo.Religion">
               </div>
             </div>
             <!--Blood-->
             <div class="form-group row">
               <label for="Blood" class="col-sm-2 col-form-label">Blood</label>
               <div class="col-sm-10">
-                <input type="text" readonly class="form-control" id="Blood" value="A">
+                <input type="text" readonly class="form-control" id="Blood" :value="patientInfo.Bloodgroup">
               </div>
             </div>
             <!--Address-->
             <div class="form-group row">
               <label for="Address" class="col-sm-2 col-form-label">Address</label>
               <div class="col-sm-10">
-                <input type="text" readonly class="form-control" id="Address" value="RC mansion room206 Phutthamonthon Sai 4 Road Salaya, Phutthamonthon Nakhonpathom, 73170 Thailand">
+                <input type="text" readonly class="form-control" id="Address" :value="patientInfo.Address">
               </div>
             </div>
             <!--PhoneNumber-->
             <div class="form-group row">
               <label for="PhoneNumber" class="col-sm-2 col-form-label">Phone Number</label>
               <div class="col-sm-10">
-                <input type="text" readonly class="form-control" id="PhoneNumber" value="0865076630">
+                <input type="text" readonly class="form-control" id="PhoneNumber" :value="patientInfo.Phone">
               </div>
             </div>
             <!--Drugallergy-->
             <div class="form-group row">
-              <label for="Drugallergy" class="col-sm-2 col-form-label">Drug allergy</label>
+              <label for="Drugallergy" class="col-sm-2 col-form-label">Drug allergic</label>
               <div class="col-sm-10">
-                <input type="text" readonly class="form-control" id="Drugallergy" value="Tramadol,Paracetamol">
-              </div>
-            </div>
-            <!--Foodallergy-->
-            <div class="form-group row">
-              <label for="Foodallergy" class="col-sm-2 col-form-label">Food allergy</label>
-              <div class="col-sm-10">
-                <input type="text" readonly class="form-control" id="Foodallergy" value="fish">
+                <input type="text" readonly class="form-control" id="Drugallergy" :value="allergicOfPatient">
               </div>
             </div>
           </form>
@@ -123,35 +121,32 @@
 
 <script>
   import axios from 'axios'
+  import pharmacistServices from '@/services/pharmacist'
   export default {
     name: 'Drug_Interaction',
     data: () => ({
-      menuVisible: false, //toggle visible menu when responsive
       Window_Width: 0, //width of window
-      found: false, //true when found data , false when don't have data from API
-      checkSearch: false, //true when you search something
-      loading: false //true when you have to wait for call API
+      patientInfo: [],
+      allergicOfPatient: []
     }),
     methods: {
-      //toggle visible menu
-      toggleMenu() {
-        this.menuVisible = !this.menuVisible
-      },
-
-      //get data from API
-      async getData() {
-
-      },
-      change() {
-        console.log(this.drugName)
-        this.loading = false
-        this.found = false
-        this.drugList = null
-        this.checkSearch = false
-      }
     },
     async mounted() {
       this.Window_Width = window.innerWidth
+      this.patientID = this.$localStorage.get('pharmacist_patient')
+      //get patient info   
+      await pharmacistServices.patientInfo(this.$localStorage.get('pharmacist_patient')).then(Response => {
+        console.log(Response.data[0])
+        this.patientInfo = Response.data[0]
+      })  
+
+      //get allergic of patient
+      await pharmacistServices.allergicOfPatient(this.$localStorage.get('pharmacist_patient')).then(Response => {
+        console.log("Allergic drug of patient is ",Response.data)
+        for(var i in Response.data){
+          this.allergicOfPatient.push(Response.data[i].VTMName)
+        }        
+      })
     }
   }
 
