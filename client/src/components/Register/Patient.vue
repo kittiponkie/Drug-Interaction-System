@@ -85,7 +85,7 @@
                   </div>
                   <div class="col-sm-6 form-group">
                     <label>Age</label>
-                    <input ref="age" type="text" class="form-control" placeholder="Enter Age Here..">
+                    <input ref="age" type="text" class="form-control" placeholder="Age .." readonly>
                     <!--input ref="age" type="text" readonly class="form-control" value="21 (Auto calculation)"-->
                   </div>
                 </div>
@@ -260,8 +260,8 @@
         if (this.$refs.username.value != '') {
           await this.DataPatient()
           await this.DataAccount()
-          if (this.AllergicDrugs != []) await this.DataAllergic()
-
+          if (this.AllergicDrugs != []) await this.DataAllergic()        
+          await this.$router.push('/login')
         }
       },
       async DataPatient() {
@@ -270,9 +270,40 @@
         this.dataPatient.Prefix = this.$refs.prefix.value
         this.dataPatient.Firstname = this.$refs.firstname.value
         this.dataPatient.Lastname = this.$refs.lastname.value
-        this.dataPatient.Sex = this.$refs.sex.value
-        this.dataPatient.DOB = this.datePicker.toString().split('00:00:00')[0]
-        this.dataPatient.Age = this.$refs.age.value
+        this.dataPatient.Sex = this.$refs.sex.value        
+        this.dataPatient.DOB = new Date(this.datePicker).toLocaleDateString()
+
+        var birth = new Date(this.dataPatient.DOB)
+        var now = new Date()
+        var year = ''
+        var month = ''
+        var day = ''
+        if(birth.getFullYear() < now.getFullYear()){
+          year =  now.getFullYear() - birth.getFullYear()
+        } else {
+          year = 0
+        }
+        if(birth.getMonth() < now.getMonth()){
+          month =  now.getMonth() - birth.getMonth()
+        } else {
+          month = 12 - birth.getMonth() + now.getMonth()
+          if(year != 0) year -=1
+        }
+        if(birth.getDate() < now.getDate()){
+          day =  now.getDate() - birth.getDate()
+        } else {
+          day = 30 -  birth.getDate() + now.getDate()
+          if(month == 0 && year != 0) {
+            year -=1
+            month = 11
+          } else if(month != 0){
+            month -= 1
+          }
+        }
+        var age = (year+" year "+month+" month "+day+" day").toString()
+        console.log(age)
+        this.dataPatient.Age = age
+
         this.dataPatient.Email = this.$refs.email.value
         this.dataPatient.Weight = this.$refs.weight.value
         this.dataPatient.Height = this.$refs.height.value

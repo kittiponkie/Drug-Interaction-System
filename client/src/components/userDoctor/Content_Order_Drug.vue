@@ -39,7 +39,7 @@
                     <label>GPName</label>   
                      <div style="margin:20px 0 20px 0;">                 
                     <input v-model="query2" id="input" class="form-control" type="text" placeholder="Type to search...">
-                    <typeahead v-model="query" target="#input" :data="drugsSearch" :limit="drugsSearch.length" :match-start="true" :force-select="true" />    
+                    <typeahead v-model="query" @input="calculateQuantity()" target="#input" :data="drugsSearch" :limit="drugsSearch.length" :match-start="true" :force-select="true" />    
                      </div>                
                     <div class="md-layout">
                       <div class="md-layout-item" style="margin-right:5px">
@@ -53,12 +53,28 @@
                         <md-field>
 
                           <md-select v-model="newDrugs.Dosage.unit" placeholder="Select Unit" @input="calculateQuantity">
-                            <md-option value="amp">Amp(หลอด)</md-option>
-                            <md-option value="cc">CC(ซีซี)</md-option>
-                            <md-option value="drop">Drop(หยด)</md-option>
-                            <md-option value="ml">ML(มิลลิลิตร)</md-option>
-                            <md-option value="tab">Tab(เม็ด)</md-option>
-                            <md-option value="other">Other(อื่นๆ)</md-option>
+                            <md-option v-if="newDrugs.Dosage.unit2=='tablet' || newDrugs.Dosage.unit2=='lozenge'" value="tab">
+                              Tablet(เม็ด)</md-option>
+                            <md-option v-if="newDrugs.Dosage.unit2=='oral suspension' || newDrugs.Dosage.unit2=='syrup' || newDrugs.Dosage.unit2=='eye drops' || newDrugs.Dosage.unit2=='injection' || newDrugs.Dosage.unit2=='spray'" value="mL">
+                              mL(มิลลิลิตร)</md-option>
+                            <md-option v-if="newDrugs.Dosage.unit2=='capsule'" value="capsule">
+                              Capsule(แคปซูน)</md-option>
+                            <md-option v-if="newDrugs.Dosage.unit2=='injection' || newDrugs.Dosage.unit2=='eye drops'" value="mcL">
+                              mcL(ไมโครลิตร)</md-option>
+                            <md-option v-if="newDrugs.Dosage.unit2=='ointment' || newDrugs.Dosage.unit2=='cream'" value="g">
+                              g(กรัม)</md-option>
+                            <md-option v-if="newDrugs.Dosage.unit2=='ointment' || newDrugs.Dosage.unit2=='cream'" value="mg">
+                              mg(มิลลิกรัม)</md-option>
+                            <md-option v-if="newDrugs.Dosage.unit2=='injection' || newDrugs.Dosage.unit2=='cream'" value="amp">
+                              Amp(หลอด)</md-option>
+                            <md-option v-if="newDrugs.Dosage.unit2=='capsule'" value="cc">
+                              CC(ซีซี)</md-option>
+                            <md-option v-if="newDrugs.Dosage.unit2=='ointment'" value="tube">
+                              Tube(หลอด)</md-option>
+                            <md-option v-if="newDrugs.Dosage.unit2=='implant'" value="implant">
+                              Implant</md-option>                            
+                            <md-option value="unit">
+                              Unit(หน่วย)</md-option>
                           </md-select>
                         </md-field>
                       </div>
@@ -130,12 +146,28 @@
                         <md-field>
                           <label>Unit</label>
                           <md-select v-model="newDrugs.Dosage.unit" placeholder="Select Unit" @input="calculateQuantity">
-                            <md-option value="amp">Amp(หลอด)</md-option>
-                            <md-option value="cc">CC(ซีซี)</md-option>
-                            <md-option value="drop">Drop(หยด)</md-option>
-                            <md-option value="ml">ML(มิลลิลิตร)</md-option>
-                            <md-option value="tab">Tab(เม็ด)</md-option>
-                            <md-option value="other">Other(อื่นๆ)</md-option>
+                            <md-option v-if="newDrugs.Dosage.unit2=='tablet' || newDrugs.Dosage.unit2=='lozenge'" value="tab">
+                              Tablet(เม็ด)</md-option>
+                            <md-option v-if="newDrugs.Dosage.unit2=='oral suspension' || newDrugs.Dosage.unit2=='syrup' || newDrugs.Dosage.unit2=='eye drops' || newDrugs.Dosage.unit2=='injection' || newDrugs.Dosage.unit2=='spray'" value="mL">
+                              mL(มิลลิลิตร)</md-option>
+                            <md-option v-if="newDrugs.Dosage.unit2=='capsule'" value="capsule">
+                              Capsule(แคปซูน)</md-option>
+                            <md-option v-if="newDrugs.Dosage.unit2=='injection' || newDrugs.Dosage.unit2=='eye drops'" value="mcL">
+                              mcL(ไมโครลิตร)</md-option>
+                            <md-option v-if="newDrugs.Dosage.unit2=='ointment' || newDrugs.Dosage.unit2=='cream'" value="g">
+                              g(กรัม)</md-option>
+                            <md-option v-if="newDrugs.Dosage.unit2=='ointment' || newDrugs.Dosage.unit2=='cream'" value="mg">
+                              mg(มิลลิกรัม)</md-option>
+                            <md-option v-if="newDrugs.Dosage.unit2=='injection' || newDrugs.Dosage.unit2=='cream'" value="amp">
+                              Amp(หลอด)</md-option>
+                            <md-option v-if="newDrugs.Dosage.unit2=='capsule'" value="cc">
+                              CC(ซีซี)</md-option>
+                            <md-option v-if="newDrugs.Dosage.unit2=='ointment'" value="tube">
+                              Tube(หลอด)</md-option>
+                            <md-option v-if="newDrugs.Dosage.unit2=='implant'" value="implant">
+                              Implant</md-option>                            
+                            <md-option value="unit">
+                              Unit(หน่วย)</md-option>
                           </md-select>
                         </md-field>
                       </div>
@@ -384,6 +416,7 @@
         this.newDrugs.RXCUI = "-"
         this.newDrugs.Dosage.dose = "0"
         this.newDrugs.Dosage.unit = "Unit"
+        this.newDrugs.Dosage.unit2 = "Unit"
         this.newDrugs.Frequency.mor = "false"
         this.newDrugs.Frequency.aft = "false"
         this.newDrugs.Frequency.eve = "false"
@@ -408,8 +441,60 @@
         this.checkEdit = false        
       },
       calculateQuantity() {
-        console.log(this.query + 'mmm ' +this.query2)
-        this.query2 = this.query
+        //this.query2 = this.query
+        console.log(this.query)
+        if(this.query!='' && this.query!=undefined) {
+          this.query2 = this.query
+          var unit_tablet = this.query.search('tablet')
+          var unit_oral = this.query.search('oral suspension')
+          var unit_capsule = this.query.search('capsule')
+          var unit_syrup = this.query.search('syrup')
+          var unit_eye = this.query.search('eye drops')
+          var unit_cream = this.query.search('cream')
+          var unit_implant = this.query.search('implant')
+          var unit_injection = this.query.search('injection')
+          var unit_ointment = this.query.search('ointment')
+          var unit_spray = this.query.search('spray')
+          var unit_lozenge = this.query.search('lozenge')
+
+          if(unit_tablet!=-1){
+            this.newDrugs.Dosage.unit2 = 'tablet'  
+            this.newDrugs.Dosage.unit = 'tab'   
+          } else if(unit_oral!=-1){
+            this.newDrugs.Dosage.unit2 = 'oral'
+            this.newDrugs.Dosage.unit = 'mL'  
+          } else if(unit_capsule!=-1){
+            this.newDrugs.Dosage.unit2 = 'capsule'
+            this.newDrugs.Dosage.unit = 'capsule'  
+          } else if(unit_syrup!=-1){
+            this.newDrugs.Dosage.unit2 = 'syrup'
+            this.newDrugs.Dosage.unit = 'mL'  
+          } else if(unit_eye!=-1){
+            this.newDrugs.Dosage.unit2 = 'eye drops'
+            this.newDrugs.Dosage.unit = 'mL'  
+          } else if(unit_cream!=-1){
+            this.newDrugs.Dosage.unit2 = 'cream'
+            this.newDrugs.Dosage.unit = 'g'  
+          } else if(unit_implant!=-1){
+            this.newDrugs.Dosage.unit2 = 'implant'
+            this.newDrugs.Dosage.unit = 'implant'  
+          } else if(unit_injection!=-1){
+            this.newDrugs.Dosage.unit2 = 'injection'
+            this.newDrugs.Dosage.unit = 'mL'  
+          } else if(unit_ointment!=-1){
+            this.newDrugs.Dosage.unit2 = 'ointment'
+            this.newDrugs.Dosage.unit = 'g'  
+          } else if(unit_spray!=-1){
+            this.newDrugs.Dosage.unit2 = 'spray'
+            this.newDrugs.Dosage.unit = 'mL'  
+          } else if(unit_lozenge!=-1){
+            this.newDrugs.Dosage.unit2 = 'lozenge'
+            this.newDrugs.Dosage.unit = 'tab'  
+          } else {
+            this.newDrugs.Dosage.unit = 'unit' 
+          }
+        }
+
         if(this.newDrugs.Dosage.dose < 0) this.newDrugs.Dosage.dose = 0
         if(this.newDrugs.Duration.year < 0) this.newDrugs.Duration.year = 0
         if(this.newDrugs.Duration.month < 0) this.newDrugs.Duration.month = 0
