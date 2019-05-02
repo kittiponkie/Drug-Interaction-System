@@ -876,13 +876,13 @@
         this.showDialog = false
         console.log("Save to Database")
         console.log(this.drugs)        
-        /*for (var i in this.drugs) {
+        for (var i in this.drugs) {
           console.log(i)
           doctorServices.postOrder(this.drugs[i]).then(Response => {
             console.log("ok1" + this.drugs[i].DrugNo)
           })
         }
-        window.location.reload()*/
+        window.location.reload()
       }
     },
     //table add drug
