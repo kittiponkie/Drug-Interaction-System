@@ -3,13 +3,13 @@
     <div class="col-lg-6" style="width:100%;">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h3>Doctor id : {{doctorID}} </h3>
+          <h3>หมายเลขประจำตัวแพทย์ : {{doctorID}} </h3>
           <br>
           <!-- patient data -->
           <form>
             <!--prefix-->
             <div class="form-goup row">
-              <label for="prefix" class="col-sm-2 col-form-label">Prefix</label>
+              <label for="prefix" class="col-sm-2 col-form-label">คำนำหน้า</label>
               <div class="col-sm-10">
                 <input ref="prefix" type="text" readonly class="form-control">
               </div>
@@ -17,56 +17,56 @@
             <br>
             <!--name-->
             <div class="form-group row">
-              <label for="name" class="col-sm-2 col-form-label">Name</label>
+              <label for="name" class="col-sm-2 col-form-label">ชื่อ</label>
               <div class="col-sm-10">
                 <input ref="name" type="text" readonly class="form-control">
               </div>
             </div>
             <!--surname-->
             <div class="form-group row">
-              <label for="surname" class="col-sm-2 col-form-label">Surname</label>
+              <label for="surname" class="col-sm-2 col-form-label">นามสกุล</label>
               <div class="col-sm-10">
                 <input ref="surname" type="text" readonly class="form-control">
               </div>
             </div>
             <!--sex-->
             <div class="form-group row">
-              <label for="sex" class="col-sm-2 col-form-label">Sex</label>
+              <label for="sex" class="col-sm-2 col-form-label">เพศ</label>
               <div class="col-sm-10">
                 <input ref="sex" type="text" readonly class="form-control">
               </div>
             </div>
             <!--id card-->
             <div class="form-group row">
-              <label for="idcard" class="col-sm-2 col-form-label">ID Card Number</label>
+              <label for="idcard" class="col-sm-2 col-form-label">หมายเลขบัตรประจำตัวประชาชน</label>
               <div class="col-sm-10">
                 <input ref="idcard" type="text" readonly class="form-control">
               </div>
             </div>
             <!--Department-->
             <div class="form-group row">
-              <label for="Department" class="col-sm-2 col-form-label">Department</label>
+              <label for="Department" class="col-sm-2 col-form-label">แผนก</label>
               <div class="col-sm-10">
                 <input ref="department" type="text" readonly class="form-control">
               </div>
             </div>
             <!--Address-->
             <div class="form-group row">
-              <label for="Address" class="col-sm-2 col-form-label">Address</label>
+              <label for="Address" class="col-sm-2 col-form-label">ที่อยู่</label>
               <div class="col-sm-10">
                 <input ref="address" type="text" readonly class="form-control">
               </div>
             </div>
             <!--PhoneNumber-->
             <div class="form-group row">
-              <label for="PhoneNumber" class="col-sm-2 col-form-label">Phone Number</label>
+              <label for="PhoneNumber" class="col-sm-2 col-form-label">เบอร์โทร</label>
               <div class="col-sm-10">
                 <input ref="phone" type="text" readonly class="form-control">
               </div>
             </div>
             <!--E-mail-->
             <div class="form-group row">
-              <label for="E-mail" class="col-sm-2 col-form-label">E-mail</label>
+              <label for="E-mail" class="col-sm-2 col-form-label">อีเมล์</label>
               <div class="col-sm-10">
                 <input ref="email" type="text" readonly class="form-control">
               </div>

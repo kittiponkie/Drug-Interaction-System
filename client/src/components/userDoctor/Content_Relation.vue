@@ -3,7 +3,7 @@
     
       <div class="panel panel-default">
             <div class="panel-heading">
-              <h3>Select Patient</h3>
+              <h3>เลือกผู้ป่วย</h3>
             </div>
             <div class="paddingCard">
             <div class="inline" v-for="(i,index) in users" :key="index" @click="gotoDetail(index)">

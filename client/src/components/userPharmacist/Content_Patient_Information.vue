@@ -3,10 +3,10 @@
     <div class="col-lg-6" style="width:100%;">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h2 style="text-align:center;">Patient Information</h2>
+          <h2 style="text-align:center;">ข้อมูลผู้ป่วย</h2>
           <br>
           <div class="form-goup row">
-            <label for="prefix" class="col-sm-2 col-form-label">Patient ID</label>
+            <label for="prefix" class="col-sm-2 col-form-label">หมายเลขประจำตัวผู้ป่วย</label>
             <div class="col-sm-10">
               <input type="text" readonly class="form-control" id="prefix" :value="patientInfo.PatientID">
             </div>
@@ -16,7 +16,7 @@
           <form>
             <!--prefix-->
             <div class="form-goup row">
-              <label for="prefix" class="col-sm-2 col-form-label">Prefix</label>
+              <label for="prefix" class="col-sm-2 col-form-label">คำนำหน้า</label>
               <div class="col-sm-10">
                 <input type="text" readonly class="form-control" id="prefix" :value="patientInfo.Prefix">
               </div>
@@ -24,90 +24,90 @@
             <br>
             <!--name-->
             <div class="form-group row">
-              <label for="name" class="col-sm-2 col-form-label">Name</label>
+              <label for="name" class="col-sm-2 col-form-label">ชื่อ</label>
               <div class="col-sm-10">
                 <input type="text" readonly class="form-control" id="namesurname" :value="patientInfo.Firstname">
               </div>
             </div>
             <!--surname-->
             <div class="form-group row">
-              <label for="surname" class="col-sm-2 col-form-label">Surname</label>
+              <label for="surname" class="col-sm-2 col-form-label">นามสกุล</label>
               <div class="col-sm-10">
                 <input type="text" readonly class="form-control" id="surname" :value="patientInfo.Lastname">
               </div>
             </div>
             <!--sex-->
             <div class="form-group row">
-              <label for="sex" class="col-sm-2 col-form-label">Sex</label>
+              <label for="sex" class="col-sm-2 col-form-label">เพศ</label>
               <div class="col-sm-10">
                 <input type="text" readonly class="form-control" id="sex" :value="patientInfo.Sex">
               </div>
             </div>
             <!--birthday-->
             <div class="form-group row">
-              <label for="bod" class="col-sm-2 col-form-label">Birthday</label>
+              <label for="bod" class="col-sm-2 col-form-label">วันเกิด</label>
               <div class="col-sm-10">
                 <input type="text" readonly class="form-control" id="birthday" :value="patientInfo.DOB">
               </div>
             </div>
             <div class="form-group row">
-              <label for="bod" class="col-sm-2 col-form-label">Age</label>
+              <label for="bod" class="col-sm-2 col-form-label">อายุ</label>
               <div class="col-sm-10">
                 <input type="text" readonly class="form-control" id="age" :value="patientInfo.Age">
               </div>
             </div>
             <!--id card-->
             <div class="form-group row">
-              <label for="idcard" class="col-sm-2 col-form-label">ID Card</label>
+              <label for="idcard" class="col-sm-2 col-form-label">หมายเลขบัตรประชาชน</label>
               <div class="col-sm-10">
                 <input type="text" readonly class="form-control" id="card" :value="patientInfo.IDcardNumber">
               </div>
             </div>
             <!--status-->
             <div class="form-group row">
-              <label for="idcard" class="col-sm-2 col-form-label">Status</label>
+              <label for="idcard" class="col-sm-2 col-form-label">สถานะ</label>
               <div class="col-sm-10">
                 <input type="text" readonly class="form-control" id="card" :value="patientInfo.Status">
               </div>
             </div>
             <!--nationality-->
             <div class="form-group row">
-              <label for="nationality" class="col-sm-2 col-form-label">Nationality</label>
+              <label for="nationality" class="col-sm-2 col-form-label">สัญชาติ</label>
               <div class="col-sm-10">
                 <input type="text" readonly class="form-control" id="nationality" :value="patientInfo.Nation">
               </div>
             </div>
             <!--Religion-->
             <div class="form-group row">
-              <label for="Religion" class="col-sm-2 col-form-label">Religion</label>
+              <label for="Religion" class="col-sm-2 col-form-label">ศาสนา</label>
               <div class="col-sm-10">
                 <input type="text" readonly class="form-control" id="Religion" :value="patientInfo.Religion">
               </div>
             </div>
             <!--Blood-->
             <div class="form-group row">
-              <label for="Blood" class="col-sm-2 col-form-label">Blood</label>
+              <label for="Blood" class="col-sm-2 col-form-label">หมู่เลือด</label>
               <div class="col-sm-10">
                 <input type="text" readonly class="form-control" id="Blood" :value="patientInfo.Bloodgroup">
               </div>
             </div>
             <!--Address-->
             <div class="form-group row">
-              <label for="Address" class="col-sm-2 col-form-label">Address</label>
+              <label for="Address" class="col-sm-2 col-form-label">ที่อยู่</label>
               <div class="col-sm-10">
                 <input type="text" readonly class="form-control" id="Address" :value="patientInfo.Address">
               </div>
             </div>
             <!--PhoneNumber-->
             <div class="form-group row">
-              <label for="PhoneNumber" class="col-sm-2 col-form-label">Phone Number</label>
+              <label for="PhoneNumber" class="col-sm-2 col-form-label">เบอร์โทร</label>
               <div class="col-sm-10">
                 <input type="text" readonly class="form-control" id="PhoneNumber" :value="patientInfo.Phone">
               </div>
             </div>
             <!--Drugallergy-->
             <div class="form-group row">
-              <label for="Drugallergy" class="col-sm-2 col-form-label">Drug allergic</label>
+              <label for="Drugallergy" class="col-sm-2 col-form-label">การแพ้ยา</label>
               <div class="col-sm-10">
                 <input type="text" readonly class="form-control" id="Drugallergy" :value="allergicOfPatient">
               </div>

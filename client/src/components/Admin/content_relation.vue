@@ -9,36 +9,36 @@
                 @click="changeTab=[true, false, false];changeBackgroundColorHeader('#99a5bf')"
                 style="background-color:#444C5C" data-toggle="pill" href="#pills-patient" role="tab" id="home-tab"
                 aria-selected="true">
-                <h6 style="color:white">Patient</h6>
+                <h6 style="color:white">ผู้ป่วย</h6>
               </md-button>
               <md-button v-if="!changeTab[0]"
                 @click="changeTab=[true, false, false];changeBackgroundColorHeader('#99a5bf')"
                 style="background-color:#f1f1f1" data-toggle="pill" href="#pills-patient" role="tab">
-                <h6 style="color:black">Patient</h6>
+                <h6 style="color:black">ผู้ป่วย</h6>
               </md-button>
             </li>
             <li class="nav-item">
               <md-button v-if="changeTab[1]"
                 @click="changeTab=[false,true,false];changeBackgroundColorHeader('#b6d6d4')"
                 style="background-color:#78A5A3" data-toggle="pill" href="#pills-doctor" role="tab">
-                <h6 style="color:white">Doctor</h6>
+                <h6 style="color:white">แพทย์</h6>
               </md-button>
               <md-button v-if="!changeTab[1]"
                 @click="changeTab=[ false,true,false];changeBackgroundColorHeader('#b6d6d4')"
                 style="background-color:#f1f1f1" data-toggle="pill" href="#pills-doctor" role="tab">
-                <h6 style="color:black">Doctor</h6>
+                <h6 style="color:black">แพทย์</h6>
               </md-button>
             </li>
             <li class="nav-item">
               <md-button v-if="changeTab[2]"
                 @click="changeTab=[false,false,true];changeBackgroundColorHeader('#e8928f')"
                 style="background-color:#CE5A57" data-toggle="pill" href="#pills-pharmacist" role="tab">
-                <h6 style="color:white">Pharmacist</h6>
+                <h6 style="color:white">เภสัชกร</h6>
               </md-button>
               <md-button v-if="!changeTab[2]"
                 @click="changeTab=[ false,false,true];changeBackgroundColorHeader('#e8928f')"
                 style="background-color:#f1f1f1" data-toggle="pill" href="#pills-pharmacist" role="tab">
-                <h6 style="color:black">Pharmacist</h6>
+                <h6 style="color:black">เภสัชกร</h6>
               </md-button>
             </li>
           </ul>
@@ -50,7 +50,7 @@
             <div class="tab-pane active" id="pills-patient" role="tabpanel" aria-labelledby="home-tab">
               <div class="md-layout">
                 <div class="md-layout-item">
-                  <label>Select Patient</label>
+                  <label>เลือกผู้ป่วย</label>
                   <select id="selectedPatientID" class="form-control" @change="doSelectedPatient()">
                     <option v-for="i in patients" :value="i.PatientID" :key="i.PatientID">{{i.PatientID}}</option>
                   </select>
@@ -58,7 +58,7 @@
                 <div class="md-layout-item md-toolbar-section-end">
                   <md-button v-if="selectedPatient != null" class="md-icon-button" style="background-color:#5cb85c" @click="showDialog1=true">
                     <md-icon style="color:white">add</md-icon>
-                    <md-tooltip md-direction="left">Add Relation</md-tooltip>
+                    <md-tooltip md-direction="left">เพิ่มความสัมพันธ์</md-tooltip>
                   </md-button>
                 </div>
               </div>
@@ -66,45 +66,45 @@
                 md-sort-order="asc" md-card md-fixed-header style="margin:20px 0 0 0">
                 <md-table-toolbar>
                   <div class="md-toolbar-section-start">
-                    <h1 class="md-title">Relation Table</h1>
+                    <h1 class="md-title">ตารางความสัมพันธ์</h1>
                   </div>
 
                   <md-field md-clearable class="md-toolbar-section-end">
-                    <md-input placeholder="Search by ID..." v-model="search1" @input="searchOnTable" />
+                    <md-input placeholder="ค้นหา..." v-model="search1" @input="searchOnTable" />
                   </md-field>
                 </md-table-toolbar>
 
                 <md-table-empty-state md-label="No users found"
-                  :md-description="`No user found for this '${search1}' query. Try a different search term.`">
+                  :md-description="`ไม่พบรายการที่ค้นหา '${search1}' กรุณาลองใหม่อีกครั้ง`">
                 </md-table-empty-state>
 
                 <md-table-row slot="md-table-row" slot-scope="{ item }">
-                  <md-table-cell md-label="ID" md-sort-by="ID" md-numeric>{{ item.ID }}</md-table-cell>
-                  <md-table-cell md-label="Firstname" md-sort-by="Firstname">{{ item.Firstname }}</md-table-cell>
-                  <md-table-cell md-label="Lastname" md-sort-by="Lastname">{{ item.Lastname }}</md-table-cell>
+                  <md-table-cell md-label="ลำดับ" md-sort-by="ID" md-numeric>{{ item.ID }}</md-table-cell>
+                  <md-table-cell md-label="ชื่อ" md-sort-by="Firstname">{{ item.Firstname }}</md-table-cell>
+                  <md-table-cell md-label="นามสกุล" md-sort-by="Lastname">{{ item.Lastname }}</md-table-cell>
                 </md-table-row>
               </md-table>
 
               <md-dialog :md-active.sync="showDialog1" :md-click-outside-to-close="false" style="padding-top:20px" >   
                 <div v-if="!loading">             
-                <md-dialog-title>Add Relation</md-dialog-title>
+                <md-dialog-title>เพิ่มความสัมพันธ์</md-dialog-title>
                 <div style="padding:20px;">
                   <div style="margin-bottom:20px;">
                 <label>Select Type</label>
                   <select id="selectedType" class="form-control" v-model="type" @change="select='none'">
-                    <option value="none">None</option>
-                    <option value="Doctor">Doctor</option>
-                    <option value="Pharmacist">Pharmacist</option>
+                    <option value="none">ไม่มี</option>
+                    <option value="Doctor">แพทย์</option>
+                    <option value="Pharmacist">เภสัชกร</option>
                   </select>
                   </div>
                   <div v-if="type=='Doctor'" style="margin-bottom:20px;">
-                <label>Select Doctor</label>
+                <label>เลือกแพทย์</label>
                 <select v-model="select" class="form-control" >
                   <option v-for="i in doctors" :value="i.DoctorID" :key="i.DoctorID">{{i.DoctorID}}</option>
                 </select>
                 </div>
                 <div v-if="type=='Pharmacist'" style="margin-bottom:20px;">
-                <label>Select Pharmacist</label>
+                <label>เลือกเภสัชกร</label>
                 <select v-model="select" class="form-control">
                   <option v-for="i in pharmacists" :value="i.PharmacistID" :key="i.PharmacistID">{{i.PharmacistID}}</option>
                 </select>
@@ -117,15 +117,15 @@
                   </md-empty-state>
                 </div>
                 <div v-else-if="loading=='success'">
-                  <md-dialog-title>Success</md-dialog-title>
+                  <md-dialog-title>สำเร็จ</md-dialog-title>
                 </div>
                 <div v-else-if="loading=='fail'">
-                  <md-dialog-title>Fail</md-dialog-title>
-                  <div><md-dialog-title>This relation had already</md-dialog-title></div>
+                  <md-dialog-title>ผิดพลาด</md-dialog-title>
+                  <div><md-dialog-title>มีความสัมพันธ์นี้ในระบบแล้ว</md-dialog-title></div>
                 </div>
                 <md-dialog-actions>
                   <md-button v-if="loading!=true" class="md-primary" @click="onClose()">{{loading==false? 'Cancel':'Close'}}</md-button>
-                  <md-button v-if="type!='none' && select!='none' && loading==false" class="md-primary" @click="onSave1()">Save</md-button>
+                  <md-button v-if="type!='none' && select!='none' && loading==false" class="md-primary" @click="onSave1()">บันทึก</md-button>
                 </md-dialog-actions>
               </md-dialog>
             </div>
@@ -134,7 +134,7 @@
              <div class="tab-pane" id="pills-doctor" role="tabpanel" aria-labelledby="home-tab">
               <div class="md-layout">
                 <div class="md-layout-item">
-                  <label>Select Doctor</label>
+                  <label>เลือกแพทย์</label>
                   <select id="selectedDoctorID" class="form-control" @change="doSelectedDoctor()">
                     <option v-for="i in doctors" :value="i.DoctorID" :key="i.DoctorID">{{i.DoctorID}}</option>
                   </select>
@@ -142,7 +142,7 @@
                 <div class="md-layout-item md-toolbar-section-end">
                   <md-button v-if="selectedDoctor != null" class="md-icon-button" style="background-color:#5cb85c" @click="showDialog2=true">
                     <md-icon style="color:white">add</md-icon>
-                    <md-tooltip md-direction="left">Add Relation</md-tooltip>
+                    <md-tooltip md-direction="left">เพิ่มความสัมพันธ์</md-tooltip>
                   </md-button>
                 </div>
               </div>
@@ -150,28 +150,28 @@
                 md-sort-order="asc" md-card md-fixed-header style="margin:20px 0 0 0">
                 <md-table-toolbar>
                   <div class="md-toolbar-section-start">
-                    <h1 class="md-title">Relation Table</h1>
+                    <h1 class="md-title">ตารางความสัมพันธ์</h1>
                   </div>
 
                   <md-field md-clearable class="md-toolbar-section-end">
-                    <md-input placeholder="Search by ID..." v-model="search2" @input="searchOnTable" />
+                    <md-input placeholder="ค้นหา..." v-model="search2" @input="searchOnTable" />
                   </md-field>
                 </md-table-toolbar>
 
                 <md-table-empty-state md-label="No users found"
-                  :md-description="`No user found for this '${search2}' query. Try a different search term.`">
+                  :md-description="`ไม่พบรายการที่ค้นหา '${search2}' กรุณาลองใหม่อีกครั้ง`">
                 </md-table-empty-state>
 
                 <md-table-row slot="md-table-row" slot-scope="{ item }">
-                  <md-table-cell md-label="ID" md-sort-by="ID" md-numeric>{{ item.ID }}</md-table-cell>
-                  <md-table-cell md-label="Firstname" md-sort-by="Firstname">{{ item.Firstname }}</md-table-cell>
-                  <md-table-cell md-label="Lastname" md-sort-by="Lastname">{{ item.Lastname }}</md-table-cell>
+                  <md-table-cell md-label="ลำดับ" md-sort-by="ID" md-numeric>{{ item.ID }}</md-table-cell>
+                  <md-table-cell md-label="ชื่อ" md-sort-by="Firstname">{{ item.Firstname }}</md-table-cell>
+                  <md-table-cell md-label="นามสกุล" md-sort-by="Lastname">{{ item.Lastname }}</md-table-cell>
                 </md-table-row>
               </md-table>
 
               <md-dialog :md-active.sync="showDialog2" :md-click-outside-to-close="false" style="padding-top:20px" >   
                 <div v-if="!loading">             
-                <md-dialog-title>Add Relation</md-dialog-title>
+                <md-dialog-title>เพิ่มความสัมพันธ์</md-dialog-title>
                 <div style="padding:20px;">
                   <div style="margin-bottom:20px;">
                 <label>Select Patient</label>
@@ -187,15 +187,15 @@
                   </md-empty-state>
                 </div>
                 <div v-else-if="loading=='success'">
-                  <md-dialog-title>Success</md-dialog-title>
+                  <md-dialog-title>สำเร็จ</md-dialog-title>
                 </div>
                 <div v-else-if="loading=='fail'">
-                  <md-dialog-title>Fail</md-dialog-title>
-                  <div><md-dialog-title>This relation had already</md-dialog-title></div>
+                  <md-dialog-title>ผิดพลาด</md-dialog-title>
+                  <div><md-dialog-title>มีความสัมพันธ์นี้ในระบบแล้ว</md-dialog-title></div>
                 </div>
                 <md-dialog-actions>
                   <md-button v-if="loading!=true" class="md-primary" @click="onClose()">{{loading==false? 'Cancel':'Close'}}</md-button>
-                  <md-button v-if="select!='none' && loading==false" class="md-primary" @click="onSave2()">Save</md-button>
+                  <md-button v-if="select!='none' && loading==false" class="md-primary" @click="onSave2()">บันทึก</md-button>
                 </md-dialog-actions>
               </md-dialog>
             </div>
@@ -204,7 +204,7 @@
             <div class="tab-pane" id="pills-pharmacist" role="tabpanel">
               <div class="md-layout">
                 <div class="md-layout-item">
-                  <label>Select Pharmacist</label>
+                  <label>เลือกเภสัชกร</label>
                   <select id="selectedPharmacistID" class="form-control" @change="doSelectedPharmacist()">
                     <option v-for="i in pharmacists" :value="i.PharmacistID" :key="i.PharmacistID">{{i.PharmacistID}}</option>
                   </select>
@@ -212,7 +212,7 @@
                 <div class="md-layout-item md-toolbar-section-end">
                   <md-button v-if="selectedPharmacist != null" class="md-icon-button" style="background-color:#5cb85c" @click="showDialog3=true">
                     <md-icon style="color:white">add</md-icon>
-                    <md-tooltip md-direction="left">Add Relation</md-tooltip>
+                    <md-tooltip md-direction="left">เพิ่มความสัมพันธ์</md-tooltip>
                   </md-button>
                 </div>
               </div>
@@ -220,31 +220,31 @@
                 md-sort-order="asc" md-card md-fixed-header style="margin:20px 0 0 0">
                 <md-table-toolbar>
                   <div class="md-toolbar-section-start">
-                    <h1 class="md-title">Relation Table</h1>
+                    <h1 class="md-title">ตารางความสัมพันธ์</h1>
                   </div>
 
                   <md-field md-clearable class="md-toolbar-section-end">
-                    <md-input placeholder="Search by ID..." v-model="search3" @input="searchOnTable" />
+                    <md-input placeholder="ค้นหา..." v-model="search3" @input="searchOnTable" />
                   </md-field>
                 </md-table-toolbar>
 
                 <md-table-empty-state md-label="No users found"
-                  :md-description="`No user found for this '${search3}' query. Try a different search term.`">
+                  :md-description="`ไม่พบรายการที่ค้นหา '${search3}' กรุณาลองใหม่อีกครั้ง`">
                 </md-table-empty-state>
 
                 <md-table-row slot="md-table-row" slot-scope="{ item }">
-                  <md-table-cell md-label="ID" md-sort-by="ID" md-numeric>{{ item.ID }}</md-table-cell>
-                  <md-table-cell md-label="Firstname" md-sort-by="Firstname">{{ item.Firstname }}</md-table-cell>
-                  <md-table-cell md-label="Lastname" md-sort-by="Lastname">{{ item.Lastname }}</md-table-cell>
+                  <md-table-cell md-label="ลำดับ" md-sort-by="ID" md-numeric>{{ item.ID }}</md-table-cell>
+                  <md-table-cell md-label="ชื่อ" md-sort-by="Firstname">{{ item.Firstname }}</md-table-cell>
+                  <md-table-cell md-label="นามสกุล" md-sort-by="Lastname">{{ item.Lastname }}</md-table-cell>
                 </md-table-row>
               </md-table>
 
               <md-dialog :md-active.sync="showDialog3" :md-click-outside-to-close="false" style="padding-top:20px" >   
                 <div v-if="!loading">             
-                <md-dialog-title>Add Relation</md-dialog-title>
+                <md-dialog-title>เพิ่มความสัมพันธ์</md-dialog-title>
                 <div style="padding:20px;">
                   <div style="margin-bottom:20px;">
-                <label>Select Patient</label>
+                <label>เลือกผู้ป่วย</label>
                 <select v-model="select" class="form-control" >
                   <option v-for="i in patients" :value="i.PatientID" :key="i.PatientID">{{i.PatientID}}</option>
                 </select>
@@ -257,15 +257,15 @@
                   </md-empty-state>
                 </div>
                 <div v-else-if="loading=='success'">
-                  <md-dialog-title>Success</md-dialog-title>
+                  <md-dialog-title>สำเร็จ</md-dialog-title>
                 </div>
                 <div v-else-if="loading=='fail'">
-                  <md-dialog-title>Fail</md-dialog-title>
-                  <div><md-dialog-title>This relation had already</md-dialog-title></div>
+                  <md-dialog-title>ผิดพลาด</md-dialog-title>
+                  <div><md-dialog-title>มีความสัมพันธ์นี้ในระบบแล้ว</md-dialog-title></div>
                 </div>
                 <md-dialog-actions>
                   <md-button v-if="loading!=true" class="md-primary" @click="onClose()">{{loading==false? 'Cancel':'Close'}}</md-button>
-                  <md-button v-if="select!='none' && loading==false" class="md-primary" @click="onSave3()">Save</md-button>
+                  <md-button v-if="select!='none' && loading==false" class="md-primary" @click="onSave3()">บันทึก</md-button>
                 </md-dialog-actions>
               </md-dialog>
             </div>

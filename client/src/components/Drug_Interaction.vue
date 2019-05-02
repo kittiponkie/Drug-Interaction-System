@@ -3,14 +3,14 @@
     <div class="col-lg-6" style="width:100%;">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h3>Drug Interaction</h3>
-          <h4>Drug Name : {{drugName}}</h4>
+          <h3>ปฏิกิริยาระหว่างยา</h3>
+          <h4>ชื่อยา : {{drugName}}</h4>
           <!-- search -->
           <form v-on:submit.prevent="getData">
             <md-field md-clearable class="md-toolbar-section-end textSearch">
               <md-input placeholder="Search by Drug name..." v-model="drugName" @input="change"></md-input>
             </md-field>
-            <md-button type="submit" class="md-raised buttonSearch">search</md-button>
+            <md-button type="submit" class="md-raised buttonSearch">ค้นหา</md-button>
           </form>
           <br>
         </div>
@@ -20,7 +20,7 @@
             <thead>
               <tr>
                 <th>&nbsp;</th>
-                <th>Drug Name</th>
+                <th>ชื่อยา</th>
               </tr>
             </thead>
             <tbody v-for="(value,index) in drugList" :key="index">

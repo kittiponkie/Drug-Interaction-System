@@ -3,13 +3,13 @@
         <div class="col-lg-6" style="width:100%;">
           <div class="panel panel-default">
             <div class="panel-heading">
-              <h3>Drug Information</h3>              
-              <h4>Drug Name : {{drugName}}</h4>
+              <h3>ข้อมูลยา</h3>              
+              <h4>ชื่อยา : {{drugName}}</h4>
               <form v-on:submit.prevent="getData">
                 <md-field md-clearable class="md-toolbar-section-end textSearch">
                   <md-input placeholder="Search by Drug name..." v-model="drugName" @input="change"></md-input>
                 </md-field>
-                <md-button type="submit" class="md-raised buttonSearch">search</md-button>
+                <md-button type="submit" class="md-raised buttonSearch">ค้นหา</md-button>
               </form>
               <br>
             </div>
@@ -18,11 +18,11 @@
             <div v-if="searchFinish">
               <div class="viewport">
                 <md-toolbar :md-elevation="1">
-                  <span class="md-title">Generic Drug Name</span>
+                  <span class="md-title">ชื่อยา (Generic Drug Name)</span>
                 </md-toolbar>
                 <div class="text_padding">
                   <p>{{drugName}}</p>
-                  <p v-if="found">Other Name : {{drugList[0].interactionConcept[0].sourceConceptItem.name}}</p>
+                  <p v-if="found">ชื่ออื่น : {{drugList[0].interactionConcept[0].sourceConceptItem.name}}</p>
                   <!--empty state-->
                   <div class="panel-body " v-else-if="!found && checkSearch">
                     <md-empty-state md-label="Not found" :md-description="`No drug found for this query.  Please Try again.`">
@@ -39,7 +39,7 @@
 
               <div class="viewport">
                 <md-toolbar :md-elevation="1">
-                  <span class="md-title">RxCui ID</span>
+                  <span class="md-title">รหัสRxCui</span>
                 </md-toolbar>
                 <div class="text_padding" v-if="found">
                   <p>{{rxcui}}</p>
@@ -61,7 +61,7 @@
 
               <div class="viewport">
                 <md-toolbar :md-elevation="1">
-                  <span class="md-title">Other ID</span>
+                  <span class="md-title">รหัสอื่นๆ</span>
                 </md-toolbar>
 
                 <div v-if="found2">

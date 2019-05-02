@@ -4,9 +4,9 @@
     <md-card style="padding-left: 0px;">
       <md-card-header>
         <md-card-header-text>
-          <h2 style="text-align:center;">Dispensing Drug</h2>
-          <h4 style="text-align:left;">Patient Name : {{patient.Firstname}} {{patient.Lastname}}</h4>
-          <h4 style="text-align:left;">Pharmacist Name : {{doctor.Firstname}} {{doctor.Lastname}}</h4>
+          <h2 style="text-align:center;">จ่ายยา</h2>
+          <h4 style="text-align:left;">ผู้ป่วย : {{patient.Firstname}} {{patient.Lastname}}</h4>
+          <h4 style="text-align:left;">เภสัชกร : {{doctor.Firstname}} {{doctor.Lastname}}</h4>
         </md-card-header-text>
       </md-card-header>
     </md-card>
@@ -15,24 +15,24 @@
     <md-table v-model="searched" md-sort="GPName" md-sort-order="asc" md-card style="margin-bottom:10px;">
       <md-table-toolbar>
         <div class="md-toolbar-section-start">
-          <h1 class="md-title">Using</h1>
+          <h1 class="md-title">ยาที่กำลังใช้</h1>
         </div>
         <md-field md-clearable class="md-toolbar-section-end">
-          <md-input placeholder="Search by drug name..." v-model="search" @input="searchOnTable" />
+          <md-input placeholder="กรุณาค้นหาจากชื่อยา" v-model="search" @input="searchOnTable" />
         </md-field>
       </md-table-toolbar>
 
-      <md-table-empty-state md-label="No users found" :md-description="`No drug name found for this '${search}' query. Try a different search term.`"></md-table-empty-state>
+      <md-table-empty-state md-label="ไม่พบรายการที่ค้นหา" :md-description="`ไม่พบรายการยาที่ค้นหา '${search}' กรุณาลองใหม่อีกครั้ง`"></md-table-empty-state>
 
       <md-table-row slot="md-table-row" slot-scope="{ item }">
-        <md-table-cell md-label="Order ID" md-sort-by="OrderID" md-numeric>{{ item.OrderID }}</md-table-cell>
-        <md-table-cell md-label="Drug Name" md-sort-by="GPName">{{ item.GPName }}</md-table-cell>
-        <md-table-cell md-label="Doctor's Name" md-sort-by="DoctorID">{{ item.DoctorName }}</md-table-cell>
-        <md-table-cell md-label="Status" md-sort-by="UsingStatus">{{ item.UsingStatus }}</md-table-cell>
-        <md-table-cell md-label="Receive Medicine" md-sort-by="Dispend2">
+        <md-table-cell md-label="หมายเลขคำสั่งยา" md-sort-by="OrderID" md-numeric>{{ item.OrderID }}</md-table-cell>
+        <md-table-cell md-label="ชื่อยา" md-sort-by="GPName">{{ item.GPName }}</md-table-cell>
+        <md-table-cell md-label="แพทย์" md-sort-by="DoctorID">{{ item.DoctorName }}</md-table-cell>
+        <md-table-cell md-label="สถานะ" md-sort-by="UsingStatus">{{ item.UsingStatus }}</md-table-cell>
+        <md-table-cell md-label="ปริมาณยาที่ได้รับ" md-sort-by="Dispend2">
           <b-progress :value="parseFloat(item.Dispend2)" striped show-value class="mb-3"></b-progress>
         </md-table-cell>
-        <md-table-cell md-label="Detail">
+        <md-table-cell md-label="ข้อมูลเพิ่มเติม">
           <md-button @click="showDetail(item)" class="md-icon-button md-dense">
             <md-icon>assignment</md-icon>
           </md-button>
@@ -51,24 +51,24 @@
     <md-table v-model="searched2" md-sort="UsingStatus" md-sort-order="asc" md-card style="margin-bottom:10px;">
       <md-table-toolbar>
         <div class="md-toolbar-section-start">
-          <h1 class="md-title">Stop Using</h1>
+          <h1 class="md-title">ยาที่หยุดใช้</h1>
         </div>
         <md-field md-clearable class="md-toolbar-section-end">
-          <md-input placeholder="Search by drug name..." v-model="search2" @input="searchOnTable" />
+          <md-input placeholder="กรุณาค้นหาจากชื่อยา..." v-model="search2" @input="searchOnTable" />
         </md-field>
       </md-table-toolbar>
 
       <md-table-empty-state md-label="No Order Found" :md-description="`No order found for this '${search2}' query. Try a different search term.`"></md-table-empty-state>
 
       <md-table-row slot="md-table-row" slot-scope="{ item }">
-        <md-table-cell md-label="OrderID" md-sort-by="OrderID" md-numeric>{{ item.OrderID }}</md-table-cell>
-        <md-table-cell md-label="Drug Name" md-sort-by="GPName">{{ item.GPName }}</md-table-cell>
-        <md-table-cell md-label="Doctor's Name" md-sort-by="DoctorID">{{ item.DoctorName }}</md-table-cell>
-        <md-table-cell md-label="Status" md-sort-by="UsingStatus">{{ item.UsingStatus }}</md-table-cell>
-        <md-table-cell md-label="Receive Medicine" md-sort-by="Dispend">
+        <md-table-cell md-label="หมายเลขคำสั่งยา" md-sort-by="OrderID" md-numeric>{{ item.OrderID }}</md-table-cell>
+        <md-table-cell md-label="ชื่อยา" md-sort-by="GPName">{{ item.GPName }}</md-table-cell>
+        <md-table-cell md-label="แพทย์" md-sort-by="DoctorID">{{ item.DoctorName }}</md-table-cell>
+        <md-table-cell md-label="สถานะ" md-sort-by="UsingStatus">{{ item.UsingStatus }}</md-table-cell>
+        <md-table-cell md-label="ปริมาณยาที่ได้รับ" md-sort-by="Dispend">
           <b-progress :value="parseFloat(item.Dispend2)" striped show-value class="mb-3"></b-progress>
         </md-table-cell>
-        <md-table-cell md-label="Using Medicine" md-sort-by="Dispend">
+        <md-table-cell md-label="ปริมาณยาที่ใช้ไป" md-sort-by="Dispend">
           <b-progress :value="parseFloat(item.Using)" striped show-value class="mb-3"></b-progress>
         </md-table-cell>
         <md-table-cell md-label="Detail">
@@ -83,7 +83,7 @@
     <md-dialog :md-active.sync="showDialog">
       <md-card class="md-layout-item">
         <md-card-header style="padding :20px;">
-          <div class="md-title">Detail</div>
+          <div class="md-title">ข้อมูลเพิ่มเติม</div>
         </md-card-header>
         <md-card-content style="padding-bottom:0px;" class="md-scrollbar">
 
@@ -96,22 +96,22 @@
             <md-speed-dial-content>
               <md-button class="md-icon-button" @click="dialogShift = 'General'">
                 <md-avatar>
-                  <md-icon>description</md-icon>
-                  <md-tooltip md-direction="left">General</md-tooltip>
+                  <md-icon>person</md-icon>
+                  <md-tooltip md-direction="left">ข้อมูลทั่วไป</md-tooltip>
                 </md-avatar>
               </md-button>
 
               <md-button class="md-icon-button" @click="dialogShift = 'Doctor'">
                 <md-avatar>
                   <md-icon>person</md-icon>
-                  <md-tooltip md-direction="left">Doctor</md-tooltip>
+                  <md-tooltip md-direction="left">แพทย์</md-tooltip>
                 </md-avatar>
               </md-button>
 
               <md-button class="md-icon-button" @click="dialogShift = 'Pharmacist'">
                 <md-avatar>
                   <md-icon>person</md-icon>
-                  <md-tooltip md-direction="left">Pharmacist</md-tooltip>
+                  <md-tooltip md-direction="left">เภสัชกร</md-tooltip>
                 </md-avatar>
               </md-button>
             </md-speed-dial-content>
@@ -121,69 +121,69 @@
             <md-tab md-label="General">
               <form>
                 <div class="md-layout textInDialog">
-                  <div class="md-layout-item"><label style="min-width:180px;">Order ID :</label></div>
+                  <div class="md-layout-item"><label style="min-width:180px;">หมายเลขคำสั่งยา :</label></div>
                   <div class="md-layout-item"> <input class="form-control" type="text" placeholder="-" style="min-width:260px;"
                       readonly :value="itemDialog.OrderID"></div>
                 </div>
                 <div class="md-layout textInDialog">
-                  <div class="md-layout-item"><label style="min-width:180px;">Drug Name (GP) :</label></div>
+                  <div class="md-layout-item"><label style="min-width:180px;">ชื่อยา (GP) :</label></div>
                   <div class="md-layout-item"> <input class="form-control" type="text" placeholder="-" style="min-width:260px;"
                       readonly :value="itemDialog.GPName"></div>
                 </div>
                 <div class="md-layout textInDialog">
-                  <div class="md-layout-item"><label style="min-width:180px;">RXcui :</label></div>
+                  <div class="md-layout-item"><label style="min-width:180px;">รหัส RXcui :</label></div>
                   <div class="md-layout-item"> <input class="form-control" type="text" placeholder="-" style="min-width:260px;"
                       readonly :value="itemDialog.RXCUI"></div>
                 </div>
                 <div class="md-layout textInDialog">
-                  <div class="md-layout-item"><label style="min-width:180px;">Status :</label></div>
+                  <div class="md-layout-item"><label style="min-width:180px;">สถานะ :</label></div>
                   <div class="md-layout-item"> <input class="form-control" type="text" placeholder="-" style="min-width:260px;"
                       readonly :value="itemDialog.UsingStatus"></div>
                 </div>
                 <div class="md-layout textInDialog">
-                  <div class="md-layout-item"><label style="min-width:180px;">Dosage :</label></div>
+                  <div class="md-layout-item"><label style="min-width:180px;">จำนวนโดส :</label></div>
                   <div class="md-layout-item"> <input class="form-control" type="text" placeholder="-" style="min-width:260px;"
                       readonly :value="itemDialog.Dosage"></div>
                 </div>
 
                 <div class="md-layout textInDialog" v-for="(i,index) in itemDialog.Frequency" v-bind:key="index">
-                  <div class="md-layout-item"><label style="min-width:180px;" v-if="index == 0">Frequency : </label></div>
+                  <div class="md-layout-item"><label style="min-width:180px;" v-if="index == 0">ความถี่ : </label></div>
                   <div class="md-layout-item"> <input class="form-control" type="text" placeholder="-" style="min-width:260px;"
                       readonly :value="i"></div>  
                 </div>
 
                 <div class="md-layout textInDialog">
-                  <div class="md-layout-item"><label style="min-width:180px;">Duration :</label></div>
+                  <div class="md-layout-item"><label style="min-width:180px;">ระยะเวลาการใช้ยา :</label></div>
                   <div class="md-layout-item"> <input class="form-control" type="text" placeholder="-" style="min-width:260px;"
                       readonly :value="itemDialog.Duration"></div>
                 </div>
                 <div class="md-layout textInDialog">
-                  <div class="md-layout-item"><label style="min-width:180px;">Quantity :</label></div>
+                  <div class="md-layout-item"><label style="min-width:180px;">ปริมาณ :</label></div>
                   <div class="md-layout-item"> <input class="form-control" type="text" placeholder="-" style="min-width:260px;"
                       readonly :value="itemDialog.Quantity"></div>
                 </div>
                 <div class="md-layout textInDialog">
-                  <div class="md-layout-item"><label style="min-width:180px;">Recieve medicine(%) :</label></div>
+                  <div class="md-layout-item"><label style="min-width:180px;">ปริมาณยาที่ได้รับ(%) :</label></div>
                   <div class="md-layout-item"> <input class="form-control" type="text" placeholder="-" style="min-width:260px;"
                       readonly :value="itemDialog.Dispend"></div>
                 </div>
                 <div class="md-layout textInDialog">
-                  <div class="md-layout-item"><label style="min-width:180px;">Using medicine(%) :</label></div>
+                  <div class="md-layout-item"><label style="min-width:180px;">ปริมาณยาที่ใช้ไป(%) :</label></div>
                   <div class="md-layout-item"> <input class="form-control" type="text" placeholder="-" style="min-width:260px;"
                       readonly :value="itemDialog.Using"></div>
                 </div>
                 <div class="md-layout textInDialog">
-                  <div class="md-layout-item"><label style="min-width:180px;">Next Receive Medicine :</label></div>
+                  <div class="md-layout-item"><label style="min-width:180px;">วันรับยาครั้งถัดไป :</label></div>
                   <div class="md-layout-item"> <input class="form-control" type="text" placeholder="-" style="min-width:260px;"
                       readonly :value="itemDialog.nextReceiveMedicine"></div>
                 </div>
                 <div class="md-layout textInDialog">
-                  <div class="md-layout-item"><label style="min-width:180px;">Note :</label></div>
+                  <div class="md-layout-item"><label style="min-width:180px;">บันทึก :</label></div>
                   <div class="md-layout-item"> <textarea class="form-control" type="text" placeholder="-" style="min-width:260px;"
                       readonly v-model="itemDialog.Description"></textarea></div>
                 </div>
                 <md-card-actions style="padding:0px;padding-bottom:8px;padding-top:8px;">
-                  <md-button class="md-primary" @click="showDialog = false">Close</md-button>
+                  <md-button class="md-primary" @click="showDialog = false">ปิด</md-button>
                 </md-card-actions>
               </form>
             </md-tab>
@@ -192,22 +192,22 @@
             <md-tab md-label="Doctor">
               <form>
                 <div class="md-layout textInDialog">
-                  <div class="md-layout-item"><label style="min-width:180px;">Doctor id :</label></div>
+                  <div class="md-layout-item"><label style="min-width:180px;">หมายเลขประจำตัวแพทย์ :</label></div>
                   <div class="md-layout-item"> <input class="form-control" type="text" placeholder="-" style="min-width:260px;"
                       readonly :value="itemDialog.DoctorID"></div>
                 </div>
                 <div class="md-layout textInDialog">
-                  <div class="md-layout-item"><label style="min-width:180px;">Doctor Name :</label></div>
+                  <div class="md-layout-item"><label style="min-width:180px;">แพทย์ :</label></div>
                   <div class="md-layout-item"> <input class="form-control" type="text" placeholder="-" style="min-width:260px;"
                       readonly :value="itemDialog.DoctorName"></div>
                 </div>
                 <div class="md-layout textInDialog">
-                  <div class="md-layout-item"><label style="min-width:180px;">Ward :</label></div>
+                  <div class="md-layout-item"><label style="min-width:180px;">แผนก :</label></div>
                   <div class="md-layout-item"> <input class="form-control" type="text" placeholder="-" style="min-width:260px;"
                       readonly :value="itemDialog.DoctorWard"></div>
                 </div>
                 <md-card-actions style="padding:0px;padding-bottom:8px;padding-top:8px;">
-                  <md-button class="md-primary" @click="showDialog = false">Close</md-button>
+                  <md-button class="md-primary" @click="showDialog = false">ปิด</md-button>
                 </md-card-actions>
               </form>
             </md-tab>
@@ -218,12 +218,12 @@
                 <div v-for="index in itemDialog.PharmacistID.length" :key="index">
                 <label v-if="itemDialog.PharmacistID.length>1">{{index}}.</label>
                 <div class="md-layout textInDialog">
-                  <div class="md-layout-item"><label style="min-width:180px;">Pharmacist id :</label></div>
+                  <div class="md-layout-item"><label style="min-width:180px;">หมายเลขประจำตัวเภสัชกร :</label></div>
                   <div class="md-layout-item"> <input class="form-control" type="text" placeholder="-" style="min-width:260px;"
                       readonly :value="itemDialog.PharmacistID[index-1].ID"></div>
                 </div>
                 <div class="md-layout textInDialog">
-                  <div class="md-layout-item"><label style="min-width:180px;">Pharmacist Name :</label></div>
+                  <div class="md-layout-item"><label style="min-width:180px;">เภสัชกร :</label></div>
                   <div class="md-layout-item"> <input class="form-control" type="text" placeholder="-" style="min-width:260px;"
                       readonly :value="itemDialog.PharmacistID[index-1].Name"></div>
                 </div>
@@ -231,7 +231,7 @@
                 <br>
                 <br>
                 <md-card-actions style="padding:0px;padding-bottom:8px;padding-top:8px;">
-                  <md-button class="md-primary" @click="showDialog = false">Close</md-button>
+                  <md-button class="md-primary" @click="showDialog = false">ปิด</md-button>
                 </md-card-actions>
               </form>
             </md-tab>
@@ -244,48 +244,46 @@
     <md-dialog :md-active.sync="showDispenDialog">
       <md-card class="md-layout-item">
         <md-card-header style="padding :20px;">
-          <div class="md-title">Dispense</div>
+          <div class="md-title">จ่ายยา</div>
         </md-card-header>
         <md-card-content style="padding-bottom:0px;" class="md-scrollbar">
 
           <form>
             <div class="md-layout textInDialog">
-              <div class="md-layout-item"><label style="min-width:180px;">Drug Name (GP) :</label></div>
+              <div class="md-layout-item"><label style="min-width:180px;">ชื่อยา (GP) :</label></div>
               <div class="md-layout-item"> <input class="form-control" type="text" placeholder="-" style="min-width:260px;"
                   readonly :value="itemDispenseDialog.GPName"></div>
             </div>
             <div class="md-layout textInDialog">
-              <div class="md-layout-item"><label style="min-width:180px;">Quantity({{itemDispenseDialog.Dosage.unit}})
+              <div class="md-layout-item"><label style="min-width:180px;">ปริมาณ({{itemDispenseDialog.Dosage.unit}})
                   :</label></div>
               <div class="md-layout-item"> <input class="form-control" type="text" placeholder="-" style="min-width:260px;"
                   readonly :value="itemDispenseDialog.Quantity"></div>
             </div>
             <div class="md-layout textInDialog">
-              <div class="md-layout-item"><label style="min-width:180px;">Recieve
-                  Medicine({{itemDispenseDialog.Dosage.unit}}) :</label></div>
+              <div class="md-layout-item"><label style="min-width:180px;">ปริมาณยาที่ได้รับ({{itemDispenseDialog.Dosage.unit}}) :</label></div>
               <div class="md-layout-item"> <input class="form-control" type="text" placeholder="-" style="min-width:260px;"
                   readonly :value="itemDispenseDialog.Dispend"></div>
             </div>
             <div class="md-layout textInDialog">
-              <div class="md-layout-item"><label style="min-width:180px;">Remaining
-                  Medicine({{itemDispenseDialog.Dosage.unit}}) :</label></div>
+              <div class="md-layout-item"><label style="min-width:180px;">ปริมาณยาที่ยังไม่ได้รับ({{itemDispenseDialog.Dosage.unit}}) :</label></div>
               <div class="md-layout-item"> <input class="form-control" type="text" placeholder="-" style="min-width:260px;"
                   readonly :value="itemDispenseDialog.Remaining"></div>
             </div>
             <div class="md-layout textInDialog">
-              <div class="md-layout-item"><label style="min-width:180px;">Dispensing({{itemDispenseDialog.Dosage.unit}}) :</label></div>
+              <div class="md-layout-item"><label style="min-width:180px;">การจ่ายยา({{itemDispenseDialog.Dosage.unit}}) :</label></div>
               <div class="md-layout-item"> <input class="form-control" type="number" min="0" :max="itemDispenseDialog.Remaining" placeholder="Enter Number" style="min-width:260px;"
                   v-model="itemDispenseDialog.Dispensing"></div>
             </div>
             <div class="md-layout textInDialog">
-              <label>Select Dispense Date</label>    
+              <label>เลือกวันที่จ่ายยา</label>    
               <md-datepicker v-model="itemDispenseDialog.DispendStatus" md-immediately>
-                <label>Select Dispense Date</label>
+                <label>เลือกวันที่จ่ายยา</label>
               </md-datepicker>
             </div>            
             <md-card-actions style="padding:0px;padding-bottom:8px;padding-top:8px;">
-              <md-button class="md-primary" @click="saveDispensing()">Save</md-button>
-              <md-button class="md-primary" @click="showDispenDialog = false">Close</md-button>              
+              <md-button class="md-primary" @click="saveDispensing()">บันทึก</md-button>
+              <md-button class="md-primary" @click="showDispenDialog = false">ปิด</md-button>              
             </md-card-actions>
           </form>
         </md-card-content>
@@ -295,12 +293,12 @@
      <md-dialog :md-active.sync="showErrorDialog">
       <md-card class="md-layout-item">
         <md-card-header style="padding :20px;">
-          <div class="md-title">Message</div>
+          <div class="md-title">ข้อความ</div>
         </md-card-header>
         <md-card-content style="padding-bottom:0px;" class="md-scrollbar">
           {{messageError}}
           <md-card-actions style="padding:0px;padding-bottom:8px;padding-top:8px;">
-            <md-button class="md-primary" @click="reloadPage()">Close</md-button>              
+            <md-button class="md-primary" @click="reloadPage()">ปิด</md-button>              
           </md-card-actions>
         </md-card-content>
       </md-card>

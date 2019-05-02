@@ -4,7 +4,7 @@
          
 
       <div class="modal-heading">
-        <h2 class="text-center">Login</h2>
+        <h2 class="text-center">Smart Drug Use</h2>
 
       </div>
       <!--	<hr /> -->
@@ -29,10 +29,10 @@
         </form>
         <div class="form-group text-center">
           <button type="submit" class="btn btn-success btn-lg" @click="Login()">
-            Login
+            เข้าสู่ระบบ
           </button>
-          <router-link to="/register" target="_parent"><button class="btn btn-success btn-lg">Register</button></router-link>
-          <router-link to="/forgotpassword" target="_blank" class="btn btn-link">Forget Password?</router-link>
+          <router-link to="/register" target="_parent"><button class="btn btn-success btn-lg">ลงทะเบียน</button></router-link>
+          <router-link to="/forgotpassword" target="_blank" class="btn btn-link">ลีมรหัสผ่าน</router-link>
         </div>        
         {{test}}
       </div>

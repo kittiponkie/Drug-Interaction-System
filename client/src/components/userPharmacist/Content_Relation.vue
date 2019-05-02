@@ -4,7 +4,7 @@
     <div class="col-lg-12" style="width:100%;height:100%">
       <div class="panel panel-default">
         <!--card1-->
-        <h3 style="margin-left:20px;">Patient</h3>
+        <h3 style="margin-left:20px;">ผู้ป่วย</h3>
         <div class="inline" v-for="(i,index) in users" :key="index" @click="gotoDetail(index)">
           <!--router-link to="/doctor"-->
           <md-card md-with-hover>

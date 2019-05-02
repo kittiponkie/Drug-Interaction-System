@@ -6,7 +6,7 @@
           Back
         </button>
       </router-link>
-      Register
+      ลงทะเบียน
     </h1>
     <md-tabs md-sync-route>
       <md-tab id="tab-patient" md-label="Patient" to="/register/patient">
@@ -20,22 +20,22 @@
                 <div class="row">
                   <!-- prefix -->
                   <div class="col-sm-6 form-group">
-                    <label>Prefix</label>
+                    <label>คำนำหน้า</label>
                     <select ref="prefix" class="form-control">
-                      <option selected="">MR.</option>
-                      <option>MRS.</option>
-                      <option>Miss</option>
-                      <option>Other</option>
-                      <option>Master.</option>
-                      <option>Buddhist Monk</option>
-                      <option>Rev.</option>
-                      <option>Mom Luang (M.L.)</option>
-                      <option>Mom Rajawong (M.R.)</option>
-                      <option>Mom Chao (M.C.)</option>
-                      <option>Emeritus Professor</option>
-                      <option>Professor</option>
-                      <option>Assistant Professor</option>
-                      <option>Associate Professor</option>
+                      <option selected="">นาย</option>
+                      <option>นาง</option>
+                      <option>นางสาว</option>
+                      <option>อื่นๆ</option>
+                      <option>เด็กชาย</option>
+                      <option>พระสงฆ์</option>
+                      <option>บาทหลวง</option>
+                      <option>หม่อมหลวง</option>
+                      <option>หม่อมราชวงศ์</option>
+                      <option>หม่อมเจ้า</option>
+                      <option>ศาสตราจารย์เกียรติคุณ (กิตติคุณ)</option>
+                      <option>ศาสตราจารย์</option>
+                      <option>ผู้ช่วยศาสตราจารย์	</option>
+                      <option>รองศาสตราจารย์	</option>
                     </select>
                   </div>
                 </div>
@@ -43,67 +43,67 @@
                 <!-- Name & Surname -->
                 <div class="row">
                   <div class="col-sm-6 form-group">
-                    <label>First Name</label>
-                    <input ref="firstname" type="text" placeholder="Enter First Name Here.." class="form-control">
+                    <label>ชื่อจริง</label>
+                    <input ref="firstname" type="text" placeholder="กรอกชื่อจริง...." class="form-control">
                   </div>
                   <div class="col-sm-6 form-group">
-                    <label>Last Name</label>
-                    <input ref="lastname" type="text" placeholder="Enter Last Name Here.." class="form-control">
+                    <label>นามสกุล</label>
+                    <input ref="lastname" type="text" placeholder="กรอกนามสกุล.." class="form-control">
                   </div>
                 </div>
 
                 <div class="row">
                   <!-- Sex -->
                   <div class="col-sm-6 form-group">
-                    <label>Sex</label>
+                    <label>เพศ</label>
                     <select ref="sex" class="form-control">
-                      <option selected="">Male</option>
-                      <option>Female</option>
-                      <option>Other</option>
+                      <option selected="">ชาย</option>
+                      <option>หญิง</option>
+                      <option>อื่นๆ</option>
                     </select>
                   </div>
                   <!-- id card -->
                   <div class="col-sm-6 form-group">
-                    <label>ID Card</label>
-                    <input ref="idcard" type="text" placeholder="Enter Designation Here.." class="form-control">
+                    <label>หมายเลขบัตรประชาชน</label>
+                    <input ref="idcard" type="text" placeholder="กรอกหมายเลขบัตรประชาชน.." class="form-control">
                   </div>
                 </div>
 
                 <!-- Weight & Height -->
                 <div class="row">
                   <div class="col-sm-6 form-group">
-                    <label>Department</label>
-                    <input ref="department" type="text" placeholder="Enter Department Here.." class="form-control">
+                    <label>สังกัด</label>
+                    <input ref="department" type="text" placeholder="กรอกสังกัด.." class="form-control">
                   </div>
                   <div class="col-sm-6 form-group">
-                    <label>Ward</label>
-                    <input ref="ward" type="text" placeholder="Enter Ward Here.." class="form-control">
+                    <label>แผนก</label>
+                    <input ref="ward" type="text" placeholder="กรอกแผนก.." class="form-control">
                   </div>
                 </div>
 
                 <div class="form-group">
-                  <label> Address</label>
-                  <textarea ref="address" placeholder="Enter Address Here.." rows="3" class="form-control"></textarea>
+                  <label> ที่อยู่</label>
+                  <textarea ref="address" placeholder="กรอกที่อยู่.." rows="3" class="form-control"></textarea>
                 </div>
                 <div class="form-group">
-                  <label>Phone</label>
-                  <input ref="phone" type="text" placeholder="Enter Phone Here.." class="form-control">
+                  <label>เบอร์โทร</label>
+                  <input ref="phone" type="text" placeholder="กรอกเบอร์โทร.." class="form-control">
                 </div>
                 <br>
                 <div class="form-group">
-                  <label>Email</label>
-                  <input ref="email" type="text" placeholder="Enter Email Here.." class="form-control">
+                  <label>อีเมล์</label>
+                  <input ref="email" type="text" placeholder="กรอกอีเมล์.." class="form-control">
                 </div>
                 <div class="form-group">
-                  <label>Username</label>
-                  <input ref="username" type="text" placeholder="Enter Username Here.." class="form-control">
+                  <label>ชื่อผู้ใช้</label>
+                  <input ref="username" type="text" placeholder="กรอกชื่อผู้ใข้.." class="form-control">
                 </div>
                 <div class="form-group">
-                  <label>Password</label>
-                  <input ref="password" type="password" placeholder="Enter password Here.. at least 8 character" class="form-control">
+                  <label>รหัสผ่าน</label>
+                  <input ref="password" type="password" placeholder="กรอกรหัสผ่าน...อย่างน้อย 5 ตัวอักษร" class="form-control">
                 </div>
-                <button type="button" class="btn btn-lg btn-info" style="margin-left: 7px" @click="submit">Submit</button>
-                <button type="button" class="btn btn-lg btn-info" style="margin-left: 7px" @click="cancel">cancel</button>
+                <button type="button" class="btn btn-lg btn-info" style="margin-left: 7px" @click="submit">สมัคร</button>
+                <button type="button" class="btn btn-lg btn-info" style="margin-left: 7px" @click="cancel">ยกเลิก</button>
               </div>
             </form>
 

@@ -4,8 +4,8 @@
         <md-card  style="padding-left: 0px;" >
               <md-card-header>
                 <md-card-header-text>
-                  <h4 style="text-align:left;">Patient Name : 
-                <span style="float:right;margin-right: 150px;">Doctor Name :</span>
+                  <h4 style="text-align:left;">ชื่อคนไข้ : 
+                <span style="float:right;margin-right: 150px;">แพทย์ :</span>
                 </h4>
                 </md-card-header-text>
               </md-card-header>
@@ -14,22 +14,22 @@
     <md-table v-model="searched" md-sort="name" md-sort-order="asc" md-card>
       <md-table-toolbar>
         <div class="md-toolbar-section-start">
-          <h1 class="md-title">Users Name</h1>
+          <h1 class="md-title">ชื่อผู้ใช้</h1>
         </div>
         <md-field md-clearable class="md-toolbar-section-end">
-          <md-input placeholder="Search by drug name..." v-model="search" @input="searchOnTable" />
+          <md-input placeholder="ค้นหา..." v-model="search" @input="searchOnTable" />
         </md-field>
       </md-table-toolbar>
 
-      <md-table-empty-state md-label="No users found" :md-description="`No drug name found for this '${search}' query. Try a different search term.`">
+      <md-table-empty-state md-label="No users found" :md-description="`ไม่พบรายการที่ค้นหา '${search}' กรุณาลองใหม่อีกครั้ง`">
       </md-table-empty-state>
 
       <md-table-row slot="md-table-row" slot-scope="{ item }">
-        <md-table-cell md-label="ID" md-sort-by="id" md-numeric>{{ item.id }}</md-table-cell>
-        <md-table-cell md-label="Drug Name" md-sort-by="name">{{ item.name }}</md-table-cell>
-        <md-table-cell md-label="Doctor's Name" md-sort-by="email">{{ item.email }}</md-table-cell>
-        <md-table-cell md-label="Status" md-sort-by="gender">{{ item.gender }}</md-table-cell>
-        <md-table-cell md-label="Remark" md-sort-by="title">{{ item.title }}</md-table-cell>
+        <md-table-cell md-label="ลำดับ" md-sort-by="id" md-numeric>{{ item.id }}</md-table-cell>
+        <md-table-cell md-label="ชื่อยา" md-sort-by="name">{{ item.name }}</md-table-cell>
+        <md-table-cell md-label="แพทย์" md-sort-by="email">{{ item.email }}</md-table-cell>
+        <md-table-cell md-label="สถานะ" md-sort-by="gender">{{ item.gender }}</md-table-cell>
+        <md-table-cell md-label="หมายเหตุ" md-sort-by="title">{{ item.title }}</md-table-cell>
       </md-table-row>
     </md-table>
   </div>

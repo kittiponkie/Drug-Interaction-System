@@ -4,7 +4,7 @@
       <div class="panel panel-default">
         <div class="panel-heading" style="background-color:#b6d6d4" id="headBack">
           <md-button style="background-color:#78A5A3">
-            <h6 style="color:white">Doctor</h6>
+            <h6 style="color:white">แพทย์</h6>
           </md-button>
         </div>
 
@@ -12,30 +12,30 @@
           <md-table v-model="searched" md-sort="name" md-sort-order="asc" md-card md-fixed-header style="margin:0">
             <md-table-toolbar>
               <div class="md-toolbar-section-start">
-                <h1 class="md-title">Doctor users request</h1>
+                <h1 class="md-title">คำร้องขอ</h1>
               </div>
 
               <md-field md-clearable class="md-toolbar-section-end">
-                <md-input placeholder="Search by ID..." v-model="search" @input="searchOnTable" />
+                <md-input placeholder="ค้นหา..." v-model="search" @input="searchOnTable" />
               </md-field>
             </md-table-toolbar>
 
             <md-table-empty-state md-label="No users found"
-              :md-description="`No user found for this '${search}' query. Try a different search term.`">
+              :md-description="`ไม่พบรายการที่ค้นหา '${search}' กรุณาลองใหม่อีกครั้ง`">
             </md-table-empty-state>
 
             <md-table-row slot="md-table-row" slot-scope="{ item }">
-              <md-table-cell md-label="ID" md-sort-by="ID" md-numeric>{{ item.DoctorID }}</md-table-cell>
-              <md-table-cell md-label="Firstname" md-sort-by="Firstname">{{ item.Firstname }}</md-table-cell>
-              <md-table-cell md-label="Lastname" md-sort-by="Lastname">{{ item.Lastname }}</md-table-cell>
-              <md-table-cell md-label="Action">
+              <md-table-cell md-label="ลำดับ" md-sort-by="ID" md-numeric>{{ item.DoctorID }}</md-table-cell>
+              <md-table-cell md-label="ชื่อ" md-sort-by="Firstname">{{ item.Firstname }}</md-table-cell>
+              <md-table-cell md-label="นามสกุล" md-sort-by="Lastname">{{ item.Lastname }}</md-table-cell>
+              <md-table-cell md-label=" ">
                 <md-button class="md-icon-button" style="background-color:#5cb85c" @click="acceptUser(item)">
                   <md-icon style="color:white">done</md-icon>
-                  <md-tooltip md-direction="left">Accept</md-tooltip>
+                  <md-tooltip md-direction="left">ยอมรับ</md-tooltip>
                 </md-button> 
                 <md-button class="md-icon-button" style="background-color:#f44742" @click="rejectUser(item)">
                   <md-icon style="color:white">clear</md-icon>
-                  <md-tooltip md-direction="right">Reject</md-tooltip>
+                  <md-tooltip md-direction="right">ปฏิเสธ</md-tooltip>
                 </md-button>                 
               </md-table-cell>
             </md-table-row>

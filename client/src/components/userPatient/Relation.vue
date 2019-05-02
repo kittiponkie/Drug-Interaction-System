@@ -8,7 +8,7 @@
         <span class="md-title">Smart Drug Use</span>
         <div class="md-toolbar-section-end">
           <md-button @click="logout()" style="background-color: #99a5bf; " v-if="(Window_Width>600)">
-            <h6 style="color:black">Logout</h6>
+            <h6 style="color:black">ออกจากระบบ</h6>
           </md-button>
           <md-button @click="logout()" class="md-icon-button" style="background-color:#99a5bf" v-if="!(Window_Width>600)">
             <md-icon style="color:black;">power_settings_new</md-icon>
@@ -19,7 +19,7 @@
       <md-app-drawer md-permanent="card" :md-active.sync="menuVisible" class="menu_color">
         <md-toolbar class="md-transparent" md-elevation="0">
           <div class="md-toolbar-section-end">
-            <span class="span_center">Menu</span>
+            <span class="span_center">เมนู</span>
             <md-button
               class="md-icon-button md-dense"
               @click="toggleMenu"
@@ -33,27 +33,27 @@
         <md-list class="delete_margin">
           <md-list-item to="/patient_information" class="unselected">
             <md-icon style="margin-right:10px">account_circle</md-icon>
-            <span class="md-list-item-text unselected_text">Patient Information</span>
+            <span class="md-list-item-text unselected_text">ข้อมูลผู้ป่วย</span>
           </md-list-item>
 
           <md-list-item to="/patient_drug_history" class="unselected">
             <md-icon style="margin-right:10px">folder_shared</md-icon>
-            <span class="md-list-item-text selected_text">Drug History</span>
+            <span class="md-list-item-text selected_text">ประวัติการใช้ยา</span>
           </md-list-item>
 
           <md-list-item to="/patient_relation" class="selected">
             <md-icon style="margin-right:10px;color:white;">person_add</md-icon>
-            <span class="md-list-item-text selected_text" style="color:white;">Relation</span>
+            <span class="md-list-item-text selected_text" style="color:white;">ความสัมพันธ์</span>
           </md-list-item>
 
           <md-list-item to="/patient_drug_information" class="unselected">
             <md-icon style="margin-right:10px">description</md-icon>
-            <span class="md-list-item-text unselected_text">Drug Information</span>
+            <span class="md-list-item-text unselected_text">ข้อมูลยา</span>
           </md-list-item>
 
           <md-list-item to="/patient_drug_interaction" class="unselected">
             <md-icon style="margin-right:10px">bubble_chart</md-icon>
-            <span class="md-list-item-text unselected_text">Drug Interaction</span>
+            <span class="md-list-item-text unselected_text">ปฏิกิริยาระหว่างยา</span>
           </md-list-item>
         </md-list>
       </md-app-drawer>
@@ -73,7 +73,7 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Add Friend</h5>
+            <h5 class="modal-title" id="exampleModalLabel">เพิ่มเพื่อน</h5>
             <br>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
@@ -83,14 +83,14 @@
            <form>
                     <div class="col-sm-9 form-group">
                       <br>
-                      <label>Search your friend ID</label>
+                      <label>ค้นหาเพื่อนจากID</label>
                       <input type="text" placeholder="Enter ID Here.."  class="form-control">
                     </div>
             </form>
        
           <!-- confirm to dispend drug button -->
           <div class="modal-footer">
-            <button type="button" class="btn btn-success" data-dismiss="modal">Add Friend</button>
+            <button type="button" class="btn btn-success" data-dismiss="modal">เพิ่มเพื่อน</button>
           </div>
         </div>
       </div>
@@ -108,7 +108,7 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Are you sure to confirm ?</h5>
+            <h5 class="modal-title" id="exampleModalLabel">แน่ใจหรือไม่ว่ายืนยัน ?</h5>
             <br>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
@@ -116,11 +116,11 @@
           </div>
           <!--content summary -->
           <div class="modal-body">
-            <p>Accept : ID number XXXXXX</p>
+            <p>ยอมรับ : ID number XXXXXX</p>
           </div>
           <!-- confirm to dispend drug button -->
           <div class="modal-footer">
-            <button type="button" class="btn btn-success" data-dismiss="modal">Confirm</button>
+            <button type="button" class="btn btn-success" data-dismiss="modal">ยืนยัน</button>
           </div>
         </div>
       </div>
@@ -139,7 +139,7 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Are you sure to reject ?</h5>
+            <h5 class="modal-title" id="exampleModalLabel">แน่ใจหรือไม่ว่าปฏิเสธ ?</h5>
             <br>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
@@ -147,11 +147,11 @@
           </div>
           <!--content summary -->
           <div class="modal-body">
-            <p>Reject : ID number XXXXXX</p>
+            <p>ปฏิเสธ : ID number XXXXXX</p>
           </div>
           <!-- confirm to dispend drug button -->
           <div class="modal-footer">
-            <button type="button" class="btn btn-danger" data-dismiss="modal">reject</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">ปฏิเสธ</button>
           </div>
         </div>
       </div>

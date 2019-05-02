@@ -3,10 +3,10 @@
     <h1 class="well">
       <router-link to="/login" target="_parent">
         <button type="button" class="btn btn-lg btn-info" style="margin-right: 20px">
-          Back
+          กลับ
         </button>
       </router-link>
-      Register     
+      ลงทะเบียน     
     </h1>
 
     <md-tabs md-sync-route>
@@ -18,22 +18,22 @@
                 <div class="row">
                   <!-- prefix -->
                   <div class="col-sm-6 form-group">
-                    <label>Prefix</label>
+                    <label>คำนำหน้า</label>
                     <select ref="prefix" class="form-control">
-                      <option selected="">MR.</option>
-                      <option>MRS.</option>
-                      <option>Miss</option>
-                      <option>Other</option>
-                      <option>Master.</option>
-                      <option>Buddhist Monk</option>
-                      <option>Rev.</option>
-                      <option>Mom Luang (M.L.)</option>
-                      <option>Mom Rajawong (M.R.)</option>
-                      <option>Mom Chao (M.C.)</option>
-                      <option>Emeritus Professor</option>
-                      <option>Professor</option>
-                      <option>Assistant Professor</option>
-                      <option>Associate Professor</option>
+                      <option selected="">นาย</option>
+                      <option>นาง</option>
+                      <option>นางสาว</option>
+                      <option>อื่นๆ</option>
+                      <option>เด็กชาย</option>
+                      <option>พระสงฆ์</option>
+                      <option>บาทหลวง</option>
+                      <option>หม่อมหลวง</option>
+                      <option>หม่อมราชวงศ์</option>
+                      <option>หม่อมเจ้า</option>
+                      <option>ศาสตราจารย์เกียรติคุณ (กิตติคุณ)</option>
+                      <option>ศาสตราจารย์</option>
+                      <option>ผู้ช่วยศาสตราจารย์	</option>
+                      <option>รองศาสตราจารย์	</option>
                     </select>
                   </div>
                 </div>
@@ -41,23 +41,23 @@
                 <!-- Name & Surname -->
                 <div class="row">
                   <div class="col-sm-6 form-group">
-                    <label>First Name</label>
-                    <input ref="firstname" type="text" placeholder="Enter First Name Here.." class="form-control">
+                    <label>ชื่อจริง</label>
+                    <input ref="firstname" type="text" placeholder="กรอกชื่อจริง.." class="form-control">
                   </div>
                   <div class="col-sm-6 form-group">
-                    <label>Last Name</label>
-                    <input ref="lastname" type="text" placeholder="Enter Last Name Here.." class="form-control">
+                    <label>นามสกุล</label>
+                    <input ref="lastname" type="text" placeholder="กรอกนามสกุล.." class="form-control">
                   </div>
                 </div>
 
                 <div class="row">
                   <!-- Sex -->
                   <div class="col-sm-6 form-group">
-                    <label>Sex</label>
+                    <label>เพศ</label>
                     <select ref="sex" class="form-control">
-                      <option selected="">Male</option>
-                      <option>Female</option>
-                      <option>Other</option>
+                      <option selected="">ชาย</option>
+                      <option>หญิง</option>
+                      <option>อื่นๆ</option>
                     </select>
                   </div>
                 </div>
@@ -65,26 +65,26 @@
                 <!-- Weight & Height -->
                 <div class="row">
                   <div class="col-sm-6 form-group">
-                    <label>Weight</label>
-                    <input ref="weight" type="text" placeholder="Enter Weight Here.." class="form-control">
+                    <label>น้ำหนัก</label>
+                    <input ref="weight" type="text" placeholder="กรอกน้ำหนัก(Kg.).." class="form-control">
                   </div>
                   <div class="col-sm-6 form-group">
-                    <label>Height</label>
-                    <input ref="height" type="text" placeholder="Enter Height Here.." class="form-control">
+                    <label>ส่วนสูง</label>
+                    <input ref="height" type="text" placeholder="กรอกส่วนสูง(Cm.).." class="form-control">
                   </div>
                 </div>
 
                 <!-- Birthday & Age(autocalculation) -->
                 <div class="row">
                   <div class="col-sm-6 form-group">
-                    <label>Birthday</label>
+                    <label>วันเกิด</label>
                     <md-datepicker ref="birthday" v-model="datePicker">
-                      <label>Enter Birthday Here..</label>
+                      <label>เลือกวันเกิด..</label>
                     </md-datepicker>
 
                   </div>
                   <div class="col-sm-6 form-group">
-                    <label>Age</label>
+                    <label>อายุ</label>
                     <input ref="age" type="text" class="form-control" placeholder="Age .." readonly>
                     <!--input ref="age" type="text" readonly class="form-control" value="21 (Auto calculation)"-->
                   </div>
@@ -93,38 +93,38 @@
                 <!-- id card -->
                 <div class="row">
                   <div class="col-sm-6 form-group">
-                    <label>ID Card</label>
-                    <input ref="idcard" type="text" placeholder="Enter Designation Here.." class="form-control">
+                    <label>หมายเลขบัตรประชาชน</label>
+                    <input ref="idcard" type="text" placeholder="กรอกหมายเลขบัตรประชาชน.." class="form-control">
                   </div>
                   <div class="col-sm-6 form-group">
-                    <label>Status</label>
+                    <label>สถานะ</label>
                     <select ref="status" class="form-control">
-                      <option selected="">Single </option>
-                      <option>Married </option>
-                      <option>Divorced </option>
-                      <option>Separate</option>
+                      <option selected="">โสด </option>
+                      <option>แต่งงาน </option>
+                      <option>หย่าร้าง </option>
+                      <option>แยกกันอยู่</option>
                     </select>
                   </div>
                 </div>
                 <!-- Rac & Nationality & Religion-->
                 <div class="row">
                   <div class="col-sm-6 form-group">
-                    <label>Nationality</label>
-                    <input ref="nation" type="text" placeholder="Enter Nationality Here.." class="form-control">
+                    <label>สัญชาติ</label>
+                    <input ref="nation" type="text" placeholder="กรอกสัญชาติ.." class="form-control">
                   </div>
                   <div class="col-sm-6 form-group">
-                    <label>Race</label>
-                    <input ref="rac" type="text" placeholder="Enter Rac Here.." class="form-control">
+                    <label>เชื้อชาติ</label>
+                    <input ref="rac" type="text" placeholder="กรอกเชื้อชาติ.." class="form-control">
                   </div>
                   <div class="col-sm-6 form-group">
-                    <label>Religion</label>
-                    <input ref="religion" type="text" placeholder="Enter Religion Here.." class="form-control">
+                    <label>ศาสนา</label>
+                    <input ref="religion" type="text" placeholder="กรอกศาสนา.." class="form-control">
                   </div>
                 </div>
                 <!-- blood -->
                 <div class="row">
                   <div class="col-sm-6 form-group">
-                    <label>Blood</label>
+                    <label>หมู่เลือด</label>
                     <select ref="blood" class="form-control">
                       <option selected="">A </option>
                       <option>B</option>
@@ -132,24 +132,24 @@
                       <option>O</option>
                       <option>Rh-positive</option>
                       <option>Rh-negative</option>
-                      <option>Unknown</option>
+                      <option>ไม่ทราบ</option>
                     </select>
                   </div>
                 </div>
                 
-                  <label>Drug allergy</label>
+                  <label>ยาที่แพ้</label>
                   <div style="margin:5px 0px 10px 0px;min-height:36px;">
                     
                     <form @submit.prevent="addAllergicList()" >
                       
                       <div class="col-sm-6" style="padding-left:0;">
-                      <input v-model="query2" id="input" class="form-control" type="text" placeholder="Type to search...">
+                      <input v-model="query2" id="input" class="form-control" type="text" placeholder="พิมพ์เพื่อค้นหา...">
                        <typeahead v-model="query" target="#input" :data="drugsSearch" :limit="drugsSearch.length"
                         :match-start="true" :force-select="true" :force-clear="true" />
                        </div>    
                        <div class="col-sm-6" style="padding-left:0;">            
                       
-                      <md-button type="submit" style="margin:0;background-color:#5bc0de;color:black">ADD</md-button>
+                      <md-button type="submit" style="margin:0;background-color:#5bc0de;color:black">เพิ่ม</md-button>
                       </div>  
                       
                     </form>
@@ -160,28 +160,28 @@
                      
                 
                 <div class="form-group" style="padding-top:10px;">
-                  <label> Address</label>
-                  <textarea ref="address" placeholder="Enter Address Here.." rows="3" class="form-control"></textarea>
+                  <label> ที่อยู่</label>
+                  <textarea ref="address" placeholder="กรอกที่อยู่.." rows="3" class="form-control"></textarea>
                 </div>
                 <div class="form-group">
-                  <label>Phone</label>
+                  <label>เบอร์โทร</label>
                   <input ref="phone" type="text" placeholder="Enter Phone Here.." class="form-control">
                 </div>
                 <br>
                 <div class="form-group">
-                  <label>Email</label>
-                  <input ref="email" type="text" placeholder="Enter Email Here.." class="form-control">
+                  <label>อีเมล์</label>
+                  <input ref="email" type="text" placeholder="กรอกอีเมล์.." class="form-control">
                 </div>
                 <div class="form-group">
-                  <label>Username</label>
-                  <input ref="username" type="text" placeholder="Enter Username Here.." class="form-control">
+                  <label>ชื่อผู้ใช้</label>
+                  <input ref="username" type="text" placeholder="กรอกชื่อผู้ใข้.." class="form-control">
                 </div>
                 <div class="form-group">
-                  <label>Password</label>
-                  <input ref="password" type="password" placeholder="Enter password Here.. at least 8 character" class="form-control">
+                  <label>รหัสผ่าน</label>
+                  <input ref="password" type="password" placeholder="กรอกรหัสผ่าน...อย่างน้อย 5 ตัวอักษร" class="form-control">
                 </div>
-                <button type="button" class="btn btn-lg btn-info" style="margin-left: 7px" @click="submit">Submit</button>
-                <button type="button" class="btn btn-lg btn-info" style="margin-left: 7px" @click="cancel">cancel</button>
+                <button type="button" class="btn btn-lg btn-info" style="margin-left: 7px" @click="submit">สมัคร</button>
+                <button type="button" class="btn btn-lg btn-info" style="margin-left: 7px" @click="cancel">ยกเลิก</button>
               </div>
             </form>
 

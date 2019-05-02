@@ -8,13 +8,13 @@
         <span class="md-title">Smart Drug Use</span>
         <div class="md-toolbar-section-end">
           <md-button @click="toDoctorInfo()" style="background-color:rgba(0.88,0,0,0.54);" v-if="(Window_Width>600)">
-            <h6>Doctor Information</h6>
+            <h6>ข้อมูลแพทย์</h6>
           </md-button>
             <md-button @click="toDoctorInfo()" class="md-icon-button" style="background-color:rgba(0,0,0,0.54);" v-if="!(Window_Width>600)">
               <md-icon>account_circle</md-icon>
             </md-button>
           <md-button @click="logout()" style="background-color: #b6d6d4; " v-if="(Window_Width>600)">
-            <h6 style="color:black">Logout</h6>
+            <h6 style="color:black">ออกจากระบบ</h6>
           </md-button>
             <md-button @click="logout()" class="md-icon-button" style="background-color:#b6d6d4" v-if="!(Window_Width>600)">
               <md-icon style="color:black;">power_settings_new</md-icon>
@@ -25,7 +25,7 @@
       <md-app-drawer md-permanent="card" :md-active.sync="menuVisible" class="menu_color">
         <md-toolbar class="md-transparent" md-elevation="0">
           <div class="md-toolbar-section-end">
-            <span class="span_center">Menu</span>
+            <span class="span_center">เมนู</span>
             <md-button class="md-icon-button md-dense" @click="toggleMenu" v-if="!(Window_Width>600)">
               <md-icon>keyboard_arrow_left</md-icon>
             </md-button>
@@ -35,17 +35,17 @@
         <md-list class="delete_margin">
           <md-list-item to="/doctor_relation" class="unselected">
             <md-icon style="margin-right:10px">person_add</md-icon>
-            <span class="md-list-item-text selected_text">Select Patient</span>
+            <span class="md-list-item-text selected_text">เลือกผู้ป่วย</span>
           </md-list-item>
 
           <md-list-item to="/doctor_drug_information" class="unselected">
             <md-icon style="margin-right:10px">description</md-icon>
-            <span class="md-list-item-text unselected_text">Drug Information</span>
+            <span class="md-list-item-text unselected_text">ข้อมูลยา</span>
           </md-list-item>
 
           <md-list-item to="/doctor_drug_interaction" class="unselected">
             <md-icon style="margin-right:10px">bubble_chart</md-icon>
-            <span class="md-list-item-text unselected_text">Drug Interaction</span>
+            <span class="md-list-item-text unselected_text">ปฏิกิริยาระหว่างยา</span>
           </md-list-item>
         </md-list>
 

@@ -4,10 +4,10 @@
     <md-card>
       <md-card-header>
         <md-card-header-text>
-          <h2 style="text-align:center;">Ordering Drug</h2>
-          <h4 style="text-align:left;">Patient Name : {{patient.Firstname}} {{patient.Lastname}}</h4>
-          <h4 style="text-align:left;">Doctor Name : {{doctor.Firstname}} {{doctor.Lastname}}</h4>
-          <h3> allergic drug of patient is {{allergicOfPatient.length>0? "":'-'}} <md-chip v-for="index in allergicOfPatient" :key="index">{{index}}</md-chip></h3> 
+          <h2 style="text-align:center;">สั่งยา</h2>
+          <h4 style="text-align:left;">ผู้ป่วย : {{patient.Firstname}} {{patient.Lastname}}</h4>
+          <h4 style="text-align:left;">แพทย์ : {{doctor.Firstname}} {{doctor.Lastname}}</h4>
+          <h3> ยาที่ผู้ป่วยแพ้ : {{allergicOfPatient.length>0? "":'-'}} <md-chip v-for="index in allergicOfPatient" :key="index">{{index}}</md-chip></h3> 
         </md-card-header-text>
       </md-card-header>
     </md-card>
@@ -20,10 +20,10 @@
         <!--header of list-->
         <md-table-toolbar>
           <div class="md-toolbar-section-start">
-            <h1 class="md-title">OrderID {{orderID}}</h1>
+            <h1 class="md-title">หมายเลขใบสั่งยา {{orderID}}</h1>
           </div>
           <md-field md-clearable class="md-toolbar-section-end" style="margin-left:5px;margin-right:5px;">
-            <md-input placeholder="Search by Drug Name..." v-model="search" @input="searchOnTable" />
+            <md-input placeholder="กรุณาค้นหาจากชื่อยา..." v-model="search" @input="searchOnTable" />
           </md-field>
 
           <!--add drug to list button-->
@@ -31,25 +31,25 @@
             <md-dialog :md-active.sync="active">
               <md-card class="md-layout-item">
                 <md-card-header>
-                  <div class="md-title">Ordering Drug</div>
+                  <div class="md-title">สั่งยา</div>
                 </md-card-header>
                 <md-card-content style="padding-bottom:0px;">
 
                   <form novalidate @submit.prevent="addDrugToList">
-                    <label>GPName</label>   
+                    <label>ชื่อยา(GP)</label>   
                      <div style="margin:20px 0 20px 0;">                 
                     <input v-model="query2" id="input" class="form-control" type="text" placeholder="Type to search...">
                     <typeahead v-model="query" @input="calculateQuantity()" target="#input" :data="drugsSearch" :limit="drugsSearch.length" :match-start="true" :force-select="true" />    
                      </div>                
                     <div class="md-layout">
                       <div class="md-layout-item" style="margin-right:5px">
-                        <label>Dosage</label>
+                        <label>จำนวนโดส</label>
                         <md-field md-clearable>
                           <md-input v-model="newDrugs.Dosage.dose" type="number" min="0" placeholder="Enter Number" @input="calculateQuantity"></md-input>
                         </md-field>
                       </div>
                       <div class="md-layout-item" style="margin-left:5px">
-                        <label>Unit</label>
+                        <label>หน่วย</label>
                         <md-field>
 
                           <md-select v-model="newDrugs.Dosage.unit" placeholder="Select Unit" @input="calculateQuantity">
@@ -80,7 +80,7 @@
                       </div>
                     </div>
 
-                    <label>Duration(ระยะเวลาที่บริโภคยา)</label>
+                    <label>ระยะเวลาที่บริโภคยา</label>
                     <div class="md-layout">
                       <div class="md-layout-item" style="margin-right:5px">
                         <md-field md-clearable>
@@ -105,7 +105,7 @@
                       <label>Date</label>
                       <md-input v-model="newDrugs.Dosage"></md-input>
                     </md-field-->
-                    <label>Frequency</label>
+                    <label>ความถี่</label>
                     <div class="md-layout">
                       <md-checkbox v-if="newDrugs.Frequency.symptoms == 'true'" v-model="newDrugs.Frequency.mor" value="true"
                         @change="calculateQuantity" disabled>เช้า</md-checkbox>
@@ -132,12 +132,12 @@
                       <md-checkbox v-else v-model="newDrugs.Frequency.after" value="true" @change="calculateQuantity">หลังอาหาร</md-checkbox>
                     </div>
 
-                    <label>Quantity(ปริมาณยาทั้งหมด)</label>                    
+                    <label>ปริมาณยาทั้งหมด</label>                    
                     <div class="md-layout" v-if="newDrugs.Frequency.symptoms != 'true'">
                       <div class="md-layout-item" style="margin-right:5px">
 
                         <md-field>
-                      <label>Calculate Automatic</label>
+                      <label>ปริมาณคำนวณอัตโนมัติ</label>
                       <md-input readonly v-model="newDrugs.Quantity" placeholder="Calculate Automatic"></md-input>
                     </md-field>
                       </div>
@@ -177,14 +177,14 @@
                       <div class="md-layout-item" style="margin-right:5px">
 
                         <md-field md-clearable>
-                          <label>Calculate Automatic</label>
+                          <label>ปริมาณคำนวณอัตโนมัติ</label>
                           <md-input v-model="newDrugs.Quantity" type="number" min="0" placeholder="Enter Number" @input="calculateQuantity"></md-input>
                         </md-field>
                       </div>
 
                       <div class="md-layout-item" style="margin-left:5px">
                         <md-field>
-                          <label>Unit</label>
+                          <label>หน่วย</label>
                           <md-select v-model="newDrugs.Dosage.unit" placeholder="Select Unit" @input="calculateQuantity">
                             <md-option value="amp">Amp(หลอด)</md-option>
                             <md-option value="cc">CC(ซีซี)</md-option>
@@ -197,20 +197,20 @@
                       </div>
                     </div>
 
-                    <label>Select Dispense Date</label>    
+                    <label>กรุณาเลือกวันจ่ายยา</label>    
                     <md-datepicker v-model="newDrugs.DispendStartDate" md-immediately>
-                      <label>Select Dispense Date</label>
+                      <label>กรุณาเลือกวันจ่ายยา</label>
                     </md-datepicker>
 
-                    <label>Note</label>
+                    <label>บันทึกเพิ่มเติม</label>
                     <md-field md-clearable>
                       <md-textarea v-model="newDrugs.Description" placeholder="Enter Text"></md-textarea>
                     </md-field>
 
                     <md-card-actions style="padding:0px;padding-bottom:8px;">
                       <!--md-button type="submit" class="md-primary" :disabled="sending">Create user</md-button-->
-                      <md-button class="md-primary" @click="active = false">Close</md-button>
-                      <md-button type="submit" class="md-primary">Save</md-button>
+                      <md-button class="md-primary" @click="active = false">ปิด</md-button>
+                      <md-button type="submit" class="md-primary">บันทึก</md-button>
                     </md-card-actions>
                   </form>
                 </md-card-content>
@@ -218,13 +218,13 @@
             </md-dialog>
             <md-button class="md-primary md-raised" @click="addDrugToListBtn" style="background-color:#FB6A07">
               <!--i class="material-icons">&#xE147;</i-->
-              Add drug to list
+              เพิ่มยาเข้าสู่รายการ
             </md-button>
           </div>
           <!--confirm button-->
           <div style="margin-left:5px;margin-right:5px;">
             <md-dialog :md-active.sync="showDialog" style="overflow:auto">
-              <md-dialog-title>List of Ordering Drugs</md-dialog-title>
+              <md-dialog-title>ยาทั้งหมดในรายการ</md-dialog-title>
               <md-table v-model="drugs" md-sort="DrugNO" md-sort-order="asc" md-card>
                 <md-table-row slot="md-table-row" slot-scope="{ item }">
                   <md-table-cell md-label="Drug No.">{{ item.DrugNo }}</md-table-cell>
@@ -244,13 +244,13 @@
                 </md-table-row>
               </md-table>
               <md-dialog-actions>
-                <md-button class="md-primary" @click="restartConfirm()">Cancel</md-button>
-                <md-button v-if="loadingAll == false" class="md-primary" @click="confirmOrder">Confirm</md-button>
-                <md-button v-else class="md-primary" @click="confirmOrder" disabled>Confirm</md-button>
+                <md-button class="md-primary" @click="restartConfirm()">ยกเลิก</md-button>
+                <md-button v-if="loadingAll == false" class="md-primary" @click="confirmOrder">ยืนยัน</md-button>
+                <md-button v-else class="md-primary" @click="confirmOrder" disabled>ยืนยัน</md-button>
               </md-dialog-actions>
             </md-dialog>
             <!--md-button class="md-accent md-raised" @click="showDialog = true">Confirm</md-button-->
-            <md-button v-if="drugs.length!=0" class="md-primary md-raised" @click="onConfirmClick()" style="background-color:#05AB00">Save</md-button>
+            <md-button v-if="drugs.length!=0" class="md-primary md-raised" @click="onConfirmClick()" style="background-color:#05AB00">บันทึก</md-button>
             <md-button v-else class="md-primary md-raised" @click="onConfirmClick()" disabled>Save</md-button>
           </div>
           <!--show drug history button-->
@@ -258,10 +258,10 @@
             <md-dialog :md-active.sync="first" style="overflow:auto">
               <contentA/>
               <md-dialog-actions>
-                <md-button class="md-primary" @click="first = false">Close</md-button>
+                <md-button class="md-primary" @click="first = false">ปิด</md-button>
               </md-dialog-actions>
             </md-dialog>
-            <md-button class="md-primary md-raised" @click="first = true" style="background-color:#643895">Drug History</md-button>
+            <md-button class="md-primary md-raised" @click="first = true" style="background-color:#643895">ประวัติการใช้ยา</md-button>
           </div>
           <!-- dialog message-->
           <md-dialog-alert :md-active.sync="showMessage" :md-content="message" md-confirm-text="Close" /> 
@@ -273,13 +273,13 @@
 
         <!--list-->
         <md-table-row slot="md-table-row" slot-scope="{ item }">
-          <md-table-cell md-label="Order No." md-sort-by="DrugNo" md-numeric>{{ item.DrugNo }}</md-table-cell>
-          <md-table-cell md-label="Drug Name" md-sort-by="GPName" md-numeric>{{ item.GPName }}</md-table-cell>
-          <md-table-cell md-label="Duration(days)" md-sort-by="Duration" md-numeric>{{ item.Duration.year }} ปี {{
+          <md-table-cell md-label="หมายเลขคำสั่งยา" md-sort-by="DrugNo" md-numeric>{{ item.DrugNo }}</md-table-cell>
+          <md-table-cell md-label="ชื่อยา" md-sort-by="GPName" md-numeric>{{ item.GPName }}</md-table-cell>
+          <md-table-cell md-label="ระยะเวลา(วัน)" md-sort-by="Duration" md-numeric>{{ item.Duration.year }} ปี {{
             item.Duration.month }} เดือน {{ item.Duration.day }} วัน</md-table-cell>
-          <md-table-cell md-label="Doctor Name" md-sort-by="doctorName" md-numeric>{{ item.doctorName }}</md-table-cell>
-          <md-table-cell md-label="Ward" md-sort-by="ward" md-numeric>{{ item.ward }}</md-table-cell>
-          <md-table-cell md-label="Actions" md-numeric>
+          <md-table-cell md-label="แพทย์" md-sort-by="doctorName" md-numeric>{{ item.doctorName }}</md-table-cell>
+          <md-table-cell md-label="แผนก" md-sort-by="ward" md-numeric>{{ item.ward }}</md-table-cell>
+          <md-table-cell md-label=" " md-numeric>
             <md-button class="md-icon-button" @click="editDrug(item)">
               <md-icon style="color:#ffc107;">&#xE254;</md-icon>
             </md-button>

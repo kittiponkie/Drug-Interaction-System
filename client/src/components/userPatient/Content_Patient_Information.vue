@@ -3,13 +3,13 @@
     <div class="col-lg-6" style="width:100%;">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h3>Patient id : xxxxxxx </h3>
+          <h3>หมายเลขประจำตัวผู้ป่วย : xxxxxxx </h3>
           <br>
           <!-- patient data -->
           <form>
             <!--prefix-->
             <div class="form-goup row">
-              <label for="prefix" class="col-sm-2 col-form-label">Prefix</label>
+              <label for="prefix" class="col-sm-2 col-form-label">คำนำหน้า</label>
               <div class="col-sm-10">
                 <input type="text" readonly class="form-control" id="prefix" value="MR.">
               </div>
@@ -17,28 +17,28 @@
             <br>
             <!--name-->
             <div class="form-group row">
-              <label for="name" class="col-sm-2 col-form-label">Name</label>
+              <label for="name" class="col-sm-2 col-form-label">ชื่อ</label>
               <div class="col-sm-10">
                 <input type="text" readonly class="form-control" id="namesurname" value="Naphatsorn">
               </div>
             </div>
             <!--surname-->
             <div class="form-group row">
-              <label for="surname" class="col-sm-2 col-form-label">Surname</label>
+              <label for="surname" class="col-sm-2 col-form-label">นามสกุล</label>
               <div class="col-sm-10">
                 <input type="text" readonly class="form-control" id="surname" value="Buarattanakarn">
               </div>
             </div>
             <!--sex-->
             <div class="form-group row">
-              <label for="sex" class="col-sm-2 col-form-label">Sex</label>
+              <label for="sex" class="col-sm-2 col-form-label">เพศ</label>
               <div class="col-sm-10">
                 <input type="text" readonly class="form-control" id="sex" value="Female">
               </div>
             </div>
             <!--birthday-->
             <div class="form-group row">
-              <label for="bod" class="col-sm-2 col-form-label">Birthday</label>
+              <label for="bod" class="col-sm-2 col-form-label">วันเกิด</label>
               <div class="col-sm-10">
                 <input type="text" readonly class="form-control" id="birthday" value="09/06/2540">
                 <input type="text" readonly class="form-control" id="age" value="21 y 5 m 21 d">
@@ -46,70 +46,70 @@
             </div>
             <!--id card-->
             <div class="form-group row">
-              <label for="idcard" class="col-sm-2 col-form-label">ID Card</label>
+              <label for="idcard" class="col-sm-2 col-form-label">หมายเลขบัตรประชาชน</label>
               <div class="col-sm-10">
                 <input type="text" readonly class="form-control" id="card" value="1849900281533">
               </div>
             </div>
             <!--status-->
             <div class="form-group row">
-              <label for="idcard" class="col-sm-2 col-form-label">Status</label>
+              <label for="idcard" class="col-sm-2 col-form-label">สถานะ</label>
               <div class="col-sm-10">
                 <input type="text" readonly class="form-control" id="card" value="1849900281533">
               </div>
             </div>
             <!--ethnicity -->
             <div class="form-group row">
-              <label for="ethnicity " class="col-sm-2 col-form-label">Ethnicity</label>
+              <label for="ethnicity " class="col-sm-2 col-form-label">เชื้อชาติ</label>
               <div class="col-sm-10">
                 <input type="text" readonly class="form-control" id="ethnicity " value="Thai">
               </div>
             </div>
             <!--nationality-->
             <div class="form-group row">
-              <label for="nationality" class="col-sm-2 col-form-label">Nationality</label>
+              <label for="nationality" class="col-sm-2 col-form-label">สัญญาติ</label>
               <div class="col-sm-10">
                 <input type="text" readonly class="form-control" id="nationality" value="Thai">
               </div>
             </div>
             <!--Religion-->
             <div class="form-group row">
-              <label for="Religion" class="col-sm-2 col-form-label">Religion</label>
+              <label for="Religion" class="col-sm-2 col-form-label">ศาสนา</label>
               <div class="col-sm-10">
                 <input type="text" readonly class="form-control" id="Religion" value="Thai">
               </div>
             </div>
             <!--Blood-->
             <div class="form-group row">
-              <label for="Blood" class="col-sm-2 col-form-label">Blood</label>
+              <label for="Blood" class="col-sm-2 col-form-label">หมู่เลือด</label>
               <div class="col-sm-10">
                 <input type="text" readonly class="form-control" id="Blood" value="A">
               </div>
             </div>
             <!--Address-->
             <div class="form-group row">
-              <label for="Address" class="col-sm-2 col-form-label">Address</label>
+              <label for="Address" class="col-sm-2 col-form-label">ที่อยู่</label>
               <div class="col-sm-10">
                 <input type="text" readonly class="form-control" id="Address" value="RC mansion room206 Phutthamonthon Sai 4 Road Salaya, Phutthamonthon Nakhonpathom, 73170 Thailand">
               </div>
             </div>
             <!--PhoneNumber-->
             <div class="form-group row">
-              <label for="PhoneNumber" class="col-sm-2 col-form-label">Phone Number</label>
+              <label for="PhoneNumber" class="col-sm-2 col-form-label">เบอร์โทร</label>
               <div class="col-sm-10">
                 <input type="text" readonly class="form-control" id="PhoneNumber" value="0865076630">
               </div>
             </div>
             <!--Drugallergy-->
             <div class="form-group row">
-              <label for="Drugallergy" class="col-sm-2 col-form-label">Drug allergy</label>
+              <label for="Drugallergy" class="col-sm-2 col-form-label">การแพ้ยา</label>
               <div class="col-sm-10">
                 <input type="text" readonly class="form-control" id="Drugallergy" value="Tramadol,Paracetamol">
               </div>
             </div>
             <!--Foodallergy-->
             <div class="form-group row">
-              <label for="Foodallergy" class="col-sm-2 col-form-label">Food allergy</label>
+              <label for="Foodallergy" class="col-sm-2 col-form-label">การแพ้อาหาร</label>
               <div class="col-sm-10">
                 <input type="text" readonly class="form-control" id="Foodallergy" value="fish">
               </div>
