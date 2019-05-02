@@ -37,14 +37,16 @@ var Account = require("../models/Account")
 var AccountRelation = require("../models/AccountRelation")
 var DoctorRelation = require("../models/DoctorRelation")
 var DrugHistory = require("../models/DrugHistory")
+var list = require("../models/list")
+
 // PatientInfo
 // Fetch single post
 app.get("/PatientInfo/:Id", (req, res) => {
   console.log('GET method')
   const id = req.params.Id;
   PatientInfo.find({
-      "PatientID": id
-    })
+    "PatientID": id
+  })
     .exec()
     .then(doc => {
       console.log(id);
@@ -294,10 +296,10 @@ app.delete('/remove/PatientInfo/:id', (req, res) => {
 app.get("/DoctorInfo/:Id", (req, res) => {
   console.log('GET method')
   const id = req.params.Id;
-  console.log("ID ===== >"+id)
+  console.log("ID ===== >" + id)
   DoctorInfo.find({
-      "DoctorID": id
-    })
+    "DoctorID": id
+  })
     .exec()
     .then(doc => {
       //console.log("Doctorid :" + id);
@@ -358,7 +360,7 @@ app.post('/post/DoctorInfo', (req, res) => {
   var Department = req.body.Department
   var Address = req.body.Address
   var Phone = req.body.Phone
-  
+
   DoctorInfo.find()
     .exec()
     .then(docs => {
@@ -510,8 +512,8 @@ app.get("/PharmacistInfo/:Id", (req, res) => {
   console.log('GET method')
   const id = req.params.Id;
   PharmacistInfo.find({
-      "_id": id
-    })
+    "_id": id
+  })
     .exec()
     .then(doc => {
       console.log("Pharmacistid :" + id);
@@ -572,7 +574,7 @@ app.post('/post/PharmacistInfo', (req, res) => {
   var Address = req.body.Address
   var Phone = req.body.Phone
 
-  
+
   PharmacistInfo.find()
     .exec()
     .then(docs => {
@@ -721,8 +723,8 @@ app.get("/AllergicDrug/:PatientID", (req, res) => {
   console.log('GET method')
   const PatientID = req.params.PatientID;
   AllergicDrug.find({
-      "PatientID": PatientID
-    })
+    "PatientID": PatientID
+  })
     .exec()
     .then(doc => {
       console.log("PatientID :" + PatientID);
@@ -795,8 +797,8 @@ app.get("/AccountRelation/Patient/:PatientID", (req, res) => {
   console.log('GET method')
   const PatientID = req.params.PatientID;
   AccountRelation.find({
-      "PatientID": PatientID
-    })
+    "PatientID": PatientID
+  })
     .exec()
     .then(doc => {
       console.log("PatientID :" + PatientID);
@@ -824,8 +826,8 @@ app.get("/DoctorRelation/Doctor/:DoctorID", (req, res) => {
   console.log('GET method')
   const DoctorID = req.params.DoctorID;
   DoctorRelation.find({
-      "DoctorID": DoctorID
-    })
+    "DoctorID": DoctorID
+  })
     .exec()
     .then(doc => {
       console.log("DoctorID :" + DoctorID);
@@ -864,9 +866,9 @@ app.post('/post/AccountRelation', (req, res) => {
   }
 
   AccountRelation.find({
-      "PatientID": PatientID,
-      "DoctorID": DoctorID
-    })
+    "PatientID": PatientID,
+    "DoctorID": DoctorID
+  })
     .exec()
     .then(doc => {
       console.log(doc)
@@ -983,8 +985,8 @@ app.post('/Register', (req, res) => {
   }
 
   Account.find({
-      "๊Username": Username
-    })
+    "๊Username": Username
+  })
     .exec()
     .then(doc => {
       console.log(doc)
@@ -992,8 +994,8 @@ app.post('/Register', (req, res) => {
       if (isEmptyObject(doc)) {
 
         Account.find({
-            "Email": Email
-          })
+          "Email": Email
+        })
           .exec()
           .then(doc => {
             console.log(doc)
@@ -1047,9 +1049,9 @@ app.post('/Login', (req, res) => {
   var Username = req.body.Username
   var Password = req.body.Password
   Account.findOne({
-      'Username': Username,
-      'Password': Password
-    })
+    'Username': Username,
+    'Password': Password
+  })
     .exec()
     .then(doc => {
       console.log(doc)
@@ -1283,16 +1285,16 @@ app.get("/get/OrderID", (req, res) => {
       } else {
         newID = "O00001"
       }
-      console.log("newID" + newID )
+      console.log("newID" + newID)
       res.send({
-        "NewOrderID" : newID 
+        "NewOrderID": newID
       })
     })
     .catch(err => {
       console.log(err);
       res.status(500).json({ error: err });
     });
-    
+
 });
 
 // ADD DrugHistory -> Drug Order Page 
@@ -1485,3 +1487,222 @@ app.delete('/remove/DrugHistory/:OrderID/:DrugNo', (req, res) => {
     })
   })
 })
+
+
+// Drug History - UnConfirmOrder
+// List UnConfirmOrder Drug History By PatientID and DoctorID
+app.get("/DrugHistory/:PatientID", (req, res) => {
+  console.log('GET method')
+  const PatientID = req.params.PatientID;
+  DrugHistory.find({ "PatientID": PatientID })
+    .exec()
+    .then(doc => {
+      console.log("PatientID :" + PatientID);
+      console.log("From database", doc);
+      if (doc) {
+        res.status(200).json(doc);
+      } else {
+        res
+          .status(404)
+          .json({ message: "No valid entry found for provided ID" });
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({ error: err });
+    });
+});
+
+
+// Fetch Data Interaction Drug into DB
+app.get('/post/interact/:rxcui', (req, res) => {
+
+  var rxcui = req.params.rxcui
+
+  function isEmptyObject(obj) {
+    return !Object.keys(obj).length;
+  }
+
+  function sleep(milliseconds) {
+    var start = new Date().getTime();
+    for (var i = 0; i < 1e7; i++) {
+      if ((new Date().getTime() - start) > milliseconds){
+        break;
+      }
+    }
+  }
+
+  async function getData() {
+    await axios.get('https://rxnav.nlm.nih.gov/REST/interaction/interaction.json?rxcui=' + rxcui + '&sources=DrugBank').then(Response => {
+      console.log('Axios OK')
+
+      var count = 0
+      while (Response.data.interactionTypeGroup[0].interactionType[0].interactionPair[count] != null) {
+      //while (count < 50) {
+
+        rxcui1 = Response.data.interactionTypeGroup[0].interactionType[0].interactionPair[count].interactionConcept[0].minConceptItem.rxcui
+        Drug1 = Response.data.interactionTypeGroup[0].interactionType[0].interactionPair[count].interactionConcept[0].minConceptItem.name
+        rxcui2 = Response.data.interactionTypeGroup[0].interactionType[0].interactionPair[count].interactionConcept[1].minConceptItem.rxcui
+        Drug2 = Response.data.interactionTypeGroup[0].interactionType[0].interactionPair[count].interactionConcept[1].minConceptItem.name
+        Severity = Response.data.interactionTypeGroup[0].interactionType[0].interactionPair[count].severity
+        Description = Response.data.interactionTypeGroup[0].interactionType[0].interactionPair[count].description
+
+        console.log('-------------  '+count+'  -------------')
+        console.log(rxcui1)
+        console.log(rxcui2)
+        console.log(Description)
+
+        count += 1
+
+        var new_list = new list({
+          Rxcui1: rxcui1,
+          Drug1: Drug1,
+          Rxcui2: rxcui2,
+          Drug2: Drug2,
+          Severity: Severity,
+          Description: Description
+        })
+
+        
+        sleep(100)
+        
+        
+        new_list.save(function (error) {
+          if (error) {
+            console.log(error)
+          }
+        })
+
+        new_list = null
+        
+        /*   
+        list.findOne({ $or: [{ "rxcui1": rxcui1, "rxcui2": rxcui2 }, { "rxcui1": rxcui2, "rxcui2": rxcui1 }] })
+          .exec()
+          .then(doc => {
+            if (doc) {
+              new_list = null
+            } else {
+              
+              new_list.save(function (error) {
+                if (error) {
+                  console.log(error)
+                }
+                
+              })
+            }
+          })
+          .catch(err => {
+            console.log(err);
+            res.status(500).json({ error: err });
+          });
+
+*/
+      }
+      res.status(200).send({
+        success: true,
+        message: 'Post saved successfully!'
+      })
+
+    });
+    
+
+    //console.log('rxcui : ' + RXCUI)
+
+    /*await DrugHistory.findOne({ "OrderID": OrderID }, null, { "sort": { "DrugNo": -1 } })
+      .exec()
+      .then(doc => {
+        console.log(doc);
+        if (doc) {
+          console.log("LastID :", doc.DrugNo);
+          newID = doc.DrugNo.replace(' ', '');
+          newID = (newID * 1) + 1
+          console.log("์NewDrugNoID :", newID);
+        } else {
+          newID = "1"
+        }
+      })*/
+    //DrugNo = newID
+    /*
+    Interaction.find({ $or: [{ "rxcui1": rxcui }, { "rxcui2": rxcui }] })
+      .exec()
+      .then(doc => {
+        if (!isEmptyObject(doc)) {
+          var new_DrugHistory = new DrugHistory({
+            OrderID: OrderID,
+            PatientID: PatientID,
+            DoctorID: DoctorID,
+            PharmacistID: PharmacistID,
+            OrderStartDate: OrderStartDate,
+            DispendStartDate: DispendStartDate,
+            Duration: Duration,
+            UsingStatus: UsingStatus,
+            DispendStatus: DispendStatus,
+            DrugNo: DrugNo,
+            GPName: GPName,
+            RXCUI: RXCUI,
+            Dosage: Dosage,
+            Frequency: Frequency,
+            Times: Times,
+            Quantity: Quantity,
+            Dispend: Dispend,
+            Description: Description
+          })
+
+          new_DrugHistory.save(function (error) {
+            if (error) {
+              console.log(error)
+            }
+            res.status(200).send({
+              success: true,
+              message: 'Post saved successfully!'
+            })
+          })
+        }
+        else {
+          res.status(404).send({
+            success: false,
+            message: "Doesn't have relation between account"
+          })
+        }
+      })
+      .catch(err => {
+        console.log(err);
+        res.status(500).json({ error: err });
+      });
+  
+  */
+  }
+    
+  getData()
+})
+
+app.get("/checkinteract/:rxcui1/:rxcui2", (req, res) => {
+
+  function isEmptyObject(obj) {
+    return !Object.keys(obj).length;
+  }
+
+  const rxcui1 = req.params.rxcui1;
+  const rxcui2 = req.params.rxcui2;
+  list.find({ $or: [{ "Rxcui1": rxcui1, "Rxcui2": rxcui2 }, { "Rxcui1": rxcui2, "Rxcui2": rxcui1 }] })
+    .exec()
+    .then(doc => {
+      console.log(doc)
+      if (!isEmptyObject(doc) ) {
+        res.status(200).send({
+          success: true,
+          message: 'Interaction alert !!!'
+        })
+        
+      } else {
+        res.status(200).send({
+          success: false,
+          message: 'No interact , Can have togeter'
+        })
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({ error: err });
+    });
+});
