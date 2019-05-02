@@ -154,6 +154,7 @@
         if (this.$refs.username.value != '') {
           await this.DataPharmacist()
           await this.DataAccount()
+          await this.$router.push('/login')
         }        
       },
       async DataPharmacist() {

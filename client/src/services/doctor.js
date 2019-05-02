@@ -10,6 +10,9 @@ export default {
   patientInfo(params){
     return Api().get("/PatientInfo/"+params )
   },
+  pharmacistInfo(params){
+    return Api().get("/PharmacistInfo/"+params )
+  },
   //drug order
   getOrderId(PatientID){
     return Api().get("/DrugHistory/"+PatientID)
@@ -19,6 +22,8 @@ export default {
   },
   allergicOfPatient(id){
     return Api().get('/AllergicDrug/'+id)
-  }  
-
+  },
+  checkInteraction(rxcui1,rxcui2){
+    return Api().get('/checkinteract/'+rxcui1+'/'+rxcui2)
+  }   
 }

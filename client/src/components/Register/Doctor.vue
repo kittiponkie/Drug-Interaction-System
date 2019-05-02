@@ -160,6 +160,7 @@
         if (this.$refs.username.value != '') {
           await this.DataDoctor()
           await this.DataAccount()
+          await this.$router.push('/login')
         }        
       },
       async DataDoctor() {
