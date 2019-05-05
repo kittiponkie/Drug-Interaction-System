@@ -22,8 +22,8 @@
                 <div class="row">
                   <!-- prefix -->
                   <div class="col-sm-6 form-group">
-                    <label>Prefix</label>
-                   <select ref="prefix" class="form-control">
+                    <label>คำนำหน้า</label>
+                    <select ref="prefix" class="form-control">
                       <option selected="">นาย</option>
                       <option>นาง</option>
                       <option>นางสาว</option>
@@ -36,8 +36,8 @@
                       <option>หม่อมเจ้า</option>
                       <option>ศาสตราจารย์เกียรติคุณ (กิตติคุณ)</option>
                       <option>ศาสตราจารย์</option>
-                      <option>ผู้ช่วยศาสตราจารย์	</option>
-                      <option>รองศาสตราจารย์	</option>
+                      <option>ผู้ช่วยศาสตราจารย์ </option>
+                      <option>รองศาสตราจารย์ </option>
                     </select>
                   </div>
                 </div>
@@ -45,11 +45,11 @@
                 <!-- Name & Surname -->
                 <div class="row">
                   <div class="col-sm-6 form-group">
-                    <label>ชื่อจริง</label>
+                    <label>ชื่อจริง <label style="color:red">*</label></label>
                     <input ref="firstname" type="text" placeholder="กรอกชื่อจริง.." class="form-control">
                   </div>
                   <div class="col-sm-6 form-group">
-                    <label>นามสกุล</label>
+                    <label>นามสกุล <label style="color:red">*</label></label>
                     <input ref="lastname" type="text" placeholder="กรอกนามสกุล.." class="form-control">
                   </div>
                 </div>
@@ -71,12 +71,15 @@
                   </div>
                 </div>
 
-                <!-- Weight & Height -->
                 <div class="row">
+                  <div class="col-sm-6 form-group">
+                    <label>เลขที่ใบอนุญาตเภสัชกร <label style="color:red">*</label></label>
+                    <input ref="license" type="text" placeholder="กรอกเลขที่ใบอนุญาตเภสัชกร.." class="form-control">
+                  </div>
                   <div class="col-sm-6 form-group">
                     <label>สังกัด</label>
                     <input ref="department" type="text" placeholder="กรอกสังกัด.." class="form-control">
-                  </div>
+                  </div>                  
                 </div>
 
                 <div class="form-group">
@@ -93,23 +96,26 @@
                   <input ref="email" type="text" placeholder="กรอกอีเมล์.." class="form-control">
                 </div>
                 <div class="form-group">
-                  <label>ชื่อผู้ใช้</label>
+                  <label>ชื่อผู้ใช้ <label style="color:red">*</label></label>
                   <input ref="username" type="text" placeholder="กรอกชื่อผู้ใช้.." class="form-control">
                 </div>
                 <div class="form-group">
-                  <label>รหัสผ่าน</label>
-                  <input ref="password" type="password" placeholder="กรอกรหัสผ่าน...อย่างน้อย 5 ตัวอักษร" class="form-control">
+                  <label>รหัสผ่าน <label style="color:red">*</label></label>
+                  <input ref="password" type="password" placeholder="กรอกรหัสผ่าน...อย่างน้อย 5 ตัวอักษร"
+                    class="form-control">
                 </div>
-                <button type="button" class="btn btn-lg btn-info" style="margin-left: 7px" @click="submit">สมัคร</button>
-                <button type="button" class="btn btn-lg btn-info" style="margin-left: 7px" @click="cancel">ยกเลิก</button>
+                <button type="button" class="btn btn-lg btn-info" style="margin-left: 7px"
+                  @click="submit">สมัคร</button>
+                <button type="button" class="btn btn-lg btn-info" style="margin-left: 7px"
+                  @click="cancel">ยกเลิก</button>
               </div>
             </form>
 
           </div>
-          <div>
+          <!--div>
             <h3>{{dataPharmacist}}</h3>
             <h3>{{dataAccount}}</h3>
-          </div>
+          </div-->
         </div>
       </md-tab>
     </md-tabs>
@@ -131,6 +137,7 @@
         Lastname: String,
         Email: String,
         Department: String,
+        License:String,
         Sex: String,
         IDcardNumber: String,
         Address: String,
@@ -144,39 +151,81 @@
         AccountType: String,
         RegisterStatus: String
       },
-      test: null
+      checkSuccess: {
+        pharmacistInfo: false,
+        account: false
+      },
+      checkUsername: false
     }),
     methods: {
       cancel() {
         window.location.href = "http://localhost:8080/register/pharmacist";
       },
       async submit() {
-        if (this.$refs.username.value != '') {
+        if(this.$refs.firstname.value == '' || this.$refs.lastname.value == '' || this.$refs.license.value == '' || this.$refs.username.value == '' || this.$refs.password.value == '') {
+          let message = 'กรุณากรอกข้อมูลดังต่อไปนี้ให้ครบถ้วน\n\n'
+          if(this.$refs.firstname.value == '') {
+            message += '  - ชื่อจริง\n'
+          } 
+          if(this.$refs.lastname.value == '') {
+            message += '  - นามสกุล\n'
+          }
+          if(this.$refs.license.value == '') {
+            message += '  - เลขที่ใบอนุญาตเภสัชกร\n'
+          } 
+          if(this.$refs.username.value == '') {
+            message += '  - ชื่อผู้ใช้\n'
+          } 
+          if(this.$refs.password.value == '') {
+            message += '  - รหัสผ่าน\n'
+          } 
+          alert(message)
+          
+        } else {
+          await registerService.allAccount().then(Response=>{
+            console.log(Response.data)
+            if(Response.data != [] || Response.data.length != 0){
+              Response.data.forEach(item =>{
+                if(item.Username == this.$refs.username.value) {
+                  alert("มีชื่อผู้ใช้งาน \""+item.Username+"\" ในระบบแล้ว \nกรุณากรอกชื่อผู้ใช้งานใหม่")
+                  this.checkUsername = true
+                }
+              })
+            }
+          })
           await this.DataPharmacist()
           await this.DataAccount()
-          await this.$router.push('/login')
-        }        
+          
+        }
+
+
+
       },
       async DataPharmacist() {
         //save value on variable
-
         this.dataPharmacist.PharmacistID = null
         this.dataPharmacist.Prefix = this.$refs.prefix.value
         this.dataPharmacist.Firstname = this.$refs.firstname.value
-        this.dataPharmacist.Lastname = this.$refs.Lastname.value
+        this.dataPharmacist.Lastname = this.$refs.lastname.value
+        this.dataPharmacist.License = this.$refs.license.value
         this.dataPharmacist.Sex = this.$refs.sex.value
         this.dataPharmacist.Email = this.$refs.email.value
         this.dataPharmacist.Department = this.$refs.department.value
         this.dataPharmacist.IDcardNumber = this.$refs.idcard.value
         this.dataPharmacist.Address = this.$refs.address.value
         this.dataPharmacist.Phone = this.$refs.phone.value
-        if (this.$refs.username.value != '') {
-          await registerService.pharmacistInfo(this.dataPharmacist).then(Response => {
+        if(!this.checkUsername)    
+        {    
+          registerService.pharmacistInfo(this.dataPharmacist).then(Response => {
             if (Response.data != "") {
               this.dataPharmacist.PharmacistID = Response.data.PharmacistID
+              if(Response.data.status) this.checkSuccess.pharmacistInfo = true            
+              if(this.checkSuccess.account && this.checkSuccess.pharmacistInfo){
+                this.$router.push('/login')
+              }
             }
-          })
-        }
+          })     
+        } 
       },
       DataAccount() {
         this.dataAccount.ID = this.dataPharmacist.PharmacistID
@@ -184,7 +233,15 @@
         this.dataAccount.Password = this.$refs.password.value
         this.dataAccount.Email = this.$refs.email.value
         this.dataAccount.AccountType = "Pharmacist"
-        registerService.register(this.dataAccount)
+        if(!this.checkUsername) {
+          registerService.register(this.dataAccount).then(Response=>{
+            console.log(Response.data)
+            if(Response.data.success) this.checkSuccess.account = true  
+            if(this.checkSuccess.account && this.checkSuccess.pharmacistInfo){
+              this.$router.push('/login')
+            }
+          })
+        } 
       }
     },
     async mounted() {

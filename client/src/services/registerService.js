@@ -24,5 +24,10 @@ export default {
   //use model AllergicDrug
   allergicDrug (params) {
     return Api().post('/post/AllergicDrug', params)
+  },
+
+  //get all account 
+  allAccount () {
+    return Api().get('/allAccount')
   }
 }

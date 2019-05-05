@@ -654,6 +654,7 @@ app.post('/post/PharmacistInfo', (req, res) => {
   var Lastname = req.body.Lastname
   var Sex = req.body.Sex
   var Email = req.body.Email
+  var Licese = req.body.License
   var IDcardNumber = req.body.IDcardNumber
   var Department = req.body.Department
   var Address = req.body.Address
@@ -680,6 +681,7 @@ app.post('/post/PharmacistInfo', (req, res) => {
           Firstname: Firstname,
           Lastname: Lastname,
           Email: Email,
+          License: Licese,
           Department: Department,
           Sex: Sex,
           IDcardNumber: IDcardNumber,
@@ -690,7 +692,7 @@ app.post('/post/PharmacistInfo', (req, res) => {
           if (error) {
             console.log(error)
           }
-          res.status(200).json(new_Pharmacist)
+          res.status(200).json({status: true , PharmacistID:PharmacistID})
         })
       } else {
         PharmacistID = "PH00000"
@@ -701,6 +703,7 @@ app.post('/post/PharmacistInfo', (req, res) => {
           Firstname: Firstname,
           Lastname: Lastname,
           Email: Email,
+          License: Licese,
           Department: Department,
           Sex: Sex,
           IDcardNumber: IDcardNumber,
@@ -711,7 +714,7 @@ app.post('/post/PharmacistInfo', (req, res) => {
           if (error) {
             console.log(error)
           }
-          res.status(200).json(new_Pharmacist)
+          res.status(200).json({status: true , PharmacistID:PharmacistID})
         })
       }
     })
@@ -1251,7 +1254,7 @@ app.post('/Register', (req, res) => {
   var RegisterStatus
   var ActiveStatus = "1"
 
-  if (AccountType == 'Doctor') {
+  if (AccountType == 'Doctor' && AccountType == 'Pharmacist') {
     RegisterStatus = '0'
   } else {
     RegisterStatus = '1'
@@ -1262,51 +1265,34 @@ app.post('/Register', (req, res) => {
   }
 
   Account.find({
-      "๊Username": Username
+      "Username": Username
     })
     .exec()
     .then(doc => {
       console.log(doc)
 
       if (isEmptyObject(doc)) {
-
-        Account.find({
-            "Email": Email
+        var new_Account = new Account({
+          ID: ID,
+          Username: Username,
+          Password: Password,
+          Email: Email,
+          AccountType: AccountType,
+          RegisterStatus: RegisterStatus,
+          ActiveStatus: ActiveStatus
+        })
+        new_Account.save(function (error) {
+          if (error) {
+            console.log(error)
+          }
+          res.status(200).send({
+            success: true,
+            message: 'Post saved successfully!'
           })
-          .exec()
-          .then(doc => {
-            console.log(doc)
-            if (isEmptyObject(doc)) {
-              var new_Account = new Account({
-                ID: ID,
-                Username: Username,
-                Password: Password,
-                Email: Email,
-                AccountType: AccountType,
-                RegisterStatus: RegisterStatus,
-                ActiveStatus: ActiveStatus
-              })
-              new_Account.save(function (error) {
-                if (error) {
-                  console.log(error)
-                }
-                res.status(200).send({
-                  success: true,
-                  message: 'Post saved successfully!'
-                })
-              })
-            } else {
-              res
-                .status(404)
-                .json({
-                  success: false,
-                  message: "Email had already"
-                })
-            }
-          })
+        })
       } else {
         res
-          .status(404)
+          .status(200)
           .json({
             success: false,
             message: "๊Username had already"

@@ -374,16 +374,16 @@
 
             //get pharmacist info
             if(item.PharmacistID!='-' && item.PharmacistID!=''){
-              console.log(item.PharmacistID)
-            item.PharmacistID.forEach(phar =>{
-              doctorServices.pharmacistInfo(phar.ID).then(result => {
-                if(result.data[0])  {       
-                  phar.Name = result.data[0].Firstname + ' ' + result.data[0].Lastname
-                } else {
-                  phar.Name = "-"
-                }
-              })
-            }) }
+              item.PharmacistID.forEach(phar =>{
+                doctorServices.pharmacistInfo(phar.ID).then(result => {
+                  if(result.data[0])  {       
+                    phar.Name = result.data[0].Firstname + ' ' + result.data[0].Lastname
+                  } else {
+                    phar.Name = "-"
+                  }
+                })
+              }) 
+            }
 
             //separate table
             if(item.DispendStatus == 'done'){ 

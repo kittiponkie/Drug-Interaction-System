@@ -55,7 +55,7 @@
                           <md-select v-model="newDrugs.Dosage.unit" placeholder="Select Unit" @input="calculateQuantity">
                             <md-option v-if="newDrugs.Dosage.unit2=='tablet' || newDrugs.Dosage.unit2=='lozenge'" value="tab">
                               Tablet(เม็ด)</md-option>
-                            <md-option v-if="newDrugs.Dosage.unit2=='oral suspension' || newDrugs.Dosage.unit2=='syrup' || newDrugs.Dosage.unit2=='eye drops' || newDrugs.Dosage.unit2=='injection' || newDrugs.Dosage.unit2=='spray'" value="mL">
+                            <md-option v-if="newDrugs.Dosage.unit2=='oral' || newDrugs.Dosage.unit2=='syrup' || newDrugs.Dosage.unit2=='eye drops' || newDrugs.Dosage.unit2=='injection' || newDrugs.Dosage.unit2=='spray'" value="mL">
                               mL(มิลลิลิตร)</md-option>
                             <md-option v-if="newDrugs.Dosage.unit2=='capsule'" value="capsule">
                               Capsule(แคปซูน)</md-option>
@@ -72,9 +72,7 @@
                             <md-option v-if="newDrugs.Dosage.unit2=='ointment'" value="tube">
                               Tube(หลอด)</md-option>
                             <md-option v-if="newDrugs.Dosage.unit2=='implant'" value="implant">
-                              Implant</md-option>                            
-                            <md-option value="unit">
-                              Unit(หน่วย)</md-option>
+                              Implant</md-option>      
                           </md-select>
                         </md-field>
                       </div>
@@ -148,7 +146,7 @@
                           <md-select v-model="newDrugs.Dosage.unit" placeholder="Select Unit" @input="calculateQuantity">
                             <md-option v-if="newDrugs.Dosage.unit2=='tablet' || newDrugs.Dosage.unit2=='lozenge'" value="tab">
                               Tablet(เม็ด)</md-option>
-                            <md-option v-if="newDrugs.Dosage.unit2=='oral suspension' || newDrugs.Dosage.unit2=='syrup' || newDrugs.Dosage.unit2=='eye drops' || newDrugs.Dosage.unit2=='injection' || newDrugs.Dosage.unit2=='spray'" value="mL">
+                            <md-option v-if="newDrugs.Dosage.unit2=='oral' || newDrugs.Dosage.unit2=='syrup' || newDrugs.Dosage.unit2=='eye drops' || newDrugs.Dosage.unit2=='injection' || newDrugs.Dosage.unit2=='spray'" value="mL">
                               mL(มิลลิลิตร)</md-option>
                             <md-option v-if="newDrugs.Dosage.unit2=='capsule'" value="capsule">
                               Capsule(แคปซูน)</md-option>
@@ -165,9 +163,7 @@
                             <md-option v-if="newDrugs.Dosage.unit2=='ointment'" value="tube">
                               Tube(หลอด)</md-option>
                             <md-option v-if="newDrugs.Dosage.unit2=='implant'" value="implant">
-                              Implant</md-option>                            
-                            <md-option value="unit">
-                              Unit(หน่วย)</md-option>
+                              Implant</md-option>     
                           </md-select>
                         </md-field>
                       </div>
@@ -442,11 +438,11 @@
       },
       calculateQuantity() {
         //this.query2 = this.query
-        console.log(this.query)
+        //console.log(this.query)
         if(this.query!='' && this.query!=undefined) {
           this.query2 = this.query
           var unit_tablet = this.query.search('tablet')
-          var unit_oral = this.query.search('oral suspension')
+          var unit_oral = this.query.search('oral')
           var unit_capsule = this.query.search('capsule')
           var unit_syrup = this.query.search('syrup')
           var unit_eye = this.query.search('eye drops')
@@ -992,15 +988,17 @@
             })
 
             //get pharmacist info
-            item.PharmacistID.forEach(phar =>{
-              doctorServices.pharmacistInfo(phar.ID).then(result => {
-                if(result.data[0])  {       
-                  phar.Name = result.data[0].Firstname + ' ' + result.data[0].Lastname
-                } else {
-                  phar.Name = "-"
-                }
-              })
-            }) 
+            if(item.PharmacistID != '' && item.PharmacistID != [] && item.PharmacistID != '-'){
+              item.PharmacistID.forEach(phar =>{
+                doctorServices.pharmacistInfo(phar.ID).then(result => {
+                  if(result.data[0])  {       
+                    phar.Name = result.data[0].Firstname + ' ' + result.data[0].Lastname
+                  } else {
+                    phar.Name = "-"
+                  }
+                })
+              }) 
+            }
 
             //separate table
             if(item.DispendStatus == 'done'){ 
