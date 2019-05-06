@@ -1,0 +1,21 @@
+//แนว AI
+
+- state space ***
+- อธิบายคอนเซป 4 main direction 
+- เขียน tree คล้ายๆของเกมส์นักบวช (เขียนทุกทางที่เป็นไปได้)
+- เปรียบเทียบสมองมนุษย์กับสมองกล computer VS brain
+- definition of AI
+- 4 Approaches of AI
+- The turing test อธิบายตัวอย่างการเทส 
+- Expert System คือ?
+- NLU คือ?
+- NLP คือ?
+- catalan number 
+- problems of AI
+- หาเส้นทางที่สั้นที่สุด ex.เส้นทางหมู่บ้าน 4component of romania
+- goal driven search อธิบาย
+- AND OR graph
+- Tabu search 
+- Long term memory 
+- predicate ***
+- Robotic อธิบาย

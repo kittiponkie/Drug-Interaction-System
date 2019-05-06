@@ -38,7 +38,7 @@
 
           <md-list-item to="/doctor/doctor_order_drug" class="unselected">
             <md-icon style="margin-right:10px">dns</md-icon>
-            <span class="md-list-item-text selected_text">การสั่งยา</span>
+            <span class="md-list-item-text selected_text">สั่งจ่ายยา</span>
           </md-list-item>
 
           <md-list-item to="/doctor/doctor_drug_history" class="selected">
