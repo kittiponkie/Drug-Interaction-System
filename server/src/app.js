@@ -1698,7 +1698,8 @@ app.put("/update/DrugHistory/:OrderID/:DrugNo", (req, res, next) => {
   var DrugNo = req.params.DrugNo
   DrugHistory.findOne({
     "OrderID": OrderID,
-    "DrugNo": DrugNo
+    "DrugNo": DrugNo,
+    "PatientID" : req.body.PatientID
   }, function (err, foundObject) {
     if (err) {
       console.log(err)

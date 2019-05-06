@@ -429,7 +429,6 @@
             }            
             this.itemDispenseDialog.PharmacistID = pharid
             console.log(pharid)
-
             await pharmacistServices.dispense(this.itemDispenseDialog.OrderID,this.itemDispenseDialog.DrugNo,this.itemDispenseDialog).then(Response => {
               console.log(Response.data)
             })    
@@ -565,19 +564,6 @@
             this.searched2 = this.users2
           }     
         })          
-        
-        
-        
-        /*console.log(Response.data)
-        this.users = Response.data
-        //do receive medicine
-        for (var i in this.users) {
-          var quantity = parseFloat(this.users[i].Quantity)
-          var dispense = parseFloat(this.users[i].Dispend)
-          this.users[i].Dispend2 = parseFloat(dispense * 100 / quantity).toFixed(2).toString()    
-          console.log(this.users[i].Dispend2)
-        }
-        this.searched = this.users*/
       })
     }
   };
