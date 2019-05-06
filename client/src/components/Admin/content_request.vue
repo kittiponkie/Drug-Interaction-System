@@ -2,60 +2,52 @@
   <div>
     <div class="col-lg-6" style="width:100%;">
       <div class="panel panel-default">
-        <div class="panel-heading" style="background-color:#b6d6d4" id="headBack">
-          <md-button style="background-color:#78A5A3">
-            <h6 style="color:white">แพทย์</h6>
-          </md-button>
-        </div>
 
         <!--data-->
-          <md-table v-model="searched" md-sort="name" md-sort-order="asc" md-card md-fixed-header style="margin:0">
-            <md-table-toolbar>
-              <div class="md-toolbar-section-start">
-                <h1 class="md-title">คำร้องขอ</h1>
-              </div>
+        <md-table v-model="searched" md-sort="name" md-sort-order="asc" md-card md-fixed-header style="margin:0">
+          <md-table-toolbar>
+            <div class="md-toolbar-section-start">
+              <h1 class="md-title">คำร้องขอ</h1>
+            </div>
 
-              <md-field md-clearable class="md-toolbar-section-end">
-                <md-input placeholder="ค้นหา..." v-model="search" @input="searchOnTable" />
-              </md-field>
-            </md-table-toolbar>
+            <md-field md-clearable class="md-toolbar-section-end">
+              <md-input placeholder="ค้นหา..." v-model="search" @input="searchOnTable" />
+            </md-field>
+          </md-table-toolbar>
 
-            <md-table-empty-state md-label="No users found"
-              :md-description="`ไม่พบรายการที่ค้นหา '${search}' กรุณาลองใหม่อีกครั้ง`">
-            </md-table-empty-state>
+          <md-table-empty-state md-label="No users found"
+            :md-description="`ไม่พบรายการที่ค้นหา '${search}' กรุณาลองใหม่อีกครั้ง`">
+          </md-table-empty-state>
 
-            <md-table-row slot="md-table-row" slot-scope="{ item }">
-              <md-table-cell md-label="ลำดับ" md-sort-by="ID" md-numeric>{{ item.DoctorID }}</md-table-cell>
-              <md-table-cell md-label="ชื่อ" md-sort-by="Firstname">{{ item.Firstname }}</md-table-cell>
-              <md-table-cell md-label="นามสกุล" md-sort-by="Lastname">{{ item.Lastname }}</md-table-cell>
-              <md-table-cell md-label=" ">
-                <md-button class="md-icon-button" style="background-color:#5cb85c" @click="acceptUser(item)">
-                  <md-icon style="color:white">done</md-icon>
-                  <md-tooltip md-direction="left">ยอมรับ</md-tooltip>
-                </md-button> 
-                <md-button class="md-icon-button" style="background-color:#f44742" @click="rejectUser(item)">
-                  <md-icon style="color:white">clear</md-icon>
-                  <md-tooltip md-direction="right">ปฏิเสธ</md-tooltip>
-                </md-button>                 
-              </md-table-cell>
-            </md-table-row>
-          </md-table>
-          <md-dialog-confirm :md-active.sync="confirmAccept"
-                  :md-content="'Do you want to Accept '+targetUser.Firstname+ ' '+targetUser.Lastname+' ?'" md-confirm-text="Confirm"
-                  md-cancel-text="Cancel" @md-cancel="confirmAccept = false" @md-confirm="onConfirmAccept()" />
-          <md-dialog-confirm :md-active.sync="confirmReject"
-                  :md-content="'Do you want to Reject '+targetUser.Firstname+ ' '+targetUser.Lastname+' ?'" md-confirm-text="Confirm"
-                  md-cancel-text="Cancel" @md-cancel="confirmReject = false" @md-confirm="onConfirmReject()" />     
-          <md-dialog-alert
-                  :md-active.sync="success"
-                  md-content="Success"
-                  md-confirm-text="Close" />
-          <md-dialog-alert
-                  :md-active.sync="fail"
-                  md-content="Fail"
-                  md-confirm-text="Close" />           
-        </div>
+          <md-table-row slot="md-table-row" slot-scope="{ item }">
+            <md-table-cell v-if="item.DoctorID" md-label="ลำดับ" md-sort-by="ID" md-numeric>{{ item.DoctorID }}</md-table-cell>
+            <md-table-cell v-else md-label="ลำดับ" md-sort-by="ID" md-numeric>{{ item.PharmacistID }}</md-table-cell>
+            <md-table-cell md-label="ชื่อ" md-sort-by="Firstname">{{ item.Firstname }}</md-table-cell>
+            <md-table-cell md-label="นามสกุล" md-sort-by="Lastname">{{ item.Lastname }}</md-table-cell>
+            <md-table-cell md-label=" ">
+              <md-button class="md-icon-button" style="background-color:#5cb85c" @click="acceptUser(item)">
+                <md-icon style="color:white">done</md-icon>
+                <md-tooltip md-direction="left">ยอมรับ</md-tooltip>
+              </md-button>
+              <md-button class="md-icon-button" style="background-color:#f44742" @click="rejectUser(item)">
+                <md-icon style="color:white">clear</md-icon>
+                <md-tooltip md-direction="right">ปฏิเสธ</md-tooltip>
+              </md-button>
+            </md-table-cell>
+          </md-table-row>
+        </md-table>
+        <md-dialog-confirm :md-active.sync="confirmAccept"
+          :md-content="'Do you want to Accept '+targetUser.Firstname+ ' '+targetUser.Lastname+' ?'"
+          md-confirm-text="Confirm" md-cancel-text="Cancel" @md-cancel="confirmAccept = false"
+          @md-confirm="onConfirmAccept()" />
+        <md-dialog-confirm :md-active.sync="confirmReject"
+          :md-content="'Do you want to Reject '+targetUser.Firstname+ ' '+targetUser.Lastname+' ?'"
+          md-confirm-text="Confirm" md-cancel-text="Cancel" @md-cancel="confirmReject = false"
+          @md-confirm="onConfirmReject()" />
+        <md-dialog-alert :md-active.sync="success" md-content="Success" md-confirm-text="Close" />
+        <md-dialog-alert :md-active.sync="fail" md-content="Fail" md-confirm-text="Close" />
       </div>
+    </div>
   </div>
 </template>
 
@@ -96,18 +88,31 @@
       },
       async onConfirmAccept() {
         for (var i in this.users) {
-          if (this.targetUser.DoctorID == this.users[i].DoctorID) {
+          if (this.targetUser.DoctorID == this.users[i].DoctorID && this.targetUser.DoctorID) {
             this.confirmAccept = false
-            await adminServices.changeRegisterStatusForDoctor(this.targetUser.DoctorID,'1').then(Response => {
-              if(Response.data){
+            await adminServices.changeRegisterStatusForDoctor(this.targetUser.DoctorID, '1').then(Response => {
+              if (Response.data) {
                 this.targetUser = {}
                 this.success = true
                 this.users.splice(i, 1)
               } else {
                 this.targetUser = {}
                 this.fail = true
-              } 
-            }) 
+              }
+            })
+          } else if(this.targetUser.PharmacistID == this.users[i].PharmacistID) {
+            console.log(this.targetUser)
+            this.confirmAccept = false
+            await adminServices.changeRegisterStatusForDoctor(this.targetUser.PharmacistID, '1').then(Response => {
+              if (Response.data) {
+                this.targetUser = {}
+                this.success = true
+                this.users.splice(i, 1)
+              } else {
+                this.targetUser = {}
+                this.fail = true
+              }
+            })
           }
         }
       },
@@ -119,41 +124,53 @@
         for (var i in this.users) {
           if (this.targetUser.DoctorID == this.users[i].DoctorID) {
             this.confirmReject = false
-            await adminServices.changeRegisterStatusForDoctor(this.targetUser.DoctorID,'2').then(Response => {
-              if(Response.data){
+            await adminServices.changeRegisterStatusForDoctor(this.targetUser.DoctorID, '2').then(Response => {
+              if (Response.data) {
                 this.targetUser = {}
                 this.success = true
                 this.users.splice(i, 1)
               } else {
                 this.targetUser = {}
                 this.fail = true
-              } 
-            }) 
+              }
+            })
           }
         }
       },
-      async setData(allAccount){        
-        for(var i in allAccount){          
+      async setData(allAccount) {
+        for (var i in allAccount) {
           //doctor
-          if(allAccount[i].ID[0] == 'D' && allAccount[i].RegisterStatus == '0') {
-            await adminServices.getDoctor(allAccount[i].ID).then(Response =>{
+          if (allAccount[i].ID[0] == 'D' && allAccount[i].RegisterStatus == '0') {
+            await adminServices.getDoctor(allAccount[i].ID).then(Response => {
               console.log(Response.data)
-              if(Response.data.length != 0) {
-                this.users.push(Response.data[0])   
-                this.searchOnTable()                  
+              if (Response.data.length != 0) {
+                this.users.push(Response.data[0])
+                this.searchOnTable()
               }
-              this.searchOnTable()     
+              this.searchOnTable()
+            })
+          }
+
+          //phar
+          else if (allAccount[i].ID[0] == 'P' && allAccount[i].ID[1] == 'H' && allAccount[i].RegisterStatus == '0') {
+            await adminServices.getPharmacist(allAccount[i].ID).then(Response => {
+              console.log(Response.data)
+              if (Response.data.length != 0) {
+                this.users.push(Response.data[0])
+                this.searchOnTable()
+              }
+              this.searchOnTable()
             })
           }
 
         }
       }
     },
-    async mounted() {      
+    async mounted() {
       //set data on table
       await adminServices.getAccount().then(Response => {
-        this.setData(Response.data)        
-      })  
+        this.setData(Response.data)
+      })
     }
   }
 

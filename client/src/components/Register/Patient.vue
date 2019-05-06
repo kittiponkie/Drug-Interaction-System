@@ -6,7 +6,7 @@
           กลับ
         </button>
       </router-link>
-      ลงทะเบียน     
+      ลงทะเบียน
     </h1>
 
     <md-tabs md-sync-route>
@@ -32,8 +32,8 @@
                       <option>หม่อมเจ้า</option>
                       <option>ศาสตราจารย์เกียรติคุณ (กิตติคุณ)</option>
                       <option>ศาสตราจารย์</option>
-                      <option>ผู้ช่วยศาสตราจารย์	</option>
-                      <option>รองศาสตราจารย์	</option>
+                      <option>ผู้ช่วยศาสตราจารย์ </option>
+                      <option>รองศาสตราจารย์ </option>
                     </select>
                   </div>
                 </div>
@@ -41,11 +41,11 @@
                 <!-- Name & Surname -->
                 <div class="row">
                   <div class="col-sm-6 form-group">
-                    <label>ชื่อจริง</label>
+                    <label>ชื่อจริง <label style="color:red">*</label></label>
                     <input ref="firstname" type="text" placeholder="กรอกชื่อจริง.." class="form-control">
                   </div>
                   <div class="col-sm-6 form-group">
-                    <label>นามสกุล</label>
+                    <label>นามสกุล <label style="color:red">*</label></label>
                     <input ref="lastname" type="text" placeholder="กรอกนามสกุล.." class="form-control">
                   </div>
                 </div>
@@ -83,11 +83,10 @@
                     </md-datepicker>
 
                   </div>
-                  <div class="col-sm-6 form-group">
+                  <!--div class="col-sm-6 form-group">
                     <label>อายุ</label>
                     <input ref="age" type="text" class="form-control" placeholder="Age .." readonly>
-                    <!--input ref="age" type="text" readonly class="form-control" value="21 (Auto calculation)"-->
-                  </div>
+                  </div-->
                 </div>
 
                 <!-- id card -->
@@ -136,31 +135,32 @@
                     </select>
                   </div>
                 </div>
-                
-                  <label>ยาที่แพ้</label>
-                  <div style="margin:5px 0px 10px 0px;min-height:36px;">
-                    
-                    <form @submit.prevent="addAllergicList()" >
-                      
-                      <div class="col-sm-6" style="padding-left:0;">
-                      <input v-model="query2" id="input" class="form-control" type="text" placeholder="พิมพ์เพื่อค้นหา...">
-                       <typeahead v-model="query" target="#input" :data="drugsSearch" :limit="drugsSearch.length"
+
+                <label>ยาที่แพ้</label>
+                <div style="margin:5px 0px 10px 0px;min-height:36px;">
+
+                  <form @submit.prevent="addAllergicList()">
+
+                    <div class="col-sm-6" style="padding-left:0;">
+                      <input v-model="query2" id="input" class="form-control" type="text"
+                        placeholder="พิมพ์เพื่อค้นหา...">
+                      <typeahead v-model="query" target="#input" :data="drugsSearch" :limit="drugsSearch.length"
                         :match-start="true" :force-select="true" :force-clear="true" />
-                       </div>    
-                       <div class="col-sm-6" style="padding-left:0;">            
-                      
+                    </div>
+                    <div class="col-sm-6" style="padding-left:0;">
+
                       <md-button type="submit" style="margin:0;background-color:#5bc0de;color:black">เพิ่ม</md-button>
-                      </div>  
-                      
-                    </form>
-                    <md-chip v-for="(chip,index) in AllergicDrugs" :key="index" @md-delete="AllergicDrugs.splice(index,1)"
+                    </div>
+
+                  </form>
+                  <md-chip v-for="(chip,index) in AllergicDrugs" :key="index" @md-delete="AllergicDrugs.splice(index,1)"
                     md-deletable style="margin-top:5px;">{{
-                    chip }}</md-chip>                    
-                  </div>
-                     
-                
+                    chip }}</md-chip>
+                </div>
+
+
                 <div class="form-group" style="padding-top:10px;">
-                  <label> ที่อยู่</label>
+                  <label>ที่อยู่</label>
                   <textarea ref="address" placeholder="กรอกที่อยู่.." rows="3" class="form-control"></textarea>
                 </div>
                 <div class="form-group">
@@ -173,15 +173,18 @@
                   <input ref="email" type="text" placeholder="กรอกอีเมล์.." class="form-control">
                 </div>
                 <div class="form-group">
-                  <label>ชื่อผู้ใช้</label>
+                  <label>ชื่อผู้ใช้ <label style="color:red">*</label></label>
                   <input ref="username" type="text" placeholder="กรอกชื่อผู้ใข้.." class="form-control">
                 </div>
                 <div class="form-group">
-                  <label>รหัสผ่าน</label>
-                  <input ref="password" type="password" placeholder="กรอกรหัสผ่าน...อย่างน้อย 5 ตัวอักษร" class="form-control">
+                  <label>รหัสผ่าน <label style="color:red">*</label></label>
+                  <input ref="password" type="password" placeholder="กรอกรหัสผ่าน...อย่างน้อย 5 ตัวอักษร"
+                    class="form-control">
                 </div>
-                <button type="button" class="btn btn-lg btn-info" style="margin-left: 7px" @click="submit">สมัคร</button>
-                <button type="button" class="btn btn-lg btn-info" style="margin-left: 7px" @click="cancel">ยกเลิก</button>
+                <button type="button" class="btn btn-lg btn-info" style="margin-left: 7px"
+                  @click="submit">สมัคร</button>
+                <button type="button" class="btn btn-lg btn-info" style="margin-left: 7px"
+                  @click="cancel">ยกเลิก</button>
               </div>
             </form>
 
@@ -250,19 +253,65 @@
       AllergicDrugs: [],
       query: '',
       query2: '',
-      drugsSearch: DRUGS.VTM
+      drugsSearch: DRUGS.VTM,
+
+      //regis
+      checkSuccess: {
+        patientInfo: false,
+        account: false,
+        allergic: false
+      },
+      checkUsername: false
     }),
     methods: {
       cancel() {
         window.location.href = "http://localhost:8080/register/patient";
       },
       async submit() {
-        if (this.$refs.username.value != '') {
+        this.checkUsername = false
+        this.checkSuccess = {
+          patientInfo: false,
+          account: false,
+          allergic: false
+        }
+        if(this.$refs.firstname.value == '' || this.$refs.lastname.value == '' || this.$refs.username.value == '' || this.$refs.password.value == '') {
+          let message = 'กรุณากรอกข้อมูลดังต่อไปนี้ให้ครบถ้วน\n\n'
+          if(this.$refs.firstname.value == '') {
+            message += '  - ชื่อจริง\n'
+          } 
+          if(this.$refs.lastname.value == '') {
+            message += '  - นามสกุล\n'
+          }
+          if(this.$refs.username.value == '') {
+            message += '  - ชื่อผู้ใช้\n'
+          } 
+          if(this.$refs.password.value == '') {
+            message += '  - รหัสผ่าน\n'
+          } 
+          alert(message)          
+        } else {
+          await registerService.allAccount().then(Response=>{
+            console.log(Response.data)
+            if(Response.data != [] || Response.data.length != 0){
+              Response.data.forEach(item =>{
+                if(item.Username == this.$refs.username.value) {
+                  alert("มีชื่อผู้ใช้งาน \""+item.Username+"\" ในระบบแล้ว \nกรุณากรอกชื่อผู้ใช้งานใหม่")
+                  this.checkUsername = true
+                }
+              })
+            }
+          })
+          await this.DataPatient()
+          await this.DataAccount()  
+          if (this.AllergicDrugs != []) await this.DataAllergic()     
+          else this.checkSuccess.allergic = true   
+        }  
+        /*if (this.$refs.username.value != '') {
           await this.DataPatient()
           await this.DataAccount()
-          if (this.AllergicDrugs != []) await this.DataAllergic()        
+          if (this.AllergicDrugs != []) await this.DataAllergic()
           await this.$router.push('/login')
-        }
+        }*/
       },
       async DataPatient() {
         //save value on variable
@@ -270,7 +319,7 @@
         this.dataPatient.Prefix = this.$refs.prefix.value
         this.dataPatient.Firstname = this.$refs.firstname.value
         this.dataPatient.Lastname = this.$refs.lastname.value
-        this.dataPatient.Sex = this.$refs.sex.value        
+        this.dataPatient.Sex = this.$refs.sex.value
         this.dataPatient.DOB = new Date(this.datePicker).toLocaleDateString()
 
         var birth = new Date(this.dataPatient.DOB)
@@ -278,30 +327,30 @@
         var year = ''
         var month = ''
         var day = ''
-        if(birth.getFullYear() < now.getFullYear()){
-          year =  now.getFullYear() - birth.getFullYear()
+        if (birth.getFullYear() < now.getFullYear()) {
+          year = now.getFullYear() - birth.getFullYear()
         } else {
           year = 0
         }
-        if(birth.getMonth() < now.getMonth()){
-          month =  now.getMonth() - birth.getMonth()
+        if (birth.getMonth() < now.getMonth()) {
+          month = now.getMonth() - birth.getMonth()
         } else {
           month = 12 - birth.getMonth() + now.getMonth()
-          if(year != 0) year -=1
+          if (year != 0) year -= 1
         }
-        if(birth.getDate() < now.getDate()){
-          day =  now.getDate() - birth.getDate()
+        if (birth.getDate() < now.getDate()) {
+          day = now.getDate() - birth.getDate()
         } else {
-          day = 30 -  birth.getDate() + now.getDate()
-          if(month == 0 && year != 0) {
-            year -=1
+          day = 30 - birth.getDate() + now.getDate()
+          if (month == 0 && year != 0) {
+            year -= 1
             month = 11
-          } else if(month != 0){
+          } else if (month != 0) {
             month -= 1
           }
         }
-        var age = (year+" year "+month+" month "+day+" day").toString()
-        console.log(age)
+        var age = (year + " year " + month + " month " + day + " day").toString()
+        //console.log(age)
         this.dataPatient.Age = age
 
         this.dataPatient.Email = this.$refs.email.value
@@ -315,12 +364,24 @@
         this.dataPatient.Bloodgroup = this.$refs.blood.value
         this.dataPatient.Address = this.$refs.address.value
         this.dataPatient.Phone = this.$refs.phone.value
-        console.log("birthday is ",this.dataPatient.DOB)
+        //console.log("birthday is ", this.dataPatient.DOB)
         await registerService.patientInfo(this.dataPatient).then(Response => {
           if (Response.data != "") {
             this.dataPatient.PatientID = Response.data.PatientID
           }
         })
+        if(!this.checkUsername)    
+        {    
+          await registerService.patientInfo(this.dataPatient).then(Response => {
+            if (Response.data != "") {
+              this.dataPatient.PatientID = Response.data.PatientID
+              if(Response.data.status) this.checkSuccess.patientInfo = true            
+              if(this.checkSuccess.account && this.checkSuccess.patientInfo && this.checkSuccess.allergic){
+                this.$router.push('/login')
+              }
+            }
+          })     
+        }
       },
       DataAccount() {
         this.dataAccount.ID = this.dataPatient.PatientID
@@ -328,20 +389,44 @@
         this.dataAccount.Password = this.$refs.password.value
         this.dataAccount.Email = this.$refs.email.value
         this.dataAccount.AccountType = "Patient"
-        registerService.register(this.dataAccount)
+        if(!this.checkUsername) {
+          registerService.register(this.dataAccount).then(Response=>{
+            //console.log(Response.data)
+            if(Response.data.success) this.checkSuccess.account = true  
+            if(this.checkSuccess.account && this.checkSuccess.patientInfo && this.checkSuccess.allergic){
+              this.$router.push('/login')
+            }
+          })
+        } 
       },
       DataAllergic() {
         this.dataAllergic.PatientID = this.dataPatient.PatientID
         this.dataAllergic.VTMName = this.AllergicDrugs
-        console.log(this.dataAllergic)
-        registerService.allergicDrug(this.dataAllergic)
+        //console.log(this.dataAllergic)
+        registerService.allergicDrug(this.dataAllergic).then(Response=>{
+          if(Response.data.success) this.checkSuccess.allergic = true  
+          if(this.checkSuccess.account && this.checkSuccess.patientInfo && this.checkSuccess.allergic){
+            this.$router.push('/login')
+          }
+        })
       },
-      addAllergicList() {
+      async addAllergicList() {
         //console.log(this.drugsSearch.findIndex(x => x == this.query))
         //this.drugsSearch.splice(this.drugsSearch.findIndex(x => x == this.query),1)
-        if(this.query != null && this.query != '') this.AllergicDrugs.push(this.query)
+        if (this.query != null && this.query != '') {
+          let checkConflict = true
+          await this.AllergicDrugs.forEach(item=>{
+            if(item == this.query) {
+              alert("ในรายการแพ้ยามียา \'"+item+"\' แล้ว") 
+              checkConflict = false             
+            }
+          })
+          if(checkConflict) {
+            await this.AllergicDrugs.push(this.query)            
+          }
+        }
         this.query = ''
-        this.query2 = ''        
+        this.query2 = ''
       }
     },
     async mounted() {

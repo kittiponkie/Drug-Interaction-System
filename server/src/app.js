@@ -154,7 +154,7 @@ app.post('/post/PatientInfo', (req, res) => {
           if (error) {
             console.log(error)
           }
-          res.status(200).json(new_Patient)
+          res.status(200).json({status:true,PatientID:PatientID})
         })
       } else {
         PatientID = "P00000"
@@ -182,7 +182,7 @@ app.post('/post/PatientInfo', (req, res) => {
           if (error) {
             console.log(error)
           }
-          res.status(200).json(new_Patient)
+          res.status(200).json({status:true,PatientID:PatientID})
         })
       }
     })
@@ -477,7 +477,7 @@ app.post('/post/DoctorInfo', (req, res) => {
           if (error) {
             console.log(error)
           }
-          res.status(200).json(new_Doctor)
+          res.status(200).json({status:true,DoctorID:DoctorID})
         })
       } else {
         DoctorID = "D00000"
@@ -499,7 +499,7 @@ app.post('/post/DoctorInfo', (req, res) => {
           if (error) {
             console.log(error)
           }
-          res.status(200).json(new_Doctor)
+          res.status(200).json({status:true,DoctorID:DoctorID})
         })
       }
     })
@@ -1085,6 +1085,7 @@ app.post('/post/AccountRelation/PharmacistPatient', (req, res) => {
   var db = req.db;
   var PatientID = req.body.PatientID
   var PharmacistID = req.body.PharmacistID
+  //var Request = req.body.Request
 
   function isEmptyObject(obj) {
     return !Object.keys(obj).length;
@@ -1101,7 +1102,8 @@ app.post('/post/AccountRelation/PharmacistPatient', (req, res) => {
       if (isEmptyObject(doc)) {
         var newPharmacistRelation = new PharmacistRelation({
           PatientID: PatientID,
-          PharmacistID: PharmacistID
+          PharmacistID: PharmacistID,
+          //Request: Request
         })
         newPharmacistRelation.save(function (error) {
           if (error) {
@@ -1254,7 +1256,7 @@ app.post('/Register', (req, res) => {
   var RegisterStatus
   var ActiveStatus = "1"
 
-  if (AccountType == 'Doctor' && AccountType == 'Pharmacist') {
+  if (AccountType == 'Doctor' || AccountType == 'Pharmacist') {
     RegisterStatus = '0'
   } else {
     RegisterStatus = '1'

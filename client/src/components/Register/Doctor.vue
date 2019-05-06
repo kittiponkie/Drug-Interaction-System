@@ -3,7 +3,7 @@
     <h1 class="well" >
       <router-link to="/login" target="_parent">
         <button type="button" class="btn btn-lg btn-info" style="margin-right: 20px">
-          Back
+          กลับ
         </button>
       </router-link>
       ลงทะเบียน
@@ -43,11 +43,11 @@
                 <!-- Name & Surname -->
                 <div class="row">
                   <div class="col-sm-6 form-group">
-                    <label>ชื่อจริง</label>
+                    <label>ชื่อจริง <label style="color:red">*</label></label>
                     <input ref="firstname" type="text" placeholder="กรอกชื่อจริง...." class="form-control">
                   </div>
                   <div class="col-sm-6 form-group">
-                    <label>นามสกุล</label>
+                    <label>นามสกุล <label style="color:red">*</label></label>
                     <input ref="lastname" type="text" placeholder="กรอกนามสกุล.." class="form-control">
                   </div>
                 </div>
@@ -95,11 +95,11 @@
                   <input ref="email" type="text" placeholder="กรอกอีเมล์.." class="form-control">
                 </div>
                 <div class="form-group">
-                  <label>ชื่อผู้ใช้</label>
+                  <label>ชื่อผู้ใช้ <label style="color:red">*</label></label>
                   <input ref="username" type="text" placeholder="กรอกชื่อผู้ใข้.." class="form-control">
                 </div>
                 <div class="form-group">
-                  <label>รหัสผ่าน</label>
+                  <label>รหัสผ่าน <label style="color:red">*</label></label>
                   <input ref="password" type="password" placeholder="กรอกรหัสผ่าน...อย่างน้อย 5 ตัวอักษร" class="form-control">
                 </div>
                 <button type="button" class="btn btn-lg btn-info" style="margin-left: 7px" @click="submit">สมัคร</button>
@@ -108,10 +108,10 @@
             </form>
 
           </div>
-          <div>
+          <!--div>
             <h3>{{dataDoctor}}</h3>
             <h3>{{dataAccount}}</h3>
-          </div>
+          </div-->
         </div>
       </md-tab>
 
@@ -149,19 +149,53 @@
         Email: String,
         AccountType: String,
         RegisterStatus: String
+      },      
+      checkSuccess: {
+        doctorInfo: false,
+        account: false
       },
-      test: null
+      checkUsername: false
     }),
     methods: {
       cancel() {
         window.location.href = "http://localhost:8080/register/doctor";
       },
       async submit() {
-        if (this.$refs.username.value != '') {
+        this.checkUsername = false
+        this.checkSuccess = {
+          doctorInfo: false,
+          account: false
+        } 
+        if(this.$refs.firstname.value == '' || this.$refs.lastname.value == '' || this.$refs.username.value == '' || this.$refs.password.value == '') {
+          let message = 'กรุณากรอกข้อมูลดังต่อไปนี้ให้ครบถ้วน\n\n'
+          if(this.$refs.firstname.value == '') {
+            message += '  - ชื่อจริง\n'
+          } 
+          if(this.$refs.lastname.value == '') {
+            message += '  - นามสกุล\n'
+          }
+          if(this.$refs.username.value == '') {
+            message += '  - ชื่อผู้ใช้\n'
+          } 
+          if(this.$refs.password.value == '') {
+            message += '  - รหัสผ่าน\n'
+          } 
+          alert(message)          
+        } else {
+          await registerService.allAccount().then(Response=>{
+            console.log(Response.data)
+            if(Response.data != [] || Response.data.length != 0){
+              Response.data.forEach(item =>{
+                if(item.Username == this.$refs.username.value) {
+                  alert("มีชื่อผู้ใช้งาน \""+item.Username+"\" ในระบบแล้ว \nกรุณากรอกชื่อผู้ใช้งานใหม่")
+                  this.checkUsername = true
+                }
+              })
+            }
+          })
           await this.DataDoctor()
-          await this.DataAccount()
-          await this.$router.push('/login')
-        }        
+          await this.DataAccount()          
+        }     
       },
       async DataDoctor() {
         //save value on variable
@@ -177,11 +211,18 @@
         this.dataDoctor.IDcardNumber = this.$refs.idcard.value
         this.dataDoctor.Address = this.$refs.address.value
         this.dataDoctor.Phone = this.$refs.phone.value
-        await registerService.doctorInfo(this.dataDoctor).then(Response => {
-          if (Response.data != "") {
-            this.dataDoctor.DoctorID = Response.data.DoctorID
-          }
-        })
+        if(!this.checkUsername)    
+        {    
+          await registerService.doctorInfo(this.dataDoctor).then(Response => {
+            if (Response.data != "") {
+              this.dataDoctor.DoctorID = Response.data.DoctorID
+              if(Response.data.status) this.checkSuccess.doctorInfo = true            
+              if(this.checkSuccess.account && this.checkSuccess.doctorInfo){
+                this.$router.push('/login')
+              }
+            }
+          })     
+        } 
       },
       DataAccount() {
         this.dataAccount.ID = this.dataDoctor.DoctorID
@@ -189,7 +230,15 @@
         this.dataAccount.Password = this.$refs.password.value
         this.dataAccount.Email = this.$refs.email.value
         this.dataAccount.AccountType = "Doctor"
-        registerService.register(this.dataAccount)
+        if(!this.checkUsername) {
+          registerService.register(this.dataAccount).then(Response=>{
+            console.log(Response.data)
+            if(Response.data.success) this.checkSuccess.account = true  
+            if(this.checkSuccess.account && this.checkSuccess.doctorInfo){
+              this.$router.push('/login')
+            }
+          })
+        } 
       }
     },
     async mounted() {

@@ -162,6 +162,11 @@
         window.location.href = "http://localhost:8080/register/pharmacist";
       },
       async submit() {
+        this.checkUsername = false
+        this.checkSuccess = {
+          pharmacistInfo: false,
+          account: false
+        }
         if(this.$refs.firstname.value == '' || this.$refs.lastname.value == '' || this.$refs.license.value == '' || this.$refs.username.value == '' || this.$refs.password.value == '') {
           let message = 'กรุณากรอกข้อมูลดังต่อไปนี้ให้ครบถ้วน\n\n'
           if(this.$refs.firstname.value == '') {
@@ -194,12 +199,8 @@
             }
           })
           await this.DataPharmacist()
-          await this.DataAccount()
-          
+          await this.DataAccount()          
         }
-
-
-
       },
       async DataPharmacist() {
         //save value on variable
@@ -216,7 +217,7 @@
         this.dataPharmacist.Phone = this.$refs.phone.value
         if(!this.checkUsername)    
         {    
-          registerService.pharmacistInfo(this.dataPharmacist).then(Response => {
+          await registerService.pharmacistInfo(this.dataPharmacist).then(Response => {
             if (Response.data != "") {
               this.dataPharmacist.PharmacistID = Response.data.PharmacistID
               if(Response.data.status) this.checkSuccess.pharmacistInfo = true            
@@ -227,7 +228,7 @@
           })     
         } 
       },
-      DataAccount() {
+      async DataAccount() {
         this.dataAccount.ID = this.dataPharmacist.PharmacistID
         this.dataAccount.Username = this.$refs.username.value
         this.dataAccount.Password = this.$refs.password.value
