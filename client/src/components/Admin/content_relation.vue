@@ -52,7 +52,7 @@
                 <div class="md-layout-item">
                   <label>เลือกผู้ป่วย</label>
                   <select id="selectedPatientID" class="form-control" @change="doSelectedPatient()">
-                    <option v-for="i in patients" :value="i.PatientID" :key="i.PatientID">{{i.PatientID}}</option>
+                    <option v-for="i in patients" :value="i.PatientID" :key="i.PatientID">{{i.PatientID}} {{i.Firstname}} {{i.Lastname}}</option>
                   </select>
                 </div>
                 <div class="md-layout-item md-toolbar-section-end">
@@ -100,13 +100,13 @@
                   <div v-if="type=='Doctor'" style="margin-bottom:20px;">
                 <label>เลือกแพทย์</label>
                 <select v-model="select" class="form-control" >
-                  <option v-for="i in doctors" :value="i.DoctorID" :key="i.DoctorID">{{i.DoctorID}}</option>
+                  <option v-for="i in doctors" :value="i.DoctorID" :key="i.DoctorID">{{i.DoctorID}}  {{i.Firstname}} {{i.Lastname}}</option>
                 </select>
                 </div>
                 <div v-if="type=='Pharmacist'" style="margin-bottom:20px;">
                 <label>เลือกเภสัชกร</label>
                 <select v-model="select" class="form-control">
-                  <option v-for="i in pharmacists" :value="i.PharmacistID" :key="i.PharmacistID">{{i.PharmacistID}}</option>
+                  <option v-for="i in pharmacists" :value="i.PharmacistID" :key="i.PharmacistID">{{i.PharmacistID}}  {{i.Firstname}} {{i.Lastname}}</option>
                 </select>
                 </div>
                 </div>
@@ -136,7 +136,7 @@
                 <div class="md-layout-item">
                   <label>เลือกแพทย์</label>
                   <select id="selectedDoctorID" class="form-control" @change="doSelectedDoctor()">
-                    <option v-for="i in doctors" :value="i.DoctorID" :key="i.DoctorID">{{i.DoctorID}}</option>
+                    <option v-for="i in doctors" :value="i.DoctorID" :key="i.DoctorID">{{i.DoctorID}}  {{i.Firstname}} {{i.Lastname}}</option>
                   </select>
                 </div>
                 <div class="md-layout-item md-toolbar-section-end">
@@ -176,7 +176,7 @@
                   <div style="margin-bottom:20px;">
                 <label>Select Patient</label>
                 <select v-model="select" class="form-control" >
-                  <option v-for="i in patients" :value="i.PatientID" :key="i.PatientID">{{i.PatientID}}</option>
+                  <option v-for="i in patients" :value="i.PatientID" :key="i.PatientID">{{i.PatientID}}  {{i.Firstname}} {{i.Lastname}}</option>
                 </select>
                 </div>
                 </div>
@@ -206,7 +206,7 @@
                 <div class="md-layout-item">
                   <label>เลือกเภสัชกร</label>
                   <select id="selectedPharmacistID" class="form-control" @change="doSelectedPharmacist()">
-                    <option v-for="i in pharmacists" :value="i.PharmacistID" :key="i.PharmacistID">{{i.PharmacistID}}</option>
+                    <option v-for="i in pharmacists" :value="i.PharmacistID" :key="i.PharmacistID">{{i.PharmacistID}}  {{i.Firstname}} {{i.Lastname}}</option>
                   </select>
                 </div>
                 <div class="md-layout-item md-toolbar-section-end">
@@ -246,7 +246,7 @@
                   <div style="margin-bottom:20px;">
                 <label>เลือกผู้ป่วย</label>
                 <select v-model="select" class="form-control" >
-                  <option v-for="i in patients" :value="i.PatientID" :key="i.PatientID">{{i.PatientID}}</option>
+                  <option v-for="i in patients" :value="i.PatientID" :key="i.PatientID">{{i.PatientID}}  {{i.Firstname}} {{i.Lastname}}</option>
                 </select>
                 </div>
                 </div>
