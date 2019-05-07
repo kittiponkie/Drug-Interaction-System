@@ -8,4 +8,4 @@ const listSchema = mongoose.Schema({
     Description: String
 })
 
-module.exports = mongoose.model('list', listSchema)
+module.exports = mongoose.model('interactionlists', listSchema)

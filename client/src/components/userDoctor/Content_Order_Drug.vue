@@ -744,12 +744,10 @@
           })           
         })
         //check interaction    
-        await this.drugs.forEach(item=>{
-          var drugName = item.GPName.split(' ')
-          this.checkInteraction(drugName,item)         
-        }) 
+        await this.drugs.forEach(this.checkInteraction) 
       },
-      async checkInteraction(drugName,item){
+      async checkInteraction(item){
+        var drugName = item.GPName.split(' ')
         var rxcui = ''
         await axios.get(`https://rxnav.nlm.nih.gov/REST/rxcui.json?name=`+drugName[0]).then(Response => {  
           console.log(drugName[0])        
@@ -760,10 +758,11 @@
           }
           else console.log("not found rxcui")
         })  
-        await this.users.forEach(itemHis=>{
+        await this.users.forEach(itemHis =>  {
           console.log(itemHis.RXCUI,rxcui) 
           doctorServices.checkInteraction(rxcui,itemHis.RXCUI).then(result => {
             console.log(result.data.message)
+            console.log(result.data)
             if(result.data.success) {
               this.detailInteraction(item,itemHis)
             }
@@ -772,6 +771,7 @@
         await this.drugs.forEach(itemDrugs=>{
           doctorServices.checkInteraction(rxcui,itemDrugs.RXCUI).then(result => {
             console.log(result.data.message)
+            console.log(result.data)
             if(result.data.success) {
               this.detailInteraction(item,itemDrugs)
             }
@@ -783,42 +783,6 @@
           })
           this.loadingAll = false
         }  
-        /*await doctorServices.getOrderId(rxcui,rxcui).then(result => {  
-          console.log(rxcui)  
-          console.log(result.data)  
-          if(rxcui != ''){                        
-            if(result.data.interactionTypeGroup){
-              console.log('interaction ',result.data.interactionTypeGroup[0].interactionType[0].interactionPair)
-              result.data.interactionTypeGroup[0].interactionType[0].interactionPair.forEach(itemResult=>{
-                //console.log(itemResult.interactionConcept[1].minConceptItem.rxcui)
-                this.users.forEach(itemHis=>{
-                  console.log(itemHis.RXCUI)
-                  if(itemResult.interactionConcept[1].minConceptItem.rxcui == itemHis.RXCUI) {
-                    console.log("Interaction1 !!! "+itemHis.RXCUI+','+rxcui)
-                    console.log("Interaction1 !!! "+itemHis.GPName+','+drugName[0])
-                    this.detailInteraction(item,itemHis)
-                  }
-                  //console.log(itemHis.RXCUI + " itemHis")              
-                })   
-                this.drugs.forEach(itemDrugs=>{
-                  if(itemResult.interactionConcept[1].minConceptItem.rxcui == itemDrugs.RXCUI) {
-                    console.log("Interaction2 !!! "+itemDrugs.RXCUI+','+rxcui)
-                    console.log("Interaction2 !!! "+itemDrugs.GPName+','+drugName[0])
-                    this.detailInteraction(item,itemDrugs)
-                  }
-                  //console.log(itemDrugs.RXCUI + " itemDrugs")
-                }) 
-              })
-              
-            }             
-          }
-          if(this.drugs[this.drugs.length-1] == item) {
-            this.drugs.forEach(item=>{
-              if(item.statusDetail == 'load') item.statusDetail = ""
-            })
-            this.loadingAll = false
-          }
-        })*/
       },
       detailInteraction(item,element){
         item.detail.interaction.push(element.OrderID+" "+element.GPName.split(' ')[0])
