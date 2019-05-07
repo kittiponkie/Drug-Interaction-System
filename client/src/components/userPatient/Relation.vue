@@ -1,6 +1,6 @@
 <template>
   <div class="page-container">
-    <md-app md-mode="">
+    <md-app md-mode="fixed">
       <md-app-toolbar class="md-primary" md-elevation="0" style="background-color:#444C5C;">
         <md-button class="md-icon-button" @click="toggleMenu" v-if="!(Window_Width>600)">
           <md-icon>menu</md-icon>
@@ -48,12 +48,12 @@
 
           <md-list-item to="/patient_drug_information" class="unselected">
             <md-icon style="margin-right:10px">description</md-icon>
-            <span class="md-list-item-text unselected_text">ข้อมูลยา</span>
+            <span class="md-list-item-text unselected_text">ค้นหาข้อมูลยา</span>
           </md-list-item>
 
           <md-list-item to="/patient_drug_interaction" class="unselected">
             <md-icon style="margin-right:10px">bubble_chart</md-icon>
-            <span class="md-list-item-text unselected_text">ปฏิกิริยาระหว่างยา</span>
+            <span class="md-list-item-text unselected_text">ค้นหาปฏิกิริยาระหว่างยา</span>
           </md-list-item>
         </md-list>
       </md-app-drawer>

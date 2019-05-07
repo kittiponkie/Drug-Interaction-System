@@ -1,12 +1,11 @@
 <template>
   <div>
-    
-      <div class="panel panel-default">
-            <div class="panel-heading">
-              <h3>เลือกผู้ป่วย</h3>
-            </div>
-            <div class="paddingCard">
-            <div class="inline" v-for="(i,index) in users" :key="index" @click="gotoDetail(index)">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3>เลือกผู้ป่วย</h3>
+      </div>
+      <div class="paddingCard">
+        <div class="inline" v-for="(i,index) in users" :key="index" @click="gotoDetail(index)">
           <!--router-link to="/doctor"-->
           <md-card class="cardColor" md-with-hover>
             <md-card-header>
@@ -15,12 +14,10 @@
             </md-card-header>
           </md-card>
           <!--/router-link-->
-        </div> 
-            </div>
-          </div>
-          
-             
+        </div>
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
@@ -141,8 +138,8 @@
   }
 
   .inline {
-    display: inline-block;  
-    padding: 5px;  
+    display: inline-block;
+    padding: 5px;
   }
 
   .paddingCard {
@@ -150,7 +147,7 @@
   }
 
   .cardColor {
-    background-color:#f5f5f5;
+    background-color: #f5f5f5;
   }
 
 </style>

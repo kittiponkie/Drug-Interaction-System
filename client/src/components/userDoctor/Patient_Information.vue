@@ -52,12 +52,12 @@
 
           <md-list-item to="/doctor/doctor_drug_information" class="unselected">
             <md-icon style="margin-right:10px">description</md-icon>
-            <span class="md-list-item-text unselected_text">ข้อมูลยา</span>
+            <span class="md-list-item-text unselected_text">ค้นหาข้อมูลยา</span>
           </md-list-item>
 
           <md-list-item to="/doctor/doctor_drug_interaction" class="unselected">
             <md-icon style="margin-right:10px">bubble_chart</md-icon>
-            <span class="md-list-item-text unselected_text">ปฎิกิริยาระหว่างยา</span>
+            <span class="md-list-item-text unselected_text">ค้นหาปฎิกิริยาระหว่างยา</span>
           </md-list-item>
 
         </md-list>

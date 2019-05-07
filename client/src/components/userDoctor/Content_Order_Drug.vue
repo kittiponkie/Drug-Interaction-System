@@ -803,7 +803,7 @@
               suggestTime.setFullYear(suggestTime.getFullYear(),
                                       suggestTime.getMonth(),
                                       suggestTime.getDate() + 1)   
-              item.detail.timeConflict.push(drugHis.OrderID+" "+ drugHis.GPName+" แนะนำให้เริ่มสั่งได้วันที่ "+suggestTime.toDateString())  
+              item.detail.timeConflict.push(drugHis.OrderID+" "+ drugHis.GPName+" แนะนำให้เริ่มสั่งได้วัน "+suggestTime.toDateString())  
               item.statusDetail = "Time Conflict"          
             }
           }
@@ -820,7 +820,7 @@
                 suggestTime.setFullYear(suggestTime.getFullYear(),
                                       suggestTime.getMonth(),
                                       suggestTime.getDate() + 1)   
-                item.detail.timeConflict.push(itemDrugs.OrderID+" "+ itemDrugs.GPName+" แนะนำให้เริ่มสั่งได้วันที่ "+suggestTime.toDateString())  
+                item.detail.timeConflict.push(itemDrugs.OrderID+" "+ itemDrugs.GPName+" แนะนำให้เริ่มสั่งได้วัน "+suggestTime.toDateString())  
                 item.statusDetail = "Time Conflict"          
               }
             }

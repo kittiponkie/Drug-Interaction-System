@@ -9,6 +9,9 @@ export default {
   },
   patientInfo(params){
     return Api().get("/PatientInfo/"+params )
+  },  
+  patientRelation (params) {
+    return Api().get("/AccountRelation/Patient/"+params )
   },
   pharmacistInfo(params){
     return Api().get("/PharmacistInfo/"+params )
