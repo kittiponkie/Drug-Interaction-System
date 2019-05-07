@@ -3,7 +3,7 @@
     <div class="col-lg-6" style="width:100%;">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h3>หมายเลขประจำตัวเภสัชกร : xxxxxxx </h3>
+          <h3>หมายเลขประจำตัวแพทย์ : {{pharmacistID}} </h3>
           <br>
           <!-- patient data -->
           <form>
@@ -11,7 +11,7 @@
             <div class="form-goup row">
               <label for="prefix" class="col-sm-2 col-form-label">คำนำหน้า</label>
               <div class="col-sm-10">
-                <input type="text" readonly class="form-control" id="prefix" value="MR.">
+                <input ref="prefix" type="text" readonly class="form-control">
               </div>
             </div>
             <br>
@@ -19,99 +19,56 @@
             <div class="form-group row">
               <label for="name" class="col-sm-2 col-form-label">ชื่อ</label>
               <div class="col-sm-10">
-                <input type="text" readonly class="form-control" id="namesurname" value="Naphatsorn">
+                <input ref="name" type="text" readonly class="form-control">
               </div>
             </div>
             <!--surname-->
             <div class="form-group row">
               <label for="surname" class="col-sm-2 col-form-label">นามสกุล</label>
               <div class="col-sm-10">
-                <input type="text" readonly class="form-control" id="surname" value="Buarattanakarn">
+                <input ref="surname" type="text" readonly class="form-control">
               </div>
             </div>
             <!--sex-->
             <div class="form-group row">
               <label for="sex" class="col-sm-2 col-form-label">เพศ</label>
               <div class="col-sm-10">
-                <input type="text" readonly class="form-control" id="sex" value="Female">
-              </div>
-            </div>
-            <!--birthday-->
-            <div class="form-group row">
-              <label for="bod" class="col-sm-2 col-form-label">วันเกิด</label>
-              <div class="col-sm-10">
-                <input type="text" readonly class="form-control" id="birthday" value="09/06/2540">
-                <input type="text" readonly class="form-control" id="age" value="21 y 5 m 21 d">
+                <input ref="sex" type="text" readonly class="form-control">
               </div>
             </div>
             <!--id card-->
             <div class="form-group row">
-              <label for="idcard" class="col-sm-2 col-form-label">หมายเลขบัตรประชาชน</label>
+              <label for="idcard" class="col-sm-2 col-form-label">หมายเลขบัตรประจำตัวประชาชน</label>
               <div class="col-sm-10">
-                <input type="text" readonly class="form-control" id="card" value="1849900281533">
+                <input ref="idcard" type="text" readonly class="form-control">
               </div>
             </div>
-            <!--status-->
+            <!--Department-->
             <div class="form-group row">
-              <label for="idcard" class="col-sm-2 col-form-label">สถานะ</label>
+              <label for="Department" class="col-sm-2 col-form-label">แผนก</label>
               <div class="col-sm-10">
-                <input type="text" readonly class="form-control" id="card" value="1849900281533">
-              </div>
-            </div>
-            <!--ethnicity -->
-            <div class="form-group row">
-              <label for="ethnicity " class="col-sm-2 col-form-label">เชื้อชาติ</label>
-              <div class="col-sm-10">
-                <input type="text" readonly class="form-control" id="ethnicity " value="Thai">
-              </div>
-            </div>
-            <!--nationality-->
-            <div class="form-group row">
-              <label for="nationality" class="col-sm-2 col-form-label">สัญชาติ</label>
-              <div class="col-sm-10">
-                <input type="text" readonly class="form-control" id="nationality" value="Thai">
-              </div>
-            </div>
-            <!--Religion-->
-            <div class="form-group row">
-              <label for="Religion" class="col-sm-2 col-form-label">ศาสนา</label>
-              <div class="col-sm-10">
-                <input type="text" readonly class="form-control" id="Religion" value="Thai">
-              </div>
-            </div>
-            <!--Blood-->
-            <div class="form-group row">
-              <label for="Blood" class="col-sm-2 col-form-label">หมู๋เลือด</label>
-              <div class="col-sm-10">
-                <input type="text" readonly class="form-control" id="Blood" value="A">
+                <input ref="department" type="text" readonly class="form-control">
               </div>
             </div>
             <!--Address-->
             <div class="form-group row">
               <label for="Address" class="col-sm-2 col-form-label">ที่อยู่</label>
               <div class="col-sm-10">
-                <input type="text" readonly class="form-control" id="Address" value="RC mansion room206 Phutthamonthon Sai 4 Road Salaya, Phutthamonthon Nakhonpathom, 73170 Thailand">
+                <input ref="address" type="text" readonly class="form-control">
               </div>
             </div>
             <!--PhoneNumber-->
             <div class="form-group row">
               <label for="PhoneNumber" class="col-sm-2 col-form-label">เบอร์โทร</label>
               <div class="col-sm-10">
-                <input type="text" readonly class="form-control" id="PhoneNumber" value="0865076630">
+                <input ref="phone" type="text" readonly class="form-control">
               </div>
             </div>
-            <!--Drugallergy-->
+            <!--E-mail-->
             <div class="form-group row">
-              <label for="Drugallergy" class="col-sm-2 col-form-label">ยาทีแพ้</label>
+              <label for="E-mail" class="col-sm-2 col-form-label">อีเมล์</label>
               <div class="col-sm-10">
-                <input type="text" readonly class="form-control" id="Drugallergy" value="Tramadol,Paracetamol">
-              </div>
-            </div>
-            <!--Foodallergy-->
-            <div class="form-group row">
-              <label for="Foodallergy" class="col-sm-2 col-form-label">อาหารที่แพ้</label>
-              <div class="col-sm-10">
-                <input type="text" readonly class="form-control" id="Foodallergy" value="fish">
+                <input ref="email" type="text" readonly class="form-control">
               </div>
             </div>
           </form>
@@ -123,37 +80,43 @@
 
 <script>
   import axios from 'axios'
+  import doctorServices from '@/services/doctor'
+
   export default {
     name: 'Drug_Interaction',
     data: () => ({
       menuVisible: false, //toggle visible menu when responsive
       Window_Width: 0, //width of window
-      found: false, //true when found data , false when don't have data from API
-      checkSearch: false, //true when you search something
-      loading: false //true when you have to wait for call API
+      pharmacistID: 'not found',
+      pharmacistInfo: null
     }),
     methods: {
       //toggle visible menu
       toggleMenu() {
         this.menuVisible = !this.menuVisible
       },
-
-      //get data from API
-      async getData() {
-
-      },
-      change() {
-        console.log(this.drugName)
-        this.loading = false
-        this.found = false
-        this.drugList = null
-        this.checkSearch = false
-      }
     },
     async mounted() {
       this.Window_Width = window.innerWidth
-    }
-  }
+      this.pharmacistID = this.$localStorage.get('userID')
+      doctorServices.pharmacistInfo(this.pharmacistID).then(Response => {
+          /*console.log(Response.data)
+          console.log(Response.data[0])
+          console.log(Response.data[0].Prefix)*/
+          this.pharmacistInfo = Response.data[0]
+          this.$refs.prefix.value = this.pharmacistInfo.Prefix
+          this.$refs.name.value = this.pharmacistInfo.Firstname
+          this.$refs.surname.value = this.pharmacistInfo.Lastname
+          this.$refs.sex.value = this.pharmacistInfo.Sex
+          this.$refs.idcard.value = this.pharmacistInfo.IDcardNumber
+          this.$refs.department.value = this.pharmacistInfo.Department
+          this.$refs.address.value = this.pharmacistInfo.Address
+          this.$refs.phone.value = this.pharmacistInfo.Phone
+          this.$refs.email.value = this.pharmacistInfo.Email
+
+      })
+    } 
+  }  
 
 </script>
 
