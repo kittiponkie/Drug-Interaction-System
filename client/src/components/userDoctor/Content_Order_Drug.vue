@@ -799,7 +799,11 @@
                                 finalTime.getDate() + parseInt(drugHis.Duration.day))      
           if(drugHis.GPName.split(' ')[0] == drugName[0]) {
             if(item.DispendStartDate - finalTime <= 0){
-              item.detail.timeConflict.push(drugHis.OrderID+" "+ drugHis.GPName)  
+              var suggestTime = finalTime
+              suggestTime.setFullYear(suggestTime.getFullYear(),
+                                      suggestTime.getMonth(),
+                                      suggestTime.getDate() + 1)   
+              item.detail.timeConflict.push(drugHis.OrderID+" "+ drugHis.GPName+" แนะนำให้เริ่มสั่งได้วันที่ "+suggestTime.toDateString())  
               item.statusDetail = "Time Conflict"          
             }
           }
@@ -812,7 +816,11 @@
                                   finalTime.getDate() + parseInt(itemDrugs.Duration.day))      
             if(itemDrugs.GPName.split(' ')[0] == drugName[0]) {
               if(item.DispendStartDate - finalTime <= 0){
-                item.detail.timeConflict.push(itemDrugs.OrderID+" "+ itemDrugs.GPName)  
+                var suggestTime = finalTime
+                suggestTime.setFullYear(suggestTime.getFullYear(),
+                                      suggestTime.getMonth(),
+                                      suggestTime.getDate() + 1)   
+                item.detail.timeConflict.push(itemDrugs.OrderID+" "+ itemDrugs.GPName+" แนะนำให้เริ่มสั่งได้วันที่ "+suggestTime.toDateString())  
                 item.statusDetail = "Time Conflict"          
               }
             }
