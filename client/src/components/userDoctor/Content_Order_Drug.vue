@@ -601,30 +601,38 @@
         var finding = await this.drugsSearch.find(item =>{
           return item == x.GPName           
         })
-        this.message = ''
+        this.message = '<h3 style="text-align:center">แจ้งเตือน</h3><br>'
         if(!finding) {
-          this.message += "Drug name is not correct <br>"
+          this.message += "ชื่อยาไม่ถูกต้อง กรุณากรอกใหม่ครับ <br>"
         }
         if(x.Dosage.dose == 0){
-          this.message += "Dosage can't be 0 <br>"
+          this.message += "จำนวนโดสไม่สามารถเป็น 0 กรุณากรอกใหม่ครับ<br>"
         }
         if(x.Duration.year == 0 && x.Duration.month == 0 && x.Duration.day == 0){
-          this.message += "Duration can't be 0 at all <br>"
+          this.message += "ระยะเวลาที่บริโภคยาไม่สามารถเป็น 0 กรุณากรอกใหม่ครับ <br>"
         }
         if(x.Frequency.mor=='false' && x.Frequency.aft=='false' && x.Frequency.eve=='false' && x.Frequency.bed=='false' && x.Frequency.symptoms=='false'){
-          this.message += "Choose เช้า ,กลางวัน ,เย็น ,ก่อนนอน ,ทานตามอาการ<br>"
+          this.message += "กรุณาเลือกความถี่ เช้า ,กลางวัน ,เย็น ,ก่อนนอน หรือ ทานตามอาการครับ<br>"
         }
         if(x.Frequency.before=='false' && x.Frequency.after=='false'){
-          this.message += "Choose ก่อนอาหาร ,หลังอาหาร<br>"  
+          this.message += "กรุณาเลือกความถี่ ก่อนอาหาร หรือ หลังอาหารครับ<br>"  
         }
         if(x.Quantity == 0 && x.Frequency.symptoms == "true"){
-          this.message += "Quantity can't be 0 <br>"
+          this.message += "ปริมาณยาทั้งหมดไม่สามารถเป็น 0 กรุณากรอกใหม่ครับ<br>"
         }
         if(x.DispendStartDate == ''){
-          this.message += "Dipense Date can't be empty <br>"
+          this.message += "วันจ่ายยาไม่สามารถว่างเปล่าได้ กรุณากรอกใหม่ครับ<br>"
+        } else {
+          let currentTime = new Date()
+          currentTime.setHours(0,0,0,0)         
+          if(this.newDrugs.DispendStartDate - currentTime >= 0 ){          
+          } else {
+            this.message += "วันจ่ายยาไม่ถูกต้อง กรุณาเลือกวันจ่ายยาใหม่ครับ"
+          }
         }
+        
 
-        if(this.message != '') this.showMessage = true   
+        if(this.message != '<h1 style="text-align:center">แจ้งเตือน</h1><br>') this.showMessage = true   
 
         if(x.GPName!='' && finding && !this.showMessage) {
           this.active = false
@@ -791,7 +799,7 @@
         else item.statusDetail = "Both"
         this.searchOnTable()
       },
-      async checkDuplicateDrugs(drugName,item){
+      async checkDuplicateDrugs(drugName,item){        
         await this.users.forEach((drugHis,index)=>{
           var finalTime = new Date(drugHis.DispendStartDate)
           finalTime.setFullYear(finalTime.getFullYear() + parseInt(drugHis.Duration.year),
