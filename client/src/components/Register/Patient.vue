@@ -189,11 +189,11 @@
             </form>
 
           </div>
-          <div>
+          <!--div>
             <h3>{{dataPatient}}</h3>
             <h3>{{dataAccount}}</h3>
             <h3>{{dataAllergic}}</h3>
-          </div>
+          </div-->
         </div>
       </md-tab>
 
