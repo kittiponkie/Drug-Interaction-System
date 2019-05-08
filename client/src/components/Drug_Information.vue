@@ -573,7 +573,7 @@
                 <md-divider></md-divider>
               </div>
 
-              <div class="viewport">
+              <!--div class="viewport">
                 <md-toolbar :md-elevation="1">
                   <span class="md-title">ATC</span>
                 </md-toolbar>
@@ -596,7 +596,7 @@
                 <div class="text_padding">
                   <img src="../assets/logo.png" alt="Barcode" width="50" height="50">
                 </div>
-              </div>
+              </div-->
 
               <div class="viewport">
                 <md-toolbar :md-elevation="1">

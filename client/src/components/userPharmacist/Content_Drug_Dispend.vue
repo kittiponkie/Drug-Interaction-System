@@ -436,10 +436,11 @@
         }
       },
       reloadPage(){
-        var dispense = parseInt(this.itemDispenseDialog.Dispend) + parseInt(this.itemDispenseDialog.Dispensing)
+        var dispense = parseInt(this.itemDispenseDialog.Dispend) 
         var quantity = parseInt(this.itemDispenseDialog.Quantity)
         if(quantity < dispense || this.itemDispenseDialog.Dispensing == "" || this.itemDispenseDialog.Dispensing == 0 || parseInt(this.itemDispenseDialog.Dispensing) <0){
           this.showErrorDialog = false
+          console.log("test",dispense,quantity)
         } else { 
           window.location.reload();        
         }       

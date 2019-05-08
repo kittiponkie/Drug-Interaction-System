@@ -365,11 +365,7 @@
         this.dataPatient.Address = this.$refs.address.value
         this.dataPatient.Phone = this.$refs.phone.value
         //console.log("birthday is ", this.dataPatient.DOB)
-        await registerService.patientInfo(this.dataPatient).then(Response => {
-          if (Response.data != "") {
-            this.dataPatient.PatientID = Response.data.PatientID
-          }
-        })
+       
         if(!this.checkUsername)    
         {    
           await registerService.patientInfo(this.dataPatient).then(Response => {

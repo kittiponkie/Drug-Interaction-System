@@ -632,7 +632,7 @@
         }
         
 
-        if(this.message != '<h1 style="text-align:center">แจ้งเตือน</h1><br>') this.showMessage = true   
+        if(this.message != '<h3 style="text-align:center">แจ้งเตือน</h3><br>') this.showMessage = true   
 
         if(x.GPName!='' && finding && !this.showMessage) {
           this.active = false
