@@ -304,13 +304,13 @@
     },
     async mounted() {
       //get patient info
-      await doctorServices.patientInfo(this.$localStorage.get('doctor_patient')).then(Response => {
+      await doctorServices.patientInfo(this.$localStorage.get('userID')).then(Response => {
         console.log(Response.data[0])
         this.patient = Response.data[0]
       })
 
       //get order of patient
-      await doctorServices.getOrderId(this.$localStorage.get('doctor_patient')).then(Response => {
+      await doctorServices.getOrderId(this.$localStorage.get('userID')).then(Response => {
           console.log(Response.data)    
           Response.data.forEach((item,i) =>{
             //set pharmacist

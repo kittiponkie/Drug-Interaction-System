@@ -134,15 +134,15 @@
     },
     async mounted() {
       this.Window_Width = window.innerWidth
-      this.patientID = this.$localStorage.get('doctor_patient')
+      this.patientID = this.$localStorage.get('userID')
       //get patient info   
-      await doctorServices.patientInfo(this.$localStorage.get('doctor_patient')).then(Response => {
+      await doctorServices.patientInfo(this.$localStorage.get('userID')).then(Response => {
         console.log(Response.data[0])
         this.patientInfo = Response.data[0]
       })  
 
       //get allergic of patient
-      await doctorServices.allergicOfPatient(this.$localStorage.get('doctor_patient')).then(Response => {
+      await doctorServices.allergicOfPatient(this.$localStorage.get('userID')).then(Response => {
         console.log("Allergic drug of patient is ",Response.data)
         for(var i in Response.data){
           this.allergicOfPatient.push(Response.data[i].VTMName)
