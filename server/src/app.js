@@ -1372,6 +1372,21 @@ app.post('/Login', (req, res) => {
               success: false,
               message: "Account is not verified By Administrator"
             })
+        } else if(doc.RegisterStatus == '2'){
+          res
+            .status(200)
+            .json({
+              success: false,
+              message: "Account is not approve",
+              ID:doc.ID
+            })
+        } else if(doc.ActiveStatus == '0'){
+          res
+            .status(200)
+            .json({
+              success: false,
+              message: "Account deleted"
+            })
         } else {
           res
             .status(200)
