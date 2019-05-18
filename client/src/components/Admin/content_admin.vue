@@ -209,7 +209,7 @@
 
           <!--delete user dialog-->
            <md-dialog :md-active.sync="confirmDelete" :md-click-outside-to-close="false" >            
-                <p v-if="!loadingDelete && !loadingDeleteFinish" style="margin:20px;margin-left:30px">Do you want to delete user {{deleteUser.PatientID || deleteUser.DoctorID || deleteUser.PharmacistID || deleteUser.ID}} ?</p>
+                <p v-if="!loadingDelete && !loadingDeleteFinish" style="margin:20px;margin-left:30px">ต้องการลบ {{deleteUser.PatientID || deleteUser.DoctorID || deleteUser.PharmacistID || deleteUser.ID}} {{deleteUser.Firstname || deleteUser.Username}} {{deleteUser.Lastname}} ?</p>
                 <md-empty-state v-if="loadingDelete" md-label="Loading" :md-description="`Please wait a second`">
                   <md-progress-spinner md-mode="indeterminate"></md-progress-spinner>
                 </md-empty-state>
@@ -225,7 +225,7 @@
 
           <!--recover user dialog-->
           <md-dialog :md-active.sync="confirmRecover" :md-click-outside-to-close="false" >            
-                <p v-if="!loadingRecover && !loadingRecoverFinish" style="margin:20px;margin-left:30px">ต้องการที่จะกู้คืน {{recoverUser.PatientID || recoverUser.DoctorID || recoverUser.PharmacistID || recoverUser.ID}} ?</p>
+                <p v-if="!loadingRecover && !loadingRecoverFinish" style="margin:20px;margin-left:30px">ต้องการที่จะกู้คืน {{recoverUser.PatientID || recoverUser.DoctorID || recoverUser.PharmacistID || recoverUser.ID}} {{recoverUser.Firstname || recoverUser.Username}} {{recoverUser.Lastname}}?</p>
                 <md-empty-state v-if="loadingRecover" md-label="Loading" :md-description="`Please wait a second`">
                   <md-progress-spinner md-mode="indeterminate"></md-progress-spinner>
                 </md-empty-state>
@@ -369,6 +369,7 @@
                   if(Response.data) {
                     this.completeDelete = true
                     this.users1[i].ActiveStatus = "0"
+                    this.users1[i].StatusActive = "Non Active"
                     this.searchOnTable()
                   }
                   else this.completeDelete = false
@@ -386,6 +387,7 @@
                   if(Response.data) {
                     this.completeDelete = true
                     this.users2[i].ActiveStatus = "0"
+                    this.users2[i].StatusActive = "Non Active"
                     this.searchOnTable()
                   }
                   else this.completeDelete = false
@@ -403,6 +405,7 @@
                   if(Response.data) {
                     this.completeDelete = true
                     this.users3[i].ActiveStatus = "0"
+                    this.users3[i].StatusActive = "Non Active"
                     this.searchOnTable()
                   }
                   else this.completeDelete = false
@@ -420,6 +423,7 @@
                   if(Response.data) {
                     this.completeDelete = true
                     this.users4[i].ActiveStatus = "0"
+                    this.users4[i].StatusActive = "Non Active"
                     this.searchOnTable()
                   }
                   else this.completeDelete = false
@@ -452,6 +456,7 @@
                   if(Response.data) {
                     this.completeRecover = true
                     this.users1[i].ActiveStatus = "1"
+                    this.users1[i].StatusActive = "Active"
                     this.searchOnTable()
                   }
                   else this.completeRecover = false
@@ -469,6 +474,7 @@
                   if(Response.data) {
                     this.completeRecover = true
                     this.users2[i].ActiveStatus = "1"
+                    this.users2[i].StatusActive = "Active"
                     this.searchOnTable()
                   }
                   else this.completeRecover = false
@@ -486,6 +492,7 @@
                   if(Response.data) {
                     this.completeRecover = true
                     this.users3[i].ActiveStatus = "1"
+                    this.users3[i].StatusActive = "Active"
                     this.searchOnTable()
                   }
                   else this.completeRecover = false
@@ -503,6 +510,7 @@
                   if(Response.data) {
                     this.completeRecover = true
                     this.users4[i].ActiveStatus = "1"
+                    this.users4[i].StatusActive = "Active"
                     this.searchOnTable()
                   }
                   else this.completeRecover = false
