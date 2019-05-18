@@ -895,8 +895,7 @@ app.get("/AccountRelation/Patient/:PatientID", (req, res) => {
           }).exec().then(result => {
             if (result) {
               docinfo.push(result[0])
-              if (docinfo.length == doc1.length) {
-                //res.status(200).json(docinfo);       
+              if (docinfo.length == doc1.length) {      
                 findPharmacist(docinfo)         
               }
             }
@@ -931,13 +930,7 @@ app.get("/AccountRelation/Patient/:PatientID", (req, res) => {
                 doc.push(docinfo)
                 doc.push(pharinfo)
                 res.status(200).json(doc);
-              } else {
-                res
-                  .status(404)
-                  .json({
-                    message: "No valid entry found for provided ID"
-                  });
-              }
+              } 
             }
           })
         }
