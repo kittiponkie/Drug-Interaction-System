@@ -32,7 +32,6 @@
             เข้าสู่ระบบ
           </button>
           <router-link to="/register" target="_parent"><button class="btn btn-success btn-lg">ลงทะเบียน</button></router-link>
-          <router-link to="/forgotpassword" target="_blank" class="btn btn-link">ลีมรหัสผ่าน</router-link>
         </div>        
         {{test}}
       </div>

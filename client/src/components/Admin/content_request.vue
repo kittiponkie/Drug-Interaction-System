@@ -37,11 +37,11 @@
           </md-table-row>
         </md-table>
         <md-dialog-confirm :md-active.sync="confirmAccept"
-          :md-content="'Do you want to Accept '+targetUser.Firstname+ ' '+targetUser.Lastname+' ?'"
+          :md-content="'ต้องการยอมรับการสมัครเข้าใช้ระบบของ '+targetUser.Firstname+ ' '+targetUser.Lastname+' ใช่ไหม ?'"
           md-confirm-text="Confirm" md-cancel-text="Cancel" @md-cancel="confirmAccept = false"
           @md-confirm="onConfirmAccept()" />
         <md-dialog-confirm :md-active.sync="confirmReject"
-          :md-content="'Do you want to Reject '+targetUser.Firstname+ ' '+targetUser.Lastname+' ?'"
+          :md-content="'ต้องการปฏิเสธการสมัครเข้าใช้ระบบของ '+targetUser.Firstname+ ' '+targetUser.Lastname+' ใช่ไหม ?'"
           md-confirm-text="Confirm" md-cancel-text="Cancel" @md-cancel="confirmReject = false"
           @md-confirm="onConfirmReject()" />
         <md-dialog-alert :md-active.sync="success" md-content="Success" md-confirm-text="Close" />

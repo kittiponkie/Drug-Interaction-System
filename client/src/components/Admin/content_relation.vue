@@ -61,7 +61,7 @@
                   </list-select>
                   <br>
                   <div v-if="selectedPatient.PatientID">
-                    <label v-if="selectedPatient.Status">สถานะ : {{selectedPatient.Status.ActiveStatus=='1'&&selectedPatient.Status.RegisterStatus=='1'? ': Active':': Non Active'}} </label>
+                    <label v-if="selectedPatient.Status">สถานะการใช้งาน : {{selectedPatient.Status.ActiveStatus=='1'&&selectedPatient.Status.RegisterStatus=='1'? ': Active':': Non Active'}} </label>
                   </div>
                 </div>
                 <div class="md-layout-item md-toolbar-section-end">
@@ -92,7 +92,7 @@
                   <md-table-cell md-label="ประเภทผู้ใช้" md-sort-by="Type" md-numeric>{{ item.Type }}</md-table-cell>
                   <md-table-cell md-label="ชื่อ" md-sort-by="Firstname">{{ item.Firstname }}</md-table-cell>
                   <md-table-cell md-label="นามสกุล" md-sort-by="Lastname">{{ item.Lastname }}</md-table-cell>
-                  <md-table-cell md-label="สถานะ" md-sort-by="StatusActive">{{ item.StatusActive }}</md-table-cell>
+                  <md-table-cell md-label="สถานะการใช้งาน" md-sort-by="StatusActive">{{ item.StatusActive }}</md-table-cell>
                 </md-table-row>
               </md-table>
 
@@ -167,7 +167,7 @@
                   </list-select>
                   <br>
                   <div v-if="selectedDoctor.DoctorID">
-                    <label v-if="selectedDoctor.Status">สถานะ : {{selectedDoctor.Status.ActiveStatus=='1'&&selectedDoctor.Status.RegisterStatus=='1'? ': Active':': Non Active'}} </label>
+                    <label v-if="selectedDoctor.Status">สถานะการใช้งาน : {{selectedDoctor.Status.ActiveStatus=='1'&&selectedDoctor.Status.RegisterStatus=='1'? ': Active':': Non Active'}} </label>
                   </div>
                 </div>
                 <div class="md-layout-item md-toolbar-section-end">
@@ -198,7 +198,7 @@
                   <md-table-cell md-label="ประเภทผู้ใช้" md-sort-by="Type" md-numeric>{{ item.Type }}</md-table-cell>
                   <md-table-cell md-label="ชื่อ" md-sort-by="Firstname">{{ item.Firstname }}</md-table-cell>
                   <md-table-cell md-label="นามสกุล" md-sort-by="Lastname">{{ item.Lastname }}</md-table-cell>
-                  <md-table-cell md-label="สถานะ" md-sort-by="StatusActive">{{ item.StatusActive }}</md-table-cell>
+                  <md-table-cell md-label="สถานะการใช้งาน" md-sort-by="StatusActive">{{ item.StatusActive }}</md-table-cell>
                 </md-table-row>
               </md-table>
 
@@ -254,7 +254,7 @@
                   </list-select>
                   <br>
                   <div v-if="selectedPharmacist.PharmacistID">
-                    <label v-if="selectedPharmacist.Status">สถานะ : {{selectedPharmacist.Status.ActiveStatus=='1'&&selectedPharmacist.Status.RegisterStatus=='1'? ': Active':': Non Active'}} </label>
+                    <label v-if="selectedPharmacist.Status">สถานะการใช้งาน : {{selectedPharmacist.Status.ActiveStatus=='1'&&selectedPharmacist.Status.RegisterStatus=='1'? ': Active':': Non Active'}} </label>
                   </div>
                 </div>
                 <div class="md-layout-item md-toolbar-section-end">
@@ -285,7 +285,7 @@
                   <md-table-cell md-label="ประเภทผู้ใช้" md-sort-by="Type" md-numeric>{{ item.Type }}</md-table-cell>
                   <md-table-cell md-label="ชื่อ" md-sort-by="Firstname">{{ item.Firstname }}</md-table-cell>
                   <md-table-cell md-label="นามสกุล" md-sort-by="Lastname">{{ item.Lastname }}</md-table-cell>
-                  <md-table-cell md-label="สถานะ" md-sort-by="StatusActive">{{ item.StatusActive }}</md-table-cell>
+                  <md-table-cell md-label="สถานะการใช้งาน" md-sort-by="StatusActive">{{ item.StatusActive }}</md-table-cell>
                 </md-table-row>
               </md-table>
 

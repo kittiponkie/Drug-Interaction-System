@@ -2,6 +2,7 @@
   <div>
     <div class="col-lg-6" style="width:100%;">
       <div class="panel panel-default">
+        <!--change background-->
         <div class="panel-heading" style="background-color:#99a5bf" id="headBack">
           <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
             <li class="nav-item">
@@ -78,13 +79,13 @@
                 <md-table-cell md-label="ลำดับ" md-sort-by="PatientID" md-numeric>{{ item.PatientID }}</md-table-cell>
                 <md-table-cell md-label="ชื่อ" md-sort-by="Firstname">{{ item.Firstname }}</md-table-cell>
                 <md-table-cell md-label="นามสกุล" md-sort-by="Lastname">{{ item.Lastname }}</md-table-cell>
-                <md-table-cell md-label="สถานะการใช้งาน" md-sort-by="ActiveStatus">{{ checkActive(item.ActiveStatus) }}</md-table-cell>
+                <md-table-cell md-label="สถานะการใช้งาน" md-sort-by="StatusActive">{{ item.StatusActive }}</md-table-cell>
                 <md-table-cell md-label=" ">
-                  <md-button v-if="checkActive(item.ActiveStatus)=='Request to Active'" class="md-icon-button"  @click="showDialog_recoverUser(item)" style="background-color:#f44742">
+                  <md-button v-if="item.StatusActive=='Non Active'" class="md-icon-button"  @click="showDialog_recoverUser(item)" style="background-color:#5cb85c">
                     <md-icon style="color:white">redo</md-icon>
                     <md-tooltip md-direction="right">กู้คืนผู้ใช้</md-tooltip>
                   </md-button>
-                  <md-button v-else-if="checkActive(item.ActiveStatus)=='Active'" class="md-icon-button" style="background-color:#f44742" @click="showDialog_deleteUser(item)">
+                  <md-button v-else-if="item.StatusActive=='Active'" class="md-icon-button" style="background-color:#f44742" @click="showDialog_deleteUser(item)">
                     <md-icon style="color:white">delete</md-icon>
                     <md-tooltip md-direction="right">ลบผู้ใช้</md-tooltip>
                   </md-button>
@@ -113,13 +114,13 @@
                 <md-table-cell md-label="ลำดับ" md-sort-by="DoctorID" md-numeric>{{ item.DoctorID }}</md-table-cell>
                 <md-table-cell md-label="ชื่อ" md-sort-by="Firstname">{{ item.Firstname }}</md-table-cell>
                 <md-table-cell md-label="นามสกุล" md-sort-by="Lastname">{{ item.Lastname }}</md-table-cell>
-                <md-table-cell md-label="สถานะการใช้งาน" md-sort-by="ActiveStatus">{{ checkActive(item.ActiveStatus) }}</md-table-cell>
+                <md-table-cell md-label="สถานะการใช้งาน" md-sort-by="StatusActive">{{ item.StatusActive }}</md-table-cell>
                 <md-table-cell md-label=" ">
-                  <md-button v-if="checkActive(item.ActiveStatus)=='Request to Active'" class="md-icon-button"  @click="showDialog_recoverUser(item)" style="background-color:#f44742">
+                  <md-button v-if="item.StatusActive=='Non Active'" class="md-icon-button"  @click="showDialog_recoverUser(item)" style="background-color:#5cb85c">
                     <md-icon style="color:white">redo</md-icon>
                     <md-tooltip md-direction="right">กู้คืนผู้ใช้</md-tooltip>
                   </md-button>
-                  <md-button v-else-if="checkActive(item.ActiveStatus)=='Active'" class="md-icon-button" style="background-color:#f44742" @click="showDialog_deleteUser(item)">
+                  <md-button v-else-if="item.StatusActive=='Active'" class="md-icon-button" style="background-color:#f44742" @click="showDialog_deleteUser(item)">
                     <md-icon style="color:white">delete</md-icon>
                     <md-tooltip md-direction="right">ลบผู้ใช้</md-tooltip>
                   </md-button>
@@ -148,13 +149,13 @@
                 <md-table-cell md-label="ลำดับ" md-sort-by="PharmacistID" md-numeric>{{ item.PharmacistID }}</md-table-cell>
                 <md-table-cell md-label="ชื่อ" md-sort-by="Firstname">{{ item.Firstname }}</md-table-cell>
                 <md-table-cell md-label="นามสกุล" md-sort-by="Lastname">{{ item.Lastname }}</md-table-cell>
-                <md-table-cell md-label="สถานะการใช้งาน" md-sort-by="ActiveStatus">{{ checkActive(item.ActiveStatus) }}</md-table-cell>
+                <md-table-cell md-label="สถานะการใช้งาน" md-sort-by="StatusActive">{{ item.StatusActive }}</md-table-cell>
                 <md-table-cell md-label=" ">
-                  <md-button v-if="checkActive(item.ActiveStatus)=='Request to Active'" class="md-icon-button"  @click="showDialog_recoverUser(item)" style="background-color:#f44742">
+                  <md-button v-if="item.StatusActive=='Non Active'" class="md-icon-button"  @click="showDialog_recoverUser(item)" style="background-color:#5cb85c">
                     <md-icon style="color:white">redo</md-icon>
                     <md-tooltip md-direction="right">กู้คืนผู้ใช้</md-tooltip>
                   </md-button>
-                  <md-button v-else-if="checkActive(item.ActiveStatus)=='Active'" class="md-icon-button" style="background-color:#f44742" @click="showDialog_deleteUser(item)">
+                  <md-button v-else-if="item.StatusActive=='Active'" class="md-icon-button" style="background-color:#f44742" @click="showDialog_deleteUser(item)">
                     <md-icon style="color:white">delete</md-icon>
                     <md-tooltip md-direction="right">ลบผู้ใช้</md-tooltip>
                   </md-button>
@@ -191,17 +192,17 @@
                 <md-table-cell md-label="ลำดับ" md-sort-by="ID" md-numeric>{{ item.ID }}</md-table-cell>
                 <md-table-cell md-label="ชื่อผู้ใช้" md-sort-by="Username">{{ item.Username }}</md-table-cell>
                 <md-table-cell md-label="อีเมล์" md-sort-by="Email">{{ item.Email }}</md-table-cell>
-                <md-table-cell md-label="สถานะการใช้งาน" md-sort-by="ActiveStatus">{{ checkActive(item.ActiveStatus) }}</md-table-cell>
+                <md-table-cell md-label="สถานะการใช้งาน" md-sort-by="StatusActive">{{ item.StatusActive }}</md-table-cell>
                 <md-table-cell md-label=" ">
-                  <md-button v-if="checkActive(item.ActiveStatus)=='Request to Active'" class="md-icon-button"  @click="showDialog_recoverUser(item)" style="background-color:#f44742">
+                  <md-button v-if="item.StatusActive=='Non Active'" class="md-icon-button"  @click="showDialog_recoverUser(item)" style="background-color:#5cb85c">
                     <md-icon style="color:white">redo</md-icon>
                     <md-tooltip md-direction="right">กู้คืนผู้ใช้</md-tooltip>
                   </md-button>
-                  <md-button v-else-if="checkActive(item.ActiveStatus)=='Active'" class="md-icon-button" style="background-color:#f44742" @click="showDialog_deleteUser(item)">
+                  <md-button v-else-if="item.StatusActive=='Active'" class="md-icon-button" style="background-color:#f44742" @click="showDialog_deleteUser(item)">
                     <md-icon style="color:white">delete</md-icon>
                     <md-tooltip md-direction="right">ลบผู้ใช้</md-tooltip>
                   </md-button>
-                </md-table-cell>
+                </md-table-cell>   
               </md-table-row>
             </md-table>
           </div>
@@ -285,11 +286,18 @@
   }
 
   const searchByID = (items, term ,type) => {
-    if (term) {
-      if (type == 0)  return items.filter(item => toLower(item.PatientID).includes(toLower(term)))
-      else if (type == 1)  return items.filter(item => toLower(item.DoctorID).includes(toLower(term)))
-      else if (type == 2)  return items.filter(item => toLower(item.PharmacistID).includes(toLower(term)))
-      else if (type == 3)  return items.filter(item => toLower(item.ID).includes(toLower(term)))     
+    if (term) {       
+      return items.filter(item => {        
+        if (item.PatientID && toLower(item.PatientID).includes(toLower(term))) return item
+        else if (item.DoctorID && toLower(item.DoctorID).includes(toLower(term))) return item
+        else if (item.PharmacistID && toLower(item.PharmacistID).includes(toLower(term))) return item
+        else if (item.ID && toLower(item.ID).includes(toLower(term))) return item
+        else if (item.Firstname && toLower(item.Firstname).includes(toLower(term))) return item
+        else if (item.Lastname && toLower(item.Lastname).includes(toLower(term))) return item        
+        else if (item.Email && toLower(item.Email).includes(toLower(term))) return item
+        else if (item.Username && toLower(item.Username).includes(toLower(term))) return item
+        else if (item.StatusActive && toLower(item.StatusActive).includes(toLower(term))) return item        
+      })          
     }
     return items
   }
@@ -533,7 +541,8 @@
             this.infoAdmin.ID = id
             await adminServices.addAdmin(this.infoAdmin).then(Response =>{
               if(Response.data.success){
-                this.users4.push(this.infoAdmin)      
+                this.infoAdmin.StatusActive = 'Active'
+                this.users4.push(this.infoAdmin)   
               }    
               this.infoAdmin = {
                   ID:"0" ,       
@@ -543,7 +552,7 @@
                   AccountType:"Admin",
                   RegisterStatus:"1",
                   ActiveStatus:"1"
-                }            
+                }                            
             })
           }
         }
@@ -561,7 +570,15 @@
           if(allAccount[i].ID[0] == 'P' && allAccount[i].ID[1] != 'H') {
             await adminServices.getPatient(allAccount[i].ID).then(Response =>{
               if(Response.data.length != 0) {
-                Response.data[0].ActiveStatus = allAccount[i].ActiveStatus
+                if(allAccount[i].ActiveStatus=='1' && allAccount[i].RegisterStatus=='1'){                  
+                  Response.data[0].StatusActive = 'Active'
+                } else if(allAccount[i].ActiveStatus=='0' && allAccount[i].RegisterStatus=='1'){
+                  Response.data[0].StatusActive = 'Non Active'
+                } else if(allAccount[i].RegisterStatus=='0'){
+                  Response.data[0].StatusActive = 'รอแอดมินอนุมัติ'
+                } else if(allAccount[i].RegisterStatus=='2'){
+                  Response.data[0].StatusActive = 'แอดมินไม่อนุมัติ'
+                }
                 this.users1.push(Response.data[0])   
                 this.searchOnTable()    
               }
@@ -573,7 +590,15 @@
           else if(allAccount[i].ID[0] == 'D') {
             await adminServices.getDoctor(allAccount[i].ID).then(Response =>{
               if(Response.data.length != 0) {
-                Response.data[0].ActiveStatus = allAccount[i].ActiveStatus
+                if(allAccount[i].ActiveStatus=='1' && allAccount[i].RegisterStatus=='1'){                  
+                  Response.data[0].StatusActive = 'Active'
+                } else if(allAccount[i].ActiveStatus=='0' && allAccount[i].RegisterStatus=='1'){
+                  Response.data[0].StatusActive = 'Non Active'
+                } else if(allAccount[i].RegisterStatus=='0'){
+                  Response.data[0].StatusActive = 'รอแอดมินอนุมัติ'
+                } else if(allAccount[i].RegisterStatus=='2'){
+                  Response.data[0].StatusActive = 'แอดมินไม่อนุมัติ'
+                }
                 this.users2.push(Response.data[0])   
                 this.searchOnTable()    
               }
@@ -585,7 +610,15 @@
           else if(allAccount[i].ID[0] == 'P' && allAccount[i].ID[1] == 'H') {
             await adminServices.getPharmacist(allAccount[i].ID).then(Response =>{
               if(Response.data.length != 0) {
-                Response.data[0].ActiveStatus = allAccount[i].ActiveStatus
+                if(allAccount[i].ActiveStatus=='1' && allAccount[i].RegisterStatus=='1'){                  
+                  Response.data[0].StatusActive = 'Active'
+                } else if(allAccount[i].ActiveStatus=='0' && allAccount[i].RegisterStatus=='1'){
+                  Response.data[0].StatusActive = 'Non Active'
+                } else if(allAccount[i].RegisterStatus=='0'){
+                  Response.data[0].StatusActive = 'รอแอดมินอนุมัติ'
+                } else if(allAccount[i].RegisterStatus=='2'){
+                  Response.data[0].StatusActive = 'แอดมินไม่อนุมัติ'
+                }
                 this.users3.push(Response.data[0])   
                 this.searchOnTable()    
               }
@@ -595,6 +628,15 @@
 
           //admin
           else if(allAccount[i].ID[0] == 'A') {
+            if(allAccount[i].ActiveStatus=='1' && allAccount[i].RegisterStatus=='1'){                  
+              allAccount[i].StatusActive = 'Active'
+            } else if(allAccount[i].ActiveStatus=='0' && allAccount[i].RegisterStatus=='1'){
+              allAccount[i].StatusActive = 'Non Active'
+            } else if(allAccount[i].RegisterStatus=='0'){
+              allAccount[i].StatusActive = 'รอแอดมินอนุมัติ'
+            } else if(allAccount[i].RegisterStatus=='2'){
+              allAccount[i].StatusActive = 'แอดมินไม่อนุมัติ'
+            }
             this.users4.push(allAccount[i])
             this.searchOnTable() 
           }
