@@ -21,39 +21,44 @@
           </md-card>     
         </div>
         <!--/router-link-->
-          <div class="md-layout">
-            <div class="md-layout-item" style="text-align:left">
-            </div>
-            <div class="md-layout-item md-size-50 " style="text-align:center">
-              <ul class="pagination justify-content-center">
-                <li class="page-item">
-                  <a class="page-link" @click="pagination=0" href="#pagination">First</a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link" @click="pagination!=0? pagination-=1:pagination" href="#pagination">Previous</a>
-                </li>
-                <li
-                  v-if="((pagination+3 > index) && (pagination-3 < index)) || (pagination<5 && (index==3 || index==4)) || (pagination<5 && (index==3 || index==4)) || ((users.length%maxItemPerPage==0? parseInt((users.length)/maxItemPerPage)-pagination+1 <5 && (index==parseInt((users.length)/maxItemPerPage)-4 || index==parseInt((users.length)/maxItemPerPage)-5):parseInt((users.length)/maxItemPerPage)+1-pagination+1 <5 && (index==parseInt((users.length)/maxItemPerPage)-4+1 || index==parseInt((users.length)/maxItemPerPage)-5+1) ))"
-                  class="page-item"
-                  v-for="(item,index) in (users.length%maxItemPerPage==0? parseInt((users.length)/maxItemPerPage):parseInt((users.length)/maxItemPerPage)+1)"
-                  :key="index"><a class="page-link" @click="pagination = index" href="#pagination">{{index+1}}</a></li>
-
-                <li class="page-item">
-                  <a class="page-link"
-                    @click="users.length%maxItemPerPage==0? (pagination+1<parseInt((users.length)/maxItemPerPage)? pagination +=1:pagination) : (pagination+1<parseInt((users.length)/maxItemPerPage)+1?pagination +=1:pagination)"
-                    href="#pagination">Next</a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link"
-                    @click="users.length%maxItemPerPage==0? pagination=parseInt(users.length/maxItemPerPage)-1:pagination=parseInt(users.length/maxItemPerPage)+1-1"
-                    href="#pagination">Last</a>
-                </li>
-              </ul>
-            </div>
-            <div class="md-layout-item" style="text-align:right;padding-top:25px;padding-right:10px;">
-              Page {{pagination+1}}
-            </div>
+        <div class="md-layout">
+          <div class="md-layout-item" style="text-align:left;margin-top:25px;margin-left:10px">
+            <select v-model="maxItemPerPage" @change="pagination=0">
+              <option value="5">5 items/page</option>
+              <option value="10">10 items/page</option>
+              <option value="25">25 items/page</option>
+            </select>
           </div>
+          <div class="md-layout-item md-size-60 " style="text-align:center">
+            <ul class="pagination justify-content-center">
+              <li class="page-item">
+                <a class="page-link" @click="pagination=0" href="#pagination">First</a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" @click="pagination!=0? pagination-=1:pagination" href="#pagination">Previous</a>
+              </li>
+              <li
+                v-if="((pagination+3 > index) && (pagination-3 < index)) || (pagination<5 && (index==3 || index==4)) || (pagination<5 && (index==3 || index==4)) || ((users.length%maxItemPerPage==0? parseInt((users.length)/maxItemPerPage)-pagination+1 <5 && (index==parseInt((users.length)/maxItemPerPage)-4 || index==parseInt((users.length)/maxItemPerPage)-5):parseInt((users.length)/maxItemPerPage)+1-pagination+1 <5 && (index==parseInt((users.length)/maxItemPerPage)-4+1 || index==parseInt((users.length)/maxItemPerPage)-5+1) ))"
+                class="page-item"
+                v-for="(item,index) in (users.length%maxItemPerPage==0? parseInt((users.length)/maxItemPerPage):parseInt((users.length)/maxItemPerPage)+1)"
+                :key="index"><a class="page-link" @click="pagination = index" href="#pagination">{{index+1}}</a></li>
+
+              <li class="page-item">
+                <a class="page-link"
+                  @click="users.length%maxItemPerPage==0? (pagination+1<parseInt((users.length)/maxItemPerPage)? pagination +=1:pagination) : (pagination+1<parseInt((users.length)/maxItemPerPage)+1?pagination +=1:pagination)"
+                  href="#pagination">Next</a>
+              </li>
+              <li class="page-item">
+                <a class="page-link"
+                  @click="users.length%maxItemPerPage==0? pagination=parseInt(users.length/maxItemPerPage)-1:pagination=parseInt(users.length/maxItemPerPage)+1-1"
+                  href="#pagination">Last</a>
+              </li>
+            </ul>
+          </div>
+          <div class="md-layout-item" style="text-align:right;padding-top:25px;padding-right:10px;">
+            Page {{pagination+1}}
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -84,10 +89,7 @@
       select: '',
       pagination: 0,
       maxItemPerPage:5,
-
-
       search:'',
-
     }),
     methods: {
       searchOnTable() {
