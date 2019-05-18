@@ -20,8 +20,8 @@
           </md-table-empty-state>
 
           <md-table-row slot="md-table-row" slot-scope="{ item }">
-            <md-table-cell v-if="item.DoctorID" md-label="ลำดับ" md-sort-by="ID" md-numeric>{{ item.DoctorID }}</md-table-cell>
-            <md-table-cell v-else md-label="ลำดับ" md-sort-by="ID" md-numeric>{{ item.PharmacistID }}</md-table-cell>
+            <md-table-cell md-label="ลำดับ" md-sort-by="ID" md-numeric>{{ item.ID }}</md-table-cell>
+            <md-table-cell md-label="ประเภทผู้ใช้" md-sort-by="Type" md-numeric>{{ item.Type }}</md-table-cell>
             <md-table-cell md-label="ชื่อ" md-sort-by="Firstname">{{ item.Firstname }}</md-table-cell>
             <md-table-cell md-label="นามสกุล" md-sort-by="Lastname">{{ item.Lastname }}</md-table-cell>
             <md-table-cell md-label=" ">
@@ -58,7 +58,12 @@
 
   const searchByID = (items, term) => {
     if (term) {
-      return items.filter(item => toLower(item.DoctorID).includes(toLower(term)))
+      return items.filter(item => {
+        if(toLower(item.ID).includes(toLower(term))) return item
+        else if(toLower(item.Firstname).includes(toLower(term))) return item
+        else if(toLower(item.Lastname).includes(toLower(term))) return item
+        else if(toLower(item.Type).includes(toLower(term))) return item        
+      })
     }
     return items
   }
@@ -144,6 +149,8 @@
             await adminServices.getDoctor(allAccount[i].ID).then(Response => {
               console.log(Response.data)
               if (Response.data.length != 0) {
+                Response.data[0].ID = Response.data[0].DoctorID
+                Response.data[0].Type = "แพทย์"
                 this.users.push(Response.data[0])
                 this.searchOnTable()
               }
@@ -156,6 +163,8 @@
             await adminServices.getPharmacist(allAccount[i].ID).then(Response => {
               console.log(Response.data)
               if (Response.data.length != 0) {
+                Response.data[0].ID = Response.data[0].PharmacistID                
+                Response.data[0].Type = "เภสัชกร"
                 this.users.push(Response.data[0])
                 this.searchOnTable()
               }
