@@ -695,6 +695,19 @@
       },
       //table edit
       editDrug(item) {
+        console.log(item)
+        var unit_tablet = item.GPName.search('tablet')
+        var unit_oral = item.GPName.search('oral')
+        var unit_capsule = item.GPName.search('capsule')
+        var unit_syrup = item.GPName.search('syrup')
+        var unit_eye = item.GPName.search('eye drops')
+        var unit_cream = item.GPName.search('cream')
+        var unit_implant = item.GPName.search('implant')
+        var unit_injection = item.GPName.search('injection')
+        var unit_ointment = item.GPName.search('ointment')
+        var unit_spray = item.GPName.search('spray')
+        var unit_lozenge = item.GPName.search('lozenge')        
+
         var x = {
           OrderID: item.OrderID,
           PatientID: item.PatientID,
@@ -714,7 +727,8 @@
           RXCUI: item.RXCUI,
           Dosage: {
             dose: item.Dosage.dose,
-            unit: item.Dosage.unit
+            unit: item.Dosage.unit,
+            unit2: 'unit'
           },
           Frequency: {
             mor: item.Frequency.mor,
@@ -734,6 +748,34 @@
           detail: item.detail,
           statusDetail: item.statusDetail
         }
+
+         if(unit_tablet!=-1){
+          x.Dosage.unit2 = 'tablet'   
+        } else if(unit_oral!=-1){
+          x.Dosage.unit2 = 'oral'
+        } else if(unit_capsule!=-1){
+          x.Dosage.unit2 = 'capsule'
+        } else if(unit_syrup!=-1){
+          x.Dosage.unit2 = 'syrup'
+        } else if(unit_eye!=-1){
+          x.Dosage.unit2 = 'eye drops'
+        } else if(unit_cream!=-1){
+          x.Dosage.unit2 = 'cream'
+        } else if(unit_implant!=-1){
+          x.Dosage.unit2 = 'implant'
+        } else if(unit_injection!=-1){
+          x.Dosage.unit2 = 'injection'
+        } else if(unit_ointment!=-1){
+          x.Dosage.unit2 = 'ointment' 
+        } else if(unit_spray!=-1){
+          x.Dosage.unit2 = 'spray'
+        } else if(unit_lozenge!=-1){
+          x.Dosage.unit2 = 'lozenge'
+        } else {
+          x.Dosage.unit = 'unit' 
+        }
+        this.query = x.GPName
+        this.query2 = x.GPName
         this.newDrugs = x
         this.active = true
         this.checkEdit = true
@@ -742,10 +784,13 @@
       //confirm click
       async onConfirmClick(){
         this.showDialog = true
-        ;//console.log(this.drugs)
+        console.log("load")
         //set load
         await this.drugs.forEach(item=>{
           item.statusDetail = 'load'
+          item.detail.interaction = []
+          item.detail.allergic = []
+          item.detail.timeConflict = []
         })
 
         //check Duplicate Drugs 
@@ -794,24 +839,51 @@
             rxcui = Response.data.idGroup.rxnormId[0].toString()
             item.RXCUI = Response.data.idGroup.rxnormId[0].toString()
           }
-          else ;//console.log("not found rxcui")
+          else ;
         })  
         await this.users.forEach(itemHis =>  {
-          ;//console.log(itemHis.RXCUI,rxcui) 
           doctorServices.checkInteraction(rxcui,itemHis.RXCUI).then(result => {
-            ;//console.log(result.data.message)
-            ;//console.log(result.data)
-            if(result.data.success) {
-              this.detailInteraction(item,itemHis)
+            if(result.data.success) {    
+              var startTime = new Date(itemHis.DispendStartDate)
+              var finalTime = new Date(itemHis.DispendStartDate)
+              finalTime.setFullYear(finalTime.getFullYear() + parseInt(itemHis.Duration.year),
+                                    finalTime.getMonth() + parseInt(itemHis.Duration.month),
+                                    finalTime.getDate() + parseInt(itemHis.Duration.day)) 
+              var start = new Date(item.DispendStartDate)
+              var final = new Date(item.DispendStartDate)
+              final.setFullYear(final.getFullYear() + parseInt(item.Duration.year),
+                                    final.getMonth() + parseInt(item.Duration.month),
+                                    final.getDate() + parseInt(item.Duration.day)) 
+              if(startTime - start < 0){    
+                if(start - finalTime<=0) this.detailInteraction(item,itemHis)                
+              } else if(startTime - start == 0) {
+                this.detailInteraction(item,itemHis) 
+              } else {
+                if(startTime - final <=0) this.detailInteraction(item,itemHis)  
+              } 
             }
           })        
         })  
         await this.drugs.forEach(itemDrugs=>{
           doctorServices.checkInteraction(rxcui,itemDrugs.RXCUI).then(result => {
-            ;//console.log(result.data.message)
-            ;//console.log(result.data)
-            if(result.data.success) {
-              this.detailInteraction(item,itemDrugs)
+            if(result.data.success) {                        
+              var startTime = new Date(itemDrugs.DispendStartDate)
+              var finalTime = new Date(itemDrugs.DispendStartDate)
+              finalTime.setFullYear(finalTime.getFullYear() + parseInt(itemDrugs.Duration.year),
+                                    finalTime.getMonth() + parseInt(itemDrugs.Duration.month),
+                                    finalTime.getDate() + parseInt(itemDrugs.Duration.day)) 
+              var start = new Date(item.DispendStartDate)
+              var final = new Date(item.DispendStartDate)
+              final.setFullYear(final.getFullYear() + parseInt(item.Duration.year),
+                                    final.getMonth() + parseInt(item.Duration.month),
+                                    final.getDate() + parseInt(item.Duration.day)) 
+              if(startTime - start < 0){    
+                if(start - finalTime<=0) this.detailInteraction(item,itemDrugs)                
+              } else if(startTime - start == 0) {
+                this.detailInteraction(item,itemDrugs) 
+              } else {
+                if(startTime - final <=0) this.detailInteraction(item,itemDrugs)  
+              }            
             }
           }) 
         })      
@@ -848,18 +920,22 @@
         })
         await this.drugs.forEach(itemDrugs=>{
           if(itemDrugs != item){
-            var finalTime = new Date(itemDrugs.DispendStartDate)
-            finalTime.setFullYear(finalTime.getFullYear() + parseInt(itemDrugs.Duration.year),
-                                  finalTime.getMonth() + parseInt(itemDrugs.Duration.month),
-                                  finalTime.getDate() + parseInt(itemDrugs.Duration.day))      
-            if(itemDrugs.GPName.split(' ')[0] == drugName[0]) {
-              if(item.DispendStartDate - finalTime <= 0){
-                var suggestTime = finalTime
-                suggestTime.setFullYear(suggestTime.getFullYear(),
-                                      suggestTime.getMonth(),
-                                      suggestTime.getDate() + 1)   
-                item.detail.timeConflict.push(itemDrugs.OrderID+" "+ itemDrugs.GPName+" แนะนำให้เริ่มสั่งได้วัน "+suggestTime.toDateString())  
-                item.statusDetail = "Time Conflict"          
+            var a = new Date(item.DispendStartDate)
+            var b = new Date(itemDrugs.DispendStartDate)
+            if(b-a<=0){
+              var finalTime = new Date(itemDrugs.DispendStartDate)
+              finalTime.setFullYear(finalTime.getFullYear() + parseInt(itemDrugs.Duration.year),
+                                    finalTime.getMonth() + parseInt(itemDrugs.Duration.month),
+                                    finalTime.getDate() + parseInt(itemDrugs.Duration.day))      
+              if(itemDrugs.GPName.split(' ')[0] == drugName[0]) {
+                if(item.DispendStartDate - finalTime <= 0){
+                  var suggestTime = finalTime
+                  suggestTime.setFullYear(suggestTime.getFullYear(),
+                                        suggestTime.getMonth(),
+                                        suggestTime.getDate() + 1)   
+                  item.detail.timeConflict.push(itemDrugs.OrderID+" "+ itemDrugs.GPName+" แนะนำให้เริ่มสั่งได้วัน "+suggestTime.toDateString())  
+                  item.statusDetail = "Time Conflict"          
+                }
               }
             }
           }
