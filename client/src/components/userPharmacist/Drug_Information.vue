@@ -77,14 +77,16 @@
       toggleMenu() {
         this.menuVisible = !this.menuVisible
       },
-      logout(){
-        this.$router.push('/login')
+      async logout(){
+        await this.$localStorage.set("userID",null)
+        await this.$router.push('/login')
       },
       toPharInfo(){
         this.$router.push('/pharmacist_information')
       }
     },
     async mounted() {
+      if(this.$localStorage.get("userID")=='null') this.$router.push('/login')
       this.Window_Width = window.innerWidth
     }
   }

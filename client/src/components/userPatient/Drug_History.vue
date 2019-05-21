@@ -29,7 +29,7 @@
         <md-list class="delete_margin">
           <md-list-item to="/patient_information" class="unselected">
             <md-icon style="margin-right:10px">account_circle</md-icon>
-            <span class="md-list-item-text unselected_text">ข้อมูลคนไข้</span>
+            <span class="md-list-item-text unselected_text">ข้อมูลผู้ป่วย</span>
           </md-list-item>
 
           <md-list-item to="/patient_drug_history" class="selected">
@@ -81,11 +81,13 @@
       toggleMenu() {
         this.menuVisible = !this.menuVisible
       },
-      logout(){
-        this.$router.push('/login')
+      async logout(){
+        await this.$localStorage.set("userID",null)
+        await this.$router.push('/login')
       }
     },
     async mounted() {
+      if(this.$localStorage.get("userID")=='null') this.$router.push('/login')
       this.Window_Width = window.innerWidth
     }
   }

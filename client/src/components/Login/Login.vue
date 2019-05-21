@@ -100,7 +100,7 @@
             else if(Response.data.AccountType == 'Admin') this.$router.push('/admin')
             else {
               this.MessageError = "error type not found"              
-              this.$localStorage.set('userID', "")
+              this.$localStorage.set('userID', null)
             }
           }
         })

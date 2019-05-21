@@ -444,7 +444,7 @@
       },
       calculateQuantity() {
         //this.query2 = this.query
-        //console.log(this.query)
+        //;//console.log(this.query)
         if(this.query!='' && this.query!=undefined) {
           this.query2 = this.query
           var unit_tablet = this.query.search('tablet')
@@ -503,21 +503,21 @@
         if(this.newDrugs.Duration.day < 0) this.newDrugs.Duration.day = 0
         if(this.newDrugs.Quantity < 0) this.newDrugs.Quantity = 0
 
-        console.log("Calculate function")
+        ;//console.log("Calculate function")
         if(this.newDrugs.Frequency.symptoms != "true"){
         this.newDrugs.Times = 0;
         var key = 0;
         for (key in this.newDrugs.Frequency) {
           if (this.newDrugs.Frequency.hasOwnProperty(key)) {
-            //console.log(key)
-            //console.log(this.newDrugs.Frequency[key])
+            //;//console.log(key)
+            //;//console.log(this.newDrugs.Frequency[key])
             if (this.newDrugs.Frequency[key] == "true" && key != "before" && key != "after") {
               this.newDrugs.Times++
             }
           }
         }
-        //console.log(Object.keys(this.newDrugs.Frequency).length)  
-        //console.log(this.newDrugs.Duration)
+        //;//console.log(Object.keys(this.newDrugs.Frequency).length)  
+        //;//console.log(this.newDrugs.Duration)
         var year = parseInt(this.newDrugs.Duration.year) * 12 * 30
         var month = parseInt(this.newDrugs.Duration.month) * 30
         var day = parseInt(this.newDrugs.Duration.day)
@@ -529,9 +529,9 @@
 
         this.newDrugs.Quantity = parseInt(this.newDrugs.Dosage.dose) * this.newDrugs.Times * duration        
         this.newDrugs.Quantity = this.newDrugs.Quantity.toString()
-        //console.log(this.newDrugs.Quantity)
+        //;//console.log(this.newDrugs.Quantity)
         this.newDrugs.Times = this.newDrugs.Times.toString()
-        //console.log("Times = ", this.newDrugs.Times)
+        //;//console.log("Times = ", this.newDrugs.Times)
         }
       },
       async addDrugToList() {
@@ -639,10 +639,10 @@
 
         //check allergic
         await this.allergicOfPatient.forEach(element => {
-          console.log("allergic ",element)
+          ;//console.log("allergic ",element)
           var temp = []
           axios.get(`http://localhost:8082/Allergic/`+element).then(Response => {          
-            console.log('gpid ',Response.data.GP)
+            ;//console.log('gpid ',Response.data.GP)
             temp = Response.data.GP
           }).then(()=>{   
             axios.get(`http://localhost:8082/Allergic/GP/`+x.GPName).then(Response2 => {
@@ -651,7 +651,7 @@
               if(Response2.data.GP[0].GPID) temp2 = Response2.data.GP[0].GPID
               temp.forEach((gpidItem,index)=>{
                 if(gpidItem.GPID==temp2) {
-                  console.log("ALLERGIC NOW!!!! ",element)
+                  ;//console.log("ALLERGIC NOW!!!! ",element)
                   this.message += "ผู้ป่วยแพ้ยาที่สั่ง กรุณาสั่งยาอื่นครับ<br>"
                 }   
                 if(temp.length == index+1)  {
@@ -660,12 +660,12 @@
                   if(x.GPName!='' && finding && !this.showMessage) {
                     this.active = false
                     if (this.checkEdit) {
-                      console.log("edit success")
+                      ;//console.log("edit success")
                       this.drugs[this.itemEdit.DrugNo - 1] = x
                       this.checkEdit = false
                       return
                     } else {
-                      console.log("add drug success")
+                      ;//console.log("add drug success")
                       x.DrugNo = (this.drugs.length + 1).toString()
                       this.drugs.push(x)
                       return 
@@ -682,14 +682,14 @@
         this.searched = searchByName(this.drugs, this.search)
       },
       deleteOnTable(item) {
-        console.log(item.DrugNo)
+        ;//console.log(item.DrugNo)
         if (item.DrugNo < this.drugs.length) {
-          console.log("less than")
+          ;//console.log("less than")
           for (var i = item.DrugNo; i < this.drugs.length; i++) {
-            console.log(i)
+            ;//console.log(i)
             this.drugs[i].DrugNo = i
           }
-          console.log(this.drugs)
+          ;//console.log(this.drugs)
         }
         this.drugs.splice(item.DrugNo - 1, 1)
       },
@@ -742,7 +742,7 @@
       //confirm click
       async onConfirmClick(){
         this.showDialog = true
-        console.log(this.drugs)
+        ;//console.log(this.drugs)
         //set load
         await this.drugs.forEach(item=>{
           item.statusDetail = 'load'
@@ -756,20 +756,20 @@
 
         //check allergic
         await this.allergicOfPatient.forEach(element => {
-          console.log("allergic ",element)
+          ;//console.log("allergic ",element)
           var temp = []
           axios.get(`http://localhost:8082/Allergic/`+element).then(Response => {          
-            console.log('gpid ',Response.data.GP)
+            ;//console.log('gpid ',Response.data.GP)
             temp = Response.data.GP
           }).then(()=>{            
             this.drugs.forEach(item=>{
               axios.get(`http://localhost:8082/Allergic/GP/`+item.GPName).then(Response2 => {
-                //console.log('gpid of gpname',Response2.data.GP[0].GPID)
+                //;//console.log('gpid of gpname',Response2.data.GP[0].GPID)
                 var temp2 = []
                 temp2 = Response2.data.GP[0].GPID
                 temp.forEach(gpidItem=>{
                   if(gpidItem.GPID==temp2) {
-                    console.log("ALLERGIC NOW!!!! ",element)
+                    ;//console.log("ALLERGIC NOW!!!! ",element)
                     item.detail.allergic.push(element)
                     if(item.statusDetail == 'load') item.statusDetail = "Allergic"
                     else if(item.statusDetail == 'Allergic') ;
@@ -788,19 +788,19 @@
         var drugName = item.GPName.split(' ')
         var rxcui = ''
         await axios.get(`https://rxnav.nlm.nih.gov/REST/rxcui.json?name=`+drugName[0]).then(Response => {  
-          console.log(drugName[0])        
-          console.log('rxcui ',Response.data.idGroup.rxnormId)
+          ;//console.log(drugName[0])        
+          ;//console.log('rxcui ',Response.data.idGroup.rxnormId)
           if(Response.data.idGroup.rxnormId) {
             rxcui = Response.data.idGroup.rxnormId[0].toString()
             item.RXCUI = Response.data.idGroup.rxnormId[0].toString()
           }
-          else console.log("not found rxcui")
+          else ;//console.log("not found rxcui")
         })  
         await this.users.forEach(itemHis =>  {
-          console.log(itemHis.RXCUI,rxcui) 
+          ;//console.log(itemHis.RXCUI,rxcui) 
           doctorServices.checkInteraction(rxcui,itemHis.RXCUI).then(result => {
-            console.log(result.data.message)
-            console.log(result.data)
+            ;//console.log(result.data.message)
+            ;//console.log(result.data)
             if(result.data.success) {
               this.detailInteraction(item,itemHis)
             }
@@ -808,8 +808,8 @@
         })  
         await this.drugs.forEach(itemDrugs=>{
           doctorServices.checkInteraction(rxcui,itemDrugs.RXCUI).then(result => {
-            console.log(result.data.message)
-            console.log(result.data)
+            ;//console.log(result.data.message)
+            ;//console.log(result.data)
             if(result.data.success) {
               this.detailInteraction(item,itemDrugs)
             }
@@ -880,12 +880,12 @@
       //last confirm (save to DB)
       async confirmOrder() {
         this.showDialog = false
-        console.log("Save to Database")
-        console.log(this.drugs)        
+        ;//console.log("Save to Database")
+        ;//console.log(this.drugs)        
         for (var i in this.drugs) {
-          console.log(i)
+          ;//console.log(i)
           doctorServices.postOrder(this.drugs[i]).then(Response => {
-            console.log("ok1" + this.drugs[i].DrugNo)
+            ;//console.log("ok1" + this.drugs[i].DrugNo)
           })
         }
         window.location.reload()
@@ -898,26 +898,26 @@
     async mounted() {   
       //get patient info   
       await doctorServices.patientInfo(this.$localStorage.get('doctor_patient')).then(Response => {
-        console.log(Response.data[0])
+        ;//console.log(Response.data[0])
         this.patient = Response.data[0]
       })       
       
       //get doctor info
       await doctorServices.doctorInfo(this.$localStorage.get('userID')).then(Response => {
-        console.log(Response.data[0])
+        ;//console.log(Response.data[0])
         this.doctor = Response.data[0]
       })
 
       //set orderID
       await doctorServices.getOrderId(this.patient.PatientID, this.doctor.DoctorID).then(Response => {
-        console.log(Response.data)
+        ;//console.log(Response.data)
         if (Response.data == "") {
-          console.log("nullll")
+          ;//console.log("nullll")
           this.newDrugs.OrderID = "O00001"          
         } else {
           this.drugHistory = Response.data
-          console.log("drug history => ",this.drugHistory)          
-          console.log(Response.data[Response.data.length - 1].OrderID)
+          ;//console.log("drug history => ",this.drugHistory)          
+          ;//console.log(Response.data[Response.data.length - 1].OrderID)
           var orderId = Response.data[Response.data.length - 1].OrderID
           var x = orderId.split('O')
           orderId = parseInt(x[1]) + 1
@@ -927,7 +927,7 @@
           else if (orderId.length == 3) orderId = "O00" + orderId
           else if (orderId.length == 4) orderId = "O0" + orderId
           else orderId = "O" + orderId
-          console.log(orderId)
+          ;//console.log(orderId)
           this.newDrugs.OrderID = orderId
           this.orderID = orderId
         }
@@ -935,7 +935,7 @@
       
       //get allergic of patient
       await doctorServices.allergicOfPatient(this.$localStorage.get('doctor_patient')).then(Response => {
-        console.log("Allergic drug of patient is ",Response.data)
+        ;//console.log("Allergic drug of patient is ",Response.data)
         for(var i in Response.data){
           this.allergicOfPatient.push(Response.data[i].VTMName)
         }        
@@ -943,7 +943,7 @@
 
       //get order of patient
       await doctorServices.getOrderId(this.$localStorage.get('doctor_patient')).then(Response => {
-          console.log(Response.data)  
+          ;//console.log(Response.data)  
           Response.data.forEach((item,i) =>{
             //set pharmacist
             if(item.PharmacistID[0] == 'P' && item.PharmacistID[1] == 'H') {
@@ -956,7 +956,7 @@
                 }
                 item.PharmacistID.push(tempPhar)
               })
-              console.log(item.PharmacistID)
+              ;//console.log(item.PharmacistID)
             } else {
               item.PharmacistID = ''
             }
@@ -1039,8 +1039,8 @@
             
             //update response data to Table 
             if(i == Response.data.length-1) {
-              console.log("Last item")
-              console.log(this.users)
+              ;//console.log("Last item")
+              ;//console.log(this.users)
             }     
           })          
       })  

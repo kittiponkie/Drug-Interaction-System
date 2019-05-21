@@ -33,7 +33,7 @@
           </md-list-item>
           <md-list-item to="/admin_request" class="unselected">
             <md-icon style="margin-right:10px;color:black;">account_circle</md-icon>
-            <span class="md-list-item-text unselected_text" style="color:black;">คำร้องขอ</span>
+            <span class="md-list-item-text unselected_text" style="color:black;">คำร้องขอเข้าใช้ระบบ</span>
           </md-list-item>
           <md-list-item to="/admin_relation" class="selected">
             <md-icon style="margin-right:10px;color:white;">account_circle</md-icon>
@@ -67,11 +67,13 @@
       toggleMenu() {
         this.menuVisible = !this.menuVisible
       },
-      logout(){
-        this.$router.push('/login')
+      async logout(){
+        await this.$localStorage.set("userID",null)
+        await this.$router.push('/login')
       }
     },
     async mounted() {
+      if(this.$localStorage.get("userID")=='null') this.$router.push('/login')
       this.Window_Width = window.innerWidth
     }
   }

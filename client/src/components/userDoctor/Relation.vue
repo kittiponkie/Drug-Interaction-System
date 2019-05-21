@@ -35,7 +35,7 @@
         <md-list class="delete_margin">
           <md-list-item to="/doctor_relation" class="selected">
             <md-icon style="margin-right:10px;color:white;">person_add</md-icon>
-            <span class="md-list-item-text selected_text" style="color:white;">เลือกคนไข้</span>
+            <span class="md-list-item-text selected_text" style="color:white;">เลือกผู้ป่วย</span>
           </md-list-item>
 
           <md-list-item to="/doctor_drug_information" class="unselected">
@@ -76,14 +76,16 @@
       toggleMenu() {
         this.menuVisible = !this.menuVisible
       },
-      logout(){
-        this.$router.push('/login')
+      async logout(){
+        await this.$localStorage.set("userID",null)
+        await this.$router.push('/login')
       },
       toDoctorInfo(){
         this.$router.push('/doctor_information')
       }
     },
     async mounted() {
+      if(this.$localStorage.get("userID")=='null') this.$router.push('/login')
       this.Window_Width = window.innerWidth
     }
   }

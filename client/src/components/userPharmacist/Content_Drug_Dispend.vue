@@ -171,6 +171,11 @@
                   <div class="md-layout-item"><label style="min-width:180px;">ปริมาณยาที่ใช้ไป(%) :</label></div>
                   <div class="md-layout-item"> <input class="form-control" type="text" placeholder="-" style="min-width:260px;"
                       readonly :value="itemDialog.Using"></div>
+                </div>                
+                <div class="md-layout textInDialog">
+                  <div class="md-layout-item"><label style="min-width:180px;">วันเริ่มทานยา :</label></div>
+                  <div class="md-layout-item"> <input class="form-control" type="text" placeholder="-" style="min-width:260px;"
+                      readonly :value="itemDialog.DispendStartDate"></div>
                 </div>
                 <div class="md-layout textInDialog">
                   <div class="md-layout-item"><label style="min-width:180px;">วันรับยาครั้งถัดไป :</label></div>
@@ -313,7 +318,14 @@
   };
   const searchByName = (items, term) => {
     if (term) {
-      return items.filter(item => toLower(item.GPName).includes(toLower(term)));
+      return items.filter(item => {        
+        if (item.OrderID && toLower(item.OrderID).includes(toLower(term))) return item
+        else if (item.GPName && toLower(item.GPName).includes(toLower(term))) return item
+        else if (item.DoctorName && toLower(item.DoctorName).includes(toLower(term))) return item
+        else if (item.UsingStatus && toLower(item.UsingStatus).includes(toLower(term))) return item
+        else if (item.Dispend2 && toLower(item.Dispend2).includes(toLower(term))) return item  
+        else if (item.Using && toLower(item.Using).includes(toLower(term))) return item              
+      })  
     }
     return items;
   };
@@ -448,6 +460,7 @@
       //table
       searchOnTable() {
         this.searched = searchByName(this.users, this.search);
+        this.searched2 = searchByName(this.users2, this.search2);
       }
     },
     async mounted() {
@@ -501,7 +514,7 @@
           var usingMed = currentTime-dispenseTime
           var allMed = finalTime-dispenseTime
           item.Using = parseFloat(usingMed*100/allMed).toFixed(2).toString()
-          if(item.Using > item.Dispend) item.Using = item.Dispend2
+          if(item.Using > item.Dispend2) item.Using = item.Dispend2
           else if(item.Using <0) item.Using = 0
           
           //next receive medicine
@@ -509,6 +522,8 @@
           else {
             item.nextReceiveMedicine = new Date(item.DispendStatus).toDateString()
           }
+          //DispendStartDate
+          item.DispendStartDate = new Date(item.DispendStartDate).toDateString()
 
           //get doctor info
           item.DoctorName = 'Loading'
@@ -530,7 +545,7 @@
               })
             }) 
           }
-
+      
           //separate table
           if(item.DispendStatus == 'done'){ 
             //separate using and stop using

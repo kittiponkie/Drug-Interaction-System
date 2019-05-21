@@ -166,6 +166,11 @@
                       readonly :value="itemDialog.Using"></div>
                 </div>
                 <div class="md-layout textInDialog">
+                  <div class="md-layout-item"><label style="min-width:180px;">วันเริ่มทานยา :</label></div>
+                  <div class="md-layout-item"> <input class="form-control" type="text" placeholder="-" style="min-width:260px;"
+                      readonly :value="itemDialog.DispendStartDate"></div>
+                </div>
+                <div class="md-layout textInDialog">
                   <div class="md-layout-item"><label style="min-width:180px;">รับยาครั้งถัดไป :</label></div>
                   <div class="md-layout-item"> <input class="form-control" type="text" placeholder="-" style="min-width:260px;"
                       readonly :value="itemDialog.nextReceiveMedicine"></div>
@@ -246,6 +251,7 @@
         else if (item.GPName && toLower(item.GPName).includes(toLower(term))) return item
         else if (item.DoctorName && toLower(item.DoctorName).includes(toLower(term))) return item
         else if (item.UsingStatus && toLower(item.UsingStatus).includes(toLower(term))) return item
+        else if (item.Dispend && toLower(item.Dispend).includes(toLower(term))) return item   
         else if (item.Using && toLower(item.Using).includes(toLower(term))) return item              
       })   
     }
@@ -355,7 +361,7 @@
 
       //get order of patient
       await doctorServices.getOrderId(this.$localStorage.get('doctor_patient')).then(Response => {
-          //console.log(Response.data)    
+          console.log(Response.data)    
           Response.data.forEach((item,i) =>{
             //set pharmacist
             if(item.PharmacistID[0] == 'P' && item.PharmacistID[1] == 'H') {
@@ -401,6 +407,8 @@
             else {
               item.nextReceiveMedicine = new Date(item.DispendStatus).toDateString()
             }
+            //DispendStartDate
+            item.DispendStartDate = new Date(item.DispendStartDate).toDateString()
 
             //get doctor info
             item.DoctorName = 'Loading'
