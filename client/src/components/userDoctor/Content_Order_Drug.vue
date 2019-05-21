@@ -23,7 +23,7 @@
             <h1 class="md-title">หมายเลขใบสั่งยา {{orderID}}</h1>
           </div>
           <md-field md-clearable class="md-toolbar-section-end" style="margin-left:5px;margin-right:5px;">
-            <md-input placeholder="กรุณาค้นหาจากชื่อยา..." v-model="search" @input="searchOnTable" />
+            <md-input placeholder="ค้นหา..." v-model="search" @input="searchOnTable" />
           </md-field>
 
           <!--add drug to list button-->
@@ -295,7 +295,13 @@
   }
   const searchByName = (items, term) => {
     if (term) {
-      return items.filter(item => toLower(item.GPName).includes(toLower(term)))
+      return items.filter(item => {        
+        if (item.DrugNo && toLower(item.DrugNo).includes(toLower(term))) return item
+        else if (item.GPName && toLower(item.GPName).includes(toLower(term))) return item
+        else if (item.Duration && (item.Duration.year||item.Duration.month||item.Duration.day) && toLower(item.Duration.year+' ปี '+item.Duration.month+' เดือน '+item.Duration.day+' วัน').includes(toLower(term))) return item
+        else if (item.doctorName && toLower(item.doctorName).includes(toLower(term))) return item
+        else if (item.ward && toLower(item.ward).includes(toLower(term))) return item              
+      })   
     }
     return items
   }
@@ -627,25 +633,49 @@
           currentTime.setHours(0,0,0,0)         
           if(this.newDrugs.DispendStartDate - currentTime >= 0 ){          
           } else {
-            this.message += "วันจ่ายยาไม่ถูกต้อง กรุณาเลือกวันจ่ายยาใหม่ครับ"
+            this.message += "วันจ่ายยาไม่ถูกต้อง กรุณาเลือกวันจ่ายยาใหม่ครับ<br>"
           }
         }
-        
 
-        if(this.message != '<h3 style="text-align:center">แจ้งเตือน</h3><br>') this.showMessage = true   
+        //check allergic
+        await this.allergicOfPatient.forEach(element => {
+          console.log("allergic ",element)
+          var temp = []
+          axios.get(`http://localhost:8082/Allergic/`+element).then(Response => {          
+            console.log('gpid ',Response.data.GP)
+            temp = Response.data.GP
+          }).then(()=>{   
+            axios.get(`http://localhost:8082/Allergic/GP/`+x.GPName).then(Response2 => {
+              var temp2 = []
+              temp2 = null
+              if(Response2.data.GP[0].GPID) temp2 = Response2.data.GP[0].GPID
+              temp.forEach((gpidItem,index)=>{
+                if(gpidItem.GPID==temp2) {
+                  console.log("ALLERGIC NOW!!!! ",element)
+                  this.message += "ผู้ป่วยแพ้ยาที่สั่ง กรุณาสั่งยาอื่นครับ<br>"
+                }   
+                if(temp.length == index+1)  {
+                  if(this.message != '<h3 style="text-align:center">แจ้งเตือน</h3><br>') this.showMessage = true   
 
-        if(x.GPName!='' && finding && !this.showMessage) {
-          this.active = false
-          if (this.checkEdit) {
-            console.log("edit success")
-            this.drugs[this.itemEdit.DrugNo - 1] = x
-            this.checkEdit = false
-          } else {
-            console.log("add drug success")
-            x.DrugNo = (this.drugs.length + 1).toString()
-            this.drugs.push(x)
-          }    
-        }       
+                  if(x.GPName!='' && finding && !this.showMessage) {
+                    this.active = false
+                    if (this.checkEdit) {
+                      console.log("edit success")
+                      this.drugs[this.itemEdit.DrugNo - 1] = x
+                      this.checkEdit = false
+                      return
+                    } else {
+                      console.log("add drug success")
+                      x.DrugNo = (this.drugs.length + 1).toString()
+                      this.drugs.push(x)
+                      return 
+                    }    
+                  }  
+                }
+              })              
+            }) 
+          })           
+        }) 
       },
       //table
       searchOnTable() {

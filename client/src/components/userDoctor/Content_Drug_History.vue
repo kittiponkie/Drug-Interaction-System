@@ -17,7 +17,7 @@
           <h1 class="md-title">รายชื่อยาที่กำลังใช้</h1>
         </div>
         <md-field md-clearable class="md-toolbar-section-end">
-          <md-input placeholder="กรุณาค้นหาจากชื่อยา..." v-model="search" @input="searchOnTable" />
+          <md-input placeholder="ค้นหา..." v-model="search" @input="searchOnTable" />
         </md-field>
       </md-table-toolbar>
 
@@ -47,7 +47,7 @@
           <h1 class="md-title">รายชื่อยาที่หยุดใช้</h1>
         </div>
         <md-field md-clearable class="md-toolbar-section-end">
-          <md-input placeholder="กรุณาค้นหาจากชื่อยา..." v-model="search2" @input="searchOnTable" />
+          <md-input placeholder="ค้นหา..." v-model="search2" @input="searchOnTable" />
         </md-field>
       </md-table-toolbar>
 
@@ -241,7 +241,13 @@
   };
   const searchByName = (items, term) => {
     if (term) {
-      return items.filter(item => toLower(item.GPName).includes(toLower(term)));
+      return items.filter(item => {        
+        if (item.OrderID && toLower(item.OrderID).includes(toLower(term))) return item
+        else if (item.GPName && toLower(item.GPName).includes(toLower(term))) return item
+        else if (item.DoctorName && toLower(item.DoctorName).includes(toLower(term))) return item
+        else if (item.UsingStatus && toLower(item.UsingStatus).includes(toLower(term))) return item
+        else if (item.Using && toLower(item.Using).includes(toLower(term))) return item              
+      })   
     }
     return items;
   };
@@ -298,7 +304,38 @@
       searchOnTable() {
         this.searched = searchByName(this.users, this.search);
         this.searched2 = searchByName(this.users2, this.search2);
-      }
+      },
+      /*async orderUsingStatus(){
+        var data1 = []
+        await this.searched.forEach(item=>{
+
+        })
+
+        var data2StopUsing = []
+        var data2Incomplete = []
+        var DataSearched2 = []
+        await this.searched2.forEach((item,index)=>{
+          if(item.UsingStatus=='Stop Using') data2StopUsing.push(item)
+          else if(item.UsingStatus=='Incomplete') data2Incomplete.push(item)
+          if(index+1 == this.searched2.length) {   
+            data2Incomplete.forEach(item2=>{              
+              DataSearched2.push(item2)
+              if(DataSearched2.length == data2Incomplete.length) {                
+                data2StopUsing.forEach((item3,index3)=>{
+                  
+                  console.log(data2StopUsing.length+"teset"+ index3)
+                  DataSearched2.push(item3)
+                  if(index3+1==data2StopUsing.length) {
+                    this.searched2 = DataSearched2
+                    console.log(this.searched2)
+                    this.searchOnTable()
+                  }                  
+                })
+              }
+            })
+          }
+        }) 
+      }*/
     },
     created() {
 
@@ -306,19 +343,19 @@
     async mounted() {
       //get patient info
       await doctorServices.patientInfo(this.$localStorage.get('doctor_patient')).then(Response => {
-        console.log(Response.data[0])
+        //console.log(Response.data[0])
         this.patient = Response.data[0]
       })
 
       //get dortor info
       await doctorServices.doctorInfo(this.$localStorage.get('userID')).then(Response => {
-        console.log(Response.data[0])
+        //console.log(Response.data[0])
         this.doctor = Response.data[0]
       })
 
       //get order of patient
       await doctorServices.getOrderId(this.$localStorage.get('doctor_patient')).then(Response => {
-          console.log(Response.data)    
+          //console.log(Response.data)    
           Response.data.forEach((item,i) =>{
             //set pharmacist
             if(item.PharmacistID[0] == 'P' && item.PharmacistID[1] == 'H') {
@@ -331,7 +368,7 @@
                 }
                 item.PharmacistID.push(tempPhar)
               })
-              console.log(item.PharmacistID)
+              //console.log(item.PharmacistID)
             } else {
               item.PharmacistID = ''
             }
@@ -414,12 +451,14 @@
             
             //update response data to Table 
             if(i == Response.data.length-1) {
-              console.log("Last item")
+              //console.log("Last item")
               this.searched = this.users
               this.searched2 = this.users2
             }     
           })          
-      })     
+      })    
+
+      //await this.orderUsingStatus()
     }
   };
 

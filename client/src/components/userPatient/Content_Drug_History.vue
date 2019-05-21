@@ -16,7 +16,7 @@
           <h1 class="md-title">รายชื่อยาที่กำลังใช้</h1>
         </div>
         <md-field md-clearable class="md-toolbar-section-end">
-          <md-input placeholder="กรุณาค้นหาจากชื่อยา..." v-model="search" @input="searchOnTable" />
+          <md-input placeholder="ค้นหา..." v-model="search" @input="searchOnTable" />
         </md-field>
       </md-table-toolbar>
 
@@ -46,7 +46,7 @@
           <h1 class="md-title">รายชื่อยาที่หยุดใช้</h1>
         </div>
         <md-field md-clearable class="md-toolbar-section-end">
-          <md-input placeholder="กรุณาค้นหาจากชื่อยา..." v-model="search2" @input="searchOnTable" />
+          <md-input placeholder="ค้นหา..." v-model="search2" @input="searchOnTable" />
         </md-field>
       </md-table-toolbar>
 
@@ -240,7 +240,13 @@
   };
   const searchByName = (items, term) => {
     if (term) {
-      return items.filter(item => toLower(item.GPName).includes(toLower(term)));
+      return items.filter(item => {        
+        if (item.OrderID && toLower(item.OrderID).includes(toLower(term))) return item
+        else if (item.GPName && toLower(item.GPName).includes(toLower(term))) return item
+        else if (item.DoctorName && toLower(item.DoctorName).includes(toLower(term))) return item
+        else if (item.UsingStatus && toLower(item.UsingStatus).includes(toLower(term))) return item
+        else if (item.Using && toLower(item.Using).includes(toLower(term))) return item              
+      })  
     }
     return items;
   };
@@ -413,6 +419,8 @@
             }     
           })          
       })     
+
+      
     }
   };
 
