@@ -544,13 +544,13 @@
 
         var duration = (year + month + day)
         if (duration >= 360) {
-          this.newDrugs.Duration.year = (duration / 360).toString()
+          this.newDrugs.Duration.year = parseInt((duration / 360)).toString()
           duration = duration % 360
         } else {
           this.newDrugs.Duration.year = "0"
         }
         if (duration >= 30) {
-          this.newDrugs.Duration.month = (duration / 30).toString()
+          this.newDrugs.Duration.month = parseInt((duration / 30)).toString()
           duration = duration % 30
         } else {
           this.newDrugs.Duration.month = "0"
@@ -648,7 +648,7 @@
             axios.get(`http://localhost:8082/Allergic/GP/`+x.GPName).then(Response2 => {
               var temp2 = []
               temp2 = null
-              if(Response2.data.GP[0].GPID) temp2 = Response2.data.GP[0].GPID
+              if( Response2.data.GP && Response2.data.GP[0] && Response2.data.GP[0].GPID) temp2 = Response2.data.GP[0].GPID
               temp.forEach((gpidItem,index)=>{
                 if(gpidItem.GPID==temp2) {
                   ;//console.log("ALLERGIC NOW!!!! ",element)
