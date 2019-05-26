@@ -451,10 +451,6 @@
         this.checkEdit = false        
       },
       calculateQuantity() {
-        //this.query2 = this.query
-        console.log(this.query)
-        console.log(this.query2)
-        //console.log( this.newDrugs.Dosage.unit)
         if(this.query!='' && this.query!=undefined) {
           if(this.query!=this.query2){
             var unit_tablet = this.query.search('tablet')

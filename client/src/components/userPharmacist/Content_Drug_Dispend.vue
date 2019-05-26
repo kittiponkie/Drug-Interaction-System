@@ -7,7 +7,37 @@
           <h2 style="text-align:center;">จ่ายยา</h2>
           <h4 style="text-align:left;">ผู้ป่วย : {{patient.Firstname}} {{patient.Lastname}}</h4>
           <h4 style="text-align:left;">เภสัชกร : {{doctor.Firstname}} {{doctor.Lastname}}</h4>
+          <!--confirm button-->
+          <div style="margin-left:5px;margin-right:5px;">
+            <md-dialog :md-active.sync="showDialogCheck" style="overflow:auto">
+              <md-dialog-title>ยาทั้งหมดในรายการ</md-dialog-title>
+              <md-table v-model="users" md-sort="DrugNO" md-sort-order="asc" md-card>
+                <md-table-row slot="md-table-row" slot-scope="{ item }">
+                  <md-table-cell md-label="Drug No.">{{ item.DrugNo }}</md-table-cell>
+                  <md-table-cell md-label="Drug Name">{{ item.GPName }}</md-table-cell>
+                  <md-table-cell md-label="Status">    
+                    <md-progress-spinner v-if="item.statusDetail=='load' || loadingAll" :md-diameter="20" :md-stroke="2" md-mode="indeterminate"></md-progress-spinner>
+                    <md-button v-else-if="item.statusDetail!='' && !loadingAll" class="md-icon-button" @click="true">
+                      <md-icon style="color:red;">error</md-icon>
+                    </md-button>
+                    <md-button v-else class="md-icon-button" @click="true">
+                      <md-icon style="color:green;">check_circle</md-icon>
+                    </md-button>
+                  </md-table-cell>
+                  <md-table-cell md-label="Allergic with"><h6 v-for="(value,index) in item.detail.allergic" :key="index">{{value}}</h6></md-table-cell>
+                  <md-table-cell md-label="Interaction with"><h6 v-for="(value,index) in item.detail.interaction" :key="index">{{value}}</h6></md-table-cell>
+                  <md-table-cell md-label="Time conflict with"><h6 v-for="(value,index) in item.detail.timeConflict" :key="index">{{value}}</h6></md-table-cell>
+                </md-table-row>
+              </md-table>
+              <md-dialog-actions>
+                <md-button class="md-primary" @click="restartConfirm()">ปิด</md-button>
+              </md-dialog-actions>
+            </md-dialog>
+            <md-button v-if="searched && searched.length!=0" class="md-primary md-raised" @click="onCheckClick()" style="background-color:#05AB00">ตรวจสอบปฏิกิริยาระหว่างยาที่ใช้</md-button>
+            <md-button v-else class="md-primary md-raised" @click="onCheckClick()" disabled>ตรวจสอบปฏิกิริยาระหว่างยาที่ใช้</md-button>
+          </div>
         </md-card-header-text>
+         
       </md-card-header>
     </md-card>
 
@@ -363,7 +393,11 @@
         }
       },
       showErrorDialog: false,
-      messageError: ""
+      messageError: "" ,
+      //check interaction
+      showDialogCheck: false,
+      allergicOfPatient: [],
+      loadingAll: false
     }),
     methods: {
       //detail dialog
@@ -463,7 +497,139 @@
       searchOnTable() {
         this.searched = searchByName(this.users, this.search);
         this.searched2 = searchByName(this.users2, this.search2);
-      }
+      },
+      //check interaction
+      //confirm click
+      async onCheckClick(){
+        this.showDialogCheck = true
+        console.log("load")
+        //set load
+        await this.users.forEach(item=>{
+          item.statusDetail = 'load'
+          item.detail.interaction = []
+          item.detail.allergic = []
+          item.detail.timeConflict = []
+        })
+
+        //check Duplicate Drugs 
+        await this.users.forEach(item=>{
+          var drugName = item.GPName.split(' ') 
+          this.checkDuplicateDrugs(drugName,item)        
+        }) 
+
+        //check allergic
+        await this.allergicOfPatient.forEach(element => {
+          ;//console.log("allergic ",element)
+          var temp = []
+          axios.get(`http://localhost:8082/Allergic/`+element).then(Response => {          
+            ;//console.log('gpid ',Response.data.GP)
+            temp = Response.data.GP
+          }).then(()=>{            
+            this.users.forEach(item=>{
+              axios.get(`http://localhost:8082/Allergic/GP/`+item.GPName).then(Response2 => {
+                //;//console.log('gpid of gpname',Response2.data.GP[0].GPID)
+                var temp2 = []
+                temp2 = Response2.data.GP[0].GPID
+                temp.forEach(gpidItem=>{
+                  if(gpidItem.GPID==temp2) {
+                    ;//console.log("ALLERGIC NOW!!!! ",element)
+                    item.detail.allergic.push(element)
+                    if(item.statusDetail == 'load') item.statusDetail = "Allergic"
+                    else if(item.statusDetail == 'Allergic') ;
+                    else item.statusDetail = "Both"
+                    this.searchOnTable()
+                  }      
+                })              
+              }) 
+            })
+          })           
+        })
+        //check interaction    
+        await this.users.forEach(this.checkInteraction) 
+      },
+      async checkInteraction(item){
+        var drugName = item.GPName.split(' ')
+        var rxcui = ''
+        await axios.get(`https://rxnav.nlm.nih.gov/REST/rxcui.json?name=`+drugName[0]).then(Response => {  
+          if(Response.data.idGroup.rxnormId) {
+            rxcui = Response.data.idGroup.rxnormId[0].toString()
+            item.RXCUI = Response.data.idGroup.rxnormId[0].toString()
+          }
+          else ;
+        })  
+        await this.users.forEach(itemDrugs=>{
+          pharmacistServices.checkInteraction(rxcui,itemDrugs.RXCUI).then(result => {
+            if(result.data.success) {                        
+              var startTime = new Date(itemDrugs.DispendStartDate)
+              var finalTime = new Date(itemDrugs.DispendStartDate)
+              finalTime.setFullYear(finalTime.getFullYear() + parseInt(itemDrugs.Duration.year),
+                                    finalTime.getMonth() + parseInt(itemDrugs.Duration.month),
+                                    finalTime.getDate() + parseInt(itemDrugs.Duration.day)) 
+              var start = new Date(item.DispendStartDate)
+              var final = new Date(item.DispendStartDate)
+              final.setFullYear(final.getFullYear() + parseInt(item.Duration.year),
+                                    final.getMonth() + parseInt(item.Duration.month),
+                                    final.getDate() + parseInt(item.Duration.day)) 
+              if(startTime - start < 0){    
+                if(start - finalTime<=0) this.detailInteraction(item,itemDrugs)                
+              } else if(startTime - start == 0) {
+                this.detailInteraction(item,itemDrugs) 
+              } else {
+                if(startTime - final <=0) this.detailInteraction(item,itemDrugs)  
+              }            
+            }
+          }) 
+        })      
+        if(this.users[this.users.length-1] == item) {
+          this.users.forEach(item=>{
+            if(item.statusDetail == 'load') item.statusDetail = ""
+          })
+          this.loadingAll = false
+        }  
+      },
+      detailInteraction(item,element){
+        item.detail.interaction.push(element.OrderID+" "+element.GPName.split(' ')[0])
+        if(item.statusDetail == 'load') item.statusDetail = "Interaction"
+        else if(item.statusDetail == 'Interaction') ;
+        else item.statusDetail = "Both"
+        this.searchOnTable()
+      },
+      async checkDuplicateDrugs(drugName,item){ 
+        await this.users.forEach(itemDrugs=>{
+          if(itemDrugs != item){
+            var a = new Date(item.DispendStartDate)
+            var b = new Date(itemDrugs.DispendStartDate)
+            if(b-a<=0){
+              var finalTime = new Date(itemDrugs.DispendStartDate)
+              finalTime.setFullYear(finalTime.getFullYear() + parseInt(itemDrugs.Duration.year),
+                                    finalTime.getMonth() + parseInt(itemDrugs.Duration.month),
+                                    finalTime.getDate() + parseInt(itemDrugs.Duration.day))      
+              if(itemDrugs.GPName.split(' ')[0] == drugName[0]) {
+                if(item.DispendStartDate - finalTime <= 0){
+                  var suggestTime = finalTime
+                  suggestTime.setFullYear(suggestTime.getFullYear(),
+                                        suggestTime.getMonth(),
+                                        suggestTime.getDate() + 1)   
+                  item.detail.timeConflict.push(itemDrugs.OrderID+" "+ itemDrugs.GPName+" แนะนำให้เริ่มสั่งได้วัน "+suggestTime.toDateString())  
+                  item.statusDetail = "Time Conflict"          
+                }
+              }
+            }
+          }
+        })
+      },
+      async restartConfirm(){
+        this.showDialogCheck = false
+        this.loadingAll = true
+        await this.users.forEach(item=>{
+          item.statusDetail = ""
+          item.detail = {
+          allergic: [],
+          interaction: [],
+          timeConflict: []
+        }
+        })
+      },
     },
     async mounted() {
       //console.log(this.$localStorage.get('doctor_patient'))
@@ -480,6 +646,14 @@
       await pharmacistServices.getOrderId(this.$localStorage.get('pharmacist_patient'), this.$localStorage.get('userID')).then(Response => {
         console.log(Response.data)    
         Response.data.forEach((item,i) =>{
+          //set check interaction                     
+          item.detail = {
+            allergic: [],
+            interaction: [],
+            timeConflict: []
+          }
+          item.statusDetail = ""
+
           //set pharmacist
           if(item.PharmacistID[0] == 'P' && item.PharmacistID[1] == 'H') {
             var tempPharmacistInfo = item.PharmacistID.split(',')
@@ -491,7 +665,6 @@
               }
               item.PharmacistID.push(tempPhar)
             })
-            console.log(item.PharmacistID)
           } else {
             item.PharmacistID = ''
           }
@@ -567,7 +740,7 @@
                 item.UsingStatus = "Waiting Dispense"
               } else {
                 item.UsingStatus = "Using"
-              }
+              }   
               this.users.push(item) 
             } else {
               item.UsingStatus = "Incomplete"  
@@ -583,6 +756,14 @@
           }     
         })          
       })
+
+      //get allergic of patient
+      await pharmacistServices.allergicOfPatient(this.$localStorage.get('pharmacist_patient')).then(Response => {
+        ;//console.log("Allergic drug of patient is ",Response.data)
+        for(var i in Response.data){
+          this.allergicOfPatient.push(Response.data[i].VTMName)
+        }        
+      }) 
     }
   };
 

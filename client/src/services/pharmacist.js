@@ -25,5 +25,8 @@ export default {
   },
   allergicOfPatient(id){
     return Api().get('/AllergicDrug/'+id)
-  } 
+  },
+  checkInteraction(rxcui1,rxcui2){
+    return Api().get('/checkinteract/'+rxcui1+'/'+rxcui2)
+  }   
 }
