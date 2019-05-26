@@ -255,7 +255,7 @@
             </md-dialog>
             <!--md-button class="md-accent md-raised" @click="showDialog = true">Confirm</md-button-->
             <md-button v-if="drugs.length!=0" class="md-primary md-raised" @click="onConfirmClick()" style="background-color:#05AB00">บันทึก</md-button>
-            <md-button v-else class="md-primary md-raised" @click="onConfirmClick()" disabled>Save</md-button>
+            <md-button v-else class="md-primary md-raised" @click="onConfirmClick()" disabled>บันทึก</md-button>
           </div>
           <!--show drug history button-->
           <div style="margin-left:5px;margin-right:5px;">    

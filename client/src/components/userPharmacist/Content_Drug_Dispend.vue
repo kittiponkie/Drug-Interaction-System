@@ -10,7 +10,7 @@
           <!--confirm button-->
           <div style="margin-left:5px;margin-right:5px;">
             <md-dialog :md-active.sync="showDialogCheck" style="overflow:auto">
-              <md-dialog-title>ยาทั้งหมดในรายการ</md-dialog-title>
+              <md-dialog-title>ยาที่กำลังใช้</md-dialog-title>
               <md-table v-model="users" md-sort="DrugNO" md-sort-order="asc" md-card>
                 <md-table-row slot="md-table-row" slot-scope="{ item }">
                   <md-table-cell md-label="Drug No.">{{ item.DrugNo }}</md-table-cell>
@@ -48,7 +48,7 @@
           <h1 class="md-title">ยาที่กำลังใช้</h1>
         </div>
         <md-field md-clearable class="md-toolbar-section-end">
-          <md-input placeholder="กรุณาค้นหาจากชื่อยา" v-model="search" @input="searchOnTable" />
+          <md-input placeholder="ค้นหา..." v-model="search" @input="searchOnTable" />
         </md-field>
       </md-table-toolbar>
 
@@ -85,7 +85,7 @@
           <h1 class="md-title">ยาที่หยุดใช้</h1>
         </div>
         <md-field md-clearable class="md-toolbar-section-end">
-          <md-input placeholder="กรุณาค้นหาจากชื่อยา..." v-model="search2" @input="searchOnTable" />
+          <md-input placeholder="ค้นหา..." v-model="search2" @input="searchOnTable" />
         </md-field>
       </md-table-toolbar>
 
