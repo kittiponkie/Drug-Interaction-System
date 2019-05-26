@@ -61,7 +61,7 @@
                   </list-select>
                   <br>
                   <div v-if="selectedPatient.PatientID">
-                    <label v-if="selectedPatient.Status">สถานะการใช้งาน : {{selectedPatient.Status.ActiveStatus=='1'&&selectedPatient.Status.RegisterStatus=='1'? ': Active':': Non Active'}} </label>
+                    <label v-if="selectedPatient.Status">สถานะบัญชีผู้ใช้ : {{selectedPatient.Status.ActiveStatus=='1'&&selectedPatient.Status.RegisterStatus=='1'? ': พร้อมใช้งาน':': ไม่พร้อมใช้งาน'}} </label>
                   </div>
                 </div>
                 <div class="md-layout-item md-toolbar-section-end">
@@ -92,7 +92,8 @@
                   <md-table-cell md-label="ประเภทผู้ใช้" md-sort-by="Type" md-numeric>{{ item.Type }}</md-table-cell>
                   <md-table-cell md-label="ชื่อ" md-sort-by="Firstname">{{ item.Firstname }}</md-table-cell>
                   <md-table-cell md-label="นามสกุล" md-sort-by="Lastname">{{ item.Lastname }}</md-table-cell>
-                  <md-table-cell md-label="สถานะการใช้งาน" md-sort-by="StatusActive">{{ item.StatusActive }}</md-table-cell>
+                  <md-table-cell v-if="item.StatusActive=='พร้อมใช้งาน'" md-label="สถานะบัญชีผู้ใช้" md-sort-by="StatusActive" style="color:#5cb85c">{{ item.StatusActive }}</md-table-cell>
+                  <md-table-cell v-else md-label="สถานะบัญชีผู้ใช้" md-sort-by="StatusActive" style="color:#f44742">{{ item.StatusActive }}</md-table-cell>
                 </md-table-row>
               </md-table>
 
@@ -167,7 +168,7 @@
                   </list-select>
                   <br>
                   <div v-if="selectedDoctor.DoctorID">
-                    <label v-if="selectedDoctor.Status">สถานะการใช้งาน : {{selectedDoctor.Status.ActiveStatus=='1'&&selectedDoctor.Status.RegisterStatus=='1'? ': Active':': Non Active'}} </label>
+                    <label v-if="selectedDoctor.Status">สถานะบัญชีผู้ใช้ : {{selectedDoctor.Status.ActiveStatus=='1'&&selectedDoctor.Status.RegisterStatus=='1'? ': Active':': Non Active'}} </label>
                   </div>
                 </div>
                 <div class="md-layout-item md-toolbar-section-end">
@@ -198,7 +199,8 @@
                   <md-table-cell md-label="ประเภทผู้ใช้" md-sort-by="Type" md-numeric>{{ item.Type }}</md-table-cell>
                   <md-table-cell md-label="ชื่อ" md-sort-by="Firstname">{{ item.Firstname }}</md-table-cell>
                   <md-table-cell md-label="นามสกุล" md-sort-by="Lastname">{{ item.Lastname }}</md-table-cell>
-                  <md-table-cell md-label="สถานะการใช้งาน" md-sort-by="StatusActive">{{ item.StatusActive }}</md-table-cell>
+                  <md-table-cell v-if="item.StatusActive=='พร้อมใช้งาน'" md-label="สถานะบัญชีผู้ใช้" md-sort-by="StatusActive" style="color:#5cb85c">{{ item.StatusActive }}</md-table-cell>
+                  <md-table-cell v-else md-label="สถานะบัญชีผู้ใช้" md-sort-by="StatusActive" style="color:#f44742">{{ item.StatusActive }}</md-table-cell>
                 </md-table-row>
               </md-table>
 
@@ -254,7 +256,7 @@
                   </list-select>
                   <br>
                   <div v-if="selectedPharmacist.PharmacistID">
-                    <label v-if="selectedPharmacist.Status">สถานะการใช้งาน : {{selectedPharmacist.Status.ActiveStatus=='1'&&selectedPharmacist.Status.RegisterStatus=='1'? ': Active':': Non Active'}} </label>
+                    <label v-if="selectedPharmacist.Status">สถานะบัญชีผู้ใช้ : {{selectedPharmacist.Status.ActiveStatus=='1'&&selectedPharmacist.Status.RegisterStatus=='1'? ': Active':': Non Active'}} </label>
                   </div>
                 </div>
                 <div class="md-layout-item md-toolbar-section-end">
@@ -285,8 +287,8 @@
                   <md-table-cell md-label="ประเภทผู้ใช้" md-sort-by="Type" md-numeric>{{ item.Type }}</md-table-cell>
                   <md-table-cell md-label="ชื่อ" md-sort-by="Firstname">{{ item.Firstname }}</md-table-cell>
                   <md-table-cell md-label="นามสกุล" md-sort-by="Lastname">{{ item.Lastname }}</md-table-cell>
-                  <md-table-cell md-label="สถานะการใช้งาน" md-sort-by="StatusActive">{{ item.StatusActive }}</md-table-cell>
-                </md-table-row>
+                  <md-table-cell v-if="item.StatusActive=='พร้อมใช้งาน'" md-label="สถานะบัญชีผู้ใช้" md-sort-by="StatusActive" style="color:#5cb85c">{{ item.StatusActive }}</md-table-cell>
+                  <md-table-cell v-else md-label="สถานะบัญชีผู้ใช้" md-sort-by="StatusActive" style="color:#f44742">{{ item.StatusActive }}</md-table-cell>                </md-table-row>
               </md-table>
 
               <md-dialog :md-active.sync="showDialog3" :md-click-outside-to-close="false" style="padding-top:20px;overflow:visible;" >   
@@ -411,9 +413,9 @@
                   this.doctors.forEach(doctorItem =>{
                     if(Response.data[0][i].DoctorID == doctorItem.DoctorID) {
                       if(doctorItem.Status.ActiveStatus=='1' && doctorItem.Status.RegisterStatus=='1'){
-                        Response.data[0][i].StatusActive = 'Active'
+                        Response.data[0][i].StatusActive = 'พร้อมใช้งาน'
                       } else {
-                        Response.data[0][i].StatusActive = 'Non Active'
+                        Response.data[0][i].StatusActive = 'ไม่พร้อมใช้งาน'
                       }                      
                     }
                   })
@@ -428,9 +430,9 @@
                   this.pharmacists.forEach(pharmacistItem =>{
                     if(Response.data[1][i].PharmacistID == pharmacistItem.PharmacistID) {
                       if(pharmacistItem.Status.ActiveStatus=='1' && pharmacistItem.Status.RegisterStatus=='1'){
-                        Response.data[1][i].StatusActive = 'Active'
+                        Response.data[1][i].StatusActive = 'พร้อมใช้งาน'
                       } else {
-                        Response.data[1][i].StatusActive = 'Non Active'
+                        Response.data[1][i].StatusActive = 'ไม่พร้อมใช้งาน'
                       }    
                     }
                   })
@@ -512,9 +514,9 @@
                 this.patients.forEach(patientItem =>{
                   if(Response.data[i].PatientID == patientItem.PatientID) {
                     if(patientItem.Status.ActiveStatus=='1' && patientItem.Status.RegisterStatus=='1'){
-                      Response.data[i].StatusActive = 'Active'
+                      Response.data[i].StatusActive = 'พร้อมใช้งาน'
                     } else {
-                      Response.data[i].StatusActive = 'Non Active'
+                      Response.data[i].StatusActive = 'ไม่พร้อมใช้งาน'
                     }  
                   }                  
                 }) 
@@ -560,9 +562,9 @@
               this.patients.forEach(patientItem =>{
                 if(Response.data[i].PatientID == patientItem.PatientID) {
                   if(patientItem.Status.ActiveStatus=='1' && patientItem.Status.RegisterStatus=='1'){
-                    Response.data[i].StatusActive = 'Active'
+                    Response.data[i].StatusActive = 'พร้อมใช้งาน'
                   } else {
-                    Response.data[i].StatusActive = 'Non Active'
+                    Response.data[i].StatusActive = 'ไม่พร้อมใช้งาน'
                   }  
                 }
               })                  

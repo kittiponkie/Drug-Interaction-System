@@ -32,6 +32,7 @@
         <md-table-cell md-label="ปริมาณยาที่ได้รับ" md-sort-by="Dispend2">
           <b-progress :value="parseFloat(item.Dispend2)" striped show-value class="mb-3"></b-progress>
         </md-table-cell>
+        <md-table-cell md-label="วันที่เริ่มใช้ยา" md-sort-by="DispendStartDate">{{ item.DispendStartDate }}</md-table-cell>
         <md-table-cell md-label="ข้อมูลเพิ่มเติม">
           <md-button @click="showDetail(item)" class="md-icon-button md-dense">
             <md-icon>assignment</md-icon>
@@ -68,6 +69,7 @@
         <md-table-cell md-label="ปริมาณยาที่ได้รับ" md-sort-by="Dispend">
           <b-progress :value="parseFloat(item.Dispend2)" striped show-value class="mb-3"></b-progress>
         </md-table-cell>
+        <md-table-cell md-label="วันที่เริ่มใช้ยา" md-sort-by="DispendStartDate">{{ item.DispendStartDate }}</md-table-cell>
         <md-table-cell md-label="ปริมาณยาที่ใช้ไป" md-sort-by="Dispend">
           <b-progress :value="parseFloat(item.Using)" striped show-value class="mb-3"></b-progress>
         </md-table-cell>

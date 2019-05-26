@@ -79,13 +79,14 @@
                 <md-table-cell md-label="ลำดับ" md-sort-by="PatientID" md-numeric>{{ item.PatientID }}</md-table-cell>
                 <md-table-cell md-label="ชื่อ" md-sort-by="Firstname">{{ item.Firstname }}</md-table-cell>
                 <md-table-cell md-label="นามสกุล" md-sort-by="Lastname">{{ item.Lastname }}</md-table-cell>
-                <md-table-cell md-label="สถานะการใช้งาน" md-sort-by="StatusActive">{{ item.StatusActive }}</md-table-cell>
+                <md-table-cell v-if="item.StatusActive=='พร้อมใช้งาน'" md-label="สถานะบัญชีผู้ใช้" md-sort-by="StatusActive" style="color:#5cb85c">{{ item.StatusActive }}</md-table-cell>
+                <md-table-cell v-else md-label="สถานะบัญชีผู้ใช้" md-sort-by="StatusActive" style="color:#f44742">{{ item.StatusActive }}</md-table-cell>
                 <md-table-cell md-label=" ">
-                  <md-button v-if="item.StatusActive=='Non Active'" class="md-icon-button"  @click="showDialog_recoverUser(item)" style="background-color:#5cb85c">
+                  <md-button v-if="item.StatusActive=='ไม่พร้อมใช้งาน'" class="md-icon-button"  @click="showDialog_recoverUser(item)" style="background-color:#5cb85c">
                     <md-icon style="color:white">redo</md-icon>
                     <md-tooltip md-direction="right">กู้คืนผู้ใช้</md-tooltip>
                   </md-button>
-                  <md-button v-else-if="item.StatusActive=='Active'" class="md-icon-button" style="background-color:#f44742" @click="showDialog_deleteUser(item)">
+                  <md-button v-else-if="item.StatusActive=='พร้อมใช้งาน'" class="md-icon-button" style="background-color:#f44742" @click="showDialog_deleteUser(item)">
                     <md-icon style="color:white">delete</md-icon>
                     <md-tooltip md-direction="right">ลบผู้ใช้</md-tooltip>
                   </md-button>
@@ -114,13 +115,14 @@
                 <md-table-cell md-label="ลำดับ" md-sort-by="DoctorID" md-numeric>{{ item.DoctorID }}</md-table-cell>
                 <md-table-cell md-label="ชื่อ" md-sort-by="Firstname">{{ item.Firstname }}</md-table-cell>
                 <md-table-cell md-label="นามสกุล" md-sort-by="Lastname">{{ item.Lastname }}</md-table-cell>
-                <md-table-cell md-label="สถานะการใช้งาน" md-sort-by="StatusActive">{{ item.StatusActive }}</md-table-cell>
+                <md-table-cell v-if="item.StatusActive=='พร้อมใช้งาน'" md-label="สถานะบัญชีผู้ใช้" md-sort-by="StatusActive" style="color:#5cb85c">{{ item.StatusActive }}</md-table-cell>
+                <md-table-cell v-else md-label="สถานะบัญชีผู้ใช้" md-sort-by="StatusActive" style="color:#f44742">{{ item.StatusActive }}</md-table-cell>
                 <md-table-cell md-label=" ">
-                  <md-button v-if="item.StatusActive=='Non Active'" class="md-icon-button"  @click="showDialog_recoverUser(item)" style="background-color:#5cb85c">
+                  <md-button v-if="item.StatusActive=='ไม่พร้อมใช้งาน'" class="md-icon-button"  @click="showDialog_recoverUser(item)" style="background-color:#5cb85c">
                     <md-icon style="color:white">redo</md-icon>
                     <md-tooltip md-direction="right">กู้คืนผู้ใช้</md-tooltip>
                   </md-button>
-                  <md-button v-else-if="item.StatusActive=='Active'" class="md-icon-button" style="background-color:#f44742" @click="showDialog_deleteUser(item)">
+                  <md-button v-else-if="item.StatusActive=='พร้อมใช้งาน'" class="md-icon-button" style="background-color:#f44742" @click="showDialog_deleteUser(item)">
                     <md-icon style="color:white">delete</md-icon>
                     <md-tooltip md-direction="right">ลบผู้ใช้</md-tooltip>
                   </md-button>
@@ -149,13 +151,14 @@
                 <md-table-cell md-label="ลำดับ" md-sort-by="PharmacistID" md-numeric>{{ item.PharmacistID }}</md-table-cell>
                 <md-table-cell md-label="ชื่อ" md-sort-by="Firstname">{{ item.Firstname }}</md-table-cell>
                 <md-table-cell md-label="นามสกุล" md-sort-by="Lastname">{{ item.Lastname }}</md-table-cell>
-                <md-table-cell md-label="สถานะการใช้งาน" md-sort-by="StatusActive">{{ item.StatusActive }}</md-table-cell>
+                <md-table-cell v-if="item.StatusActive=='พร้อมใช้งาน'" md-label="สถานะบัญชีผู้ใช้" md-sort-by="StatusActive" style="color:#5cb85c">{{ item.StatusActive }}</md-table-cell>
+                <md-table-cell v-else md-label="สถานะบัญชีผู้ใช้" md-sort-by="StatusActive" style="color:#f44742">{{ item.StatusActive }}</md-table-cell>
                 <md-table-cell md-label=" ">
-                  <md-button v-if="item.StatusActive=='Non Active'" class="md-icon-button"  @click="showDialog_recoverUser(item)" style="background-color:#5cb85c">
+                  <md-button v-if="item.StatusActive=='ไม่พร้อมใช้งาน'" class="md-icon-button"  @click="showDialog_recoverUser(item)" style="background-color:#5cb85c">
                     <md-icon style="color:white">redo</md-icon>
                     <md-tooltip md-direction="right">กู้คืนผู้ใช้</md-tooltip>
                   </md-button>
-                  <md-button v-else-if="item.StatusActive=='Active'" class="md-icon-button" style="background-color:#f44742" @click="showDialog_deleteUser(item)">
+                  <md-button v-else-if="item.StatusActive=='พร้อมใช้งาน'" class="md-icon-button" style="background-color:#f44742" @click="showDialog_deleteUser(item)">
                     <md-icon style="color:white">delete</md-icon>
                     <md-tooltip md-direction="right">ลบผู้ใช้</md-tooltip>
                   </md-button>
@@ -192,13 +195,14 @@
                 <md-table-cell md-label="ลำดับ" md-sort-by="ID" md-numeric>{{ item.ID }}</md-table-cell>
                 <md-table-cell md-label="ชื่อผู้ใช้" md-sort-by="Username">{{ item.Username }}</md-table-cell>
                 <md-table-cell md-label="อีเมล์" md-sort-by="Email">{{ item.Email }}</md-table-cell>
-                <md-table-cell md-label="สถานะการใช้งาน" md-sort-by="StatusActive">{{ item.StatusActive }}</md-table-cell>
+                <md-table-cell v-if="item.StatusActive=='พร้อมใช้งาน'" md-label="สถานะบัญชีผู้ใช้" md-sort-by="StatusActive" style="color:#5cb85c">{{ item.StatusActive }}</md-table-cell>
+                <md-table-cell v-else md-label="สถานะบัญชีผู้ใช้" md-sort-by="StatusActive" style="color:#f44742">{{ item.StatusActive }}</md-table-cell>
                 <md-table-cell md-label=" ">
-                  <md-button v-if="item.StatusActive=='Non Active'" class="md-icon-button"  @click="showDialog_recoverUser(item)" style="background-color:#5cb85c">
+                  <md-button v-if="item.StatusActive=='ไม่พร้อมใช้งาน'" class="md-icon-button"  @click="showDialog_recoverUser(item)" style="background-color:#5cb85c">
                     <md-icon style="color:white">redo</md-icon>
                     <md-tooltip md-direction="right">กู้คืนผู้ใช้</md-tooltip>
                   </md-button>
-                  <md-button v-else-if="item.StatusActive=='Active'" class="md-icon-button" style="background-color:#f44742" @click="showDialog_deleteUser(item)">
+                  <md-button v-else-if="item.StatusActive=='พร้อมใช้งาน'" class="md-icon-button" style="background-color:#f44742" @click="showDialog_deleteUser(item)">
                     <md-icon style="color:white">delete</md-icon>
                     <md-tooltip md-direction="right">ลบผู้ใช้</md-tooltip>
                   </md-button>
@@ -369,7 +373,7 @@
                   if(Response.data) {
                     this.completeDelete = true
                     this.users1[i].ActiveStatus = "0"
-                    this.users1[i].StatusActive = "Non Active"
+                    this.users1[i].StatusActive = "ไม่พร้อมใช้งาน"
                     this.searchOnTable()
                   }
                   else this.completeDelete = false
@@ -387,7 +391,7 @@
                   if(Response.data) {
                     this.completeDelete = true
                     this.users2[i].ActiveStatus = "0"
-                    this.users2[i].StatusActive = "Non Active"
+                    this.users2[i].StatusActive = "ไม่พร้อมใช้งาน"
                     this.searchOnTable()
                   }
                   else this.completeDelete = false
@@ -405,7 +409,7 @@
                   if(Response.data) {
                     this.completeDelete = true
                     this.users3[i].ActiveStatus = "0"
-                    this.users3[i].StatusActive = "Non Active"
+                    this.users3[i].StatusActive = "ไม่พร้อมใช้งาน"
                     this.searchOnTable()
                   }
                   else this.completeDelete = false
@@ -423,7 +427,7 @@
                   if(Response.data) {
                     this.completeDelete = true
                     this.users4[i].ActiveStatus = "0"
-                    this.users4[i].StatusActive = "Non Active"
+                    this.users4[i].StatusActive = "ไม่พร้อมใช้งาน"
                     this.searchOnTable()
                   }
                   else this.completeDelete = false
@@ -456,7 +460,7 @@
                   if(Response.data) {
                     this.completeRecover = true
                     this.users1[i].ActiveStatus = "1"
-                    this.users1[i].StatusActive = "Active"
+                    this.users1[i].StatusActive = "พร้อมใช้งาน"
                     this.searchOnTable()
                   }
                   else this.completeRecover = false
@@ -474,7 +478,7 @@
                   if(Response.data) {
                     this.completeRecover = true
                     this.users2[i].ActiveStatus = "1"
-                    this.users2[i].StatusActive = "Active"
+                    this.users2[i].StatusActive = "พร้อมใช้งาน"
                     this.searchOnTable()
                   }
                   else this.completeRecover = false
@@ -492,7 +496,7 @@
                   if(Response.data) {
                     this.completeRecover = true
                     this.users3[i].ActiveStatus = "1"
-                    this.users3[i].StatusActive = "Active"
+                    this.users3[i].StatusActive = "พร้อมใช้งาน"
                     this.searchOnTable()
                   }
                   else this.completeRecover = false
@@ -510,7 +514,7 @@
                   if(Response.data) {
                     this.completeRecover = true
                     this.users4[i].ActiveStatus = "1"
-                    this.users4[i].StatusActive = "Active"
+                    this.users4[i].StatusActive = "พร้อมใช้งาน"
                     this.searchOnTable()
                   }
                   else this.completeRecover = false
@@ -565,11 +569,6 @@
           }
         }
       },
-      checkActive(activeStatus){
-            if(activeStatus == "0") return "Non Active"
-            else if(activeStatus == "1") return "Active"
-            else return "Request to Active"  
-      },
       async setData(allAccount){        
         for(var i in allAccount){
           //var active_status = allAccount[i].ActiveStatus.slice()
@@ -579,9 +578,9 @@
             await adminServices.getPatient(allAccount[i].ID).then(Response =>{
               if(Response.data.length != 0) {
                 if(allAccount[i].ActiveStatus=='1' && allAccount[i].RegisterStatus=='1'){                  
-                  Response.data[0].StatusActive = 'Active'
+                  Response.data[0].StatusActive = 'พร้อมใช้งาน'
                 } else if(allAccount[i].ActiveStatus=='0' && allAccount[i].RegisterStatus=='1'){
-                  Response.data[0].StatusActive = 'Non Active'
+                  Response.data[0].StatusActive = 'ไม่พร้อมใช้งาน'
                 } else if(allAccount[i].RegisterStatus=='0'){
                   Response.data[0].StatusActive = 'รอแอดมินอนุมัติ'
                 } else if(allAccount[i].RegisterStatus=='2'){
@@ -599,9 +598,9 @@
             await adminServices.getDoctor(allAccount[i].ID).then(Response =>{
               if(Response.data.length != 0) {
                 if(allAccount[i].ActiveStatus=='1' && allAccount[i].RegisterStatus=='1'){                  
-                  Response.data[0].StatusActive = 'Active'
+                  Response.data[0].StatusActive = 'พร้อมใช้งาน'
                 } else if(allAccount[i].ActiveStatus=='0' && allAccount[i].RegisterStatus=='1'){
-                  Response.data[0].StatusActive = 'Non Active'
+                  Response.data[0].StatusActive = 'ไม่พร้อมใช้งาน'
                 } else if(allAccount[i].RegisterStatus=='0'){
                   Response.data[0].StatusActive = 'รอแอดมินอนุมัติ'
                 } else if(allAccount[i].RegisterStatus=='2'){
@@ -619,9 +618,9 @@
             await adminServices.getPharmacist(allAccount[i].ID).then(Response =>{
               if(Response.data.length != 0) {
                 if(allAccount[i].ActiveStatus=='1' && allAccount[i].RegisterStatus=='1'){                  
-                  Response.data[0].StatusActive = 'Active'
+                  Response.data[0].StatusActive = 'พร้อมใช้งาน'
                 } else if(allAccount[i].ActiveStatus=='0' && allAccount[i].RegisterStatus=='1'){
-                  Response.data[0].StatusActive = 'Non Active'
+                  Response.data[0].StatusActive = 'ไม่พร้อมใช้งาน'
                 } else if(allAccount[i].RegisterStatus=='0'){
                   Response.data[0].StatusActive = 'รอแอดมินอนุมัติ'
                 } else if(allAccount[i].RegisterStatus=='2'){
@@ -637,9 +636,9 @@
           //admin
           else if(allAccount[i].ID[0] == 'A') {
             if(allAccount[i].ActiveStatus=='1' && allAccount[i].RegisterStatus=='1'){                  
-              allAccount[i].StatusActive = 'Active'
+              allAccount[i].StatusActive = 'พร้อมใช้งาน'
             } else if(allAccount[i].ActiveStatus=='0' && allAccount[i].RegisterStatus=='1'){
-              allAccount[i].StatusActive = 'Non Active'
+              allAccount[i].StatusActive = 'ไม่พร้อมใช้งาน'
             } else if(allAccount[i].RegisterStatus=='0'){
               allAccount[i].StatusActive = 'รอแอดมินอนุมัติ'
             } else if(allAccount[i].RegisterStatus=='2'){

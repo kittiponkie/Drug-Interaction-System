@@ -31,6 +31,7 @@
         <md-table-cell md-label="ปริมาณการรับยา" md-sort-by="Dispend">
           <b-progress :value="parseFloat(item.Dispend)" striped show-value class="mb-3"></b-progress>
         </md-table-cell>
+        <md-table-cell md-label="วันที่เริ่มใช้ยา" md-sort-by="DispendStartDate">{{ item.DispendStartDate }}</md-table-cell>
         <md-table-cell md-label="ปริมาณการทานยา" md-sort-by="Dispend">
           <b-progress :value="parseFloat(item.Using)" striped show-value class="mb-3"></b-progress>
         </md-table-cell>
@@ -61,6 +62,7 @@
         <md-table-cell md-label="ปริมาณการรับยา" md-sort-by="Dispend">
           <b-progress :value="parseFloat(item.Dispend)" striped show-value class="mb-3"></b-progress>
         </md-table-cell>
+        <md-table-cell md-label="วันที่เริ่มใช้ยา" md-sort-by="DispendStartDate">{{ item.DispendStartDate }}</md-table-cell>
         <md-table-cell md-label="ปริมาณการทานยา" md-sort-by="Dispend">
           <b-progress :value="parseFloat(item.Using)" striped show-value class="mb-3"></b-progress>
         </md-table-cell>
