@@ -72,7 +72,11 @@
                             <md-option v-if="newDrugs.Dosage.unit2=='ointment'" value="tube">
                               Tube(หลอด)</md-option>
                             <md-option v-if="newDrugs.Dosage.unit2=='implant'" value="implant">
-                              Implant</md-option>      
+                              Implant</md-option>   
+                            <md-option v-if="newDrugs.Dosage.unit2=='oral' || newDrugs.Dosage.unit2=='syrup'" value="teaspoon">
+                              Teaspoon(ช้อนชา)</md-option>  
+                            <md-option v-if="newDrugs.Dosage.unit2=='oral' || newDrugs.Dosage.unit2=='syrup'" value="tablespoon">
+                              Tablespoon(ช้อนโต๊ะ)</md-option>  
                           </md-select>
                         </md-field>
                       </div>
@@ -163,7 +167,11 @@
                             <md-option v-if="newDrugs.Dosage.unit2=='ointment'" value="tube">
                               Tube(หลอด)</md-option>
                             <md-option v-if="newDrugs.Dosage.unit2=='implant'" value="implant">
-                              Implant</md-option>     
+                              Implant</md-option>  
+                            <md-option v-if="newDrugs.Dosage.unit2=='oral' || newDrugs.Dosage.unit2=='syrup'" value="teaspoon">
+                              Teaspoon(ช้อนชา)</md-option>  
+                            <md-option v-if="newDrugs.Dosage.unit2=='oral' || newDrugs.Dosage.unit2=='syrup'" value="tablespoon">
+                              Tablespoon(ช้อนโต๊ะ)</md-option>   
                           </md-select>
                         </md-field>
                       </div>
@@ -444,57 +452,61 @@
       },
       calculateQuantity() {
         //this.query2 = this.query
-        //;//console.log(this.query)
+        console.log(this.query)
+        console.log(this.query2)
+        //console.log( this.newDrugs.Dosage.unit)
         if(this.query!='' && this.query!=undefined) {
-          this.query2 = this.query
-          var unit_tablet = this.query.search('tablet')
-          var unit_oral = this.query.search('oral')
-          var unit_capsule = this.query.search('capsule')
-          var unit_syrup = this.query.search('syrup')
-          var unit_eye = this.query.search('eye drops')
-          var unit_cream = this.query.search('cream')
-          var unit_implant = this.query.search('implant')
-          var unit_injection = this.query.search('injection')
-          var unit_ointment = this.query.search('ointment')
-          var unit_spray = this.query.search('spray')
-          var unit_lozenge = this.query.search('lozenge')
+          if(this.query!=this.query2){
+            var unit_tablet = this.query.search('tablet')
+            var unit_oral = this.query.search('oral')
+            var unit_capsule = this.query.search('capsule')
+            var unit_syrup = this.query.search('syrup')
+            var unit_eye = this.query.search('eye drops')
+            var unit_cream = this.query.search('cream')
+            var unit_implant = this.query.search('implant')
+            var unit_injection = this.query.search('injection')
+            var unit_ointment = this.query.search('ointment')
+            var unit_spray = this.query.search('spray')
+            var unit_lozenge = this.query.search('lozenge')
 
-          if(unit_tablet!=-1){
-            this.newDrugs.Dosage.unit2 = 'tablet'  
-            this.newDrugs.Dosage.unit = 'tab'   
-          } else if(unit_oral!=-1){
-            this.newDrugs.Dosage.unit2 = 'oral'
-            this.newDrugs.Dosage.unit = 'mL'  
-          } else if(unit_capsule!=-1){
-            this.newDrugs.Dosage.unit2 = 'capsule'
-            this.newDrugs.Dosage.unit = 'capsule'  
-          } else if(unit_syrup!=-1){
-            this.newDrugs.Dosage.unit2 = 'syrup'
-            this.newDrugs.Dosage.unit = 'mL'  
-          } else if(unit_eye!=-1){
-            this.newDrugs.Dosage.unit2 = 'eye drops'
-            this.newDrugs.Dosage.unit = 'mL'  
-          } else if(unit_cream!=-1){
-            this.newDrugs.Dosage.unit2 = 'cream'
-            this.newDrugs.Dosage.unit = 'g'  
-          } else if(unit_implant!=-1){
-            this.newDrugs.Dosage.unit2 = 'implant'
-            this.newDrugs.Dosage.unit = 'implant'  
-          } else if(unit_injection!=-1){
-            this.newDrugs.Dosage.unit2 = 'injection'
-            this.newDrugs.Dosage.unit = 'mL'  
-          } else if(unit_ointment!=-1){
-            this.newDrugs.Dosage.unit2 = 'ointment'
-            this.newDrugs.Dosage.unit = 'g'  
-          } else if(unit_spray!=-1){
-            this.newDrugs.Dosage.unit2 = 'spray'
-            this.newDrugs.Dosage.unit = 'mL'  
-          } else if(unit_lozenge!=-1){
-            this.newDrugs.Dosage.unit2 = 'lozenge'
-            this.newDrugs.Dosage.unit = 'tab'  
-          } else {
-            this.newDrugs.Dosage.unit = 'unit' 
+            if(unit_tablet!=-1){
+              this.newDrugs.Dosage.unit2 = 'tablet'  
+              this.newDrugs.Dosage.unit = 'tab'   
+            } else if(unit_oral!=-1){
+              this.newDrugs.Dosage.unit2 = 'oral'
+              this.newDrugs.Dosage.unit = 'mL'  
+            } else if(unit_capsule!=-1){
+              this.newDrugs.Dosage.unit2 = 'capsule'
+              this.newDrugs.Dosage.unit = 'capsule'  
+            } else if(unit_syrup!=-1){
+              this.newDrugs.Dosage.unit2 = 'syrup'
+              this.newDrugs.Dosage.unit = 'mL'  
+            } else if(unit_eye!=-1){
+              this.newDrugs.Dosage.unit2 = 'eye drops'
+              this.newDrugs.Dosage.unit = 'mL'  
+            } else if(unit_cream!=-1){
+              this.newDrugs.Dosage.unit2 = 'cream'
+              this.newDrugs.Dosage.unit = 'g'  
+            } else if(unit_implant!=-1){
+              this.newDrugs.Dosage.unit2 = 'implant'
+              this.newDrugs.Dosage.unit = 'implant'  
+            } else if(unit_injection!=-1){
+              this.newDrugs.Dosage.unit2 = 'injection'
+              this.newDrugs.Dosage.unit = 'mL'  
+            } else if(unit_ointment!=-1){
+              this.newDrugs.Dosage.unit2 = 'ointment'
+              this.newDrugs.Dosage.unit = 'g'  
+            } else if(unit_spray!=-1){
+              this.newDrugs.Dosage.unit2 = 'spray'
+              this.newDrugs.Dosage.unit = 'mL'  
+            } else if(unit_lozenge!=-1){
+              this.newDrugs.Dosage.unit2 = 'lozenge'
+              this.newDrugs.Dosage.unit = 'tab'  
+            } else {
+              this.newDrugs.Dosage.unit = 'unit' 
+            }
           }
+          this.query2 = this.query
         }
 
         if(this.newDrugs.Dosage.dose < 0) this.newDrugs.Dosage.dose = 0
