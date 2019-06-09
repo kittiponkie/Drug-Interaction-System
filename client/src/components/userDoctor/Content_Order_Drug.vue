@@ -73,10 +73,10 @@
                               Tube(หลอด)</md-option>
                             <md-option v-if="newDrugs.Dosage.unit2=='implant'" value="implant">
                               Implant</md-option>   
-                            <md-option v-if="newDrugs.Dosage.unit2=='oral' || newDrugs.Dosage.unit2=='syrup'" value="teaspoon">
-                              Teaspoon(ช้อนชา)</md-option>  
-                            <md-option v-if="newDrugs.Dosage.unit2=='oral' || newDrugs.Dosage.unit2=='syrup'" value="tablespoon">
-                              Tablespoon(ช้อนโต๊ะ)</md-option>  
+                            <md-option v-if="newDrugs.Dosage.unit2=='oral' || newDrugs.Dosage.unit2=='syrup'" value="teaspoon/5ml">
+                              Teaspoon(ช้อนชา)/5ml</md-option>  
+                            <md-option v-if="newDrugs.Dosage.unit2=='oral' || newDrugs.Dosage.unit2=='syrup'" value="tablespoon/5ml">
+                              Tablespoon(ช้อนโต๊ะ)/5ml</md-option>  
                           </md-select>
                         </md-field>
                       </div>
@@ -168,10 +168,10 @@
                               Tube(หลอด)</md-option>
                             <md-option v-if="newDrugs.Dosage.unit2=='implant'" value="implant">
                               Implant</md-option>  
-                            <md-option v-if="newDrugs.Dosage.unit2=='oral' || newDrugs.Dosage.unit2=='syrup'" value="teaspoon">
-                              Teaspoon(ช้อนชา)</md-option>  
-                            <md-option v-if="newDrugs.Dosage.unit2=='oral' || newDrugs.Dosage.unit2=='syrup'" value="tablespoon">
-                              Tablespoon(ช้อนโต๊ะ)</md-option>   
+                            <md-option v-if="newDrugs.Dosage.unit2=='oral' || newDrugs.Dosage.unit2=='syrup'" value="teaspoon/5ml">
+                              Teaspoon(ช้อนชา)/5ml</md-option>  
+                            <md-option v-if="newDrugs.Dosage.unit2=='oral' || newDrugs.Dosage.unit2=='syrup'" value="tablespoon/5ml">
+                              Tablespoon(ช้อนโต๊ะ)/5ml</md-option>   
                           </md-select>
                         </md-field>
                       </div>

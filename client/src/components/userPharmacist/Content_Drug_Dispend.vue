@@ -59,6 +59,10 @@
         <md-table-cell md-label="ชื่อยา" md-sort-by="GPName">{{ item.GPName }}</md-table-cell>
         <md-table-cell md-label="แพทย์" md-sort-by="DoctorID">{{ item.DoctorName }}</md-table-cell>
         <md-table-cell md-label="สถานะ" md-sort-by="UsingStatus">{{ item.UsingStatus }}</md-table-cell>
+        <md-table-cell md-label="Interaction with">
+          <md-progress-spinner v-if="item.statusDetail=='load' || loadingAll" :md-diameter="20" :md-stroke="2" md-mode="indeterminate"></md-progress-spinner>
+          <h6 v-else v-for="(value,index) in item.detail.interaction" :key="index">{{value}}</h6>
+        </md-table-cell>
         <md-table-cell md-label="ปริมาณยาที่ได้รับ" md-sort-by="Dispend2">
           <b-progress :value="parseFloat(item.Dispend2)" striped show-value class="mb-3"></b-progress>
         </md-table-cell>
@@ -397,7 +401,9 @@
       //check interaction
       showDialogCheck: false,
       allergicOfPatient: [],
-      loadingAll: false
+      loadingAll: false,
+      //check interaction in table
+      checkInteractionTable: true
     }),
     methods: {
       //detail dialog
@@ -501,7 +507,11 @@
       //check interaction
       //confirm click
       async onCheckClick(){
-        this.showDialogCheck = true
+        if(!this.checkInteractionTable) {
+          this.showDialogCheck = true          
+          this.loadingAll = true
+        }
+        else this.checkInteractionTable = false
         console.log("load")
         //set load
         await this.users.forEach(item=>{
@@ -620,14 +630,13 @@
       },
       async restartConfirm(){
         this.showDialogCheck = false
-        this.loadingAll = true
         await this.users.forEach(item=>{
-          item.statusDetail = ""
+          /*item.statusDetail = ""
           item.detail = {
-          allergic: [],
-          interaction: [],
-          timeConflict: []
-        }
+            allergic: [],
+            interaction: [],
+            timeConflict: []
+          }*/
         })
       },
     },
@@ -763,7 +772,9 @@
         for(var i in Response.data){
           this.allergicOfPatient.push(Response.data[i].VTMName)
         }        
-      }) 
+      })
+      
+      await this.onCheckClick()
     }
   };
 
